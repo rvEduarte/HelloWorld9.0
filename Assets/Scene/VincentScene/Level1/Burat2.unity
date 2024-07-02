@@ -401,7 +401,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1687,10 +1687,10 @@ GameObject:
   m_Component:
   - component: {fileID: 969399217}
   - component: {fileID: 969399221}
-  - component: {fileID: 969399220}
   - component: {fileID: 969399219}
   - component: {fileID: 969399218}
   - component: {fileID: 969399222}
+  - component: {fileID: 969399223}
   m_Layer: 5
   m_Name: HINT_BUTTON
   m_TagString: Untagged
@@ -1777,37 +1777,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 969399220}
+  m_TargetGraphic: {fileID: 969399223}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &969399220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969399216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9669811, b: 0.9037736, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: f30c72331f396134c92134d46fe5fa7a, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!222 &969399221
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1833,6 +1806,36 @@ MonoBehaviour:
   hintController: {fileID: 2087221677}
   hintText1: {fileID: 1133306884}
   hintText2: {fileID: 1823682320}
+--- !u!114 &969399223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969399216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f30c72331f396134c92134d46fe5fa7a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1062721563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1977,11 +1980,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1063719689}
   - component: {fileID: 1063719695}
-  - component: {fileID: 1063719694}
   - component: {fileID: 1063719693}
   - component: {fileID: 1063719692}
   - component: {fileID: 1063719691}
   - component: {fileID: 1063719690}
+  - component: {fileID: 1063719696}
   m_Layer: 5
   m_Name: helloworld
   m_TagString: helloworld
@@ -2106,33 +2109,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1063719694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063719688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: abd8adf45dd99884d94daa2ace61e5a3, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!222 &1063719695
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2141,6 +2117,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063719688}
   m_CullTransparentMesh: 1
+--- !u!114 &1063719696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063719688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: abd8adf45dd99884d94daa2ace61e5a3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1133306882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,11 +3111,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1390946386}
   - component: {fileID: 1390946392}
-  - component: {fileID: 1390946391}
   - component: {fileID: 1390946390}
   - component: {fileID: 1390946389}
   - component: {fileID: 1390946388}
   - component: {fileID: 1390946387}
+  - component: {fileID: 1390946393}
   m_Layer: 5
   m_Name: writeLineHello
   m_TagString: Untagged
@@ -3234,7 +3240,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1390946391
+--- !u!222 &1390946392
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390946385}
+  m_CullTransparentMesh: 1
+--- !u!114 &1390946393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3243,7 +3257,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1390946385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -3254,21 +3268,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9f3070e1238c7c64891a19d496aa0cac, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1390946392
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390946385}
-  m_CullTransparentMesh: 1
+  m_Sprite: {fileID: 21300000, guid: 9f3070e1238c7c64891a19d496aa0cac, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1405152894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,31 +3814,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourButton: {fileID: 1636505974}
-  yourDraggable1: {fileID: 1063719695}
-  yourDraggable2: {fileID: 2001052726}
-  yourDraggable3: {fileID: 1390946392}
-  yourDraggable4: {fileID: 1819876570}
-  yourDrop1: {fileID: 1799858185}
-  yourCanvas: {fileID: 332581532}
+  slotDrop: {fileID: 1799858186}
+  drag1: {fileID: 1063719696}
+  drag2: {fileID: 2001052727}
+  drag3: {fileID: 1390946393}
+  drag4: {fileID: 1819876571}
+  draggableSlots: {fileID: 332581531}
+  hintPanel: {fileID: 1354101990}
+  hintButton: {fileID: 969399223}
+  bgBorder: {fileID: 1886013685}
+  moveButton: {fileID: 654796630}
+  rightButton1: {fileID: 965561871}
+  leftButton1: {fileID: 381819524}
+  transparentButton: {fileID: 1970108004}
+  redButton1: {fileID: 1349661515}
+  greenButton1: {fileID: 1141524361}
   yourString: {fileID: 797323846}
   yourText2: {fileID: 1133306885}
   yourText3: {fileID: 1062721565}
   yourText4: {fileID: 1884875729}
   yourText5: {fileID: 1993555422}
   yourText6: {fileID: 1700374354}
-  yourPanel: {fileID: 1354101991}
-  yourHint: {fileID: 969399221}
   clicked: 0
   rightFire: {fileID: 848543350}
-  backgroundBorder: {fileID: 1886013686}
-  hintText: {fileID: 1133306885}
   hintText2: {fileID: 440348259}
-  bgLeftRightButton: {fileID: 654796631}
-  rightButton: {fileID: 965561872}
-  leftButton: {fileID: 381819525}
-  bgTransparentButton: {fileID: 1970108005}
-  redButton: {fileID: 1349661516}
-  greentButton: {fileID: 1141524362}
   startText: {fileID: 1204754059}
   endText: {fileID: 1823682321}
 --- !u!114 &1636505974
@@ -4208,9 +4216,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1799858181}
   - component: {fileID: 1799858185}
-  - component: {fileID: 1799858184}
   - component: {fileID: 1799858183}
   - component: {fileID: 1799858182}
+  - component: {fileID: 1799858186}
   m_Layer: 5
   m_Name: SlotWrites
   m_TagString: Player
@@ -4294,7 +4302,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.92, y: 8.53}
   m_EdgeRadius: 0
---- !u!114 &1799858184
+--- !u!222 &1799858185
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799858180}
+  m_CullTransparentMesh: 1
+--- !u!114 &1799858186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4303,7 +4319,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1799858180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -4314,21 +4330,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 392f79f22dcf5004ebfcab8e7b71839a, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1799858185
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799858180}
-  m_CullTransparentMesh: 1
+  m_Sprite: {fileID: 21300000, guid: 392f79f22dcf5004ebfcab8e7b71839a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1809841442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4463,11 +4474,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1819876564}
   - component: {fileID: 1819876570}
-  - component: {fileID: 1819876569}
   - component: {fileID: 1819876568}
   - component: {fileID: 1819876567}
   - component: {fileID: 1819876566}
   - component: {fileID: 1819876565}
+  - component: {fileID: 1819876571}
   m_Layer: 5
   m_Name: plus
   m_TagString: Untagged
@@ -4592,7 +4603,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1819876569
+--- !u!222 &1819876570
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819876563}
+  m_CullTransparentMesh: 1
+--- !u!114 &1819876571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4601,7 +4620,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819876563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -4612,21 +4631,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9f3070e1238c7c64891a19d496aa0cac, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1819876570
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819876563}
-  m_CullTransparentMesh: 1
+  m_Sprite: {fileID: 21300000, guid: 9f3070e1238c7c64891a19d496aa0cac, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1823682318
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,11 +5705,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2001052720}
   - component: {fileID: 2001052726}
-  - component: {fileID: 2001052725}
   - component: {fileID: 2001052724}
   - component: {fileID: 2001052723}
   - component: {fileID: 2001052722}
   - component: {fileID: 2001052721}
+  - component: {fileID: 2001052727}
   m_Layer: 5
   m_Name: writePlus
   m_TagString: Untagged
@@ -5820,7 +5834,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2001052725
+--- !u!222 &2001052726
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001052719}
+  m_CullTransparentMesh: 1
+--- !u!114 &2001052727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5829,7 +5851,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2001052719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -5840,21 +5862,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 0c0f1260f1a657140a5eb49c5518dd81, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &2001052726
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001052719}
-  m_CullTransparentMesh: 1
+  m_Sprite: {fileID: 21300000, guid: 0c0f1260f1a657140a5eb49c5518dd81, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2024041639
 GameObject:
   m_ObjectHideFlags: 0
@@ -72228,31 +72245,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourButton: {fileID: 7121799253436327581}
-  yourDraggable1: {fileID: 4689010106498360720}
-  yourDraggable2: {fileID: 6944403426827114068}
-  yourDraggable3: {fileID: 5662116847390231308}
-  yourDraggable4: {fileID: 702702970001763364}
-  yourDrop1: {fileID: 7002566090224051974}
-  yourCanvas: {fileID: 4598597543338876417}
+  slotDrop: {fileID: 0}
+  drag1: {fileID: 0}
+  drag2: {fileID: 0}
+  drag3: {fileID: 0}
+  drag4: {fileID: 0}
+  draggableSlots: {fileID: 0}
+  hintPanel: {fileID: 0}
+  hintButton: {fileID: 0}
+  bgBorder: {fileID: 0}
+  moveButton: {fileID: 0}
+  rightButton1: {fileID: 0}
+  leftButton1: {fileID: 0}
+  transparentButton: {fileID: 0}
+  redButton1: {fileID: 0}
+  greenButton1: {fileID: 0}
   yourString: {fileID: 2106113525984076664}
   yourText2: {fileID: 4903580083386233821}
   yourText3: {fileID: 2316318423186729076}
   yourText4: {fileID: 990695213268373998}
   yourText5: {fileID: 4154197265645935319}
   yourText6: {fileID: 6829798535966659232}
-  yourPanel: {fileID: 5722695261653525971}
-  yourHint: {fileID: 8133319673363300465}
   clicked: 0
   rightFire: {fileID: 7749819868034294473}
-  backgroundBorder: {fileID: 0}
-  hintText: {fileID: 0}
   hintText2: {fileID: 0}
-  bgLeftRightButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  leftButton: {fileID: 0}
-  bgTransparentButton: {fileID: 0}
-  redButton: {fileID: 0}
-  greentButton: {fileID: 0}
   startText: {fileID: 0}
   endText: {fileID: 0}
 --- !u!1 &8384460791085564766
