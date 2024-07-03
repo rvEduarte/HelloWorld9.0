@@ -24,8 +24,12 @@ public class TabSettingMenu : MonoBehaviour
         foreach (Image img in tabButtons)
         {
             img.sprite = inactiveTabBG;
-            img.rectTransform.sizeDelta = activeBtnSize;
+            img.rectTransform.sizeDelta = inactiveBtnSize;
         }
+
+        tabButtons[tabID].sprite = activeTabBG;
+        tabButtons[tabID].rectTransform.sizeDelta = activeBtnSize;
+
     }
 
     // Start is called before the first frame update
