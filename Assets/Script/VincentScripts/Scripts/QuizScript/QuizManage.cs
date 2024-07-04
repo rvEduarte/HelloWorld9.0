@@ -46,6 +46,7 @@ public class QuizManage : MonoBehaviour
         scoreCount += 1;
         scoreBoard += 10;
         QnA.RemoveAt(currentQuestion);
+
         generateQuestion();
         
     }
@@ -53,7 +54,9 @@ public class QuizManage : MonoBehaviour
     public void wrong()
     {
         QnA.RemoveAt(currentQuestion);
+
         generateQuestion();
+        
     }
 
     void SetAnswer ()
@@ -84,6 +87,20 @@ public class QuizManage : MonoBehaviour
             Debug.Log("Out of question");
             GameOver();
         }
+    }
+
+    public void StartResetCoroutine(Image button)
+    {
+        StartCoroutine(ResetButtonColor(button));
+    }
+
+    IEnumerator ResetButtonColor(Image button)
+    {
+        // Wait for 0.1 seconds before resetting the button color
+        yield return new WaitForSeconds(0.1f);
+
+        // Reset the button color to the original color (white in this case)
+        button.color = Color.white;
     }
 }
 
