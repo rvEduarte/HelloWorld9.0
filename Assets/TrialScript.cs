@@ -10,6 +10,9 @@ public class TrialScript : MonoBehaviour
     public TMP_InputField codeInputField;
     public TMP_Text codeDisplay;
     public TMP_Text outputDisplay;
+
+    private string currentOutput = ""; // To store the current output
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class TrialScript : MonoBehaviour
     void ParseAndExecuteCode(string code)
     {
         // Clear previous output
+        currentOutput = ""; // Clear current output string
         outputDisplay.text = "";
 
         // Print the input code for debugging
@@ -67,14 +71,14 @@ public class TrialScript : MonoBehaviour
         foreach (Match match in matches)
         {
             string expression = match.Groups["expr"].Value;
+            bool isWriteLine = match.Groups[1].Success;
             Debug.Log("Matched Expression: " + expression);
 
             if (expression.StartsWith("\"") && expression.EndsWith("\""))
             {
-                // It's a string literal, remove quotes and print it
+                // It's a string literal, remove quotes
                 string outputText = expression.Trim('"');
-                outputDisplay.text += outputText + "\n";
-                codeDisplay.text += "\n" + outputText; // Append to code display
+                AppendOutput(outputText, isWriteLine);
             }
             else
             {
@@ -82,18 +86,34 @@ public class TrialScript : MonoBehaviour
                 try
                 {
                     string result = EvaluateExpression(expression).ToString();
-                    outputDisplay.text += result + "\n";
-                    codeDisplay.text += "\n" + result; // Append to code display
+                    AppendOutput(result, isWriteLine);
                 }
                 catch (System.Exception ex)
                 {
                     string errorMsg = "Error: " + ex.Message;
-                    outputDisplay.text += errorMsg + "\n";
-                    codeDisplay.text += "\n" + errorMsg; // Append error to code display
+                    AppendOutput(errorMsg, isWriteLine);
                 }
             }
         }
+
+        codeDisplay.text = codeInputField.text;
+        // Update the code display
+        //codeDisplay.text = ApplySyntaxHighlighting(currentOutput); // Apply syntax highlighting
     }
+
+    void AppendOutput(string output, bool isWriteLine)
+    {
+        if (isWriteLine)
+        {
+            currentOutput += output + "\n";
+        }
+        else
+        {
+            currentOutput += output;
+        }
+        outputDisplay.text = currentOutput; // Update the output display
+    }
+
     object EvaluateExpression(string expression)
     {
         // Use DataTable to evaluate the expression
