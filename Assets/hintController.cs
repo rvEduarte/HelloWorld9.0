@@ -21,7 +21,7 @@ public class hintController : MonoBehaviour
     {
         "\n\n<color=red>Write</color> - is like typing words on a typewriter without pressing Enter. It just keeps adding words next to each other on the same line.",
         "\n\n<color=blue>WriteLine</color> - is like typing words on a typewriter and then pressing Enter after each line. It makes each new set of words start on a fresh line.",
-        "\n\nIn C#, You can also output numbers, and perform <color=orange> mathematical calculations"
+        "\n\nIn C#, You can also output numbers, and perform <color=red> mathematical calculations"
         // Add more hints as needed
 
     };

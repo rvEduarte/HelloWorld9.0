@@ -18,6 +18,9 @@ public class QuizManage : MonoBehaviour
     public GameObject completionPanel;
     public GameObject quizPanel;
 
+    public TMP_Text questionPrefab; // Prefab for question text
+    public Transform questionsContainer; // Parent container for questions
+
 
     int totalQuestions = 0;
     int scoreCount = 0;
@@ -79,7 +82,17 @@ public class QuizManage : MonoBehaviour
         {
             currentQuestion = Random.Range(0, QnA.Count);
 
-            questionTxt.text = QnA[currentQuestion].Questions;
+            // Clear previous questions
+            foreach (Transform child in questionsContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // Instantiate new question
+            TMP_Text newQuestion = Instantiate(questionPrefab, questionsContainer);
+            newQuestion.text = QnA[currentQuestion].QuestionText.text;
+            newQuestion.font = QnA[currentQuestion].QuestionText.font; // Copy font settings if needed
+
             SetAnswer();
         }
         else

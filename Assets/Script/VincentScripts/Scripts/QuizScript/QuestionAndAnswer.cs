@@ -1,8 +1,11 @@
 
+using System;
+using TMPro;
+
 [System.Serializable]
 public class QuestionAndAnswer
 {
-    public string Questions;
+    public TMP_Text QuestionText;
     public string[] Answers;
     public int CorrestAnswer;
 }
