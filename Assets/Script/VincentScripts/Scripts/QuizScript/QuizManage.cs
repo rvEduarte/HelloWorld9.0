@@ -48,18 +48,39 @@ public class QuizManage : MonoBehaviour
     {
         scoreCount += 1;
         scoreBoard += 10;
-        QnA.RemoveAt(currentQuestion);
 
-        generateQuestion();
-        
+        StartCoroutine(DisplayResultAndNext(true));
     }
 
     public void wrong()
     {
-        QnA.RemoveAt(currentQuestion);
+        // Change button color for wrong answer
+        foreach (var option in options)
+        {
+            var answerScript = option.GetComponent<AnswersScript>();
+            if (!answerScript.isCorrect)
+            {
+                option.GetComponent<Image>().color = Color.red;
+            }
+        }
 
+        StartCoroutine(DisplayResultAndNext(false));
+    }
+
+    private IEnumerator DisplayResultAndNext(bool isCorrect)
+    {
+        // Wait for 0.2 seconds before resetting button colors
+        yield return new WaitForSeconds(0.2f);
+
+        // Reset button colors
+        foreach (var option in options)
+        {
+            option.GetComponent<Image>().color = Color.white;
+        }
+
+        // Remove current question and generate the next one
+        QnA.RemoveAt(currentQuestion);
         generateQuestion();
-        
     }
 
     void SetAnswer ()
@@ -110,13 +131,9 @@ public class QuizManage : MonoBehaviour
     IEnumerator ResetButtonColor(Image button)
     {
         // Wait for 0.1 seconds before resetting the button color
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         // Reset the button color to the original color (white in this case)
         button.color = Color.white;
     }
 }
-
-
-
-
