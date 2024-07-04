@@ -24,7 +24,7 @@ public class JigsawScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        jigsawPanel.GetComponent<CanvasRenderer>().transform.localScale = Vector2.zero;
+        LeanTween.scale(jigsawPanel, Vector3.zero, 0f);
         //jigsawPanel.SetActive(false);
         pickUpText.SetActive(false);
         Greenportal.SetActive(false);
@@ -43,7 +43,7 @@ public class JigsawScript : MonoBehaviour
         {
             
             timer.isPicked = true;
-            jigsawPanel.GetComponent<CanvasRenderer>().transform.LeanScale(Vector2.one, 0.8f);
+            LeanTween.scale(jigsawPanel, Vector3.one, 0.8f);
 
             Debug.Log("TITE");
             Button btn = buttonJigsaw.GetComponent<Button>();
@@ -57,7 +57,7 @@ public class JigsawScript : MonoBehaviour
         if (isClicked == false)
         {
             Debug.Log("PEKPEK");
-            jigsawPanel.GetComponent<CanvasRenderer>().transform.LeanScale(Vector2.zero, 1f).setEaseInBack();
+            LeanTween.scale(jigsawPanel, Vector3.zero, 1f).setEaseInBack();
             PickUp();
 
         }
