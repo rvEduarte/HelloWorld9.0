@@ -12,6 +12,8 @@ public class OutputDisplayScript : MonoBehaviour
     public TMP_Text outputDisplay;
 
     private string currentOutput = ""; // To store the current output
+    private string firstOutput = ""; // To store the first part of the output
+    private string secondOutput = ""; // To store the second part of the output
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +38,10 @@ public class OutputDisplayScript : MonoBehaviour
 
     void ParseAndExecuteCode(string code)
     {
-        // Clear previous output
+        // Clear previous outputs
         currentOutput = ""; // Clear current output string
+        firstOutput = ""; // Clear first part of the output
+        secondOutput = ""; // Clear second part of the output
         outputDisplay.text = "";
 
         // Print the input code for debugging
@@ -86,13 +90,17 @@ public class OutputDisplayScript : MonoBehaviour
     {
         if (isWriteLine)
         {
+            if (string.IsNullOrEmpty(firstOutput))
+            {
+                firstOutput = currentOutput.Trim(); // Store the first part if it is empty
+            }
+            secondOutput = output; // Update second part with the latest WriteLine output
             currentOutput += output + "\n";
         }
         else
         {
             currentOutput += output;
         }
-        outputDisplay.text = currentOutput; // Update the output display
     }
 
     object EvaluateExpression(string expression)
@@ -101,5 +109,20 @@ public class OutputDisplayScript : MonoBehaviour
         DataTable table = new DataTable();
         var result = table.Compute(expression, string.Empty);
         return result;
+    }
+
+    public void OnDisplayButtonClick()
+    {
+        // Check the conditions before updating the output display
+        if (firstOutput == "sir shaq" && secondOutput == "69")
+        {
+            outputDisplay.text = currentOutput;
+            Debug.Log("Conditions met. Output updated.");
+        }
+        else
+        {
+            outputDisplay.text = "Conditions not met. First part should be 'sir shaq' and second part should be '69'.";
+            Debug.Log("Conditions not met.");
+        }
     }
 }
