@@ -57,6 +57,9 @@ public class TrialComputer : MonoBehaviour
                 string color = "#18eded";
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
+
+                Laser1.SetActive(false);
+                BoolLaser1.La1 = false;
             }
 
             else if(a == "7")
@@ -69,19 +72,18 @@ public class TrialComputer : MonoBehaviour
 
             else if(a == "SPACE_HELLOWORLD")
             {
-                myObj.Name = "\nHELLOWORLD";
+                myObj.Name = "HELLOWORLD\n";
                 string color = "#18eded";
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
 
-                Laser1.SetActive(false);
-                BoolLaser1.La1 = false;
+
                 //TITE = "L1";
             }
 
             else if (a == "SPACE_7")
             {
-                myObj.Name = "\n7";
+                myObj.Name = "7\n";
                 string color = "#18eded";
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
@@ -112,16 +114,7 @@ public class TrialComputer : MonoBehaviour
 
             else if (a == "SPACE_HELLOWORLD")
             {
-                myObj.Name1 = "\nHELLOWORLD";
-                secondText = myObj.Name1;
-                //canvasText.color = Color.red;
-                string color = "#18eded";
-                canvasText.text = "" + firstText + "<color=" + color + ">" + secondText + "</color>";
-            }
-
-            else if (a == "SPACE_7")
-            {
-                myObj.Name1 = "\n7";
+                myObj.Name1 = "HELLOWORLD\n";
                 secondText = myObj.Name1;
                 //canvasText.color = Color.red;
                 string color = "#18eded";
@@ -129,6 +122,17 @@ public class TrialComputer : MonoBehaviour
 
                 Laser2.SetActive(false);
                 BoolLaser2.La2 = false;
+            }
+
+            else if (a == "SPACE_7")
+            {
+                myObj.Name1 = "7\n";
+                secondText = myObj.Name1;
+                //canvasText.color = Color.red;
+                string color = "#18eded";
+                canvasText.text = "" + firstText + "<color=" + color + ">" + secondText + "</color>";
+
+
                 //PEPE = "L1";
             }
         }
@@ -145,8 +149,7 @@ public class TrialComputer : MonoBehaviour
                 string color = "#18eded";
                 canvasText.text = "" + firstText + secondText + "<color=" + color + ">" + thirdText + "</color>" + "<color=" + color2 + ">\n\n\n...Program finished with exit code 0</color>";
 
-                Laser3.SetActive(false);
-                BoolLaser3.La3 = false;
+
                 //TEPE = "L1";
 
                 //MOVE THE COLLIDER TO BOTTOM
@@ -157,8 +160,7 @@ public class TrialComputer : MonoBehaviour
                // if(TITE.Equals(PEPE) && PEPE.Equals(TEPE))
                 {
                     Debug.Log("KANTOTERO");
-                    disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2(0, (float)-15.56);
-                    disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
+
                 }
                 else
                 {
@@ -176,6 +178,9 @@ public class TrialComputer : MonoBehaviour
                 string color = "#18eded";
                 canvasText.text = "" + firstText + secondText + "<color=" + color + ">" + thirdText + "</color>" + "<color=" + color2 + ">\n\n\n...Program finished with exit code 0</color>";
 
+                Laser3.SetActive(false);
+                BoolLaser3.La3 = false;
+
                 //MOVE THE COLLIDER TO BOTTOM
                 disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2((float)-2.2, (float)-26.72);
                 disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2((float)8.63, (float)9.63);
@@ -184,7 +189,8 @@ public class TrialComputer : MonoBehaviour
                 // if(TITE.Equals(PEPE) && PEPE.Equals(TEPE))
                 {
                     Debug.Log("KANTOTERO");
-                    
+                    disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2(0, (float)-15.56);
+                    disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
                 }
                 else
                 {
@@ -195,7 +201,7 @@ public class TrialComputer : MonoBehaviour
 
             else if (a == "SPACE_HELLOWORLD")
             {
-                myObj.Name2 = "\nHELLOWORLD";
+                myObj.Name2 = "HELLOWORLD\n";
                 thirdText = myObj.Name2;
                 //canvasText.color = Color.red;
                 string color2 = "#03960f";
@@ -219,7 +225,7 @@ public class TrialComputer : MonoBehaviour
             }
             else if (a == "SPACE_7")
             {
-                myObj.Name2 = "\n7";
+                myObj.Name2 = "7\n";
                 thirdText = myObj.Name2;
                 //canvasText.color = Color.red;
                 string color2 = "#03960f";
