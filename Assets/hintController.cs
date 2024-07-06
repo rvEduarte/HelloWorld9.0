@@ -13,6 +13,8 @@ public class hintController : MonoBehaviour
 
     public StartHintButton startHintButton;
 
+    public Button addList;
+
     //public Button rightButton;
 
     // public Button leftButton;
@@ -59,5 +61,23 @@ public class hintController : MonoBehaviour
                 Debug.Log("No more hints to the left.");
             }
         }
+    }
+
+    public void AddToList()
+    {
+        string text1 = "\n\nTo open the 3 laser obstacle follow the instruction below: \n\nHit the computer using your weapon to output to the console.";
+        hints.Add(text1);
+
+        string text2 = "\n\n<color=red>First output</color> should be <color=blue>\"HELLOWORLD\"</color> without automatically moves to the next line after displaying the text.";
+        hints.Add(text2);
+
+        string text3 = "\n\n<color=red>Second output</color> should be <color=blue>\"HELLOWORLD\"</color> that automatically moves to the next line after displaying the text.";
+        hints.Add(text3);
+
+        string text4 = "\n\n<color=red>Third output</color> should be <color=blue>7 </color>that automatically moves to the next line after displaying the text.";
+        hints.Add(text4);
+
+        string text5 = "\n\nIf you <color=red>do not follow the instruction properly</color> just <color=blue>hit</color> the red alarm to output again.";
+        hints.Add(text5);
     }
 }
