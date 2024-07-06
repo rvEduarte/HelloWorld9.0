@@ -53,7 +53,7 @@ public class TrialScript : MonoBehaviour
     {
         // Clear previous output
         currentOutput = ""; // Clear current output string
-        outputDisplay.text = "";
+        //outputDisplay.text = "";
 
         // Print the input code for debugging
         Debug.Log("Input Code: " + code);
