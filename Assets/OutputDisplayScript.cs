@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class OutputDisplayScript : MonoBehaviour
 {
-    public TMP_InputField codeInputField;
+    public TMP_InputField codeInputField1;
+    public TMP_InputField codeInputField2;
     public TMP_Text outputDisplay;
 
     private string currentOutput = ""; // To store the current output
@@ -15,23 +16,29 @@ public class OutputDisplayScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        codeInputField.onValueChanged.AddListener(UpdateCodeDisplay);
+        // Add listeners to the input fields to update display
+        codeInputField1.onValueChanged.AddListener(OnCodeInputChanged);
+        codeInputField2.onValueChanged.AddListener(OnCodeInputChanged);
     }
 
-    void UpdateCodeDisplay(string code)
+    void OnCodeInputChanged(string code)
     {
-        
-        codeInputField.text = code;
+        // Get input from both input fields
+        string code1 = codeInputField1.text;
+        string code2 = codeInputField2.text;
 
-        // Parse and execute the code for console output
-        ParseAndExecuteCode(code);
+        // Combine both codes for processing
+        string combinedCode = code1 + "\n" + code2;
+
+        // Parse and execute the combined code for console output
+        ParseAndExecuteCode(combinedCode);
     }
+
     void ParseAndExecuteCode(string code)
     {
         // Clear previous output
         currentOutput = ""; // Clear current output string
-        //outputDisplay.text = "";
+        outputDisplay.text = "";
 
         // Print the input code for debugging
         Debug.Log("Input Code: " + code);
@@ -73,10 +80,6 @@ public class OutputDisplayScript : MonoBehaviour
                 }
             }
         }
-
-        //codeDisplay.text = codeInputField.text;
-        // Update the code display
-        //codeDisplay.text = ApplySyntaxHighlighting(currentOutput); // Apply syntax highlighting
     }
 
     void AppendOutput(string output, bool isWriteLine)
