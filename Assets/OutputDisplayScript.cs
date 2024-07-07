@@ -12,8 +12,10 @@ public class OutputDisplayScript : MonoBehaviour
     public TMP_Text outputDisplay;
 
     private string currentOutput = ""; // To store the current output
-    private string firstOutput = ""; // To store the first part of the output
-    private string secondOutput = ""; // To store the second part of the output
+
+    public GameObject movingObject;
+    public GameObject CodePanel;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +40,8 @@ public class OutputDisplayScript : MonoBehaviour
 
     void ParseAndExecuteCode(string code)
     {
-        // Clear previous outputs
+        // Clear previous output
         currentOutput = ""; // Clear current output string
-        firstOutput = ""; // Clear first part of the output
-        secondOutput = ""; // Clear second part of the output
         outputDisplay.text = "";
 
         // Print the input code for debugging
@@ -90,17 +90,13 @@ public class OutputDisplayScript : MonoBehaviour
     {
         if (isWriteLine)
         {
-            if (string.IsNullOrEmpty(firstOutput))
-            {
-                firstOutput = currentOutput.Trim(); // Store the first part if it is empty
-            }
-            secondOutput = output; // Update second part with the latest WriteLine output
             currentOutput += output + "\n";
         }
         else
         {
             currentOutput += output;
         }
+        // outputDisplay.text = currentOutput; // Update the output display
     }
 
     object EvaluateExpression(string expression)
@@ -113,16 +109,64 @@ public class OutputDisplayScript : MonoBehaviour
 
     public void OnDisplayButtonClick()
     {
-        // Check the conditions before updating the output display
-        if (firstOutput == "sir shaq" && secondOutput == "69")
+        // Get input from both input fields
+        string code1 = codeInputField1.text;
+        string code2 = codeInputField2.text;
+
+        // Conditions to check
+        bool isCode1Valid = IsValidCode1(code1);
+        bool isCode2Valid = IsValidCode2(code2);
+
+        if (isCode1Valid && isCode2Valid)
         {
+            // Update the output display with the current output
             outputDisplay.text = currentOutput;
             Debug.Log("Conditions met. Output updated.");
+            CodePanel.SetActive(false);
+            movingObject.SetActive(true);
+            player.SetActive(true);
         }
         else
         {
-            outputDisplay.text = "Conditions not met. First part should be 'sir shaq' and second part should be '69'.";
-            Debug.Log("Conditions not met.");
+            outputDisplay.text = currentOutput;
         }
+    }
+
+    bool IsValidCode1(string code)
+    {
+        string pattern = @"Console\.Write\(\s*""sir shaq""\s*\);";
+        return Regex.IsMatch(code, pattern);
+    }
+
+    bool IsValidCode2(string code)
+    {
+        // Pattern to match Console.WriteLine with a mathematical expression
+        string pattern = @"Console\.WriteLine\(\s*(?<expr>[^""]+)\s*\);";
+        Match match = Regex.Match(code, pattern);
+
+        if (match.Success)
+        {
+            string expression = match.Groups["expr"].Value;
+            try
+            {
+                // Evaluate the expression
+                int result = (int)EvaluateExpression(expression);
+                return result == 69;
+            }
+            catch
+            {
+                return false; // If evaluation fails, return false
+            }
+        }
+        return false; // If pattern doesn't match, return false
+    }
+    public void ClearInputFields()
+    {
+        // Clear the input fields
+        codeInputField1.text = "";
+        codeInputField2.text = "";
+        // Clear the current output
+        currentOutput = "";
+        outputDisplay.text = "Input fields cleared.";
     }
 }
