@@ -74,7 +74,7 @@ public class hintController : MonoBehaviour
         string text3 = "\n\n<color=red>Second output</color> should be <color=blue>\"HELLOWORLD\"</color> that automatically moves to the next line after displaying the text.";
         hints.Add(text3);
 
-        string text4 = "\n\n<color=red>Third output</color> should be <color=blue>7 </color>that automatically moves to the next line after displaying the text.";
+        string text4 = "\n\n<color=red>Third output</color> should be <color=blue>7 </color>without automatically moves to the next line after displaying the text.";
         hints.Add(text4);
 
         string text5 = "\n\nIf you <color=red>do not follow the instruction properly</color> just <color=blue>hit</color> the red alarm to output again.";
