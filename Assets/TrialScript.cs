@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using System.Data;
-using UnityEditor.Rendering.LookDev;
 
 public class TrialScript : MonoBehaviour
 {

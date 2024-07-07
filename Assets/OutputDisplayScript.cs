@@ -120,16 +120,25 @@ public class OutputDisplayScript : MonoBehaviour
         if (isCode1Valid && isCode2Valid)
         {
             // Update the output display with the current output
-            outputDisplay.text = currentOutput;
+            
             Debug.Log("Conditions met. Output updated.");
-            CodePanel.SetActive(false);
-            movingObject.SetActive(true);
-            player.SetActive(true);
+            outputDisplay.text = currentOutput;
+            StartCoroutine(DisableCodePanel());
         }
         else
         {
             outputDisplay.text = currentOutput;
         }
+    }
+    IEnumerator DisableCodePanel()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        
+
+        CodePanel.SetActive(false);
+        movingObject.SetActive(true);
+        player.SetActive(true);
     }
 
     bool IsValidCode1(string code)
