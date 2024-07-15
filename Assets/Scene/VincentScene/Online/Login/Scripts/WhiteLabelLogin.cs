@@ -60,10 +60,10 @@ public class WhiteLabelLogin : MonoBehaviour
             }
 
             // Is the account verified?
-            if (response.VerifiedAt == null)
+            /*if (response.VerifiedAt == null)
             {
                 // Stop here if you want to require your players to verify their email before continuing
-            }
+            }*/
 
             LootLockerSDKManager.StartWhiteLabelSession((response) =>
             {
@@ -123,7 +123,7 @@ public class WhiteLabelLogin : MonoBehaviour
         {
             if (!response.success)
             {
-                Error(response.errorData.ToString());
+                Error(response.Error);
                 return;
             }
             else
@@ -135,7 +135,7 @@ public class WhiteLabelLogin : MonoBehaviour
                 {
                     if (!response.success)
                     {
-                        Error(response.errorData.ToString());
+                        Error(response.Error);
                         return;
                     }
                     // Start session
@@ -143,7 +143,7 @@ public class WhiteLabelLogin : MonoBehaviour
                     {
                         if (!response.success)
                         {
-                            Error(response.errorData.ToString());
+                            Error(response.Error);
                             return;
                         }
                         // Set nickname to be public UID if nothing was provided
@@ -156,7 +156,7 @@ public class WhiteLabelLogin : MonoBehaviour
                         {
                             if (!response.success)
                             {
-                                Error(response.errorData.ToString());
+                                Error(response.Error);
                                 return;
                             }
 
@@ -166,7 +166,7 @@ public class WhiteLabelLogin : MonoBehaviour
                             {
                                 if (!response.success)
                                 {
-                                    Error(response.errorData.ToString());
+                                    Error(response.Error);
                                     return;
                                 }
                                 Debug.Log("Account Created");

@@ -62,18 +62,19 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
+
         void isError(string error)
         {
             if (error.Contains("message"))
             {
                 ShowErrorMessage(ExtractMessageFromLootLockerError(error));
-                return;
+                //return;
             }
 
             if (!error.Contains("message"))
             {
                 ShowErrorMessage("Error logging in");
-                return;
+               //s return;
             }
 
            // loginButtonAnimator.SetTrigger("Error");
@@ -89,7 +90,7 @@ public class LoginScript : MonoBehaviour
             if (!response.success)
             {
                 // Error
-                isError(response.errorData.ToString());
+                isError(response.Error);
                 Debug.Log("error while logging in");
                 return;
             }
@@ -99,17 +100,17 @@ public class LoginScript : MonoBehaviour
             }
 
             // Is the account verified?
-            if (response.VerifiedAt == null)
+            /*if (response.VerifiedAt == null)
             {
                 // Stop here if you want to require your players to verify their email before continuing
-            }
+            }*/
 
             LootLockerSDKManager.StartWhiteLabelSession((response) =>
             {
                 if (!response.success)
                 {
                     // Error
-                    isError(response.errorData.ToString());
+                    isError(response.Error);
                     return;
                 }
                 else
@@ -199,7 +200,7 @@ public class LoginScript : MonoBehaviour
         {
             if (!response.success)
             {
-                isError(response.errorData.ToString());
+                isError(response.Error);
                 return;
             }
 
@@ -313,7 +314,7 @@ public class LoginScript : MonoBehaviour
         {
             if (!response.success)
             {
-                isError(response.errorData.ToString());
+                isError(response.Error);
                 return;
             }
             else
@@ -325,7 +326,7 @@ public class LoginScript : MonoBehaviour
                 {
                     if (!response.success)
                     {
-                        isError(response.errorData.ToString());
+                        isError(response.Error);
                         return;
                     }
                     // Start session
@@ -333,7 +334,7 @@ public class LoginScript : MonoBehaviour
                     {
                         if (!response.success)
                         {
-                            isError(response.errorData.ToString());
+                            isError(response.Error);
                             return;
                         }
                         string publicUID = response.public_uid;
@@ -497,12 +498,12 @@ public class LoginScript : MonoBehaviour
                 Debug.Log("error requesting password reset");
                 //get the message from the error and dsiplay it 
 
-                if (response.errorData.ToString().Contains("message"))
+                if (response.Error.Contains("message"))
                 {
-                    ShowErrorMessage(ExtractMessageFromLootLockerError(response.errorData.ToString()));
+                    ShowErrorMessage(ExtractMessageFromLootLockerError(response.Error));
                 }
 
-                if (!response.errorData.ToString().Contains("message"))
+                if (!response.Error.Contains("message"))
                 {
                     ShowErrorMessage("Error requesting password reset");
                 }
