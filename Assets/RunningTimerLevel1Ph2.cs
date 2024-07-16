@@ -19,11 +19,15 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     public bool isPicked = false;
 
     [Header("PH1 ELAPSED TIME")]
-    [SerializeField] string timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
+    [SerializeField] string timePh1;
 
     [Header("PH2 ELAPSED TIME")]
-    [SerializeField] string timebegginnerLevel1Ph2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
-
+    [SerializeField] string timebegginnerLevel1Ph2;
+    private void Awake()
+    {
+        timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
+        timebegginnerLevel1Ph2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
+    }
     void Update()
     {
         if (!pauseMenu.pause)

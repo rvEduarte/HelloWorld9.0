@@ -1,12 +1,12 @@
-  using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinishPointScriptLevel1Ph2 : MonoBehaviour
+public class FinishPointScriptLevel1Ph3 : MonoBehaviour
 {
     [SerializeField] public GameObject gameCompletion;
 
-    public RunningTimerLevel1Ph2 timer;
+    public RunningTimerLevel1Ph3 timer;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

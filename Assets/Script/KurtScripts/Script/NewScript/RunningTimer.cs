@@ -17,13 +17,13 @@ public class RunningTimer : MonoBehaviour
 
     float elapsedTime;
     public bool isPicked = false;
-    string pekpek;
+    //string pekpek;
     [Header("PH1 ELAPSED TIME")]
     [SerializeField] string timebegginnerLevel1Ph1;
 
-    void Awake()
+    private void Awake()
     {
-        //tite = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
+        timebegginnerLevel1Ph1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
     }
     void Update()
     {
