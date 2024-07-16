@@ -23,7 +23,18 @@ public class LeaderboardScript : MonoBehaviour
 
     public void Start()
     {
-        GetLeaderboardData();
+        //GetLeaderboardData();
+    }
+    public void LevelGetData()
+    {
+        if (leaderboardGamerText == null || leaderboardScoreText == null || leaderboardTimeText == null || leaderboardAccuracyText)
+        {
+            Debug.Log("Not assigned");
+        }
+        else
+        {
+            GetLeaderboardData();
+        }
     }
 
     public void BackButtonPressed()
@@ -90,8 +101,9 @@ public class LeaderboardScript : MonoBehaviour
 
     private void hideErrorMessage()
     {
-        errorScreenAnimator.SetTrigger("Hide");
+        //errorScreenAnimator.SetTrigger("Hide");
         //BackButtonAnimator.SetTrigger("Show");
+        errorPanel.SetActive(false);
     }
 
     private string extractMessageFromLootLockerError(string rawError)

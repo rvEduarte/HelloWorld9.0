@@ -32,13 +32,13 @@ public class VincentMainMenuScript : MonoBehaviour
         }
 
         //get player name
-       /* LootLockerSDKManager.GetPlayerName((response) =>
+        LootLockerSDKManager.GetPlayerName((response) =>
         {
             if (response.success)
             {
                 playerNameText.text = response.name;
             }
-        });*/
+        });
 
         SubmitLeaderBoardScript.GetPlayerHighScore();
 

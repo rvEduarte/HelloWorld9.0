@@ -404,10 +404,12 @@ public class LoginScript : MonoBehaviour
         if (rememberMeBool == true)
         {
             //rememberMeAnimator.SetTrigger("On");
+            Debug.Log("CHECKED");
         }
         else
         {
             //rememberMeAnimator.SetTrigger("Off");
+            Debug.Log(" NOT CHECKED");
         }
         PlayerPrefs.SetInt("rememberMe", rememberMe);
     }

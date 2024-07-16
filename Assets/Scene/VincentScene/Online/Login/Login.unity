@@ -2052,6 +2052,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2037375423}
+        m_TargetAssemblyTypeName: LoginScript, Assembly-CSharp
+        m_MethodName: AutoLogin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &462432799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4922,7 +4934,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2037375423}
+        m_TargetAssemblyTypeName: LoginScript, Assembly-CSharp
+        m_MethodName: ToggleRememberMe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1274426876
 GameObject:
@@ -7830,7 +7854,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2037375421}
-  - component: {fileID: 2037375422}
   - component: {fileID: 2037375423}
   m_Layer: 0
   m_Name: WhiteLabelManager
@@ -7854,26 +7877,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1059342532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2037375422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2037375420}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 673f3ad432e9e6e46a7f607c42929369, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newUserEmailInputField: {fileID: 1323211270}
-  newUserPasswordInputField: {fileID: 168105870}
-  nickNameInputField: {fileID: 0}
-  existingUserEmailInputField: {fileID: 1296190542}
-  existingUserPasswordInputField: {fileID: 448530091}
-  loginCanvasAnimator: {fileID: 0}
-  rememberMeToggle: {fileID: 1266869283}
-  playerNameText: {fileID: 0}
 --- !u!114 &2037375423
 MonoBehaviour:
   m_ObjectHideFlags: 0
