@@ -22,7 +22,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [SerializeField] string timePh2;
 
     [Header("PH3 ELAPSED TIME")]
-    [SerializeField] string timebegginnerLevel1Ph3;
+    [SerializeField] string timePh3;
 
     [Header("LevelCompletion")]
     [SerializeField] TextMeshProUGUI textCompleteph1;
@@ -33,11 +33,9 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     {
         timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
         timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
-        timebegginnerLevel1Ph3 = PlayerPrefs.GetString("timebegginnerLevel1Ph3");
 
-        textCompleteph1.text = timePh1 + "PH1";
-        textCompleteph2.text = timePh2 + "PH2";
-        textCompleteph3.text = timebegginnerLevel1Ph3 + "PH3";
+        textCompleteph1.text = timePh1 + " PH1";
+        textCompleteph2.text = timePh2 + " PH2";
     }
     void Update()
     {
@@ -77,9 +75,11 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
             }
             else
             {
-                textCompleteph3.text = timerTxt.text;
-                PlayerPrefs.SetString("timebegginnerLevel1Ph3", textCompleteph3.text);
+                timePh3 = timerTxt.text;
+                PlayerPrefs.SetString("timebegginnerLevel1Ph3", timePh3);
                 PlayerPrefs.Save();
+
+                textCompleteph3.text = timePh3 + " PH3";
             }
         }
     }
