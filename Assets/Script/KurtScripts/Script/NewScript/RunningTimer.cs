@@ -7,8 +7,6 @@ using TMPro;
 
 public class RunningTimer : MonoBehaviour
 {
-    public static RunningTimer Instance;
-
     [SerializeField] TextMeshProUGUI timerTxt;
     [SerializeField] TextMeshProUGUI textComplete;
     [SerializeField] TextMeshProUGUI textCompletion1;
@@ -19,10 +17,14 @@ public class RunningTimer : MonoBehaviour
 
     float elapsedTime;
     public bool isPicked = false;
-
+    string pekpek;
     [Header("PH1 ELAPSED TIME")]
-    [SerializeField] public string timebegginnerLevel1Ph1;
+    [SerializeField] string timebegginnerLevel1Ph1;
 
+    void Awake()
+    {
+        //tite = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
+    }
     void Update()
     {
         if (!pauseMenu.pause)
@@ -62,7 +64,8 @@ public class RunningTimer : MonoBehaviour
             else 
             {
                 textComplete.text = timerTxt.text;
-                timebegginnerLevel1Ph1 = textComplete.text;
+                PlayerPrefs.SetString("timebegginnerLevel1Ph1", textComplete.text);
+                PlayerPrefs.Save();
             }         
         }
     }

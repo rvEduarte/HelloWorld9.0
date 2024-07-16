@@ -19,22 +19,11 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     public bool isPicked = false;
 
     [Header("PH1 ELAPSED TIME")]
-    [SerializeField] string timePh1;
+    [SerializeField] string timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
 
     [Header("PH2 ELAPSED TIME")]
-    [SerializeField] string timebegginnerLevel1Ph2;
+    [SerializeField] string timebegginnerLevel1Ph2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
 
-    private void Start()
-    {
-        if (RunningTimer.Instance != null)
-        {
-            timePh1 = RunningTimer.Instance.timebegginnerLevel1Ph1;
-        }
-        else
-        {
-            Debug.LogError("RunningTimer instance not found");
-        }
-    }
     void Update()
     {
         if (!pauseMenu.pause)
@@ -74,7 +63,8 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
             else
             {
                 textComplete.text = timerTxt.text;
-                timebegginnerLevel1Ph2 = textComplete.text;
+                PlayerPrefs.SetString("timebegginnerLevel1Ph2", textComplete.text);
+                PlayerPrefs.Save();
             }
         }
     }
