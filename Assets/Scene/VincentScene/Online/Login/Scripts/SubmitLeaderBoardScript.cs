@@ -18,11 +18,21 @@ public class SubmitLeaderBoardScript : MonoBehaviour
     {
         leaderboardKey = "BegginerLevel2";
     }
-    public void titeSubmit(int scoreToSubmit, float timeTaken, float accuracy)
+    /*public void titeSubmit(int scoreToSubmit, float timeTaken, float accuracy)
     {
 
         PlayerPrefs.SetFloat("tite1", timeTaken);
         PlayerPrefs.SetFloat("tite", accuracy);
+        PlayerPrefs.Save();
+        Submit(scoreToSubmit);
+
+    }*/
+
+    public void titeSubmit(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3)
+    {
+        PlayerPrefs.SetString("tite1", timeTaken1);
+        PlayerPrefs.SetString("tite2", timeTaken2);
+        PlayerPrefs.SetString("tite3", timeTaken3);
         PlayerPrefs.Save();
         Submit(scoreToSubmit);
 
@@ -37,8 +47,11 @@ public class SubmitLeaderBoardScript : MonoBehaviour
         // Create metadata object
         PlayerMetaData1 metadataObject = new PlayerMetaData1
         {
-            timeTaken = PlayerPrefs.GetFloat("tite1"),
-            accuracy = PlayerPrefs.GetFloat("tite")
+            //timeTaken = PlayerPrefs.GetFloat("tite1"),
+            //accuracy = PlayerPrefs.GetFloat("tite")
+            timeTaken1 = PlayerPrefs.GetString("tite1"),
+            timeTaken2 = PlayerPrefs.GetString("tite2"),
+            timeTaken3 = PlayerPrefs.GetString("tite3")
         };
         // Serialize metadata to JSON
         string metadata = JsonUtility.ToJson(metadataObject);

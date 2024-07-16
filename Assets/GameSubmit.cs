@@ -20,12 +20,12 @@ public class GameSubmit : MonoBehaviour
             Debug.LogError("SubmitLeaderboardScore component not found in the scene.");
         }
     }
-    public void titeSubmit4()
+    /*public void titeSubmit4()
     {
         submitLead.GameManagerLevel1();
         int scoreToSubmit = 4000;
         float timeTaken = 4000f;
         float accuracy = 4000f;
         submitLead.titeSubmit(scoreToSubmit, timeTaken, accuracy);
-    }
+    }*/
 }
