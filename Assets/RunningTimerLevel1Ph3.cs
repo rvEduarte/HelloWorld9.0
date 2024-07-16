@@ -16,6 +16,21 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     float elapsedTime;
     public bool isPicked = false;
 
+    [Header("PH1 ELAPSED TIME")]
+    [SerializeField] string timePh1;
+
+    [Header("PH2 ELAPSED TIME")]
+    [SerializeField] string timePh2;
+
+    [Header("PH3 ELAPSED TIME")]
+    [SerializeField] string timebegginnerLevel1Ph3;
+
+    private void Start()
+    {
+        timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
+        timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
+        timebegginnerLevel1Ph3 = PlayerPrefs.GetString("timebegginnerLevel1Ph3");
+    }
     void Update()
     {
         if (!pauseMenu.pause)
@@ -55,6 +70,8 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
             else
             {
                 textComplete.text = timerTxt.text;
+                PlayerPrefs.SetString("timebegginnerLevel1Ph3", textComplete.text);
+                PlayerPrefs.Save();
             }
         }
     }

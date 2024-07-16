@@ -23,7 +23,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     [Header("PH2 ELAPSED TIME")]
     [SerializeField] string timebegginnerLevel1Ph2;
-    private void Awake()
+    private void Start()
     {
         timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
         timebegginnerLevel1Ph2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
