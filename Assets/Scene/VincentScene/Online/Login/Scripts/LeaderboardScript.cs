@@ -10,7 +10,7 @@ public class LeaderboardScript : MonoBehaviour
     int leaderboardKey;
     private string mainMenuSceneName = "Scene 1";
 
-    [Header("Leaderboard Text")]
+    [Header("BEGGINNER LEVEL 1 Leaderboard Text")]
     public TextMeshProUGUI leaderboardGamerText;
     public TextMeshProUGUI leaderboardScoreText;
     public TextMeshProUGUI leaderboardTimeText;

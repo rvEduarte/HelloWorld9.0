@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SubmitLeaderBoardScript : MonoBehaviour
 {
-    public static string leaderboardKey ="BegginerLevel1";
+    public static string leaderboardKey;
     public TMP_InputField inputscore;
 
     public void GameManagerLevel1()
