@@ -23,9 +23,9 @@ public class GameSubmit : MonoBehaviour
     public void titeSubmit4()
     {
         submitLead.GameManagerLevel1();
-        int scoreToSubmit = 1000;
-        float timeTaken = 1000f;
-        float accuracy = 1000f;
+        int scoreToSubmit = 4000;
+        float timeTaken = 4000f;
+        float accuracy = 4000f;
         submitLead.titeSubmit(scoreToSubmit, timeTaken, accuracy);
     }
 }

@@ -10,11 +10,13 @@ public class LeaderboardScript : MonoBehaviour
     int leaderboardKey;
     private string mainMenuSceneName = "Scene 1";
 
-    [Header("BEGGINNER LEVEL 1 Leaderboard Text")]
+    [Header("Leaderboard Text")]
+    public TextMeshProUGUI leaderboardLevelText;
     public TextMeshProUGUI leaderboardGamerText;
     public TextMeshProUGUI leaderboardScoreText;
     public TextMeshProUGUI leaderboardTimeText;
     public TextMeshProUGUI leaderboardAccuracyText;
+
 
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
@@ -53,8 +55,7 @@ public class LeaderboardScript : MonoBehaviour
             {
                 // Leaderboard was retrieved
                 Debug.Log("Leaderboard was retrieved");
-                //show the leaderboard screen and populate it with the data
-
+                //show the leaderboard screen and populate it with the data 
                 leaderboardGamerText.text = "PLAYER NAME";
                 leaderboardScoreText.text = "SCORE";
                 leaderboardTimeText.text = "ELAPSED TIME";
@@ -124,12 +125,14 @@ public class LeaderboardScript : MonoBehaviour
     public void BegginnerGetDataLevel1()
     {
         leaderboardKey = 23450;
+        leaderboardLevelText.text = "Level1 Ranking";
         LevelGetData();
     }
 
     public void BegginnerGetDataLevel2()
     {
         leaderboardKey = 23455;
+        leaderboardLevelText.text = "Level2 Ranking";
         LevelGetData();
     }
 }
