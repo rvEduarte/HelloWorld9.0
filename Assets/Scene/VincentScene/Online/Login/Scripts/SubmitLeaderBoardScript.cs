@@ -6,8 +6,18 @@ using UnityEngine;
 
 public class SubmitLeaderBoardScript : MonoBehaviour
 {
-    public static string leaderboardKey = "BegginerLevel1";
+    public static string leaderboardKey ="BegginerLevel1";
     public TMP_InputField inputscore;
+
+    public void GameManagerLevel1()
+    {
+        leaderboardKey = "BegginerLevel1";
+    }
+
+    public void GameManagerLevel2() 
+    {
+        leaderboardKey = "BegginerLevel2";
+    }
     public void titeSubmit(int scoreToSubmit, float timeTaken, float accuracy)
     {
 

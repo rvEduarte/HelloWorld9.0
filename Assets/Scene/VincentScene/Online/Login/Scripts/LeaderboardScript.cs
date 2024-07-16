@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LeaderboardScript : MonoBehaviour
 {
-    int leaderboardKey = 23450;
+    int leaderboardKey;
     private string mainMenuSceneName = "Scene 1";
 
     [Header("Leaderboard Text")]
@@ -23,11 +23,11 @@ public class LeaderboardScript : MonoBehaviour
 
     public void Start()
     {
-        //GetLeaderboardData();
+       //LevelGetData();
     }
     public void LevelGetData()
     {
-        if (leaderboardGamerText == null || leaderboardScoreText == null || leaderboardTimeText == null || leaderboardAccuracyText)
+        if (leaderboardGamerText == null || leaderboardScoreText == null || leaderboardTimeText == null || leaderboardAccuracyText == null)
         {
             Debug.Log("Not assigned");
         }
@@ -94,7 +94,7 @@ public class LeaderboardScript : MonoBehaviour
         //set active
         errorPanel.SetActive(true);
         errorText.text = message.ToUpper();
-        errorScreenAnimator.SetTrigger("Show");
+        //errorScreenAnimator.SetTrigger("Show");
         //wait for 3 seconds and hide the error panel
         Invoke("hideErrorMessage", showTime);
     }
@@ -119,5 +119,17 @@ public class LeaderboardScript : MonoBehaviour
         string res = str2.Substring(0, end);
         res = res.ToUpper();
         return res;
+    }
+
+    public void BegginnerGetDataLevel1()
+    {
+        leaderboardKey = 23450;
+        LevelGetData();
+    }
+
+    public void BegginnerGetDataLevel2()
+    {
+        leaderboardKey = 23455;
+        LevelGetData();
     }
 }
