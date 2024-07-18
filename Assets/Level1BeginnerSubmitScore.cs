@@ -10,6 +10,8 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
     string ph1Time;
     string ph2Time;
     string ph3Time;
+
+    int score;
     private void Start()
     {
         // Ensure the SubmitLeaderboardScore script is attached to a GameObject in the scene
@@ -29,13 +31,15 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
         ph2Time = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
         ph3Time = PlayerPrefs.GetString("timebegginnerLevel1Ph3");
 
+        score = PlayerPrefs.GetInt("TotalscoreBegginnerLevel1");
+
+
+
     }
     public void SubmitScoreBeginner()
     {
         submitLead.GameManagerLevel1();
-        int scoreToSubmit = 10000;
-       // float timeTaken = 3000f;
-        //float accuracy = 3000f;
+        int scoreToSubmit = score;
 
         string timeTaken1 = ph1Time;
         string timeTaken2 = ph2Time;

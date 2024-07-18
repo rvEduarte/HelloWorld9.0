@@ -24,10 +24,22 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("PH3 ELAPSED TIME")]
     [SerializeField] string timePh3;
 
-    [Header("LevelCompletion")]
+    [Header("PH1 SCORE")]
+    [SerializeField] int scorePh1;
+
+    [Header("PH2 SCORE")]
+    [SerializeField] int scorePh2;
+
+    [Header("PH3 SCORE")]
+    [SerializeField] int scorePh3;
+
+    [Header("LevelCompletion TIME")]
     [SerializeField] TextMeshProUGUI textCompleteph1;
     [SerializeField] TextMeshProUGUI textCompleteph2;
     [SerializeField] TextMeshProUGUI textCompleteph3;
+
+    [Header("LevelCompletion SCORE")]
+    [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
 
     private void Start()
     {
@@ -36,6 +48,9 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
         textCompleteph1.text = timePh1 + " PH1";
         textCompleteph2.text = timePh2 + " PH2";
+
+        scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
+        scorePh2 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph2");
     }
     void Update()
     {
@@ -51,35 +66,57 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
                 timerTxt.text = trialText;
 
-                if (timerTxt.text == string.Format("{0:00}:{0:31}", minutes, seconds))
+                if (elapsedTime <= 31)
+                {
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 100);
+                }
+                else if (elapsedTime <= 46)
                 {
                     string text1 = "100 score 30 sec.";
                     string weight1 = "#44";
-                    textCompletion1.text = "<alpha=" + weight1 + ">" + text1;         //textCompletion1.text = "<font-weight=" +"\""+ weight1 +"\""+ ">" + text1 + "</font-weight>";
-                }
+                    textCompletion1.text = "<alpha=" + weight1 + ">" + text1;
 
-                else if (timerTxt.text == string.Format("{0:00}:{0:46}", minutes, seconds))
+
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 80);
+                }
+                else if (elapsedTime <= 61)
                 {
                     string text2 = "80 score 45 sec.";
                     string weight1 = "#44";
                     textCompletion2.text = "<alpha=" + weight1 + ">" + text2;
-                }
 
-                else if (trialText == "01:00")   //timerTxt.text == string.Format("{0}:{0:60}", minutes, seconds)
+
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 50);
+
+                }
+                else
                 {
-                    Debug.Log("tite");
                     string text3 = "50 score 60 sec.";
                     string weight1 = "#44";
                     textCompletion3.text = "<alpha=" + weight1 + ">" + text3;
+
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 0);
                 }
+
+                PlayerPrefs.Save();
             }
             else
             {
                 timePh3 = timerTxt.text;
                 PlayerPrefs.SetString("timebegginnerLevel1Ph3", timePh3);
-                PlayerPrefs.Save();
 
                 textCompleteph3.text = timePh3 + " PH3";
+
+                scorePh3 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph3");
+
+                int totalscore = scorePh1 + scorePh2 + scorePh3;
+
+                textTotalScoreLevel1.text = totalscore.ToString();
+
+                PlayerPrefs.SetInt("TotalscoreBegginnerLevel1", totalscore);
+
+                PlayerPrefs.Save();
+
             }
         }
     }

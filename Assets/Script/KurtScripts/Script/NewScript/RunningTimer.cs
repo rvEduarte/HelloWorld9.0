@@ -26,8 +26,7 @@ public class RunningTimer : MonoBehaviour
 
     private void Start()
     {
-        timebegginnerLevel1Ph1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
-        scorebegginnerLevel1Ph1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
+
     }
     void Update()
     {
@@ -43,36 +42,39 @@ public class RunningTimer : MonoBehaviour
 
                 timerTxt.text = trialText;
 
-                if (timerTxt.text == string.Format("{0:00}:{0:31}", minutes, seconds))
-                {                   
+                if (elapsedTime <= 31)
+                {
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 100);
+                }
+                else if (elapsedTime <= 46)
+                {
                     string text1 = "100 score 30 sec.";
                     string weight1 = "#44";
-                    textCompletion1.text = "<alpha=" + weight1 + ">" + text1;         //textCompletion1.text = "<font-weight=" +"\""+ weight1 +"\""+ ">" + text1 + "</font-weight>";
+                    textCompletion1.text = "<alpha=" + weight1 + ">" + text1;
 
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 100);
-                    PlayerPrefs.Save();
+
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 80);
                 }
-
-                else if (timerTxt.text == string.Format("{0:00}:{0:46}", minutes, seconds))
+                else if (elapsedTime <= 61)
                 {
                     string text2 = "80 score 45 sec.";
                     string weight1 = "#44";
                     textCompletion2.text = "<alpha=" + weight1 + ">" + text2;
 
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 80);
-                    PlayerPrefs.Save();
-                }
 
-                else if (trialText == "01:00")   //timerTxt.text == string.Format("{0}:{0:60}", minutes, seconds)
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 50);
+
+                }
+                else
                 {
-                    Debug.Log("tite");
                     string text3 = "50 score 60 sec.";
                     string weight1 = "#44";
                     textCompletion3.text = "<alpha=" + weight1 + ">" + text3;
 
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 50);
-                    PlayerPrefs.Save();
+                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", 0);
                 }
+
+                PlayerPrefs.Save();
 
             }
             else 
