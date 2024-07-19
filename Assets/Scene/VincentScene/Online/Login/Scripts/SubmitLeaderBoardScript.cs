@@ -18,15 +18,6 @@ public class SubmitLeaderBoardScript : MonoBehaviour
     {
         leaderboardKey = "BegginerLevel2";
     }
-    /*public void titeSubmit(int scoreToSubmit, float timeTaken, float accuracy)
-    {
-
-        PlayerPrefs.SetFloat("tite1", timeTaken);
-        PlayerPrefs.SetFloat("tite", accuracy);
-        PlayerPrefs.Save();
-        Submit(scoreToSubmit);
-
-    }*/
 
     public void titeSubmit(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3)
     {

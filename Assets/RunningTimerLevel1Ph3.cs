@@ -33,6 +33,9 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("PH3 SCORE")]
     [SerializeField] int scorePh3;
 
+    [Header("PH3 ACCURACY")]
+    [SerializeField] int accuracyPh2;
+
     [Header("LevelCompletion TIME")]
     [SerializeField] TextMeshProUGUI textCompleteph1;
     [SerializeField] TextMeshProUGUI textCompleteph2;
@@ -41,16 +44,27 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("LevelCompletion SCORE")]
     [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
 
+    [Header("LevelCompletion ACCURACY")]
+    [SerializeField] TextMeshProUGUI textAccuracyLevel1Ph2;
+
+    float accuracyPercentage;
+
     private void Start()
     {
         timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
         timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
 
-        textCompleteph1.text = timePh1 + " PH1";
+        textCompleteph1.text = timePh1 + " PH1";  
         textCompleteph2.text = timePh2 + " PH2";
 
         scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
         scorePh2 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph2");
+
+        accuracyPh2 = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+
+       // textAccuracyLevel1Ph2.text = accuracyPh2.ToString() + " PH2";
+
+         
     }
     void Update()
     {
@@ -117,7 +131,16 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
                 PlayerPrefs.Save();
 
+                calculateAccuracy();
+
+                textAccuracyLevel1Ph2.text = accuracyPercentage.ToString()+"%" + " PH2";
             }
         }
+    }
+    private void calculateAccuracy()
+    {
+        accuracyPercentage = 100f - (accuracyPh2 - 1) * 10f;
+        Mathf.Max(accuracyPercentage, 0f); // Ensure the accuracy does not go below 0%
+        return;
     }
 }
