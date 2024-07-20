@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RunningTimerLevel1Ph2 : MonoBehaviour
+public class RunningTimerLevel1Ph1 : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerTxt;
     [SerializeField] TextMeshProUGUI textComplete;
@@ -16,21 +16,14 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     public bool isPicked = false;
 
     [Header("PH1 ELAPSED TIME")]
-    [SerializeField] private string timePh1;
-
-    [Header("PH2 ELAPSED TIME")]
-    [SerializeField] private string timePh2;
+    [SerializeField] private string timeBegginnerLevel1Ph1;
 
     [Header("PH1 SCORE")]
-    [SerializeField] private int scorePh1;
-
-    [Header("PH2 SCORE")]
-    [SerializeField] private int scorePh2;
+    [SerializeField] private int scoreBegginnerLevel1Ph1;
 
     private void Start()
     {
-        LoadPlayerPrefs();
-        DisplayInitialTimes();
+        // Initialize if needed
     }
 
     private void Update()
@@ -46,18 +39,6 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
                 SaveAndDisplayCompletionTimes();
             }
         }
-    }
-
-    private void LoadPlayerPrefs()
-    {
-        timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
-        timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
-        scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
-    }
-
-    private void DisplayInitialTimes()
-    {
-        // Display initial times if needed
     }
 
     private void UpdateElapsedTime()
@@ -78,16 +59,19 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
         if (time <= 31)
         {
             SetScore(100);
+            
         }
         else if (time <= 46)
         {
             SetScore(80);
             DisplayCompletionText(textCompletion1, "100 score 30 sec.");
+            
         }
         else if (time <= 61)
         {
             SetScore(50);
             DisplayCompletionText(textCompletion2, "80 score 45 sec.");
+            
         }
         else
         {
@@ -100,7 +84,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void SetScore(int score)
     {
-        PlayerPrefs.SetInt("scorebegginnerLevel1Ph2", score);
+        PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", score);
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -111,9 +95,9 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void SaveAndDisplayCompletionTimes()
     {
-        timePh2 = timerTxt.text;
-        PlayerPrefs.SetString("timebegginnerLevel1Ph2", timePh2);
-        textComplete.text = $"{timePh2} PH2";
+        timeBegginnerLevel1Ph1 = timerTxt.text;
+        PlayerPrefs.SetString("timebegginnerLevel1Ph1", timeBegginnerLevel1Ph1);
+        textComplete.text = timeBegginnerLevel1Ph1;
         PlayerPrefs.Save();
     }
 }
