@@ -28,6 +28,7 @@ public class QuizManage : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.DeleteKey("quizScoreBeginnerLevel1");
         //movingPlatform.SetActive(false);
         totalQuestions = QnA.Count;
         completionPanel.SetActive(false);
@@ -49,20 +50,23 @@ public class QuizManage : MonoBehaviour
         scoreCount += 1;
         scoreBoard += 10;
 
+        PlayerPrefs.SetInt("quizScoreBeginnerLevel1", scoreBoard);
+        PlayerPrefs.Save();
+
         StartCoroutine(DisplayResultAndNext(true));
     }
 
     public void wrong()
     {
         // Change button color for wrong answer
-        foreach (var option in options)
+        /*foreach (var option in options)
         {
             var answerScript = option.GetComponent<AnswersScript>();
             if (!answerScript.isCorrect)
             {
                 option.GetComponent<Image>().color = Color.red;
             }
-        }
+        }*/
 
         StartCoroutine(DisplayResultAndNext(false));
     }

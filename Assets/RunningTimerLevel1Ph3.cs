@@ -31,11 +31,14 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("PH1 SCORE")]
     [SerializeField] private int scorePh1;
 
-    [Header("PH1 SCORE")]
+    [Header("PH2 SCORE")]
     [SerializeField] private int scorePh2;
 
-    [Header("PH1 SCORE")]
+    [Header("PH3 SCORE")]
     [SerializeField] private int scorePh3;
+
+    [Header("PH3 QUIZ SCORE")]
+    [SerializeField] private int quizScore;
 
     [Header("PH2 ACCURACY")]
     [SerializeField] private int accuracyPh2;
@@ -71,6 +74,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
         scorePh2 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph2");
         accuracyPh2 = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+        quizScore = PlayerPrefs.GetInt("quizScoreBeginnerLevel1");
     }
 
     private void DisplayInitialTimesAndScores()
@@ -137,7 +141,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
         scorePh3 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph3");
 
-        int totalScore = scorePh1 + scorePh2 + scorePh3;
+        int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore;
         textTotalScoreLevel1.text = totalScore.ToString();
 
         PlayerPrefs.SetInt("TotalscoreBegginnerLevel1", totalScore);
