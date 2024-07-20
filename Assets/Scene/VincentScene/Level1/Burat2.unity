@@ -11885,7 +11885,7 @@ GameObject:
   - component: {fileID: 3135979483710007142}
   - component: {fileID: 1354796306326862463}
   - component: {fileID: 4784326844137283728}
-  - component: {fileID: 4784326844137283730}
+  - component: {fileID: 4784326844137283731}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -45882,6 +45882,7 @@ MonoBehaviour:
   BoolLaser1: {fileID: 4160219937469402055}
   BoolLaser2: {fileID: 4160219937469402055}
   BoolLaser3: {fileID: 4160219937469402055}
+  getAccuracy: 0
 --- !u!114 &4203133066987033079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47770,7 +47771,7 @@ MonoBehaviour:
   pauseMenuPanel: {fileID: 1263519250}
   playerPlayPanel: {fileID: 1863795180}
   pause: 0
---- !u!114 &4784326844137283730
+--- !u!114 &4784326844137283731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47779,7 +47780,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2984321982840479010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02768422281e7ae4597a37917ede29f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5739eed3f29f4854bbe53a2e93f8fd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timerTxt: {fileID: 8848009812941731983}
@@ -47789,9 +47790,6 @@ MonoBehaviour:
   textCompletion3: {fileID: 263466762781167102}
   pauseMenu: {fileID: 4784326844137283728}
   isPicked: 0
-  timePh1: 
-  timebegginnerLevel1Ph2: 
-  scorePh1: 0
 --- !u!1 &4785427727226190030
 GameObject:
   m_ObjectHideFlags: 0
@@ -73695,7 +73693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCompletion: {fileID: 20659186253802510}
-  timer: {fileID: 4784326844137283730}
+  timer: {fileID: 0}
 --- !u!212 &9059504998701333230
 SpriteRenderer:
   m_ObjectHideFlags: 0

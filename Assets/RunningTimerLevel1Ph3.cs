@@ -9,138 +9,146 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [SerializeField] TextMeshProUGUI textCompletion1;
     [SerializeField] TextMeshProUGUI textCompletion2;
     [SerializeField] TextMeshProUGUI textCompletion3;
-
-    [SerializeField] private Pause pauseMenu;
-
-    float elapsedTime;
-    public bool isPicked = false;
-
-    [Header("PH1 ELAPSED TIME")]
-    [SerializeField] string timePh1;
-
-    [Header("PH2 ELAPSED TIME")]
-    [SerializeField] string timePh2;
-
-    [Header("PH3 ELAPSED TIME")]
-    [SerializeField] string timePh3;
-
-    [Header("PH1 SCORE")]
-    [SerializeField] int scorePh1;
-
-    [Header("PH2 SCORE")]
-    [SerializeField] int scorePh2;
-
-    [Header("PH3 SCORE")]
-    [SerializeField] int scorePh3;
-
-    [Header("PH3 ACCURACY")]
-    [SerializeField] int accuracyPh2;
-
-    [Header("LevelCompletion TIME")]
     [SerializeField] TextMeshProUGUI textCompleteph1;
     [SerializeField] TextMeshProUGUI textCompleteph2;
     [SerializeField] TextMeshProUGUI textCompleteph3;
-
-    [Header("LevelCompletion SCORE")]
     [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
-
-    [Header("LevelCompletion ACCURACY")]
     [SerializeField] TextMeshProUGUI textAccuracyLevel1Ph2;
+    [SerializeField] Pause pauseMenu;
 
-    float accuracyPercentage;
+    private float elapsedTime;
+    public bool isPicked = false;
+
+    [Header("PH1 ELAPSED TIME")]
+    [SerializeField] private string timePh1;
+
+    [Header("PH2 ELAPSED TIME")]
+    [SerializeField] private string timePh2;
+
+    [Header("PH3 ELAPSED TIME")]
+    [SerializeField] private string timePh3;
+
+    [Header("PH1 SCORE")]
+    [SerializeField] private int scorePh1;
+
+    [Header("PH1 SCORE")]
+    [SerializeField] private int scorePh2;
+
+    [Header("PH1 SCORE")]
+    [SerializeField] private int scorePh3;
+
+    [Header("PH2 ACCURACY")]
+    [SerializeField] private int accuracyPh2;
+
+    private float accuracyPercentage;
 
     private void Start()
+    {
+        LoadPlayerPrefs();
+        DisplayInitialTimesAndScores();
+    }
+
+    private void Update()
+    {
+        if (!pauseMenu.pause)
+        {
+            if (!isPicked)
+            {
+                UpdateElapsedTime();
+            }
+            else
+            {
+                SaveAndDisplayCompletionTimesAndScores();
+            }
+        }
+    }
+
+    private void LoadPlayerPrefs()
     {
         timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
         timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
 
-        textCompleteph1.text = timePh1 + " PH1";  
-        textCompleteph2.text = timePh2 + " PH2";
-
         scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
         scorePh2 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph2");
-
         accuracyPh2 = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
-
-       // textAccuracyLevel1Ph2.text = accuracyPh2.ToString() + " PH2";
-
-         
     }
-    void Update()
+
+    private void DisplayInitialTimesAndScores()
     {
-        if (!pauseMenu.pause)
+        textCompleteph1.text = $"{timePh1} PH1";
+        textCompleteph2.text = $"{timePh2} PH2";
+    }
+
+    private void UpdateElapsedTime()
+    {
+        elapsedTime += Time.deltaTime;
+
+        int minutes = Mathf.FloorToInt(elapsedTime / 60);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60);
+        string formattedTime = $"{minutes:00}:{seconds:00}";
+
+        timerTxt.text = formattedTime;
+
+        UpdateScoreBasedOnTime(elapsedTime);
+    }
+
+    private void UpdateScoreBasedOnTime(float time)
+    {
+        if (time <= 31)
         {
-            if (isPicked == false)
-            {
-                elapsedTime += Time.deltaTime;
-
-                int minutes = Mathf.FloorToInt(elapsedTime / 60);
-                int seconds = Mathf.FloorToInt(elapsedTime % 60);
-                string trialText = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-                timerTxt.text = trialText;
-
-                if (elapsedTime <= 31)
-                {
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 100);
-                }
-                else if (elapsedTime <= 46)
-                {
-                    string text1 = "100 score 30 sec.";
-                    string weight1 = "#44";
-                    textCompletion1.text = "<alpha=" + weight1 + ">" + text1;
-
-
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 80);
-                }
-                else if (elapsedTime <= 61)
-                {
-                    string text2 = "80 score 45 sec.";
-                    string weight1 = "#44";
-                    textCompletion2.text = "<alpha=" + weight1 + ">" + text2;
-
-
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 50);
-
-                }
-                else
-                {
-                    string text3 = "50 score 60 sec.";
-                    string weight1 = "#44";
-                    textCompletion3.text = "<alpha=" + weight1 + ">" + text3;
-
-                    PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", 0);
-                }
-
-                PlayerPrefs.Save();
-            }
-            else
-            {
-                timePh3 = timerTxt.text;
-                PlayerPrefs.SetString("timebegginnerLevel1Ph3", timePh3);
-
-                textCompleteph3.text = timePh3 + " PH3";
-
-                scorePh3 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph3");
-
-                int totalscore = scorePh1 + scorePh2 + scorePh3;
-
-                textTotalScoreLevel1.text = totalscore.ToString();
-
-                PlayerPrefs.SetInt("TotalscoreBegginnerLevel1", totalscore);
-
-                PlayerPrefs.Save();
-
-                calculateAccuracy();
-
-                textAccuracyLevel1Ph2.text = accuracyPercentage.ToString()+"%" + " PH2";
-            }
+            SetScore(100);
         }
+        else if (time <= 46)
+        {
+            SetScore(80);
+            DisplayCompletionText(textCompletion1, "100 score 30 sec.");
+        }
+        else if (time <= 61)
+        {
+            SetScore(50);
+            DisplayCompletionText(textCompletion2, "80 score 45 sec.");
+        }
+        else
+        {
+            SetScore(0);
+            DisplayCompletionText(textCompletion3, "50 score 60 sec.");
+        }
+
+        PlayerPrefs.Save();
     }
-    private void calculateAccuracy()
+
+    private void SetScore(int score)
     {
-        accuracyPercentage = 100f - (accuracyPh2 - 1) * 10f;
-        Mathf.Max(accuracyPercentage, 0f); // Ensure the accuracy does not go below 0%
-        return;
+        PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", score);
+    }
+
+    private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
+    {
+        string weight = "#44";
+        textComponent.text = $"<alpha={weight}>{text}";
+    }
+
+    private void SaveAndDisplayCompletionTimesAndScores()
+    {
+        timePh3 = timerTxt.text;
+        PlayerPrefs.SetString("timebegginnerLevel1Ph3", timePh3);
+
+        textCompleteph3.text = $"{timePh3} PH3";
+
+        scorePh3 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph3");
+
+        int totalScore = scorePh1 + scorePh2 + scorePh3;
+        textTotalScoreLevel1.text = totalScore.ToString();
+
+        PlayerPrefs.SetInt("TotalscoreBegginnerLevel1", totalScore);
+        PlayerPrefs.Save();
+
+        CalculateAndDisplayAccuracy();
+    }
+
+    private void CalculateAndDisplayAccuracy()
+    {
+        accuracyPercentage = Mathf.Max(100f - (accuracyPh2 - 1) * 10f, 0f);
+        textAccuracyLevel1Ph2.text = $"{accuracyPercentage}% PH2";
     }
 }
