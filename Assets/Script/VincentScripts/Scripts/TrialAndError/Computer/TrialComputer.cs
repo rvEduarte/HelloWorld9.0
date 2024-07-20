@@ -304,7 +304,7 @@ public class TrialComputer : MonoBehaviour
                     Counter1.counter = 0;
 
                     IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
-                    getAccuracy = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+                    
                 }            
             }       
         }

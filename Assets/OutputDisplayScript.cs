@@ -143,7 +143,7 @@ public class OutputDisplayScript : MonoBehaviour
 
     bool IsValidCode1(string code)
     {
-        string pattern = @"Console\.Write\(\s*""Karl etits""\s*\);";
+        string pattern = @"Console\.Write\(\s*""I Love Coding!""\s*\);";
         return Regex.IsMatch(code, pattern);
     }
 

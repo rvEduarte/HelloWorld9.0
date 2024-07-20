@@ -113,7 +113,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     {
         timePh2 = timerTxt.text;
         PlayerPrefs.SetString("timebegginnerLevel1Ph2", timePh2);
-        textComplete.text = $"{timePh2} PH2";
+        textComplete.text = $"{timePh2}";
         PlayerPrefs.Save();
     }
 }
