@@ -68,11 +68,11 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void LoadPlayerPrefs()
     {
-        timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
-        timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
+        timePh1 = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
+        timePh2 = PlayerPrefs.GetString("time_beginnerLevel1Ph2");
 
-        scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
-        scorePh2 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph2");
+        scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
+        scorePh2 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
 
         accuracyPh2 = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
 
@@ -137,16 +137,16 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     private void SaveAndDisplayCompletionTimesAndScores()
     {
         timePh3 = timerTxt.text;
-        PlayerPrefs.SetString("timebegginnerLevel1Ph3", timePh3);
+        PlayerPrefs.SetString("time_beginnerLevel1Ph3", timePh3);
 
         textCompleteph3.text = $"{timePh3} PH3";
 
-        scorePh3 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph3");
+        scorePh3 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph3");
 
         int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore;
         textTotalScoreLevel1.text = totalScore.ToString();
 
-        PlayerPrefs.SetInt("TotalscoreBegginnerLevel1", totalScore);
+        PlayerPrefs.SetInt("Totalscore_beginnerLevel1", totalScore);
         PlayerPrefs.Save();
 
         CalculateAndDisplayAccuracy();

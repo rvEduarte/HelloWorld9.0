@@ -9,10 +9,6 @@ public class FinishPointScriptLevel1Ph2 : MonoBehaviour
 
     public RunningTimerLevel1Ph2 timer;
 
-    public TextMeshProUGUI exerciseAccuracy;
-
-    int accuracy;
-    float accuracyPercentage;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -20,14 +16,6 @@ public class FinishPointScriptLevel1Ph2 : MonoBehaviour
             gameCompletion.SetActive(true);
 
             timer.isPicked = true;
-            accuracy = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
-            CalculateAndDisplayAccuracy();
         }
-    }
-
-    private void CalculateAndDisplayAccuracy()
-    {
-        accuracyPercentage = Mathf.Max(100f - (accuracy - 1) * 10f, 0f);
-        exerciseAccuracy.text = $"{accuracyPercentage}%";
     }
 }

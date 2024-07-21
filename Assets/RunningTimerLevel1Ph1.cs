@@ -7,19 +7,25 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerTxt;
     [SerializeField] TextMeshProUGUI textComplete;
+
+    [Header("Timebased completion fade")]
     [SerializeField] TextMeshProUGUI textCompletion1;
     [SerializeField] TextMeshProUGUI textCompletion2;
     [SerializeField] TextMeshProUGUI textCompletion3;
+
+    [Header("timebased score")]
+    [SerializeField] TextMeshProUGUI textTimeScorePh1;
+
     [SerializeField] private Pause pauseMenu;
 
     private float elapsedTime;
     public bool isPicked = false;
 
     [Header("PH1 ELAPSED TIME")]
-    [SerializeField] private string timeBegginnerLevel1Ph1;
+    [SerializeField] private string timeBeginnerLevel1Ph1;
 
     [Header("PH1 SCORE")]
-    [SerializeField] private int scoreBegginnerLevel1Ph1;
+    [SerializeField] private int scoreBeginnerLevel1Ph1;
 
     private void Start()
     {
@@ -84,7 +90,7 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 
     private void SetScore(int score)
     {
-        PlayerPrefs.SetInt("scorebegginnerLevel1Ph1", score);
+        PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph1", score);
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -95,9 +101,12 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 
     private void SaveAndDisplayCompletionTimes()
     {
-        timeBegginnerLevel1Ph1 = timerTxt.text;
-        PlayerPrefs.SetString("timebegginnerLevel1Ph1", timeBegginnerLevel1Ph1);
-        textComplete.text = timeBegginnerLevel1Ph1;
+        
+        timeBeginnerLevel1Ph1 = timerTxt.text;
+        PlayerPrefs.SetString("time_beginnerLevel1Ph1", timeBeginnerLevel1Ph1);
+        textComplete.text = timeBeginnerLevel1Ph1;
         PlayerPrefs.Save();
+
+        textTimeScorePh1.text = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1").ToString();
     }
 }

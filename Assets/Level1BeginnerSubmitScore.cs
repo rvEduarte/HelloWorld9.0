@@ -27,11 +27,11 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
         }
 
         //Get PlayerPrefs value of the previous saved elapsed time.
-        ph1Time = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
-        ph2Time = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
-        ph3Time = PlayerPrefs.GetString("timebegginnerLevel1Ph3");
+        ph1Time = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
+        ph2Time = PlayerPrefs.GetString("time_beginnerLevel1Ph2");
+        ph3Time = PlayerPrefs.GetString("time_beginnerLevel1Ph3");
 
-        score = PlayerPrefs.GetInt("TotalscoreBegginnerLevel1");
+        score = PlayerPrefs.GetInt("Totalscore_beginnerLevel1");
 
 
 
