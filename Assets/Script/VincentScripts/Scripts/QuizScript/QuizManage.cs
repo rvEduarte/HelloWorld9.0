@@ -29,8 +29,9 @@ public class QuizManage : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteKey("quizScoreBeginnerLevel1");
-        //movingPlatform.SetActive(false);
+        PlayerPrefs.DeleteKey("quizScore_beginnerLevel1");
+        PlayerPrefs.DeleteKey("quizAccuracy_beginnerLevel1");
+
         totalQuestions = QnA.Count;
         completionPanel.SetActive(false);
         
@@ -51,7 +52,7 @@ public class QuizManage : MonoBehaviour
         scoreCount += 1;
         scoreBoard += 10;
 
-        PlayerPrefs.SetInt("quizScore_BeginnerLevel1", scoreBoard);
+        PlayerPrefs.SetInt("quizScore_beginnerLevel1", scoreBoard);
         PlayerPrefs.Save();
 
         StartCoroutine(DisplayResultAndNext(true));
@@ -69,7 +70,7 @@ public class QuizManage : MonoBehaviour
             }
         }*/
         wrongAnswers += 1;
-        PlayerPrefs.SetInt("quizAccuracy_BeginnerLevel1", scoreBoard);
+        PlayerPrefs.SetInt("quizAccuracy_beginnerLevel1", wrongAnswers);
         PlayerPrefs.Save();
 
 

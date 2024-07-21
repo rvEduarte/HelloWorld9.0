@@ -22,6 +22,13 @@ public class LeaderboardScript : MonoBehaviour
     public TextMeshProUGUI timeTaken2;
     public TextMeshProUGUI timeTaken3;
 
+    [Header("Leaderboard Exercise Accuracy Text")]
+    public TextMeshProUGUI exerciseAccuracyPh2;
+    public TextMeshProUGUI exerciseAccuracyPh3;
+
+    [Header("Leaderboard Quiz Accuracy Text")]
+    public TextMeshProUGUI quizAccuracyPh3;
+
 
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
@@ -69,6 +76,11 @@ public class LeaderboardScript : MonoBehaviour
                 timeTaken2.text = "elapsed time ph2";
                 timeTaken3.text = "elapsed time ph3";
 
+                exerciseAccuracyPh2.text = "Challenge Exercise Accuracy PH2";
+                exerciseAccuracyPh3.text = "Challenge Exercise Accuracy PH3";
+
+                quizAccuracyPh3.text = "Quiz Accuracy PH3";
+
                 //for each item 
                 foreach (LootLockerLeaderboardMember score in response.items)
                 {
@@ -81,6 +93,11 @@ public class LeaderboardScript : MonoBehaviour
                     timeTaken1.text += "\n" + metadata.timeTaken1;
                     timeTaken2.text += "\n" + metadata.timeTaken2;
                     timeTaken3.text += "\n" + metadata.timeTaken3;
+
+                    exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
+                    exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
+
+                    quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
 
                     //leaderboardTimeText.text += "\n" + metadata.timeTaken.ToString();
                     //leaderboardAccuracyText.text += "\n" + (metadata.accuracy * 100).ToString("F2") + "%";

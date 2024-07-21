@@ -23,6 +23,10 @@ public class OutputDisplayScript : MonoBehaviour
         // Add listeners to the input fields to update display
         codeInputField1.onValueChanged.AddListener(OnCodeInputChanged);
         codeInputField2.onValueChanged.AddListener(OnCodeInputChanged);
+
+
+        PlayerPrefs.DeleteKey("excerciseAccuracy_beginnerLevel1");
+        PlayerPrefs.SetInt("excerciseAccuracy_beginnerLevel1", 1);
     }
 
     void OnCodeInputChanged(string code)
@@ -106,6 +110,15 @@ public class OutputDisplayScript : MonoBehaviour
         var result = table.Compute(expression, string.Empty);
         return result;
     }
+    public void IncreaseAccuracy(string key, int increment)
+    {
+        int currentAccuracy = PlayerPrefs.GetInt(key, 0);
+        int newAccuracy = currentAccuracy + increment;
+
+        //Save EXERCISE ACCURACY VALUE
+        PlayerPrefs.SetInt(key, newAccuracy);
+        PlayerPrefs.Save();
+    }
 
     public void OnDisplayButtonClick()
     {
@@ -127,6 +140,7 @@ public class OutputDisplayScript : MonoBehaviour
         }
         else
         {
+            IncreaseAccuracy("excerciseAccuracy_beginnerLevel1", 1);
             outputDisplay.text = currentOutput;
         }
     }

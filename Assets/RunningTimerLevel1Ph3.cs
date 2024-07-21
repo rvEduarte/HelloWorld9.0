@@ -19,8 +19,15 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
 
-    [Header("ACCURACY PERCENTAGE PHASE 2")]
-    [SerializeField] TextMeshProUGUI valueAccuracyTxtPh2;
+    [Header("EXERCISE ACCURACY PERCENTAGE PHASE 2")]
+    [SerializeField] TextMeshProUGUI valueExerciseAccuracyTxtPh2;
+
+    [Header("EXERCISE ACCURACY PERCENTAGE PHASE 3")]
+    [SerializeField] TextMeshProUGUI valueExerciseAccuracyTxtPh3;
+
+    [Header("QUIZ ACCURACY PERCENTAGE PHASE 3")]
+    [SerializeField] TextMeshProUGUI valueQuizAccuracyTxtPh3;
+
     [SerializeField] Pause pauseMenu;
 
     private float elapsedTime;
@@ -47,10 +54,16 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("PH3 QUIZ SCORE")]
     [SerializeField] private int quizScore;
 
-    [Header("PH2 ACCURACY")]
-    [SerializeField] private float accuracyPh2;
+    [Header("PH2 Exercise ACCURACY")]
+    [SerializeField] private float exerciseAccuracyPh2;
 
     private float accuracyPercentage;
+
+    int quizWrong;
+    float quizPercentage;
+
+    int exerciseWrong;
+    float exercisePercentage;
 
     private void Start()
     {
@@ -84,17 +97,16 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         scorePh2 = PlayerPrefs.GetInt("totalScore_beginnerLevel1Ph2");
 
         //Get the ACCURACY PERCENTAGE of PHASE 2
-        accuracyPh2 = PlayerPrefs.GetFloat("accuracyPercentage_beginnerLevel1Ph2");
+        exerciseAccuracyPh2 = PlayerPrefs.GetFloat("accuracyPercentage_beginnerLevel1Ph2");
 
 
-        //quizScore = PlayerPrefs.GetInt("quizScore_BeginnerLevel1");
     }
 
     private void DisplayInitialTimesAndAccuracy()
     {
         valueTimeCompleteTxt1.text = $"{timePh1} PH1";
         valueTimeCompleteTxt2.text = $"{timePh2} PH2";
-        valueAccuracyTxtPh2.text = $"{accuracyPh2}% PH2";
+        valueExerciseAccuracyTxtPh2.text = $"{exerciseAccuracyPh2}% PH2";
     }
 
     private void UpdateElapsedTime()
@@ -137,7 +149,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void SetScore(int score)
     {
-        PlayerPrefs.SetInt("scorebegginnerLevel1Ph3", score);
+        PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph3", score);
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -148,16 +160,47 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void SaveAndDisplayCompletionTimesAndScores()
     {
+        
+        //Get the quizScore VALUE
+        quizScore = PlayerPrefs.GetInt("quizScore_beginnerLevel1");
+
         timePh3 = timerTxt.text;
         PlayerPrefs.SetString("time_beginnerLevel1Ph3", timePh3);
 
         valueTimeCompleteTxt3.text = $"{timePh3} PH3";
 
+        //Get the SCORE TIME  OF PHASE 3
         scorePh3 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph3");
 
-        int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore;
+        CalculateQuizAccuracy();
+        CalculateExerciseAccuracy();
+    }
+
+    private void CalculateQuizAccuracy()
+    {
+        quizWrong = PlayerPrefs.GetInt("quizAccuracy_beginnerLevel1");
+        quizPercentage = ((5 - quizWrong) / 5f) * 100;
+        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% PH3";
+
+        //Save QUIZ ACCURACY OF PHASE 3
+        PlayerPrefs.SetFloat("quizAccuracyPercentage_beginnerLevel1Ph2", quizPercentage);
+        PlayerPrefs.Save();
+    }
+
+    private void CalculateExerciseAccuracy()
+    {
+        exerciseWrong = PlayerPrefs.GetInt("excerciseAccuracy_beginnerLevel1");
+        exercisePercentage = Mathf.Max(100f - (exerciseWrong - 1) * 10f, 0f);
+        valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% PH3";
+
+        //Save EXERCISE ACCURACY OF PHASE 3
+        PlayerPrefs.SetFloat("exerciseAccuracyPercentage_beginnerLevel1Ph2", exercisePercentage);
+        PlayerPrefs.Save();
+
+        int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore + Mathf.RoundToInt(exercisePercentage);
         textTotalScoreLevel1.text = totalScore.ToString();
 
+        //Set the TOTAL SCORE of PHASE 1 TO PHASE 3
         PlayerPrefs.SetInt("Totalscore_beginnerLevel1", totalScore);
         PlayerPrefs.Save();
     }

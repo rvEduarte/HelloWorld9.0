@@ -146,7 +146,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
         int totalScore = timeScore + Mathf.RoundToInt(accuracyPercentage);
         textTimeScorePh2.text = totalScore.ToString();
 
-        //SAVE ACCURACY PERCENTAGE OF PHASE 2
+        //SAVE EXERCISE ACCURACY PERCENTAGE OF PHASE 2
         PlayerPrefs.SetFloat("accuracyPercentage_beginnerLevel1Ph2", accuracyPercentage);
 
         // SAVE TOTAL SCORE OF PHASE 2
