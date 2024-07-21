@@ -39,9 +39,9 @@ public class TrialComputer : MonoBehaviour
     {
         disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2 (-9, 0);
         disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2((float)0.1, (float)16.8);
-        PlayerPrefs.DeleteKey("accuracyBeginnerLevel1Ph2");
+        PlayerPrefs.DeleteKey("accuracy_beginnerLevel1Ph2");
 
-        PlayerPrefs.SetInt("accuracyBeginnerLevel1Ph2", 1);
+        PlayerPrefs.SetInt("accuracy_beginnerLevel1Ph2", 1);
     }
 
     // Update is called once per frame
@@ -197,7 +197,7 @@ public class TrialComputer : MonoBehaviour
                     disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2(0, (float)-15.56);
                     disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
 
-                    getAccuracy = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+                    getAccuracy = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
                 }
                 else
                 {
@@ -303,7 +303,7 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
+                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
                     
                 }            
             }       
@@ -343,7 +343,7 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
+                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
                 }
             }
         }
@@ -379,7 +379,7 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
+                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
                 }
                 else
                 {
@@ -400,7 +400,7 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
+                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
 
                 }
             }
@@ -441,7 +441,7 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracyBeginnerLevel1Ph2", 1);
+                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
                 }
             }
         }       

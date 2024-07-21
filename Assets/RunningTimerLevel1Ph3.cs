@@ -74,7 +74,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
         scorePh2 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
 
-        accuracyPh2 = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+        accuracyPh2 = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
 
         quizScore = PlayerPrefs.GetInt("quizScore_BeginnerLevel1");
     }

@@ -130,7 +130,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
         timeScore = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
 
 
-        accuracy = PlayerPrefs.GetInt("accuracyBeginnerLevel1Ph2");
+        accuracy = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
         CalculateAndDisplayAccuracy();
     }
 
