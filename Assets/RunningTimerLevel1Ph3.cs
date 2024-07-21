@@ -6,14 +6,21 @@ using UnityEngine;
 public class RunningTimerLevel1Ph3 : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerTxt;
-    [SerializeField] TextMeshProUGUI textCompletion1;
-    [SerializeField] TextMeshProUGUI textCompletion2;
-    [SerializeField] TextMeshProUGUI textCompletion3;
-    [SerializeField] TextMeshProUGUI textCompleteph1;
-    [SerializeField] TextMeshProUGUI textCompleteph2;
-    [SerializeField] TextMeshProUGUI textCompleteph3;
+
+    [Header("Timebased completion fade")]
+    [SerializeField] TextMeshProUGUI timeFadeTxt1;
+    [SerializeField] TextMeshProUGUI timeFadeTxt2;
+    [SerializeField] TextMeshProUGUI timeFadeTxt3;
+
+    [Header("time value completion")]
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt1;
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt2;
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt3;
+
     [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
-    [SerializeField] TextMeshProUGUI textAccuracyLevel1Ph2;
+
+    [Header("ACCURACY PERCENTAGE PHASE 2")]
+    [SerializeField] TextMeshProUGUI valueAccuracyTxtPh2;
     [SerializeField] Pause pauseMenu;
 
     private float elapsedTime;
@@ -41,14 +48,14 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [SerializeField] private int quizScore;
 
     [Header("PH2 ACCURACY")]
-    [SerializeField] private int accuracyPh2;
+    [SerializeField] private float accuracyPh2;
 
     private float accuracyPercentage;
 
     private void Start()
     {
         LoadPlayerPrefs();
-        DisplayInitialTimesAndScores();
+        DisplayInitialTimesAndAccuracy();
     }
 
     private void Update()
@@ -68,21 +75,26 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void LoadPlayerPrefs()
     {
+        //Get the TIME VALUE of PHASE 1 & PHASE 2
         timePh1 = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
         timePh2 = PlayerPrefs.GetString("time_beginnerLevel1Ph2");
 
+        //Get the TOTAL SCORE of PHASE 1 & PHASE 2
         scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
-        scorePh2 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
+        scorePh2 = PlayerPrefs.GetInt("totalScore_beginnerLevel1Ph2");
 
-        accuracyPh2 = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
+        //Get the ACCURACY PERCENTAGE of PHASE 2
+        accuracyPh2 = PlayerPrefs.GetFloat("accuracyPercentage_beginnerLevel1Ph2");
 
-        quizScore = PlayerPrefs.GetInt("quizScore_BeginnerLevel1");
+
+        //quizScore = PlayerPrefs.GetInt("quizScore_BeginnerLevel1");
     }
 
-    private void DisplayInitialTimesAndScores()
+    private void DisplayInitialTimesAndAccuracy()
     {
-        textCompleteph1.text = $"{timePh1} PH1";
-        textCompleteph2.text = $"{timePh2} PH2";
+        valueTimeCompleteTxt1.text = $"{timePh1} PH1";
+        valueTimeCompleteTxt2.text = $"{timePh2} PH2";
+        valueAccuracyTxtPh2.text = $"{accuracyPh2}% PH2";
     }
 
     private void UpdateElapsedTime()
@@ -107,17 +119,17 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         else if (time <= 46)
         {
             SetScore(80);
-            DisplayCompletionText(textCompletion1, "100 score 30 sec.");
+            DisplayCompletionText(timeFadeTxt1, "100 score 30 sec.");
         }
         else if (time <= 61)
         {
             SetScore(50);
-            DisplayCompletionText(textCompletion2, "80 score 45 sec.");
+            DisplayCompletionText(timeFadeTxt2, "80 score 45 sec.");
         }
         else
         {
             SetScore(0);
-            DisplayCompletionText(textCompletion3, "50 score 60 sec.");
+            DisplayCompletionText(timeFadeTxt3, "50 score 60 sec.");
         }
 
         PlayerPrefs.Save();
@@ -139,7 +151,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         timePh3 = timerTxt.text;
         PlayerPrefs.SetString("time_beginnerLevel1Ph3", timePh3);
 
-        textCompleteph3.text = $"{timePh3} PH3";
+        valueTimeCompleteTxt3.text = $"{timePh3} PH3";
 
         scorePh3 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph3");
 
@@ -148,13 +160,5 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
         PlayerPrefs.SetInt("Totalscore_beginnerLevel1", totalScore);
         PlayerPrefs.Save();
-
-        CalculateAndDisplayAccuracy();
-    }
-
-    private void CalculateAndDisplayAccuracy()
-    {
-        accuracyPercentage = Mathf.Max(100f - (accuracyPh2 - 1) * 10f, 0f);
-        textAccuracyLevel1Ph2.text = $"{accuracyPercentage}% PH2";
     }
 }

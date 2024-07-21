@@ -261,6 +261,8 @@ public class TrialComputer : MonoBehaviour
     {
         int currentAccuracy = PlayerPrefs.GetInt(key, 0);
         int newAccuracy = currentAccuracy + increment;
+
+        //Save EXERCISE ACCURACY VALUE
         PlayerPrefs.SetInt(key, newAccuracy);
         PlayerPrefs.Save();
     }

@@ -62,6 +62,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void LoadPlayerPrefs()
     {
+        //get the TIME VALUE and TIME SCORE of PHASE 1
         timePh1 = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
         scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
     }
@@ -111,6 +112,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void SetScore(int score)
     {
+        //Save TIME SCORE
         PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph2", score);
     }
 
@@ -123,13 +125,15 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     private void SaveAndDisplayCompletionTimes()
     {
         timePh2 = timerTxt.text;
+
+        //Save TIME VALUE
         PlayerPrefs.SetString("time_beginnerLevel1Ph2", timePh2);
         textCompleteValue.text = $"{timePh2}";
         PlayerPrefs.Save();
 
         timeScore = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
 
-
+        //Get EXECERCISE ACCURACY VALUE -- TrialComputer.cs -- LINE 265
         accuracy = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
         CalculateAndDisplayAccuracy();
     }
@@ -141,5 +145,12 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
         int totalScore = timeScore + Mathf.RoundToInt(accuracyPercentage);
         textTimeScorePh2.text = totalScore.ToString();
+
+        //SAVE ACCURACY PERCENTAGE OF PHASE 2
+        PlayerPrefs.SetFloat("accuracyPercentage_beginnerLevel1Ph2", accuracyPercentage);
+
+        // SAVE TOTAL SCORE OF PHASE 2
+        PlayerPrefs.SetInt("totalScore_beginnerLevel1Ph2", totalScore);
+        PlayerPrefs.Save();
     }
 }

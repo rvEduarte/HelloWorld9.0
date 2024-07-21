@@ -27,11 +27,6 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
     [Header("PH1 SCORE")]
     [SerializeField] private int scoreBeginnerLevel1Ph1;
 
-    private void Start()
-    {
-        // Initialize if needed
-    }
-
     private void Update()
     {
         if (!pauseMenu.pause)
@@ -90,6 +85,7 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 
     private void SetScore(int score)
     {
+        //Save TIME SCORE
         PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph1", score);
     }
 
@@ -103,6 +99,8 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
     {
         
         timeBeginnerLevel1Ph1 = timerTxt.text;
+
+        //Save TIME VALUE
         PlayerPrefs.SetString("time_beginnerLevel1Ph1", timeBeginnerLevel1Ph1);
         textComplete.text = timeBeginnerLevel1Ph1;
         PlayerPrefs.Save();
