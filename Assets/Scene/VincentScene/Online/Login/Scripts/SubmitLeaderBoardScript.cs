@@ -9,6 +9,15 @@ public class SubmitLeaderBoardScript : MonoBehaviour
     public static string leaderboardKey;
     public TMP_InputField inputscore;
 
+    private void Start()
+    {
+        PlayerPrefs.DeleteKey("tite1");
+        PlayerPrefs.DeleteKey("tite2");
+        PlayerPrefs.DeleteKey("tite3");
+        PlayerPrefs.DeleteKey("accuracyExercisePh2");
+        PlayerPrefs.DeleteKey("accuracyExercisePh2");
+        PlayerPrefs.DeleteKey("accuracyQuizPh3");
+    }
     public void GameManagerLevel1()
     {
         leaderboardKey = "BegginerLevel1";
