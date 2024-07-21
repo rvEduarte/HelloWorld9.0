@@ -25,6 +25,7 @@ public class QuizManage : MonoBehaviour
     int totalQuestions = 0;
     int scoreCount = 0;
     int scoreBoard = 0;
+    int wrongAnswers = 0;
 
     private void Start()
     {
@@ -50,7 +51,7 @@ public class QuizManage : MonoBehaviour
         scoreCount += 1;
         scoreBoard += 10;
 
-        PlayerPrefs.SetInt("quizScoreBeginnerLevel1", scoreBoard);
+        PlayerPrefs.SetInt("quizScore_BeginnerLevel1", scoreBoard);
         PlayerPrefs.Save();
 
         StartCoroutine(DisplayResultAndNext(true));
@@ -67,6 +68,10 @@ public class QuizManage : MonoBehaviour
                 option.GetComponent<Image>().color = Color.red;
             }
         }*/
+        wrongAnswers += 1;
+        PlayerPrefs.SetInt("quizAccuracy_BeginnerLevel1", scoreBoard);
+        PlayerPrefs.Save();
+
 
         StartCoroutine(DisplayResultAndNext(false));
     }

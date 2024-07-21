@@ -51,7 +51,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     private void LoadPlayerPrefs()
     {
         timePh1 = PlayerPrefs.GetString("timebegginnerLevel1Ph1");
-        timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
+        //timePh2 = PlayerPrefs.GetString("timebegginnerLevel1Ph2");
         scorePh1 = PlayerPrefs.GetInt("scorebegginnerLevel1Ph1");
     }
 
