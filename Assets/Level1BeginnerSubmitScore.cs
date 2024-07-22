@@ -18,8 +18,8 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteKey("time_beginnerLevel1Ph1");
-        PlayerPrefs.DeleteKey("time_beginnerLevel1Ph1");
+        //PlayerPrefs.DeleteKey("time_beginnerLevel1Ph1");
+        //PlayerPrefs.DeleteKey("time_beginnerLevel1Ph1");
 
         // Ensure the SubmitLeaderboardScore script is attached to a GameObject in the scene
         if (submitLead == null)

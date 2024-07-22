@@ -33,7 +33,6 @@ public class LeaderboardScript : MonoBehaviour
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
-    public Animator errorScreenAnimator;
 
     public void Start()
     {
