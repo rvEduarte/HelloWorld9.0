@@ -20,7 +20,7 @@ public class PlayerScoreScriptableObject : ScriptableObject
     public float exerciseAccuracyPhase3;
     public int rawExercisePhase3;
     [Header("")]
-    public float quizAccuracyPhase2;
+    public float quizAccuracyPhase3;
     [Header("")]
     public int wrongQuizPhase3;
     public int scoreQuizPhase3;

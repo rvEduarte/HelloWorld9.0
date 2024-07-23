@@ -34,40 +34,20 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private float elapsedTime;
     public bool isPicked = false;
-
-    [Header("PH1 ELAPSED TIME")]
-    [SerializeField] private string timePh1;
-
-    [Header("PH2 ELAPSED TIME")]
-    [SerializeField] private string timePh2;
+    private bool accuracyCalculated = false;
 
     [Header("PH3 ELAPSED TIME")]
     [SerializeField] private string timePh3;
 
-    [Header("PH1 SCORE")]
-    [SerializeField] private int scorePh1;
 
-    [Header("PH2 SCORE")]
-    [SerializeField] private int scorePh2;
-
-    [Header("PH3 SCORE")]
-    [SerializeField] private int scorePh3;
-
-    [Header("PH3 QUIZ SCORE")]
-    [SerializeField] private int quizScore;
-
-    [Header("PH2 Exercise ACCURACY")]
-    [SerializeField] private float exerciseAccuracyPh2;
-
-    private float accuracyPercentage;
-
-    int quizWrong;
-    float quizPercentage;
-
-    int exerciseWrong;
 
     private void Start()
     {
+        playerData.scoreQuizPhase3 = 0;
+        playerData.wrongQuizPhase3 = 0;
+        playerData.exerciseAccuracyPhase3 = 0;
+        playerData.rawExercisePhase3 = 0;
+        playerData.quizAccuracyPhase3 = 0;
         DisplayInitialTimesAndAccuracy();
     }
 
@@ -79,9 +59,10 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
             {
                 UpdateElapsedTime();
             }
-            else
+            else if (!accuracyCalculated)
             {
                 SaveAndDisplayCompletionTimesAndScores();
+                accuracyCalculated = true;
             }
         }
     }
@@ -148,40 +129,27 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         //Save TIME VALUE
         playerData.timePhase3 = timePh3;
 
-        valueTimeCompleteTxt3.text = timePh3;
+        valueTimeCompleteTxt3.text = timePh3 + " PH3";
 
-        //Get the quizScore VALUE
-        //quizScore = PlayerPrefs.GetInt("quizScore_beginnerLevel1");
-
-        ////Get the SCORE TIME  OF PHASE 3
-        scorePh3 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph3");
-
-        CalculateQuizAccuracy();
-        CalculateExerciseAccuracy();
+        CalculateExerciseAndQuizAccuracy();
     }
 
-    private void CalculateQuizAccuracy()
-    {
-        quizWrong = PlayerPrefs.GetInt("quizAccuracy_beginnerLevel1");
-        quizPercentage = ((5 - quizWrong) / 5f) * 100;
-        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% PH3";
-
-        //Save QUIZ ACCURACY OF PHASE 3
-        PlayerPrefs.SetFloat("quizAccuracyPercentage_beginnerLevel1Ph2", quizPercentage);
-        PlayerPrefs.Save();
-    }
-
-    private void CalculateExerciseAccuracy()
+    private void CalculateExerciseAndQuizAccuracy()
     {
         // Calculate the percentage and assign it back to the ScriptableObject
         float quizPercentage = ((5 - playerData.wrongQuizPhase3) / 5f) * 100;
+        playerData.quizAccuracyPhase3 += quizPercentage;
 
+        // Update the text to display the new Quiz accuracy
+        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% PH3";
+
+        //===========================================================================//
 
         // Calculate the percentage and assign it back to the ScriptableObject
         float exercisePercentage = Mathf.Max(100f - (playerData.rawExercisePhase3 - 1) * 10f, 0f);
         playerData.exerciseAccuracyPhase3 += exercisePercentage;
 
-        // Update the text to display the new total score
+        // Update the text to display the Exercise accuracy
         valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% PH3";
 
         // Calculate the total score of PHASE 3 and assign it back to the ScriptableObject
@@ -192,7 +160,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         int totalLevelScore = playerData.scorePhase1 + playerData.scorePhase2 + playerData.scorePhase3;
         playerData.TotalScore += totalLevelScore;
 
-        //int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore + Mathf.RoundToInt(exercisePercentage);
+        // Update the text to display the new Total Score
         textTotalScoreLevel1.text = totalLevelScore.ToString();
 
     }

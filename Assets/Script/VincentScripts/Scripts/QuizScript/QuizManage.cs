@@ -23,11 +23,8 @@ public class QuizManage : MonoBehaviour
     public TMP_Text questionPrefab; // Prefab for question text
     public Transform questionsContainer; // Parent container for questions
 
-
     int totalQuestions = 0;
     int scoreCount = 0;
-    int scoreBoard = 0;
-    int wrongAnswers = 0;
 
     private void Start()
     {
@@ -43,33 +40,24 @@ public class QuizManage : MonoBehaviour
         completionPanel.SetActive(true);
         quizPanel.SetActive(false);
         quizScoreText.text = scoreCount +"/"+ totalQuestions;
-        scoreBoardText.text = scoreBoard.ToString();
+        scoreBoardText.text = playerData.scoreQuizPhase3.ToString();
     }
 
     public void correct()
     {
         scoreCount += 1;
-        scoreBoard += 10;
+        int pointsToAdd = 10;
 
-        playerData.scoreQuizPhase3 += scoreBoard;
+        playerData.scoreQuizPhase3 += pointsToAdd;
 
         StartCoroutine(DisplayResultAndNext(true));
     }
 
     public void wrong()
     {
-        // Change button color for wrong answer
-        /*foreach (var option in options)
-        {
-            var answerScript = option.GetComponent<AnswersScript>();
-            if (!answerScript.isCorrect)
-            {
-                option.GetComponent<Image>().color = Color.red;
-            }
-        }*/
-        wrongAnswers += 1;
+        int pointsToDeduct = 1;
 
-        playerData.wrongQuizPhase3 += wrongAnswers;
+        playerData.wrongQuizPhase3 += pointsToDeduct;
 
         StartCoroutine(DisplayResultAndNext(false));
     }

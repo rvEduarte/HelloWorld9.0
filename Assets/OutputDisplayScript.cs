@@ -26,7 +26,7 @@ public class OutputDisplayScript : MonoBehaviour
         codeInputField1.onValueChanged.AddListener(OnCodeInputChanged);
         codeInputField2.onValueChanged.AddListener(OnCodeInputChanged);
 
-        playerData.rawExercisePhase3 = 1;
+        playerData.rawExercisePhase3 = 0;
     }
 
     void OnCodeInputChanged(string code)
@@ -135,6 +135,7 @@ public class OutputDisplayScript : MonoBehaviour
             // Update the output display with the current output
             
             Debug.Log("Conditions met. Output updated.");
+            playerData.rawExercisePhase3 += 1;
             outputDisplay.text = currentOutput;
             StartCoroutine(DisableCodePanel());
         }
