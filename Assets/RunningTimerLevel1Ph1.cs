@@ -15,7 +15,6 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
     [SerializeField] TextMeshProUGUI textCompletion2;
     [SerializeField] TextMeshProUGUI textCompletion3;
 
-    [Header("timebased score")]
     [SerializeField] TextMeshProUGUI textTimeScorePh1;
 
     [SerializeField] private Pause pauseMenu;

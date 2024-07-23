@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RunningTimerLevel1Ph3 : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     [SerializeField] TextMeshProUGUI timerTxt;
 
     [Header("Timebased completion fade")]
@@ -63,11 +65,9 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     float quizPercentage;
 
     int exerciseWrong;
-    float exercisePercentage;
 
     private void Start()
     {
-        LoadPlayerPrefs();
         DisplayInitialTimesAndAccuracy();
     }
 
@@ -86,27 +86,11 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         }
     }
 
-    private void LoadPlayerPrefs()
-    {
-        //Get the TIME VALUE of PHASE 1 & PHASE 2
-        timePh1 = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
-        timePh2 = PlayerPrefs.GetString("time_beginnerLevel1Ph2");
-
-        //Get the TOTAL SCORE of PHASE 1 & PHASE 2
-        scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
-        scorePh2 = PlayerPrefs.GetInt("totalScore_beginnerLevel1Ph2");
-
-        //Get the ACCURACY PERCENTAGE of PHASE 2
-        exerciseAccuracyPh2 = PlayerPrefs.GetFloat("accuracyPercentage_beginnerLevel1Ph2");
-
-
-    }
-
     private void DisplayInitialTimesAndAccuracy()
     {
-        valueTimeCompleteTxt1.text = $"{timePh1} PH1";
-        valueTimeCompleteTxt2.text = $"{timePh2} PH2";
-        valueExerciseAccuracyTxtPh2.text = $"{exerciseAccuracyPh2}% PH2";
+        valueTimeCompleteTxt1.text = $"{playerData.timePhase1} PH1";
+        valueTimeCompleteTxt2.text = $"{playerData.timePhase2} PH2";
+        valueExerciseAccuracyTxtPh2.text = $"{playerData.exerciseAccuracyPhase2}% PH2";
     }
 
     private void UpdateElapsedTime()
@@ -143,13 +127,12 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
             SetScore(0);
             DisplayCompletionText(timeFadeTxt3, "50 score 60 sec.");
         }
-
-        PlayerPrefs.Save();
     }
 
     private void SetScore(int score)
     {
-        PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph3", score);
+        //Save TIME SCORE
+        playerData.scorePhase3 = score;
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -160,16 +143,17 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void SaveAndDisplayCompletionTimesAndScores()
     {
-        
-        //Get the quizScore VALUE
-        quizScore = PlayerPrefs.GetInt("quizScore_beginnerLevel1");
-
         timePh3 = timerTxt.text;
-        PlayerPrefs.SetString("time_beginnerLevel1Ph3", timePh3);
 
-        valueTimeCompleteTxt3.text = $"{timePh3} PH3";
+        //Save TIME VALUE
+        playerData.timePhase3 = timePh3;
 
-        //Get the SCORE TIME  OF PHASE 3
+        valueTimeCompleteTxt3.text = timePh3;
+
+        //Get the quizScore VALUE
+        //quizScore = PlayerPrefs.GetInt("quizScore_beginnerLevel1");
+
+        ////Get the SCORE TIME  OF PHASE 3
         scorePh3 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph3");
 
         CalculateQuizAccuracy();
@@ -189,19 +173,27 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void CalculateExerciseAccuracy()
     {
-        exerciseWrong = PlayerPrefs.GetInt("excerciseAccuracy_beginnerLevel1");
-        exercisePercentage = Mathf.Max(100f - (exerciseWrong - 1) * 10f, 0f);
+        // Calculate the percentage and assign it back to the ScriptableObject
+        float quizPercentage = ((5 - playerData.wrongQuizPhase3) / 5f) * 100;
+
+
+        // Calculate the percentage and assign it back to the ScriptableObject
+        float exercisePercentage = Mathf.Max(100f - (playerData.rawExercisePhase3 - 1) * 10f, 0f);
+        playerData.exerciseAccuracyPhase3 += exercisePercentage;
+
+        // Update the text to display the new total score
         valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% PH3";
 
-        //Save EXERCISE ACCURACY OF PHASE 3
-        PlayerPrefs.SetFloat("exerciseAccuracyPercentage_beginnerLevel1Ph2", exercisePercentage);
-        PlayerPrefs.Save();
+        // Calculate the total score of PHASE 3 and assign it back to the ScriptableObject
+        int totalScorePhase3 = playerData.scoreQuizPhase3 + Mathf.RoundToInt(exercisePercentage);
+        playerData.scorePhase3 += totalScorePhase3;
 
-        int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore + Mathf.RoundToInt(exercisePercentage);
-        textTotalScoreLevel1.text = totalScore.ToString();
+        // Calculate the total Level score and assign it back to the ScriptableObject
+        int totalLevelScore = playerData.scorePhase1 + playerData.scorePhase2 + playerData.scorePhase3;
+        playerData.TotalScore += totalLevelScore;
 
-        //Set the TOTAL SCORE of PHASE 1 TO PHASE 3
-        PlayerPrefs.SetInt("Totalscore_beginnerLevel1", totalScore);
-        PlayerPrefs.Save();
+        //int totalScore = scorePh1 + scorePh2 + scorePh3 + quizScore + Mathf.RoundToInt(exercisePercentage);
+        textTotalScoreLevel1.text = totalLevelScore.ToString();
+
     }
 }

@@ -29,10 +29,6 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     public bool isPicked = false;
     private bool accuracyCalculated = false;
 
-    int timeScore;
-    int accuracy;
-    float accuracyPercentage;
-
     [Header("PH2 ELAPSED TIME")]
     [SerializeField] private string timePh2;
 
@@ -120,7 +116,11 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void CalculateAndDisplayAccuracy()
     {
-        accuracyPercentage = Mathf.Max(100f - (playerData.rawExercisePhase2 - 1) * 10f, 0f);
+        // Calculate the percentage and assign it back to the ScriptableObject
+        float accuracyPercentage = Mathf.Max(100f - (playerData.rawExercisePhase2 - 1) * 10f, 0f);
+        playerData.exerciseAccuracyPhase2 += accuracyPercentage;
+
+        // Update the text to display the new total score
         exerciseAccuracy.text = $"{accuracyPercentage}%";
 
         // Calculate the total score and assign it back to the ScriptableObject

@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class OutputDisplayScript : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     public TMP_InputField codeInputField1;
     public TMP_InputField codeInputField2;
     public TMP_Text outputDisplay;
@@ -24,9 +26,7 @@ public class OutputDisplayScript : MonoBehaviour
         codeInputField1.onValueChanged.AddListener(OnCodeInputChanged);
         codeInputField2.onValueChanged.AddListener(OnCodeInputChanged);
 
-
-        PlayerPrefs.DeleteKey("excerciseAccuracy_beginnerLevel1");
-        PlayerPrefs.SetInt("excerciseAccuracy_beginnerLevel1", 1);
+        playerData.rawExercisePhase3 = 1;
     }
 
     void OnCodeInputChanged(string code)
@@ -140,7 +140,7 @@ public class OutputDisplayScript : MonoBehaviour
         }
         else
         {
-            IncreaseAccuracy("excerciseAccuracy_beginnerLevel1", 1);
+            playerData.rawExercisePhase3 += 1;
             outputDisplay.text = currentOutput;
         }
     }

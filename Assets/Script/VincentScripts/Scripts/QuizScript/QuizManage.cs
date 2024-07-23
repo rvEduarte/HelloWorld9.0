@@ -7,6 +7,8 @@ using JetBrains.Annotations;
 
 public class QuizManage : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     public List<QuestionAndAnswer> QnA;
     public GameObject[] options;
     public int currentQuestion;
@@ -29,9 +31,6 @@ public class QuizManage : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteKey("quizScore_beginnerLevel1");
-        PlayerPrefs.DeleteKey("quizAccuracy_beginnerLevel1");
-
         totalQuestions = QnA.Count;
         completionPanel.SetActive(false);
         
@@ -52,8 +51,7 @@ public class QuizManage : MonoBehaviour
         scoreCount += 1;
         scoreBoard += 10;
 
-        PlayerPrefs.SetInt("quizScore_beginnerLevel1", scoreBoard);
-        PlayerPrefs.Save();
+        playerData.scoreQuizPhase3 += scoreBoard;
 
         StartCoroutine(DisplayResultAndNext(true));
     }
@@ -70,9 +68,8 @@ public class QuizManage : MonoBehaviour
             }
         }*/
         wrongAnswers += 1;
-        PlayerPrefs.SetInt("quizAccuracy_beginnerLevel1", wrongAnswers);
-        PlayerPrefs.Save();
 
+        playerData.wrongQuizPhase3 += wrongAnswers;
 
         StartCoroutine(DisplayResultAndNext(false));
     }
