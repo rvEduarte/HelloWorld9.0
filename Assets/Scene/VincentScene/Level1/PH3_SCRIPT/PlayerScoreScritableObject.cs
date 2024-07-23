@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerScoreScriptableObject", menuName = "ScriptableObjects/PlayerScoreBeginLevel1", order = 1)]
+[CreateAssetMenu(fileName = "PlayerScoreScriptableObject", menuName = "ScriptableObjects/PlayerScoreBeginLevel1")]
 public class PlayerScoreScriptableObject : ScriptableObject
 {
 

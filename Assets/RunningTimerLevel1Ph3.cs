@@ -39,15 +39,17 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
     [Header("PH3 ELAPSED TIME")]
     [SerializeField] private string timePh3;
 
-
-
     private void Start()
     {
+        playerData.timePhase3 = "";
+        playerData.scorePhase3 = 0;
         playerData.scoreQuizPhase3 = 0;
         playerData.wrongQuizPhase3 = 0;
         playerData.exerciseAccuracyPhase3 = 0;
         playerData.rawExercisePhase3 = 0;
         playerData.quizAccuracyPhase3 = 0;
+
+        playerData.TotalScore = 0;
         DisplayInitialTimesAndAccuracy();
     }
 

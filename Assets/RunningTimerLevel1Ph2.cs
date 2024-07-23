@@ -36,8 +36,9 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
     {
         playerData.timePhase2 = "";
         playerData.scorePhase2 = 0;
+        playerData.exerciseAccuracyPhase2 = 0;
+        playerData.rawExercisePhase2 = 0;
     }
-
     private void Update()
     {
         if (!pauseMenu.pause)

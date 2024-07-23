@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class SubmitLeaderBoardScript : MonoBehaviour
 {
+    public LeaderBoardScriptableObject leaderboardData;
     public static string leaderboardKey;
-    public TMP_InputField inputscore;
+    //public TMP_InputField inputscore;
 
     private void Start()
     {
@@ -30,34 +31,47 @@ public class SubmitLeaderBoardScript : MonoBehaviour
 
     public void titeSubmit(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh2, float accuracyExercisePh3, float accuracyQuizPh3)
     {
-        PlayerPrefs.SetString("tite1", timeTaken1);
+        /*PlayerPrefs.SetString("tite1", timeTaken1);
         PlayerPrefs.SetString("tite2", timeTaken2);
         PlayerPrefs.SetString("tite3", timeTaken3);
         PlayerPrefs.SetFloat("accuracyExercisePh2", accuracyExercisePh2);
         PlayerPrefs.SetFloat("accuracyExercisePh3", accuracyExercisePh3);
         PlayerPrefs.SetFloat("accuracyQuizPh3", accuracyQuizPh3);
-        PlayerPrefs.Save();
-        Submit(scoreToSubmit);
+        PlayerPrefs.Save();*/
+        leaderboardData.timePh1 = timeTaken1;
+        leaderboardData.timePh2 = timeTaken2;
+        leaderboardData.timePh3 = timeTaken3;
+
+        leaderboardData.exerciseAccuracyPh2 = accuracyExercisePh2;
+        leaderboardData.exerciseAccuracyPh3 = accuracyExercisePh3;
+        leaderboardData.quizAccuracyPh3 = accuracyQuizPh3;
+
+        Submit(scoreToSubmit, leaderboardData);
 
     }
-    public static void Submit(int scoreToSubmit)
+    public static void Submit(int scoreToSubmit, LeaderBoardScriptableObject leaderboardData)
     {
         //the member id is set when the user logs in or uses guest login, if they have not done either of those then this will be empty and the request will fail.
         // we set it throughout WhiteLabelManager.cs, you can cmd/ctrl + f and look for PlayerPrefs.SetString("LLplayerId"
         string playerId = PlayerPrefs.GetString("LLplayerId");
-        //string metadata = "timeTaken: " + PlayerPrefs.GetFloat("tite1") +" Accuracy: "+ PlayerPrefs.GetFloat("tite");
 
         // Create metadata object
         PlayerMetaData1 metadataObject = new PlayerMetaData1
         {
-            //timeTaken = PlayerPrefs.GetFloat("tite1"),
-            //accuracy = PlayerPrefs.GetFloat("tite")
-            timeTaken1 = PlayerPrefs.GetString("tite1"),
+            /*timeTaken1 = PlayerPrefs.GetString("tite1"),
             timeTaken2 = PlayerPrefs.GetString("tite2"),
             timeTaken3 = PlayerPrefs.GetString("tite3"),
             accuracyExercisePh2 = PlayerPrefs.GetFloat("accuracyExercisePh2"),
             accuracyExercisePh3 = PlayerPrefs.GetFloat("accuracyExercisePh3"),
-            accuracyQuizPh3 = PlayerPrefs.GetFloat("accuracyQuizPh3")
+            accuracyQuizPh3 = PlayerPrefs.GetFloat("accuracyQuizPh3")*/
+            timeTaken1 = leaderboardData.timePh1,
+            timeTaken2 = leaderboardData.timePh2,
+            timeTaken3 = leaderboardData.timePh3,
+
+            accuracyExercisePh2 = leaderboardData.exerciseAccuracyPh2,
+            accuracyExercisePh3 = leaderboardData.exerciseAccuracyPh3,
+            accuracyQuizPh3 = leaderboardData.quizAccuracyPh3,
+
         };
         // Serialize metadata to JSON
         string metadata = JsonUtility.ToJson(metadataObject);
