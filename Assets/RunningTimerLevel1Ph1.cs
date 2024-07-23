@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RunningTimerLevel1Ph1 : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     [SerializeField] TextMeshProUGUI timerTxt;
     [SerializeField] TextMeshProUGUI textComplete;
 
@@ -27,6 +29,11 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
     [Header("PH1 SCORE")]
     [SerializeField] private int scoreBeginnerLevel1Ph1;
 
+    private void Start()
+    {
+        playerData.timePhase1 = "";
+        playerData.scorePhase1 = 0;
+    }
     private void Update()
     {
         if (!pauseMenu.pause)
@@ -79,14 +86,12 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
             SetScore(0);
             DisplayCompletionText(textCompletion3, "50 score 60 sec.");
         }
-
-        PlayerPrefs.Save();
     }
 
     private void SetScore(int score)
     {
         //Save TIME SCORE
-        PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph1", score);
+        playerData.scorePhase1 = score;
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -101,10 +106,10 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
         timeBeginnerLevel1Ph1 = timerTxt.text;
 
         //Save TIME VALUE
-        PlayerPrefs.SetString("time_beginnerLevel1Ph1", timeBeginnerLevel1Ph1);
-        textComplete.text = timeBeginnerLevel1Ph1;
-        PlayerPrefs.Save();
+        playerData.timePhase1 = timeBeginnerLevel1Ph1;
 
-        textTimeScorePh1.text = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1").ToString();
+        textComplete.text = timeBeginnerLevel1Ph1;
+
+        textTimeScorePh1.text = playerData.scorePhase1.ToString();
     }
 }

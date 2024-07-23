@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RunningTimerLevel1Ph2 : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     [SerializeField] TextMeshProUGUI timerTxt;
 
     [Header("time value completion")]
@@ -25,24 +27,19 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private float elapsedTime;
     public bool isPicked = false;
+    private bool accuracyCalculated = false;
 
     int timeScore;
     int accuracy;
     float accuracyPercentage;
 
-    [Header("PH1 ELAPSED TIME")]
-    [SerializeField] private string timePh1;
-
     [Header("PH2 ELAPSED TIME")]
     [SerializeField] private string timePh2;
 
-    [Header("PH1 SCORE")]
-    [SerializeField] private int scorePh1;
-
     private void Start()
     {
-        LoadPlayerPrefs();
-        DisplayInitialTimes();
+        playerData.timePhase2 = "";
+        playerData.scorePhase2 = 0;
     }
 
     private void Update()
@@ -53,23 +50,12 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
             {
                 UpdateElapsedTime();
             }
-            else
+            else if(!accuracyCalculated)
             {
                 SaveAndDisplayCompletionTimes();
+                accuracyCalculated = true; 
             }
         }
-    }
-
-    private void LoadPlayerPrefs()
-    {
-        //get the TIME VALUE and TIME SCORE of PHASE 1
-        timePh1 = PlayerPrefs.GetString("time_beginnerLevel1Ph1");
-        scorePh1 = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph1");
-    }
-
-    private void DisplayInitialTimes()
-    {
-        // Display initial times if needed
     }
 
     private void UpdateElapsedTime()
@@ -106,14 +92,12 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
             SetScore(0);
             DisplayCompletionText(textCompletion3, "50 score 60 sec.");
         }
-
-        PlayerPrefs.Save();
     }
 
     private void SetScore(int score)
     {
         //Save TIME SCORE
-        PlayerPrefs.SetInt("scoreTime_beginnerLevel1Ph2", score);
+        playerData.scorePhase2 = score;
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -127,30 +111,23 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
         timePh2 = timerTxt.text;
 
         //Save TIME VALUE
-        PlayerPrefs.SetString("time_beginnerLevel1Ph2", timePh2);
-        textCompleteValue.text = $"{timePh2}";
-        PlayerPrefs.Save();
+        playerData.timePhase2 = timePh2;
 
-        timeScore = PlayerPrefs.GetInt("scoreTime_beginnerLevel1Ph2");
+        textCompleteValue.text = timePh2;
 
-        //Get EXECERCISE ACCURACY VALUE -- TrialComputer.cs -- LINE 265
-        accuracy = PlayerPrefs.GetInt("accuracy_beginnerLevel1Ph2");
         CalculateAndDisplayAccuracy();
     }
 
     private void CalculateAndDisplayAccuracy()
     {
-        accuracyPercentage = Mathf.Max(100f - (accuracy - 1) * 10f, 0f);
+        accuracyPercentage = Mathf.Max(100f - (playerData.rawExercisePhase2 - 1) * 10f, 0f);
         exerciseAccuracy.text = $"{accuracyPercentage}%";
 
-        int totalScore = timeScore + Mathf.RoundToInt(accuracyPercentage);
-        textTimeScorePh2.text = totalScore.ToString();
+        // Calculate the total score and assign it back to the ScriptableObject
+        int roundedAccuracy = Mathf.RoundToInt(accuracyPercentage);
+        playerData.scorePhase2 += roundedAccuracy;
 
-        //SAVE EXERCISE ACCURACY PERCENTAGE OF PHASE 2
-        PlayerPrefs.SetFloat("accuracyPercentage_beginnerLevel1Ph2", accuracyPercentage);
-
-        // SAVE TOTAL SCORE OF PHASE 2
-        PlayerPrefs.SetInt("totalScore_beginnerLevel1Ph2", totalScore);
-        PlayerPrefs.Save();
+        // Update the text to display the new total score
+        textTimeScorePh2.text = playerData.scorePhase2.ToString();
     }
 }

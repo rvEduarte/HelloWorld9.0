@@ -7,6 +7,8 @@ using System.Drawing;
 
 public class TrialComputer : MonoBehaviour
 {
+    public PlayerScoreScriptableObject playerData;
+
     [SerializeField]
     private GameObject bulletHelloWrite;
     public TMP_Text canvasText;
@@ -39,9 +41,10 @@ public class TrialComputer : MonoBehaviour
     {
         disableBox2d.GetComponent<BoxCollider2D>().offset = new Vector2 (-9, 0);
         disableBox2d.GetComponent<BoxCollider2D>().size = new Vector2((float)0.1, (float)16.8);
-        PlayerPrefs.DeleteKey("accuracy_beginnerLevel1Ph2");
-
-        PlayerPrefs.SetInt("accuracy_beginnerLevel1Ph2", 1);
+        //PlayerPrefs.DeleteKey("accuracy_beginnerLevel1Ph2");
+        //PlayerPrefs.SetInt("accuracy_beginnerLevel1Ph2", 1);
+        //Always start to 1
+        playerData.rawExercisePhase2 = 1;
     }
 
     // Update is called once per frame
@@ -257,7 +260,7 @@ public class TrialComputer : MonoBehaviour
         }
     }
 
-    public void IncreaseAccuracy(string key, int increment)
+    /*public void IncreaseAccuracy(string key, int increment)
     {
         int currentAccuracy = PlayerPrefs.GetInt(key, 0);
         int newAccuracy = currentAccuracy + increment;
@@ -265,7 +268,7 @@ public class TrialComputer : MonoBehaviour
         //Save EXERCISE ACCURACY VALUE
         PlayerPrefs.SetInt(key, newAccuracy);
         PlayerPrefs.Save();
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -305,7 +308,8 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    //IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    playerData.rawExercisePhase2 += 1;
                     
                 }            
             }       
@@ -345,7 +349,8 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    //IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    playerData.rawExercisePhase2 += 1;
                 }
             }
         }
@@ -381,7 +386,8 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    //IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    playerData.rawExercisePhase2 += 1;
                 }
                 else
                 {
@@ -402,7 +408,8 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    //IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    playerData.rawExercisePhase2 += 1;
 
                 }
             }
@@ -443,7 +450,8 @@ public class TrialComputer : MonoBehaviour
                     canvasText.text = "__";
                     Counter1.counter = 0;
 
-                    IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    //IncreaseAccuracy("accuracy_beginnerLevel1Ph2", 1);
+                    playerData.rawExercisePhase2 += 1;
                 }
             }
         }       
