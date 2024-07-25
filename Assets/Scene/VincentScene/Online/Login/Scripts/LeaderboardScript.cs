@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LeaderboardScript : MonoBehaviour
 {
-    int leaderboardKey;
+    string leaderboardKey;
     private string mainMenuSceneName = "Scene 1";
 
     [Header("Leaderboard Text")]
@@ -60,7 +60,7 @@ public class LeaderboardScript : MonoBehaviour
         //how many scores to retrieve
         int count = 10;
 
-        LootLockerSDKManager.GetScoreListMain(leaderboardKey, count, 0, (response) =>
+        LootLockerSDKManager.GetScoreList(leaderboardKey, count, 0, (response) =>
         {
             if (response.success)
             {
@@ -105,10 +105,10 @@ public class LeaderboardScript : MonoBehaviour
             else
             {
                 // Error
-                Debug.Log(response.Error);
-                if (response.Error.Contains("message"))
+                Debug.Log(response.errorData.ToString());
+                if (response.errorData.ToString().Contains("message"))
                 {
-                    showErrorMessage(extractMessageFromLootLockerError(response.Error));
+                    showErrorMessage(extractMessageFromLootLockerError(response.errorData.ToString()));
                 }
                 else
                 {
@@ -137,29 +137,36 @@ public class LeaderboardScript : MonoBehaviour
 
     private string extractMessageFromLootLockerError(string rawError)
     {
-        //find in the string "message":" and split the string there
-        int first = rawError.IndexOf("\"message\":\"") + "\"message\":\"".Length;
-        int last = rawError.LastIndexOf("\"message\":\"");
-        // removes "message":" and everything before it from the string
-        string str2 = rawError.Substring(first, rawError.Length - first);
+        // Find the start index of the message
+        int startIndex = rawError.IndexOf("\"") + 1; // Skip the first quote
+        if (startIndex == 0)
+        {
+            return "Message not found"; // Handle case where the first quote is not found
+        }
 
-        int end = str2.IndexOf("\"");
-        // finds the closing " and removes everything after it from the string 
-        string res = str2.Substring(0, end);
-        res = res.ToUpper();
-        return res;
+        // Find the end index of the message
+        int endIndex = rawError.IndexOf("\"", startIndex); // Find the closing quote
+        if (endIndex == -1)
+        {
+            return "Message not properly terminated"; // Handle case where the message is not properly terminated
+        }
+
+        // Extract the message
+        string message = rawError.Substring(startIndex, endIndex - startIndex);
+
+        return message;
     }
 
     public void BegginnerGetDataLevel1()
     {
-        leaderboardKey = 23450;
+        leaderboardKey = "BegginerLevel1";
         leaderboardLevelText.text = "Level1 Ranking";
         LevelGetData();
     }
 
     public void BegginnerGetDataLevel2()
     {
-        leaderboardKey = 23455;
+        leaderboardKey = "BegginerLevel2";
         leaderboardLevelText.text = "Level2 Ranking";
         LevelGetData();
     }

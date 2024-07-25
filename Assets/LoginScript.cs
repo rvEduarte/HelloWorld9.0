@@ -90,7 +90,7 @@ public class LoginScript : MonoBehaviour
             if (!response.success)
             {
                 // Error
-                isError(response.Error);
+                isError(response.errorData.ToString());
                 Debug.Log("error while logging in");
                 return;
             }
@@ -110,7 +110,7 @@ public class LoginScript : MonoBehaviour
                 if (!response.success)
                 {
                     // Error
-                    isError(response.Error);
+                    isError(response.errorData.ToString());
                     return;
                 }
                 else
@@ -200,7 +200,7 @@ public class LoginScript : MonoBehaviour
         {
             if (!response.success)
             {
-                isError(response.Error);
+                isError(response.errorData.ToString());
                 return;
             }
 
@@ -314,7 +314,7 @@ public class LoginScript : MonoBehaviour
         {
             if (!response.success)
             {
-                isError(response.Error);
+                isError(response.errorData.ToString());
                 return;
             }
             else
@@ -326,7 +326,7 @@ public class LoginScript : MonoBehaviour
                 {
                     if (!response.success)
                     {
-                        isError(response.Error);
+                        isError(response.errorData.ToString());
                         return;
                     }
                     // Start session
@@ -334,7 +334,7 @@ public class LoginScript : MonoBehaviour
                     {
                         if (!response.success)
                         {
-                            isError(response.Error);
+                            isError(response.errorData.ToString());
                             return;
                         }
                         string publicUID = response.public_uid;
@@ -500,12 +500,12 @@ public class LoginScript : MonoBehaviour
                 Debug.Log("error requesting password reset");
                 //get the message from the error and dsiplay it 
 
-                if (response.Error.Contains("message"))
+                if (response.errorData.ToString().Contains("message"))
                 {
-                    ShowErrorMessage(ExtractMessageFromLootLockerError(response.Error));
+                    ShowErrorMessage(ExtractMessageFromLootLockerError(response.errorData.ToString()));
                 }
 
-                if (!response.Error.Contains("message"))
+                if (!response.errorData.ToString().Contains("message"))
                 {
                     ShowErrorMessage("Error requesting password reset");
                 }
@@ -541,17 +541,24 @@ public class LoginScript : MonoBehaviour
 
     private string ExtractMessageFromLootLockerError(string rawError)
     {
-        //find in the string "message":" and split the string there
-        int first = rawError.IndexOf("\"message\":\"") + "\"message\":\"".Length;
-        int last = rawError.LastIndexOf("\"message\":\"");
-        // removes "message":" and everything before it from the string
-        string str2 = rawError.Substring(first, rawError.Length - first);
+        // Find the start index of the message
+        int startIndex = rawError.IndexOf("\"") + 1; // Skip the first quote
+        if (startIndex == 0)
+        {
+            return "Message not found"; // Handle case where the first quote is not found
+        }
 
-        int end = str2.IndexOf("\"");
-        // finds the closing " and removes everything after it from the string 
-        string res = str2.Substring(0, end);
-        res = res.ToUpper();
-        return res;
+        // Find the end index of the message
+        int endIndex = rawError.IndexOf("\"", startIndex); // Find the closing quote
+        if (endIndex == -1)
+        {
+            return "Message not properly terminated"; // Handle case where the message is not properly terminated
+        }
+
+        // Extract the message
+        string message = rawError.Substring(startIndex, endIndex - startIndex);
+
+        return message;
     }
 }
 

@@ -85,22 +85,15 @@ public class SubmitLeaderBoardScript : MonoBehaviour
             else
             {
                 Debug.LogError("SubmitLeaderboardScore failed");
-                Debug.LogError("Error: " + response.Error);
+                Debug.LogError("Error: " + response.errorData.ToString());
             }
         });
     }
 
     public static void GetPlayerHighScore()
     {
-        string playerIdString = PlayerPrefs.GetString("LLplayerId");
+        string playerId = PlayerPrefs.GetString("LLplayerId");
 
-        // Convert the playerId string to an integer
-        int playerId;
-        if (!int.TryParse(playerIdString, out playerId))
-        {
-            Debug.LogError("Failed to parse playerId from PlayerPrefs.");
-            return;
-        }
         LootLockerSDKManager.GetMemberRank(leaderboardKey, playerId, (response) =>
         {
             if (response.statusCode == 200)
@@ -111,7 +104,7 @@ public class SubmitLeaderBoardScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("failed to get highscore: " + response.Error);
+                Debug.Log("failed to get highscore: " + response.errorData.ToString());
             }
         });
     }
