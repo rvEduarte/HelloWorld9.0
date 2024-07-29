@@ -24,7 +24,7 @@ public class ProgressionManager : MonoBehaviour
     }
     public void shit()
     {
-        Save(GameShit);
+        //Save(GameShit);
     }
 
     public void Save(GameShit data)
@@ -84,5 +84,7 @@ public class ProgressionManager : MonoBehaviour
             Debug.LogError("An error occurred while uploading progression data: " + ex.Message);
         }
     }
+
+
 
 }
