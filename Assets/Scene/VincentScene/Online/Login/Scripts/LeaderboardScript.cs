@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class LeaderboardScript : MonoBehaviour
 {
     string leaderboardKey;
-    private string mainMenuSceneName = "Scene 1";
+    private string mainMenuSceneName = "TEst2";
 
     [Header("Leaderboard Text")]
     public TextMeshProUGUI leaderboardLevelText;

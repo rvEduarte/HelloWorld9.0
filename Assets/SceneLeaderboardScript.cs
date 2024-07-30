@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLeaderboardScript : MonoBehaviour
 {
-    private string MainTite = "Scene 1";
+    private string MainTite = "TEst2";
     public void goBackToMainMenu()
     {
         SceneManager.LoadScene(MainTite);
