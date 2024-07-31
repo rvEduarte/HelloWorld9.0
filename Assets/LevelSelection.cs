@@ -13,57 +13,58 @@ public class LevelSelection : MonoBehaviour
 
     public Sprite starSprite;
 
+    [SerializeField]
+    private PlayerLevelScriptable playerData;
+
     private void Start()
     {
-        //PlayerPrefs.DeleteAll();
         UpdateLevelImage();
         UpdateLevelStatus();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void UpdateLevelStatus()
     {
-        //if the current lv is 5, the pre should be 4
         int previousLevelNum = int.Parse(gameObject.name) - 1;
-        if (PlayerPrefs.GetInt("Lv" + previousLevelNum.ToString()) > 0)//If the firts level star is bigger than 0, second level can play
+        LevelData previousLevelData = playerData.levels.Find(level => level.levelIndex == previousLevelNum);
+
+        if (previousLevelData != null && previousLevelData.stars > 0)
         {
-            Debug.Log(previousLevelNum);
             unlocked = true;
         }
     }
 
     private void UpdateLevelImage()
     {
-        if(!unlocked)//MARKER if unclock is false means This level is locked!
+        if (!unlocked)
         {
             unlockImage.gameObject.SetActive(true);
-            for(int i = 0; i < stars.Length; i++)
+            foreach (var star in stars)
             {
-                stars[i].gameObject.SetActive(false);
+                star.gameObject.SetActive(false);
             }
         }
-        else//if unlock is true means This level can play !
+        else
         {
             unlockImage.gameObject.SetActive(false);
-            for (int i = 0; i < stars.Length; i++)
+            foreach (var star in stars)
             {
-                stars[i].gameObject.SetActive(true);
+                star.gameObject.SetActive(true);
             }
 
-            for(int i = 0; i < PlayerPrefs.GetInt("Lv" + gameObject.name); i++)
+            LevelData levelData = playerData.levels.Find(level => level.levelIndex == int.Parse(gameObject.name));
+            if (levelData != null)
             {
-                stars[i].gameObject.GetComponent<Image>().sprite = starSprite;
+                for (int i = 0; i < levelData.stars; i++)
+                {
+                    stars[i].gameObject.GetComponent<Image>().sprite = starSprite;
+                }
             }
         }
     }
 
-    public void PressSelection(string _LevelName)//When we press this level, we can move to the corresponding Scene to play
+    public void PressSelection(string _LevelName)
     {
-        if(unlocked)
+        if (unlocked)
         {
             SceneManager.LoadScene(_LevelName);
         }
