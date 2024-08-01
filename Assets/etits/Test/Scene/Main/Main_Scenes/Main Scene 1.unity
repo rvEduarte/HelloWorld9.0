@@ -3530,14 +3530,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703855076}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 726.7301, y: 401.41803, z: -7.0427575}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -233.2699, y: -138.58197, z: -7.0427575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 995823454}
   - {fileID: 1902419336}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1078139530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &742608010
 GameObject:
@@ -6023,6 +6023,7 @@ RectTransform:
   - {fileID: 1853223435}
   - {fileID: 2049598084}
   - {fileID: 1267561050}
+  - {fileID: 703855077}
   m_Father: {fileID: 1532609554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6938,7 +6939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -409414406, guid: b660fd5a16e289b46908f164294fba86, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32d8c510e153dc44596f78312f65071a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10527,7 +10528,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1822012271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822012268}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1822012271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12473,14 +12486,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.035848916, g: 0.88119644, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 254045ecc6d826e4ab83f9e54fb5d21d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5aa9e4b295e82cd4696311cfb562be98, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12884,5 +12897,4 @@ SceneRoots:
   - {fileID: 117985298}
   - {fileID: 346992537}
   - {fileID: 1104559100}
-  - {fileID: 703855077}
   - {fileID: 1296830153}
