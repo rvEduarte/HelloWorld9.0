@@ -8,11 +8,11 @@ public class Play : MonoBehaviour
 
     public void PlayButton()
     {
-        Level.Level2Key = "LevelBeginner2";
+        Level.csharpBeginnerLevel2 = "LevelBeginner2";
         //EventManager.LevelUnlock();
         if (LootlockerSceneProgress.Instance != null)
         {
-            LootlockerSceneProgress.Instance.UploadFileFromPath(Level);
+            LootlockerSceneProgress.Instance.UpdatePlayerFile();
             Debug.Log(Level);
         }
         else

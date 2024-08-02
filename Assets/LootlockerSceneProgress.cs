@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.IO;
 using LootLocker.Requests;
+using UnityEngine.SceneManagement;
 
 public class LootlockerSceneProgress : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class LootlockerSceneProgress : MonoBehaviour
     {
         string fileName = "LevelUnlockData.json";
         string filePath = WriteToFile(fileName, levelUnlockScriptable);
-        int fileID = PlayerPrefs.GetInt("fileID");
+        int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");
 
         LootLockerSDKManager.UpdatePlayerFile(fileID, filePath, (response) => {
             if (response.success)

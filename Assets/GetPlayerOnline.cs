@@ -6,14 +6,10 @@ using LootLocker.Requests;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class UploadOnline : MonoBehaviour
+public class GetPlayerOnline : MonoBehaviour
 {
     public LevelUnlockScriptable levelUnlockScriptable;
 
-    public void GoToScene(string name)
-    {
-        SceneManager.LoadScene(name);
-    }
     public void GetPlayerFileData()
     {
         int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");

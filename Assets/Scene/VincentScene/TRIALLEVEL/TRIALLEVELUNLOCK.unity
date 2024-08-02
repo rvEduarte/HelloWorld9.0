@@ -3659,6 +3659,7 @@ GameObject:
   - component: {fileID: 1061183976}
   - component: {fileID: 1061183975}
   - component: {fileID: 1061183974}
+  - component: {fileID: 1061183977}
   m_Layer: 0
   m_Name: Level 3
   m_TagString: Untagged
@@ -3730,19 +3731,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1061183975}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelMenu, Assembly-CSharp
-        m_MethodName: OpenLevel
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1061183975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3781,6 +3770,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061183972}
   m_CullTransparentMesh: 1
+--- !u!114 &1061183977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061183972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2483df9b36d294cb1bb1f6945e640c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlock: 0
+  Unlocked: {fileID: 1273918629}
+  Level: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
 --- !u!1 &1091620700
 GameObject:
   m_ObjectHideFlags: 0
@@ -6087,7 +6091,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926680880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a182e4e00d0ef054c8f013f3299d0f83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b768e63629d7246bc65a28d4ed8a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unlock: 0
