@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using LootLocker.Requests;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class UploadOnline : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class UploadOnline : MonoBehaviour
     {
         
     }
+
+    public void GoToScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
     public void UploadFile()
     {
         string saveData = "someDataThatYouWantToSave";
