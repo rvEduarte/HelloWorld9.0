@@ -8,40 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class UploadOnline : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public LevelUnlockScriptable levelUnlockScriptable;
 
     public void GoToScene(string name)
     {
         SceneManager.LoadScene(name);
     }
-
-    public void UploadFile()
-    {
-        string saveData = "someDataThatYouWantToSave";
-        string filePurpose = "saveFile";
-        string fileNameOnServer = "save.txt";
-        bool isPublic = false;
-        byte[] fileByteArray = Encoding.UTF8.GetBytes(saveData);
-
-        LootLockerSDKManager.UploadPlayerFile(fileByteArray, filePurpose, fileNameOnServer, isPublic, (response) =>
-        {
-            // Save the file id in PlayerPrefs
-            PlayerPrefs.SetInt("PlayerSaveDataFileID",response.id);
-            Debug.Log(response.id);
-        });
-    }
-
-
     public void GetPlayerFileData()
     {
         int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");
@@ -75,6 +47,10 @@ public class UploadOnline : MonoBehaviour
                 Debug.Log("File is downloaded");
                 // Do something with the content
                 Debug.Log(fileContent);
+
+                // Update the ScriptableObject with the downloaded content
+                levelUnlockScriptable.UpdateFromJson(fileContent);
+
             }
         }
     }
