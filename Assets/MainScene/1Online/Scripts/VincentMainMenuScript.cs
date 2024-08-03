@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class VincentMainMenuScript : MonoBehaviour
 {
 
-    private string loginSceneName = "WhiteLabelAndGuestLogin";
+    private string loginSceneName = "Login";
     private string leaderboardSceneName = "Leaderboard";
     private string playGameSceneName = "TRIALPLAY";
 
@@ -87,6 +87,9 @@ public class VincentMainMenuScript : MonoBehaviour
         //remove the auto remember
         PlayerPrefs.SetInt("rememberMe", 0);
 
+        //remove the ONCE newAndLoad
+        PlayerPrefs.SetInt("NewAndLoad", 0);
+
         //end the session
         LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
 
@@ -98,7 +101,8 @@ public class VincentMainMenuScript : MonoBehaviour
                 return;
             }
             PlayerPrefs.DeleteKey("LLplayerId");
-            //LootLockerSDKManager.ClearLocalSession();
+            PlayerPrefs.Save();
+            LootLockerSDKManager.ClearLocalSession();
             SceneManager.LoadScene(loginSceneName);
             Debug.Log("Logged Out");
         });

@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
-    private string gameSceneName = "NewAndLoad";
+    private string newAndLoadScene = "NewAndLoad";
+    private string mainMenuScene = "MainMenu";
 
     // Input fields
     [Header("New User")]
@@ -44,10 +45,26 @@ public class LoginScript : MonoBehaviour
     public TextMeshProUGUI registerButton;
     public TextMeshProUGUI resetPassButton;
 
+    [SerializeField] public bool newAndLoad; //FALSE
+
     public void PlayGame()
     {
-        //load scene
-        SceneManager.LoadScene(gameSceneName);
+        if (!newAndLoad)
+        {
+            //ONCE load scene
+            SceneManager.LoadScene(newAndLoadScene);
+
+            // Mark the action as performed and save the state
+            PlayerPrefs.SetInt("NewAndLoad", 1); // 1 means true
+            PlayerPrefs.Save(); // Make sure changes are saved to disk
+
+            newAndLoad = true;
+        }
+        else
+        {
+            SceneManager.LoadScene(mainMenuScene);
+        }
+        
     }
 
     // Called when pressing "LOGIN" on the login-page
@@ -230,37 +247,6 @@ public class LoginScript : MonoBehaviour
         errorPanel.SetActive(false);
     }
 
-    public void Logout()
-    {
-        //remove the auto remember
-        PlayerPrefs.SetInt("rememberMe", 0);
-        rememberMeToggle.isOn = false;
-        rememberMe = 0;
-
-        //createButtonAnimator.SetTrigger("Hide");
-        //createButtonAnimator.ResetTrigger("CreateAccount");
-        //createButtonAnimator.ResetTrigger("Login");
-        //createButtonAnimator.ResetTrigger("ResetPassword");
-
-        existingUserEmailInputField.text = "";
-        existingUserPasswordInputField.text = "";
-
-
-        //end the session
-        LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
-        LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
-        {
-            if (!response.success)
-            {
-                ShowErrorMessage("Error logging out");
-                return;
-            }
-            PlayerPrefs.DeleteKey("LLplayerId");
-            Debug.Log("Logged Out");
-        });
-
-    }
-
     // Called when pressing "CREATE" on new user screen
     public void NewUser()
     {
@@ -391,6 +377,18 @@ public class LoginScript : MonoBehaviour
         else
         {
             rememberMeToggle.isOn = true;
+        }
+
+        // Load the saved state
+        if (PlayerPrefs.GetInt("NewAndLoad", 0) == 1)
+        {
+            newAndLoad = true;
+            Debug.Log("TRUE");
+        }
+        else
+        {
+            newAndLoad = false;
+            Debug.Log("FALSE");
         }
     }
 
