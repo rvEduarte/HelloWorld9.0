@@ -5,14 +5,29 @@ using UnityEngine;
 using LootLocker.Requests;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GetPlayerOnline : MonoBehaviour
 {
     public LevelUnlockScriptable levelUnlockScriptable;
-
+    public TMP_InputField codeProgressInput;
     public void GetPlayerFileData()
     {
-        int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");
+        // Check if the input field is empty
+        if (string.IsNullOrEmpty(codeProgressInput.text))
+        {
+            Debug.Log("Please enter a value.");
+            return;
+        }
+
+        // Parse the input field value to an integer
+        if (!int.TryParse(codeProgressInput.text, out int fileID))
+        {
+            Debug.Log("Invalid input. Please enter a valid number.");
+            return;
+        }
+        //int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");
+        //int fileID = int.Parse(codeProgressInput);
         LootLockerSDKManager.GetPlayerFile(fileID, (response) =>
         {
             if (response.success)
@@ -47,6 +62,7 @@ public class GetPlayerOnline : MonoBehaviour
                 // Update the ScriptableObject with the downloaded content
                 levelUnlockScriptable.UpdateFromJson(fileContent);
 
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }

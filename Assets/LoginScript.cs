@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
-    private string gameSceneName = "MainMenu";
+    private string gameSceneName = "NewAndLoad";
 
     // Input fields
     [Header("New User")]

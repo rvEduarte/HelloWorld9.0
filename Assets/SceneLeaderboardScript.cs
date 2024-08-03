@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLeaderboardScript : MonoBehaviour
 {
-    private string MainTite = "TEst2";
-    public void goBackToMainMenu()
+    public void goBackToMainMenu(string name)
     {
-        SceneManager.LoadScene(MainTite);
+        SceneManager.LoadScene(name);
     }
 }

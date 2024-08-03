@@ -4,33 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelSelectionLevel2 : MonoBehaviour
+public class LevelSelectionLevel1 : MonoBehaviour
 {
-    //public bool unlock = false;
-    public Image Unlocked;
-    public Button buttons;
-    public LevelUnlockScriptable Level;
-
     [Header("Loading Screen")]
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider loadingSlider;
     [SerializeField] private Text progressText;
-
-
-    public void Start()
-    {
-        LevelUnlock();
-    }
-    public void LevelUnlock()
-    {
-        if (Level.csharpBeginnerLevel2 == "LevelBeginner2")
-        {
-            Debug.Log("PASOK");
-            //unlock = true;
-            Unlocked.gameObject.SetActive(false);
-            buttons.interactable = true;
-        }
-    }
 
     public void GoToScene(string name)
     {
