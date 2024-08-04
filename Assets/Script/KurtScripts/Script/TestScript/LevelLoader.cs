@@ -33,5 +33,5 @@ public class LevelLoader : MonoBehaviour
         // loading scene
         SceneManager.LoadScene(levelIndex);
     }
-
+    
 }
