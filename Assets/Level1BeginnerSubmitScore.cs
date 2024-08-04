@@ -35,7 +35,7 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
         float accuracyExercisePh3 = playerData.exerciseAccuracyPhase3;
         float accuracyQuizPh3 = playerData.quizAccuracyPhase3;
 
-        // submitLead.titeSubmit(scoreToSubmit, timeTaken, accuracy);
-        submitLead.titeSubmit(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
+        // submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
+        submitLead.SubmitData(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
     }
 }

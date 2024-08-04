@@ -1220,16 +1220,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 423240266}
-        m_TargetAssemblyTypeName: VincentMainMenuScript, Assembly-CSharp
-        m_MethodName: goToLeaderboard
-        m_Mode: 1
+      - m_Target: {fileID: 852634313}
+        m_TargetAssemblyTypeName: OfflineMainMenu, Assembly-CSharp
+        m_MethodName: GotoScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Offline_Leaderboard
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &357852497
@@ -1375,9 +1375,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1701789965}
-        m_TargetAssemblyTypeName: MainMenuSceneManager, Assembly-CSharp
-        m_MethodName: PlayButtonOffline
+      - m_Target: {fileID: 852634313}
+        m_TargetAssemblyTypeName: OfflineMainMenu, Assembly-CSharp
+        m_MethodName: GotoScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1670,54 +1670,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421000946}
   m_CullTransparentMesh: 1
---- !u!1 &423240265
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 423240267}
-  - component: {fileID: 423240266}
-  m_Layer: 0
-  m_Name: VincentScriptLogin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &423240266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423240265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7acf58ff6da8c17449c09ee8ca06431b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
-  playerNameText: {fileID: 0}
-  errorText: {fileID: 0}
-  errorPanel: {fileID: 0}
---- !u!4 &423240267
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423240265}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1249.494, y: 569.0514, z: -4.6039534}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432499715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,51 +2632,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &670484470
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 670484472}
-  - component: {fileID: 670484471}
-  m_Layer: 0
-  m_Name: UPLOADONLINE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &670484471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670484470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729220f854d5c4747bef23ce7c84b948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
---- !u!4 &670484472
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670484470}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 771.8899, y: 529.9669, z: -1.973927}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &708790699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,8 +3108,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286633471
-  m_fontColor: {r: 1, g: 0.8352941, b: 0.5019608, a: 1}
+    rgba: 4280990207
+  m_fontColor: {r: 1, g: 0.72388947, b: 0.16509432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3811,6 +3718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852634312}
+  - component: {fileID: 852634313}
   m_Layer: 0
   m_Name: OfflineScene/MainMenuManager
   m_TagString: Untagged
@@ -3833,6 +3741,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &852634313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852634311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbe87d7e80c0e74291ad72ed5829dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &867573269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4357,7 +4277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 912019379}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 852634313}
+        m_TargetAssemblyTypeName: OfflineMainMenu, Assembly-CSharp
+        m_MethodName: QuitApp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &912019379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7973,7 +7905,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 670484471}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LootlockerSceneProgress, Assembly-CSharp
         m_MethodName: PlayButton
         m_Mode: 5
@@ -9995,52 +9927,6 @@ Transform:
   - {fileID: 754903159}
   - {fileID: 708790700}
   m_Father: {fileID: 1706192499}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1701789964
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1701789966}
-  - component: {fileID: 1701789965}
-  m_Layer: 0
-  m_Name: Scene/MainMenuManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1701789965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701789964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5b97c133418f54a8c28080129460d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clicked: 0
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
---- !u!4 &1701789966
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701789964}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 818.97205, y: 531.1723, z: -0.11423223}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706192498
 GameObject:
@@ -12638,7 +12524,4 @@ SceneRoots:
   - {fileID: 1357207069}
   - {fileID: 1274240651}
   - {fileID: 659131557}
-  - {fileID: 1701789966}
-  - {fileID: 670484472}
-  - {fileID: 423240267}
   - {fileID: 852634312}

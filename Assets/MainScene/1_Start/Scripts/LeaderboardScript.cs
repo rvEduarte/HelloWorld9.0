@@ -14,7 +14,6 @@ public class LeaderboardScript : MonoBehaviour
     public TextMeshProUGUI leaderboardLevelText;
     public TextMeshProUGUI leaderboardGamerText;
     public TextMeshProUGUI leaderboardScoreText;
-    //public TextMeshProUGUI leaderboardTimeText;
     public TextMeshProUGUI leaderboardAccuracyText;
 
     [Header("Leaderboard TimeTaken Text")]

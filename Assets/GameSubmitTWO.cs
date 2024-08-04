@@ -26,6 +26,6 @@ public class GameSubmitTWO : MonoBehaviour
         int scoreToSubmit = 3000;
         float timeTaken = 3000f;
         float accuracy = 3000f;
-        submitLead.titeSubmit(scoreToSubmit, timeTaken, accuracy);
+        submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
     }*/
 }

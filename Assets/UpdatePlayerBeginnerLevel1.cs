@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UploadPlayerBeginnerLevel1 : MonoBehaviour
+public class UpdatePlayerBeginnerLevel1 : MonoBehaviour
 {
     public LevelUnlockScriptable Level;
 
-    public void PlayButton()
+    public void UpdatePlayerProgression()
     {
-        Level.csharpBeginnerLevel2 = "LevelBeginner2";
+        Level.csharpBeginnerLevel2 = "Level2Beginner";
 
         if (LootlockerSceneProgress.Instance != null)
         {

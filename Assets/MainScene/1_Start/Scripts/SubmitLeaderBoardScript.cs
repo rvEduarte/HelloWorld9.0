@@ -8,17 +8,7 @@ public class SubmitLeaderBoardScript : MonoBehaviour
 {
     public LeaderBoardScriptableObject leaderboardData;
     public static string leaderboardKey;
-    //public TMP_InputField inputscore;
 
-    private void Start()
-    {
-        PlayerPrefs.DeleteKey("tite1");
-        PlayerPrefs.DeleteKey("tite2");
-        PlayerPrefs.DeleteKey("tite3");
-        PlayerPrefs.DeleteKey("accuracyExercisePh2");
-        PlayerPrefs.DeleteKey("accuracyExercisePh2");
-        PlayerPrefs.DeleteKey("accuracyQuizPh3");
-    }
     public void GameManagerLevel1()
     {
         leaderboardKey = "BegginerLevel1";
@@ -29,15 +19,8 @@ public class SubmitLeaderBoardScript : MonoBehaviour
         leaderboardKey = "BegginerLevel2";
     }
 
-    public void titeSubmit(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh2, float accuracyExercisePh3, float accuracyQuizPh3)
+    public void SubmitData(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh2, float accuracyExercisePh3, float accuracyQuizPh3)
     {
-        /*PlayerPrefs.SetString("tite1", timeTaken1);
-        PlayerPrefs.SetString("tite2", timeTaken2);
-        PlayerPrefs.SetString("tite3", timeTaken3);
-        PlayerPrefs.SetFloat("accuracyExercisePh2", accuracyExercisePh2);
-        PlayerPrefs.SetFloat("accuracyExercisePh3", accuracyExercisePh3);
-        PlayerPrefs.SetFloat("accuracyQuizPh3", accuracyQuizPh3);
-        PlayerPrefs.Save();*/
         leaderboardData.timePh1 = timeTaken1;
         leaderboardData.timePh2 = timeTaken2;
         leaderboardData.timePh3 = timeTaken3;
@@ -51,19 +34,11 @@ public class SubmitLeaderBoardScript : MonoBehaviour
     }
     public static void Submit(int scoreToSubmit, LeaderBoardScriptableObject leaderboardData)
     {
-        //the member id is set when the user logs in or uses guest login, if they have not done either of those then this will be empty and the request will fail.
-        // we set it throughout WhiteLabelManager.cs, you can cmd/ctrl + f and look for PlayerPrefs.SetString("LLplayerId"
         string playerId = PlayerPrefs.GetString("LLplayerId");
 
         // Create metadata object
         PlayerMetaData1 metadataObject = new PlayerMetaData1
         {
-            /*timeTaken1 = PlayerPrefs.GetString("tite1"),
-            timeTaken2 = PlayerPrefs.GetString("tite2"),
-            timeTaken3 = PlayerPrefs.GetString("tite3"),
-            accuracyExercisePh2 = PlayerPrefs.GetFloat("accuracyExercisePh2"),
-            accuracyExercisePh3 = PlayerPrefs.GetFloat("accuracyExercisePh3"),
-            accuracyQuizPh3 = PlayerPrefs.GetFloat("accuracyQuizPh3")*/
             timeTaken1 = leaderboardData.timePh1,
             timeTaken2 = leaderboardData.timePh2,
             timeTaken3 = leaderboardData.timePh3,

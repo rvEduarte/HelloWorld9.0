@@ -23,7 +23,7 @@ public class LevelSelectionLevel3 : MonoBehaviour
     }
     public void LevelUnlock()
     {
-        if (Level.csharpBeginnerLevel3 == "LevelBeginner3")
+        if (Level.csharpBeginnerLevel3 == "Level2Beginner")
         {
             Debug.Log("PASOK");
             //unlock = true;

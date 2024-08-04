@@ -30,23 +30,7 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 
     private void Start()
     {
-        playerData.timePhase1 = "";
-        playerData.scorePhase1 = 0;
-
-        playerData.timePhase2 = "";
-        playerData.scorePhase2 = 0;
-        playerData.exerciseAccuracyPhase2 = 0;
-        playerData.rawExercisePhase2 = 0;
-
-        playerData.timePhase3 = "";
-        playerData.scorePhase3 = 0;
-        playerData.scoreQuizPhase3 = 0;
-        playerData.wrongQuizPhase3 = 0;
-        playerData.exerciseAccuracyPhase3 = 0;
-        playerData.rawExercisePhase3 = 0;
-        playerData.quizAccuracyPhase3 = 0;
-
-        playerData.TotalScore = 0;
+        playerData.ResetAllValues();
     }
     private void Update()
     {

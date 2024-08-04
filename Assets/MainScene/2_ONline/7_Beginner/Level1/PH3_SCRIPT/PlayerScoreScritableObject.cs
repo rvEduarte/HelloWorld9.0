@@ -27,4 +27,49 @@ public class PlayerScoreScriptableObject : ScriptableObject
 
     [Header("TOTAL SCORE")]
     public int TotalScore;
+
+
+    public void ResetAllValues()
+    {
+        timePhase1 = string.Empty;
+        timePhase2 = string.Empty;
+        timePhase3 = string.Empty;
+
+        scorePhase1 = 0;
+        scorePhase2 = 0;
+        scorePhase3 = 0;
+
+        exerciseAccuracyPhase2 = 0;
+        exerciseAccuracyPhase3 = 0;
+
+        rawExercisePhase2 = 1;
+        rawExercisePhase3 = 0;
+
+        quizAccuracyPhase3 = 0;
+
+        wrongQuizPhase3 = 0;
+        scoreQuizPhase3 = 0;
+
+        TotalScore = 0;
+    }
+
+    public void ResetPh2Values()
+    {
+        timePhase2 = string.Empty;
+        scorePhase2 = 0;
+        exerciseAccuracyPhase2 = 0;
+        rawExercisePhase2 = 1;
+    }
+
+    public void ResetPh3Values()
+    {
+        timePhase3 = string.Empty;
+        scorePhase3 = 0;
+        exerciseAccuracyPhase3 = 0;
+        rawExercisePhase3 = 0;
+        wrongQuizPhase3 = 0;
+        scoreQuizPhase3 = 0;
+        TotalScore = 0;
+
+    }
 }
