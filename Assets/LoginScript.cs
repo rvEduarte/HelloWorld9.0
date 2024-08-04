@@ -254,6 +254,11 @@ public class LoginScript : MonoBehaviour
         string password = newUserPasswordInputField.text;
         // string newNickName = nickNameInputField.text;
 
+        //remove the ONCE UploadPlayerFile
+        PlayerPrefs.SetInt("Clicked", 0);
+
+        //remove the ONCE copyState
+        PlayerPrefs.SetInt("copyState", 0);
 
         if (email.Length < 1 || password.Length < 1)
         {

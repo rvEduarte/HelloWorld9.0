@@ -11,7 +11,7 @@ public class MainMenuSceneManager : MonoBehaviour
     private void Start()
     {
         // Load the saved state
-        if (PlayerPrefs.GetInt("Clicked", 0) == 1)
+        if (PlayerPrefs.GetInt("Clicked") == 1)
         {
             clicked = true;
         }

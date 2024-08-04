@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class VincentMainMenuScript : MonoBehaviour
 {
+    public LevelUnlockScriptable levelUnlockScriptable;
 
     private string loginSceneName = "Login";
     private string leaderboardSceneName = "Leaderboard";
@@ -86,11 +87,20 @@ public class VincentMainMenuScript : MonoBehaviour
 
     public void logout()
     {
+        //remove the values of scriptableObjects
+        levelUnlockScriptable.ResetValues();
+
         //remove the auto remember
         PlayerPrefs.SetInt("rememberMe", 0);
 
         //remove the ONCE newAndLoad
         PlayerPrefs.SetInt("NewAndLoad", 0);
+
+        //remove the ONCE UploadPlayerFile
+        PlayerPrefs.SetInt("Clicked", 0);
+
+        //remove the ONCE copyState
+        PlayerPrefs.SetInt("copyState", 0);
 
         //end the session
         LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
