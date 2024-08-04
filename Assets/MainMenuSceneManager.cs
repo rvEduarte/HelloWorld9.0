@@ -10,8 +10,10 @@ public class MainMenuSceneManager : MonoBehaviour
     public LevelUnlockScriptable levelUnlockScriptable;
     private void Start()
     {
+        Time.timeScale = 1f;
+
         // Load the saved state
-        if (PlayerPrefs.GetInt("Clicked") == 1)
+        if (PlayerPrefs.GetInt("uploadPlayer") == 1)
         {
             clicked = true;
         }
@@ -20,7 +22,7 @@ public class MainMenuSceneManager : MonoBehaviour
             clicked = false;
         }
     }
-    public void PlayButton(string name)
+    public void PlayButtonOnline(string name)
     {
         if (!clicked)
         {
@@ -35,7 +37,7 @@ public class MainMenuSceneManager : MonoBehaviour
             }
 
             // Mark the action as performed and save the state
-            PlayerPrefs.SetInt("Clicked", 1); // 1 means true
+            PlayerPrefs.SetInt("uploadPlayer", 1); // 1 means true
             PlayerPrefs.Save(); // Make sure changes are saved to disk
 
             clicked = true;
@@ -46,5 +48,18 @@ public class MainMenuSceneManager : MonoBehaviour
 
         SceneManager.LoadScene(name);
         Debug.Log("YES");
+    }
+    public void PlayButtonOffline(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+    public void GotoScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+    public void QuitApp()
+    {
+        Application.Quit();
+        Debug.Log("Application Successfully Quit");
     }
 }

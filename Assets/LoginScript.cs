@@ -9,6 +9,7 @@ public class LoginScript : MonoBehaviour
 {
     private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
+    private string offlineMainMenuScene = "Offline_MainMenu";
 
     // Input fields
     [Header("New User")]
@@ -47,6 +48,32 @@ public class LoginScript : MonoBehaviour
 
     [SerializeField] public bool newAndLoad; //FALSE
 
+    // Start is called before the first frame update
+    public void Start()
+    {
+        // See if we should log in the player automatically
+        rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
+        if (rememberMe == 0)
+        {
+            rememberMeToggle.isOn = false;
+        }
+        else
+        {
+            rememberMeToggle.isOn = true;
+        }
+
+        // Load the saved state
+        if (PlayerPrefs.GetInt("NewAndLoad", 0) == 1)
+        {
+            newAndLoad = true;
+            Debug.Log("TRUE");
+        }
+        else
+        {
+            newAndLoad = false;
+            Debug.Log("FALSE");
+        }
+    }
     public void PlayGame()
     {
         if (!newAndLoad)
@@ -65,6 +92,10 @@ public class LoginScript : MonoBehaviour
             SceneManager.LoadScene(mainMenuScene);
         }
         
+    }
+    public void PlayGameOffline()
+    {
+        SceneManager.LoadScene(offlineMainMenuScene);
     }
 
     // Called when pressing "LOGIN" on the login-page
@@ -85,20 +116,15 @@ public class LoginScript : MonoBehaviour
             if (error.Contains("message"))
             {
                 ShowErrorMessage(ExtractMessageFromLootLockerError(error));
-                //return;
+                return;
             }
 
             if (!error.Contains("message"))
             {
                 ShowErrorMessage("Error logging in");
-               //s return;
+                return;
             }
 
-           // loginButtonAnimator.SetTrigger("Error");
-            //loginRememberMeAnimator.SetTrigger("Show");
-            //loginEmailInputFieldAnimator.SetTrigger("Show");
-            //loginPasswordInputFieldAnimator.SetTrigger("Show");
-           // loginBackButtonAnimator.SetTrigger("Show");
             return;
         }
 
@@ -133,10 +159,6 @@ public class LoginScript : MonoBehaviour
                 else
                 {
                     PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                    // Session was succesfully started;
-                    // animate the buttons
-                    //loginButtonAnimator.SetTrigger("LoggedIn");
-                    //loginButtonAnimator.SetTrigger("Hide");
                     LoginPanel.SetActive(false);
                     Debug.Log("session started successfully");
                     CheckIfPlayerHasName(response.public_uid);
@@ -159,8 +181,8 @@ public class LoginScript : MonoBehaviour
                 {
                     // Player does not have a name, force them to set one
                     Debug.Log("Player has not set a display name");
+
                     //show the set display name screen
-                    //setDisplayNameCanvasAnimator.CallAppearOnAllAnimators();
                     SetNickNamePanel.SetActive(true);
                 }
                 else
@@ -178,10 +200,6 @@ public class LoginScript : MonoBehaviour
 
     public void UpdatePlayerName()
     {
-        //newNickNameCreateButtonAnimator.SetTrigger("UpdateName");
-       // newNickNameLogOutButtonAnimator.SetTrigger("Hide");
-        //newNickNameInputFieldAnimator.SetTrigger("Hide");
-
         string newPlayerName = newPlayerNameInputField.text;
         if (newPlayerName == "")
         {
@@ -205,10 +223,6 @@ public class LoginScript : MonoBehaviour
             {
                 ShowErrorMessage("Error setting display name");
             }
-            //newNickNameCreateButtonAnimator.ResetTrigger("UpdateName");
-            //newNickNameLogOutButtonAnimator.SetTrigger("Show");
-           // newNickNameInputFieldAnimator.SetTrigger("Show");
-           // newNickNameCreateButtonAnimator.SetTrigger("Error");
 
             return;
         }
@@ -221,8 +235,6 @@ public class LoginScript : MonoBehaviour
                 return;
             }
 
-            //setDisplayNameCanvasAnimator.CallDisappearOnAllAnimators();
-            //newNickNameCreateButtonAnimator.SetTrigger("Hide");
             SetNickNamePanel.SetActive(false);
             // Write the players name to the screen
             //load the game
@@ -236,14 +248,13 @@ public class LoginScript : MonoBehaviour
         //set active
         errorPanel.SetActive(true);
         errorText.text = message.ToUpper();
-        //errorScreenAnimator.SetTrigger("Show");
+
         //wait for 3 seconds and hide the error panel
         Invoke("HideErrorMessage", showTime);
     }
 
     private void HideErrorMessage()
     {
-        //errorScreenAnimator.SetTrigger("Hide");
         errorPanel.SetActive(false);
     }
 
@@ -295,11 +306,6 @@ public class LoginScript : MonoBehaviour
 
         //if passes all above checks, create the account
         Debug.Log("Creating account");
-        //createButtonAnimator.SetTrigger("CreateAccount");
-        //createBackButtonAnimator.SetTrigger("Hide");
-        //createPasswordInputFieldAnimator.SetTrigger("Hide");
-       // createEmailInputFieldAnimator.SetTrigger("Hide");
-
 
         LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
         {
@@ -357,8 +363,6 @@ public class LoginScript : MonoBehaviour
                                     return;
                                 }
                                 Debug.Log("Account Created");
-                                //createButtonAnimator.SetTrigger("AccountCreated");
-                                //createBackButtonAnimator.SetTrigger("Show");
                                 registerButton.text = "AccountCreated";
                                 // New user, turn off remember me
                                 rememberMeToggle.isOn = false;
@@ -369,34 +373,6 @@ public class LoginScript : MonoBehaviour
             }
         });
     }
-
-    // Start is called before the first frame update
-    public void Start()
-    {
-        // See if we should log in the player automatically
-        rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
-        if (rememberMe == 0)
-        {
-            rememberMeToggle.isOn = false;
-        }
-        else
-        {
-            rememberMeToggle.isOn = true;
-        }
-
-        // Load the saved state
-        if (PlayerPrefs.GetInt("NewAndLoad", 0) == 1)
-        {
-            newAndLoad = true;
-            Debug.Log("TRUE");
-        }
-        else
-        {
-            newAndLoad = false;
-            Debug.Log("FALSE");
-        }
-    }
-
     // Called when changing the value on the toggle
     public void ToggleRememberMe()
     {
@@ -406,12 +382,10 @@ public class LoginScript : MonoBehaviour
         // Animate button
         if (rememberMeBool == true)
         {
-            //rememberMeAnimator.SetTrigger("On");
             Debug.Log("CHECKED");
         }
         else
         {
-            //rememberMeAnimator.SetTrigger("Off");
             Debug.Log(" NOT CHECKED");
         }
         PlayerPrefs.SetInt("rememberMe", rememberMe);
@@ -423,27 +397,15 @@ public class LoginScript : MonoBehaviour
         if (Convert.ToBoolean(rememberMe) == true)
         {
             Debug.Log("Auto login");
+
             // Hide the buttons on the login screen
-            /*existingUserEmailInputField.GetComponent<Animator>().ResetTrigger("Show");
-            existingUserEmailInputField.GetComponent<Animator>().SetTrigger("Hide");
-            existingUserEmailInputField.GetComponent<Animator>().ResetTrigger("Show");
-            existingUserPasswordInputField.GetComponent<Animator>().SetTrigger("Hide");*/
-            //loginBackButtonAnimator.ResetTrigger("Show");
-            //loginBackButtonAnimator.SetTrigger("Hide");
             LoginPanel.SetActive(false);
-            // Start to spin the login button
-            //loginButtonAnimator.ResetTrigger("Hide");
-            //loginButtonAnimator.SetTrigger("Hide");
 
             LootLockerSDKManager.CheckWhiteLabelSession(response =>
             {
                 if (response == false)
                 {
-                    // Session was not valid, show error animation
-                    // and show back button
-                    //loginButtonAnimator.SetTrigger("Error");
-                    //loginBackButtonAnimator.SetTrigger("Show");
-
+                    // Session was not valid, show error
                     // set the remember me bool to false here, so that the next time the player press login
                     // they will get to the login screen
                     rememberMeToggle.isOn = false;
@@ -457,18 +419,12 @@ public class LoginScript : MonoBehaviour
                         {
                             PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
                             // It was succeful, log in
-                            //loginButtonAnimator.SetTrigger("Hide");
-                            //loginBackButtonAnimator.SetTrigger("Hide");
                             // Write the current players name to the screen
                             CheckIfPlayerHasName(response.public_uid);
                         }
                         else
                         {
                             // Error
-                            // Animate the buttons
-                            //loginButtonAnimator.SetTrigger("Error");
-                            //loginBackButtonAnimator.SetTrigger("Show");
-
                             Debug.Log("error starting LootLocker session");
                             // set the remember me bool to false here, so that the next time the player press login
                             // they will get to the login screen
@@ -476,23 +432,16 @@ public class LoginScript : MonoBehaviour
 
                             return;
                         }
-
                     });
-
                 }
-
             });
         }
         else if (Convert.ToBoolean(rememberMe) == false)
         {
             Debug.Log("Auto login is off");
             // Continue as usual
-            //loginCanvasAnimator.CallAppearOnAllAnimators();
-            //   loginButtonAnimator.ResetTrigger("Show");
-            //loginButtonAnimator.SetTrigger("Show");
         }
     }
-
     public void PasswordReset()
     {
         string email = resetPasswordInputField.text;
@@ -513,19 +462,11 @@ public class LoginScript : MonoBehaviour
                     ShowErrorMessage("Error requesting password reset");
                 }
 
-                //resetPasswordButtonAnimator.SetTrigger("Error");
-
-                // make the buttons show again 
-                //resetBackButtonAnimator.SetTrigger("Show");
-                //resetEmailInputFieldAnimator.SetTrigger("Show");
-
                 return;
             }
 
             Debug.Log("requested password reset successfully");
-            // resetEmailInputFieldAnimator.SetTrigger("Hide");
-            //resetPasswordButtonAnimator.SetTrigger("Done");
-            // resetBackButtonAnimator.SetTrigger("Show");
+
             resetPassButton.text = "SENT";
         });
     }

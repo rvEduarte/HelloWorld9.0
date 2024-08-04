@@ -5174,9 +5174,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2104010997}
-        m_TargetAssemblyTypeName: MainMenuSceneManager, Assembly-CSharp
-        m_MethodName: PlayButton
+      - m_Target: {fileID: 1298605577}
+        m_TargetAssemblyTypeName: OnlineMainMenu, Assembly-CSharp
+        m_MethodName: PlayButtonOnline
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8104,7 +8104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!1 &1296830151
+--- !u!1 &1298605575
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8112,46 +8112,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1296830153}
-  - component: {fileID: 1296830152}
+  - component: {fileID: 1298605576}
+  - component: {fileID: 1298605577}
   m_Layer: 0
-  m_Name: VincentScriptLogin
+  m_Name: OnlineScene/MainMenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1296830152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296830151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7acf58ff6da8c17449c09ee8ca06431b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
-  playerNameText: {fileID: 1267561048}
-  errorText: {fileID: 589502817}
-  errorPanel: {fileID: 900400527}
---- !u!4 &1296830153
+--- !u!4 &1298605576
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296830151}
+  m_GameObject: {fileID: 1298605575}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1249.494, y: 569.0514, z: -4.6039534}
+  m_LocalPosition: {x: 896.2289, y: 505.1554, z: 4.9854794}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1298605577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298605575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bfafedcbc3e0c0409f0bc3cdf8bd0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clicked: 0
+  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
+  playerNameText: {fileID: 1267561048}
+  errorText: {fileID: 589502817}
+  errorPanel: {fileID: 900400527}
 --- !u!1 &1303018251
 GameObject:
   m_ObjectHideFlags: 0
@@ -10502,52 +10503,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657920474}
   m_CullTransparentMesh: 1
---- !u!1 &1680991933
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680991935}
-  - component: {fileID: 1680991934}
-  m_Layer: 0
-  m_Name: TRIALUPLOADFILE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1680991934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680991933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b678170604ed6b64084663e908500977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
-  codeProgressInput: {fileID: 0}
---- !u!4 &1680991935
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680991933}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 912.2909, y: 550.4109, z: 3.163127}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1682191438
 GameObject:
   m_ObjectHideFlags: 0
@@ -11053,19 +11008,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1822012271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413207324}
-        m_TargetAssemblyTypeName: LootlockerSceneProgress, Assembly-CSharp
-        m_MethodName: PlayButton
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: LanguageSelection
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1822012271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11334,16 +11277,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1296830152}
-        m_TargetAssemblyTypeName: VincentMainMenuScript, Assembly-CSharp
-        m_MethodName: goToLeaderboard
-        m_Mode: 1
+      - m_Target: {fileID: 1298605577}
+        m_TargetAssemblyTypeName: OnlineMainMenu, Assembly-CSharp
+        m_MethodName: GotoScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LeaderBoard
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1853223437
@@ -12431,16 +12374,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2104010997}
-        m_TargetAssemblyTypeName: MainMenuSceneManager, Assembly-CSharp
-        m_MethodName: PlayButton
+      - m_Target: {fileID: 1298605577}
+        m_TargetAssemblyTypeName: OnlineMainMenu, Assembly-CSharp
+        m_MethodName: GotoScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: TRIALPLAY
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2049598086
@@ -12564,7 +12507,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2059270822}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1298605577}
+        m_TargetAssemblyTypeName: OnlineMainMenu, Assembly-CSharp
+        m_MethodName: QuitApp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2059270822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12959,52 +12914,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095045839}
   m_CullTransparentMesh: 1
---- !u!1 &2104010996
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2104010998}
-  - component: {fileID: 2104010997}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2104010997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104010996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5b97c133418f54a8c28080129460d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clicked: 0
-  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
---- !u!4 &2104010998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104010996}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 818.97205, y: 531.1723, z: -0.11423223}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2108733532
 GameObject:
   m_ObjectHideFlags: 0
@@ -13165,8 +13074,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1296830152}
-        m_TargetAssemblyTypeName: VincentMainMenuScript, Assembly-CSharp
+      - m_Target: {fileID: 1298605577}
+        m_TargetAssemblyTypeName: OnlineMainMenu, Assembly-CSharp
         m_MethodName: logout
         m_Mode: 1
         m_Arguments:
@@ -13601,7 +13510,5 @@ SceneRoots:
   - {fileID: 117985298}
   - {fileID: 346992537}
   - {fileID: 1104559100}
-  - {fileID: 1296830153}
-  - {fileID: 1680991935}
   - {fileID: 413207325}
-  - {fileID: 2104010998}
+  - {fileID: 1298605576}
