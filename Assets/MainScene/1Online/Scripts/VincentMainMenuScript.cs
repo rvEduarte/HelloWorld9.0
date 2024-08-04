@@ -18,7 +18,7 @@ public class VincentMainMenuScript : MonoBehaviour
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
-    public Animator errorScreenAnimator;
+    //public Animator errorScreenAnimator;
 
     public void Start()
     {
@@ -72,14 +72,16 @@ public class VincentMainMenuScript : MonoBehaviour
         //set active
         errorPanel.SetActive(true);
         errorText.text = message.ToUpper();
-        errorScreenAnimator.SetTrigger("Show");
+        //errorScreenAnimator.SetTrigger("Show");
+        errorPanel.SetActive(true);
         //wait for 3 seconds and hide the error panel
         Invoke("hideErrorMessage", showTime);
     }
 
     private void hideErrorMessage()
     {
-        errorScreenAnimator.SetTrigger("Hide");
+        errorPanel.SetActive(false);
+        //errorScreenAnimator.SetTrigger("Hide");
     }
 
     public void logout()

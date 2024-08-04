@@ -13,6 +13,8 @@ public class JigsawScript : MonoBehaviour
 
     public GameObject jigsawPanel;
 
+    public GameObject jigsawPopup;
+
     public RunningTimerLevel1Ph1 timer;
 
     private bool pickUpAllowed;
@@ -32,7 +34,8 @@ public class JigsawScript : MonoBehaviour
     private void Update()
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
-        {           
+        {
+            jigsawPopup.SetActive(true);
             timer.isPicked = true;
             LeanTween.scale(jigsawPanel, Vector3.one, 0.8f);
 
