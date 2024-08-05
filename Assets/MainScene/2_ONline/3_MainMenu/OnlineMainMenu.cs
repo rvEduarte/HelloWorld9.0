@@ -48,6 +48,9 @@ public class OnlineMainMenu : MonoBehaviour
             if (response.success)
             {
                 playerNameText.text = response.name;
+
+                PlayerPrefs.SetString("PlayerName", playerNameText.text);
+                PlayerPrefs.Save();
             }
         });
 
@@ -64,7 +67,7 @@ public class OnlineMainMenu : MonoBehaviour
             }
             else
             {
-                Debug.LogError("LevelSelectionLvl2 instance not found.");
+                Debug.LogError("errorUploadFile");
             }
 
             // Mark the action as performed and save the state
@@ -110,9 +113,6 @@ public class OnlineMainMenu : MonoBehaviour
         //remove the values of scriptableObjects
         levelUnlockScriptable.ResetValues();
 
-        //remove the auto remember
-        PlayerPrefs.SetInt("rememberMe", 0);
-
         //remove the ONCE newAndLoad
         PlayerPrefs.SetInt("NewAndLoad", 0);
 
@@ -121,6 +121,12 @@ public class OnlineMainMenu : MonoBehaviour
 
         //remove the ONCE copyState
         PlayerPrefs.SetInt("copyState", 0);
+
+        //remove the autoLogin
+        PlayerPrefs.SetInt("AutoLogin", 0);
+
+        //remove the playerName
+        PlayerPrefs.SetString("PlayerName", "");
 
         //end the session
         LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();

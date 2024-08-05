@@ -11,6 +11,8 @@ public class LoginScript : MonoBehaviour
     private string mainMenuScene = "MainMenu";
     private string offlineMainMenuScene = "Offline_MainMenu";
 
+    public LevelUnlockScriptable levelUnlockScriptable;
+
     // Input fields
     [Header("New User")]
     public TMP_InputField newUserEmailInputField;
@@ -25,8 +27,9 @@ public class LoginScript : MonoBehaviour
 
     [Header("RememberMe")]
     // Components for enabling auto login
-    public Toggle rememberMeToggle;
-    private int rememberMe;
+    //public Toggle rememberMeToggle;
+    //private int rememberMe;
+    public bool autoLogin;
 
     [Header("New Player Name")]
     public TMP_InputField newPlayerNameInputField;
@@ -52,14 +55,15 @@ public class LoginScript : MonoBehaviour
     public void Start()
     {
         // See if we should log in the player automatically
-        rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
-        if (rememberMe == 0)
+        if (PlayerPrefs.GetInt("AutoLogin") == 1)
         {
-            rememberMeToggle.isOn = false;
+            autoLogin = true;
+            Debug.Log("TRUE");
         }
         else
         {
-            rememberMeToggle.isOn = true;
+            autoLogin = false;
+            Debug.Log("FALSE");
         }
 
         // Load the saved state
@@ -128,7 +132,7 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
-        LootLockerSDKManager.WhiteLabelLogin(email, password, Convert.ToBoolean(rememberMe), response =>
+        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
         {
             if (!response.success)
             {
@@ -140,6 +144,8 @@ public class LoginScript : MonoBehaviour
             else
             {
                 Debug.Log("Player was logged in succesfully");
+                PlayerPrefs.SetInt("AutoLogin", 1);
+                PlayerPrefs.Save();
             }
 
             // Is the account verified?
@@ -235,8 +241,10 @@ public class LoginScript : MonoBehaviour
                 return;
             }
 
+            PlayerPrefs.SetString("PlayerName", newPlayerName);
+            PlayerPrefs.Save();
+
             SetNickNamePanel.SetActive(false);
-            // Write the players name to the screen
             //load the game
             PlayGame();
         });
@@ -265,12 +273,6 @@ public class LoginScript : MonoBehaviour
         string password = newUserPasswordInputField.text;
         // string newNickName = nickNameInputField.text;
 
-        //remove the ONCE UploadPlayerFile
-        PlayerPrefs.SetInt("Clicked", 0);
-
-        //remove the ONCE copyState
-        PlayerPrefs.SetInt("copyState", 0);
-
         if (email.Length < 1 || password.Length < 1)
         {
             ShowErrorMessage("Please fill in all fields");
@@ -295,11 +297,7 @@ public class LoginScript : MonoBehaviour
             {
                 ShowErrorMessage("Error creating account");
             }
-            //createButtonAnimator.SetTrigger("Error");
 
-            //createBackButtonAnimator.SetTrigger("Show");
-            //createPasswordInputFieldAnimator.SetTrigger("Show");
-            //createEmailInputFieldAnimator.SetTrigger("Show");
             return;
         }
 
@@ -319,6 +317,7 @@ public class LoginScript : MonoBehaviour
                 // Succesful response
                 // Log in player to set name
                 // Login the player
+
                 LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
                 {
                     if (!response.success)
@@ -364,8 +363,24 @@ public class LoginScript : MonoBehaviour
                                 }
                                 Debug.Log("Account Created");
                                 registerButton.text = "AccountCreated";
+
+                                
+                                //remove the values of scriptableObjects
+                                levelUnlockScriptable.ResetValues();
+
+                                //remove the ONCE newAndLoad
+                                PlayerPrefs.SetInt("NewAndLoad", 0);
+
+                                //remove the ONCE UploadPlayerFile
+                                PlayerPrefs.SetInt("uploadPlayer", 0);
+
+                                //remove the ONCE copyState
+                                PlayerPrefs.SetInt("copyState", 0);
+
                                 // New user, turn off remember me
-                                rememberMeToggle.isOn = false;
+                                PlayerPrefs.SetInt("AutoLogin", 0);
+
+                                PlayerPrefs.Save();
                             });
                         });
                     });
@@ -373,28 +388,11 @@ public class LoginScript : MonoBehaviour
             }
         });
     }
-    // Called when changing the value on the toggle
-    public void ToggleRememberMe()
-    {
-        bool rememberMeBool = rememberMeToggle.isOn;
-        rememberMe = Convert.ToInt32(rememberMeBool);
-
-        // Animate button
-        if (rememberMeBool == true)
-        {
-            Debug.Log("CHECKED");
-        }
-        else
-        {
-            Debug.Log(" NOT CHECKED");
-        }
-        PlayerPrefs.SetInt("rememberMe", rememberMe);
-    }
 
     public void AutoLogin()
     {
         // Does the user want to automatically log in?
-        if (Convert.ToBoolean(rememberMe) == true)
+        if (autoLogin == true)
         {
             Debug.Log("Auto login");
 
@@ -408,7 +406,10 @@ public class LoginScript : MonoBehaviour
                     // Session was not valid, show error
                     // set the remember me bool to false here, so that the next time the player press login
                     // they will get to the login screen
-                    rememberMeToggle.isOn = false;
+                    ShowErrorMessage("error while logging in");
+                    LoginPanel.SetActive(true);
+                    PlayerPrefs.SetInt("AutoLogin", 0);
+                    PlayerPrefs.Save();
                 }
                 else
                 {
@@ -428,7 +429,8 @@ public class LoginScript : MonoBehaviour
                             Debug.Log("error starting LootLocker session");
                             // set the remember me bool to false here, so that the next time the player press login
                             // they will get to the login screen
-                            rememberMeToggle.isOn = false;
+                            PlayerPrefs.SetInt("AutoLogin", 0);
+                            PlayerPrefs.Save();
 
                             return;
                         }
@@ -436,7 +438,7 @@ public class LoginScript : MonoBehaviour
                 }
             });
         }
-        else if (Convert.ToBoolean(rememberMe) == false)
+        else if (autoLogin == false)
         {
             Debug.Log("Auto login is off");
             // Continue as usual
