@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OnlineMainMenu : MonoBehaviour
 {
@@ -110,24 +111,6 @@ public class OnlineMainMenu : MonoBehaviour
     // End player online session
     public void logout()
     {
-        //remove the values of scriptableObjects
-        levelUnlockScriptable.ResetValues();
-
-        //remove the ONCE newAndLoad
-        PlayerPrefs.SetInt("NewAndLoad", 0);
-
-        //remove the ONCE UploadPlayerFile
-        PlayerPrefs.SetInt("uploadPlayer", 0);
-
-        //remove the ONCE copyState
-        PlayerPrefs.SetInt("copyState", 0);
-
-        //remove the autoLogin
-        PlayerPrefs.SetInt("AutoLogin", 0);
-
-        //remove the playerName
-        PlayerPrefs.SetString("PlayerName", "");
-
         //end the session
         LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
 
@@ -143,6 +126,27 @@ public class OnlineMainMenu : MonoBehaviour
             LootLockerSDKManager.ClearLocalSession();
             SceneManager.LoadScene(loginSceneName);
             Debug.Log("Logged Out");
+
+            //remove the values of scriptableObjects
+            levelUnlockScriptable.ResetValues();
+
+            //remove the ONCE newAndLoad
+            PlayerPrefs.SetInt("NewAndLoad", 0);
+
+            //remove the ONCE UploadPlayerFile
+            PlayerPrefs.SetInt("uploadPlayer", 0);
+
+            //remove the ONCE copyState
+            PlayerPrefs.SetInt("copyState", 0);
+
+            //remove the autoLogin
+            PlayerPrefs.SetInt("AutoLogin", 0);
+
+            //remove the playerName
+            PlayerPrefs.SetString("PlayerName", "");
+
+            //Enable the registerButton
+            PlayerPrefs.SetInt("RegisterState", 0);
         });
     }
     public void QuitApp()

@@ -51,6 +51,8 @@ public class LoginScript : MonoBehaviour
 
     [SerializeField] public bool newAndLoad; //FALSE
 
+    public Button disableRegisterButton;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -67,7 +69,7 @@ public class LoginScript : MonoBehaviour
         }
 
         // Load the saved state
-        if (PlayerPrefs.GetInt("NewAndLoad", 0) == 1)
+        if (PlayerPrefs.GetInt("NewAndLoad") == 1)
         {
             newAndLoad = true;
             Debug.Log("TRUE");
@@ -76,6 +78,16 @@ public class LoginScript : MonoBehaviour
         {
             newAndLoad = false;
             Debug.Log("FALSE");
+        }
+
+        //Register State
+        if (PlayerPrefs.GetInt("RegisterState") == 1)
+        {
+            disableRegisterButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            disableRegisterButton.gameObject.SetActive(true);
         }
     }
     public void PlayGame()
@@ -144,6 +156,7 @@ public class LoginScript : MonoBehaviour
             else
             {
                 Debug.Log("Player was logged in succesfully");
+                PlayerPrefs.SetInt("RegisterState", 1);
                 PlayerPrefs.SetInt("AutoLogin", 1);
                 PlayerPrefs.Save();
             }
@@ -168,6 +181,9 @@ public class LoginScript : MonoBehaviour
                     LoginPanel.SetActive(false);
                     Debug.Log("session started successfully");
                     CheckIfPlayerHasName(response.public_uid);
+
+                    //DisableRegisterButton
+                    disableRegisterButton.gameObject.SetActive(false);
                 }
             });
         });
@@ -314,77 +330,11 @@ public class LoginScript : MonoBehaviour
             }
             else
             {
+                Debug.Log("Account Created");
+                registerButton.text = "AccountCreated";
                 // Succesful response
                 // Log in player to set name
-                // Login the player
-
-                LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
-                {
-                    if (!response.success)
-                    {
-                        isError(response.errorData.ToString());
-                        return;
-                    }
-                    // Start session
-                    LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                    {
-                        if (!response.success)
-                        {
-                            isError(response.errorData.ToString());
-                            return;
-                        }
-                        string publicUID = response.public_uid;
-                        // Set nickname to be public UID 
-                        string newNickName = response.public_uid;
-                        // Set new nickname for player
-                        LootLockerSDKManager.SetPlayerName(newNickName, (response) =>
-                        {
-                            if (!response.success)
-                            {
-                                ShowErrorMessage("Your account was created but your display name was already taken, you'll be asked to set it when you log in.", 5);
-                                // Set public UID as name if setting nickname failed
-                                LootLockerSDKManager.SetPlayerName(publicUID, (response) =>
-                                {
-                                    if (!response.success)
-                                    {
-                                        ShowErrorMessage("Your account was created but your display name was already taken, you'll be asked to set it when you log in.", 5);
-                                    }
-                                });
-                            }
-
-                            // End this session
-                            LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
-                            LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
-                            {
-                                if (!response.success)
-                                {
-                                    ShowErrorMessage("Account created but error ending session");
-                                    return;
-                                }
-                                Debug.Log("Account Created");
-                                registerButton.text = "AccountCreated";
-
-                                
-                                //remove the values of scriptableObjects
-                                levelUnlockScriptable.ResetValues();
-
-                                //remove the ONCE newAndLoad
-                                PlayerPrefs.SetInt("NewAndLoad", 0);
-
-                                //remove the ONCE UploadPlayerFile
-                                PlayerPrefs.SetInt("uploadPlayer", 0);
-
-                                //remove the ONCE copyState
-                                PlayerPrefs.SetInt("copyState", 0);
-
-                                // New user, turn off remember me
-                                PlayerPrefs.SetInt("AutoLogin", 0);
-
-                                PlayerPrefs.Save();
-                            });
-                        });
-                    });
-                });
+                // Login the player  
             }
         });
     }
@@ -408,8 +358,9 @@ public class LoginScript : MonoBehaviour
                     // they will get to the login screen
                     ShowErrorMessage("error while logging in");
                     LoginPanel.SetActive(true);
-                    PlayerPrefs.SetInt("AutoLogin", 0);
-                    PlayerPrefs.Save();
+                    
+                    //PlayerPrefs.SetInt("AutoLogin", 0);
+                    //PlayerPrefs.Save();
                 }
                 else
                 {
