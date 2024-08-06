@@ -11,19 +11,23 @@ public class GetPlayerOnline : MonoBehaviour
 {
     public LevelUnlockScriptable levelUnlockScriptable;
     public TMP_InputField codeProgressInput;
+
+    [Header("Error Handling")]
+    public TextMeshProUGUI errorText;
+    public GameObject errorPanel;
     public void GetPlayerFileData()
     {
         // Check if the input field is empty
         if (string.IsNullOrEmpty(codeProgressInput.text))
         {
-            Debug.Log("Please enter a value.");
+            ShowErrorMessage("Please enter a value.");
             return;
         }
 
         // Parse the input field value to an integer
         if (!int.TryParse(codeProgressInput.text, out int fileID))
         {
-            Debug.Log("Invalid input. Please enter a valid number.");
+            ShowErrorMessage("Invalid input. Please enter a valid number.");
             return;
         }
         //int fileID = PlayerPrefs.GetInt("PlayerSaveDataFileID");
@@ -37,7 +41,8 @@ public class GetPlayerOnline : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Failed to get player file: " + response.errorData.ToString());
+                ShowErrorMessage("Error to get player file. Check your internet connection!");
+                return;
             }
         });
     }
@@ -50,7 +55,7 @@ public class GetPlayerOnline : MonoBehaviour
 
             if (request.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
             {
-                Debug.LogError("Failed to download file: " + request.error);
+                ShowErrorMessage("Error to get player file. Check your internet connection");
             }
             else
             {
@@ -81,5 +86,21 @@ public class GetPlayerOnline : MonoBehaviour
                 Debug.Log("Error deleting player file");
             }
         });
+    }
+
+    // Show an error message on the screen
+    public void ShowErrorMessage(string message, int showTime = 3)
+    {
+        //set active
+        errorPanel.SetActive(true);
+        errorText.text = message.ToUpper();
+
+        //wait for 3 seconds and hide the error panel
+        Invoke("HideErrorMessage", showTime);
+    }
+
+    private void HideErrorMessage()
+    {
+        errorPanel.SetActive(false);
     }
 }

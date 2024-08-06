@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class OfflineLeaderboardScript : MonoBehaviour
 {
+    public OfflineScriptableObject leaderboardstat;
+
     [Header("Leaderboard Text")]
     public TextMeshProUGUI leaderboardLevelText;
     public TextMeshProUGUI leaderboardGamerText;
     public TextMeshProUGUI leaderboardScoreText;
-    public TextMeshProUGUI leaderboardAccuracyText;
 
     [Header("Leaderboard TimeTaken Text")]
     public TextMeshProUGUI timeTaken1;
@@ -36,8 +38,32 @@ public class OfflineLeaderboardScript : MonoBehaviour
 
     public void BegginnerGetDataLevel1()
     {
-        //leaderboardKey = "BegginerLevel1";
         leaderboardLevelText.text = "Level1 Ranking";
-        //LevelGetData();
+
+        leaderboardGamerText.text = "PLAYER NAME";
+        leaderboardScoreText.text = "SCORE";
+
+        timeTaken1.text = "elapsed time ph1";
+        timeTaken2.text = "elapsed time ph2";
+        timeTaken3.text = "elapsed time ph3";
+
+        exerciseAccuracyPh2.text = "Challenge Exercise Accuracy PH2";
+        exerciseAccuracyPh3.text = "Challenge Exercise Accuracy PH3";
+
+        quizAccuracyPh3.text = "Quiz Accuracy PH3";
+
+        //add the score to the text
+        leaderboardGamerText.text += "\n" + PlayerPrefs.GetString("PlayerName");
+        leaderboardScoreText.text += "\n" + leaderboardstat.TotalScore;
+
+        // Parse metadata
+        timeTaken1.text += "\n" + leaderboardstat.timePhase1;
+        timeTaken2.text += "\n" + leaderboardstat.timePhase2;
+        timeTaken3.text += "\n" + leaderboardstat.timePhase3;
+
+        exerciseAccuracyPh2.text += "\n" + leaderboardstat.exerciseAccuracyPhase2 + "%";
+        exerciseAccuracyPh3.text += "\n" + leaderboardstat.exerciseAccuracyPhase3 + "%";
+
+        quizAccuracyPh3.text += "\n" + leaderboardstat.lvl2_quizAccuracyPhase3 + "%";
     }
 }

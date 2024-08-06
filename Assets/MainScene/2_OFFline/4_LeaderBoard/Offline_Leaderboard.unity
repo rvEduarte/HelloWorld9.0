@@ -544,7 +544,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &369456734
 MonoBehaviour:
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369456732}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -1568,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &694030140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1914,7 +1914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &748541202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2231,16 +2231,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacbd6d93fee4134882ac17af2dd3551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderboardLevelText: {fileID: 0}
-  leaderboardGamerText: {fileID: 0}
-  leaderboardScoreText: {fileID: 0}
-  leaderboardAccuracyText: {fileID: 0}
-  timeTaken1: {fileID: 0}
-  timeTaken2: {fileID: 0}
-  timeTaken3: {fileID: 0}
-  exerciseAccuracyPh2: {fileID: 0}
-  exerciseAccuracyPh3: {fileID: 0}
-  quizAccuracyPh3: {fileID: 0}
+  leaderboardstat: {fileID: 11400000, guid: be786ccd3aab81948b3e07f306f6426d, type: 2}
+  leaderboardLevelText: {fileID: 1582211947}
+  leaderboardGamerText: {fileID: 81780536}
+  leaderboardScoreText: {fileID: 1537025795}
+  timeTaken1: {fileID: 2108584247}
+  timeTaken2: {fileID: 695640885}
+  timeTaken3: {fileID: 1047281196}
+  exerciseAccuracyPh2: {fileID: 523711583}
+  exerciseAccuracyPh3: {fileID: 1847022437}
+  quizAccuracyPh3: {fileID: 804724565}
 --- !u!1 &902920062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3477,9 +3477,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneLeaderboardScript, Assembly-CSharp
-        m_MethodName: goBackToMainMenu
+      - m_Target: {fileID: 846140036}
+        m_TargetAssemblyTypeName: OfflineLeaderboardScript, Assembly-CSharp
+        m_MethodName: BackButtonPressed
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3846,7 +3846,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1981725730}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LeaderboardScript, Assembly-CSharp
         m_MethodName: BegginnerGetDataLevel2
         m_Mode: 1
@@ -4886,62 +4886,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850874742}
   m_CullTransparentMesh: 1
---- !u!1 &1981725729
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1981725731}
-  - component: {fileID: 1981725730}
-  m_Layer: 0
-  m_Name: LeaderBoardScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1981725730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981725729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7c8277a5a5b07f47bbaaefc4272f05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leaderboardLevelText: {fileID: 1582211947}
-  leaderboardGamerText: {fileID: 81780536}
-  leaderboardScoreText: {fileID: 1537025795}
-  leaderboardAccuracyText: {fileID: 523711583}
-  timeTaken1: {fileID: 2108584247}
-  timeTaken2: {fileID: 695640885}
-  timeTaken3: {fileID: 1047281196}
-  exerciseAccuracyPh2: {fileID: 523711583}
-  exerciseAccuracyPh3: {fileID: 1847022437}
-  quizAccuracyPh3: {fileID: 804724565}
-  errorText: {fileID: 692786009}
-  errorPanel: {fileID: 786555746}
---- !u!4 &1981725731
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981725729}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1249.494, y: 569.0514, z: -4.6039534}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028988500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,8 +5130,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1981725730}
-        m_TargetAssemblyTypeName: LeaderboardScript, Assembly-CSharp
+      - m_Target: {fileID: 846140036}
+        m_TargetAssemblyTypeName: OfflineLeaderboardScript, Assembly-CSharp
         m_MethodName: BegginnerGetDataLevel1
         m_Mode: 1
         m_Arguments:
@@ -5512,6 +5456,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 2028988504}
   - {fileID: 1444783125}
-  - {fileID: 1981725731}
   - {fileID: 1138772026}
   - {fileID: 846140035}

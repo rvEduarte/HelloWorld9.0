@@ -595,6 +595,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 970444948}
+        m_TargetAssemblyTypeName: OfflineBeginnerLevel1UpdateProgress, Assembly-CSharp
+        m_MethodName: UploadOfflinePlayerStats
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &43025918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25167,7 +25179,7 @@ GameObject:
   - component: {fileID: 970444949}
   - component: {fileID: 970444948}
   m_Layer: 0
-  m_Name: OfflineSubmitToLeaderBoard
+  m_Name: OfflineUpdateLevelBeginner1Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25186,6 +25198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
+  PlayerStats: {fileID: 11400000, guid: 46c995e7e571c5449abc61cc5758ecb6, type: 2}
+  leaderboardstat: {fileID: 11400000, guid: be786ccd3aab81948b3e07f306f6426d, type: 2}
 --- !u!4 &970444949
 Transform:
   m_ObjectHideFlags: 0
@@ -81452,6 +81466,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 970444948}
+        m_TargetAssemblyTypeName: OfflineBeginnerLevel1UpdateProgress, Assembly-CSharp
+        m_MethodName: UploadOfflinePlayerStats
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1522508404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93447,9 +93473,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UploadPlayerBeginnerLevel1, Assembly-CSharp
-        m_MethodName: PlayButton
+      - m_Target: {fileID: 970444948}
+        m_TargetAssemblyTypeName: OfflineBeginnerLevel1UpdateProgress, Assembly-CSharp
+        m_MethodName: UploadOfflinePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

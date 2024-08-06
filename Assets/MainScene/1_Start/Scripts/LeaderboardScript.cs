@@ -13,7 +13,6 @@ public class LeaderboardScript : MonoBehaviour
     public TextMeshProUGUI leaderboardLevelText;
     public TextMeshProUGUI leaderboardGamerText;
     public TextMeshProUGUI leaderboardScoreText;
-    public TextMeshProUGUI leaderboardAccuracyText;
 
     [Header("Leaderboard TimeTaken Text")]
     public TextMeshProUGUI timeTaken1;
@@ -38,7 +37,7 @@ public class LeaderboardScript : MonoBehaviour
     }
     public void LevelGetData()
     {
-        if (leaderboardGamerText == null || leaderboardScoreText == null || leaderboardAccuracyText == null || timeTaken1 == null || timeTaken2 == null || timeTaken3 == null)
+        if (leaderboardGamerText == null || leaderboardScoreText == null || timeTaken1 == null || timeTaken2 == null || timeTaken3 == null)
         {
             Debug.Log("Not assigned");
         }
@@ -67,7 +66,6 @@ public class LeaderboardScript : MonoBehaviour
                 //show the leaderboard screen and populate it with the data 
                 leaderboardGamerText.text = "PLAYER NAME";
                 leaderboardScoreText.text = "SCORE";
-                leaderboardAccuracyText.text = "ACCURACY";
 
                 timeTaken1.text = "elapsed time ph1";
                 timeTaken2.text = "elapsed time ph2";
