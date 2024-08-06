@@ -52,6 +52,8 @@ public class OnlineMainMenu : MonoBehaviour
 
                 PlayerPrefs.SetString("PlayerName", playerNameText.text);
                 PlayerPrefs.Save();
+
+                playerNameText.text = PlayerPrefs.GetString("PlayerName");
             }
         });
 
