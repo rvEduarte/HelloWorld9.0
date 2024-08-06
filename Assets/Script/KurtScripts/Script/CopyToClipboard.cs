@@ -19,6 +19,7 @@ public class CopyToClipboard : MonoBehaviour
 
     void Start()
     {
+        codeText.text = PlayerPrefs.GetInt("PlayerSaveDataFileID").ToString();
         // Load the saved state
         if (PlayerPrefs.GetInt("copyState") == 1)
         {
@@ -36,9 +37,6 @@ public class CopyToClipboard : MonoBehaviour
         }
         else
         {
-            codeText.text = PlayerPrefs.GetInt("PlayerSaveDataFileID").ToString();
-
-
             copyState = false;
             Debug.Log("FALSE");  
             copyButton.onClick.AddListener(CopyCodeToClipboard);
@@ -48,6 +46,7 @@ public class CopyToClipboard : MonoBehaviour
             border.gameObject.SetActive(false);
             copyImage.gameObject.SetActive(false);
         }
+        
     }
 
     void CopyCodeToClipboard()

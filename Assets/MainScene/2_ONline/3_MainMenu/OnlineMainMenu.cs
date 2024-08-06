@@ -53,10 +53,11 @@ public class OnlineMainMenu : MonoBehaviour
                 PlayerPrefs.SetString("PlayerName", playerNameText.text);
                 PlayerPrefs.Save();
 
-                playerNameText.text = PlayerPrefs.GetString("PlayerName");
+                
             }
         });
-
+        //DISPLAY PLAYER NAME
+        playerNameText.text = PlayerPrefs.GetString("PlayerName");
         SubmitLeaderBoardScript.GetPlayerHighScore();
     }
     public void PlayButtonOnline(string name)
@@ -79,12 +80,20 @@ public class OnlineMainMenu : MonoBehaviour
 
             clicked = true;
 
-            SceneManager.LoadScene(name);
+            StartCoroutine(DelayedSceneLoad(name, 0.5f));
+            //SceneManager.LoadScene(name);
             Debug.Log("ISA LANG");
         }
 
-        SceneManager.LoadScene(name);
+        StartCoroutine(DelayedSceneLoad(name, 0.5f));
+        //SceneManager.LoadScene(name);
         Debug.Log("YES");
+    }
+    private IEnumerator DelayedSceneLoad(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
+        Debug.Log("Scene loaded after delay");
     }
     public void GotoScene(string name)
     {

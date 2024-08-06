@@ -61,9 +61,25 @@ public class GetPlayerOnline : MonoBehaviour
 
                 // Update the ScriptableObject with the downloaded content
                 levelUnlockScriptable.UpdateFromJson(fileContent);
-
-                SceneManager.LoadScene("MainMenu");
+                DeletePlayerFile();
+                SceneManager.LoadSceneAsync("MainMenu");
             }
         }
+    }
+
+    private void DeletePlayerFile()
+    {
+        int playerFileId = int.Parse(codeProgressInput.text);
+        LootLockerSDKManager.DeletePlayerFile(playerFileId, response =>
+        {
+            if (response.success)
+            {
+                Debug.Log("Successfully deleted player file with id: " + playerFileId);
+            }
+            else
+            {
+                Debug.Log("Error deleting player file");
+            }
+        });
     }
 }
