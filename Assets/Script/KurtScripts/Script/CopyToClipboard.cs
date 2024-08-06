@@ -17,8 +17,6 @@ public class CopyToClipboard : MonoBehaviour
 
     public bool copyState; //false
 
-    public float timeToDestroy = 5f; // Ensure you have a default value for timeToDestroy
-
     void Start()
     {
         // Load the saved state
@@ -38,10 +36,11 @@ public class CopyToClipboard : MonoBehaviour
         }
         else
         {
-            copyState = false;
-            Debug.Log("FALSE");
-
             codeText.text = PlayerPrefs.GetInt("PlayerSaveDataFileID").ToString();
+
+
+            copyState = false;
+            Debug.Log("FALSE");  
             copyButton.onClick.AddListener(CopyCodeToClipboard);
 
             // Initially hide objects
@@ -85,7 +84,7 @@ public class CopyToClipboard : MonoBehaviour
     private IEnumerator DestroyAfterDelay()
     {
         // Wait for the specified amount of time
-        yield return new WaitForSeconds(timeToDestroy);
+        yield return new WaitForSeconds(5f);
 
         // Destroy the game object
         Destroy(gameObject);
