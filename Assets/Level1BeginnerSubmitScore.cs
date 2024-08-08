@@ -8,20 +8,7 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
 
     SubmitLeaderBoardScript submitLead;
 
-    private void Start()
-    {
-        // Ensure the SubmitLeaderboardScore script is attached to a GameObject in the scene
-        if (submitLead == null)
-        {
-            submitLead = FindObjectOfType<SubmitLeaderBoardScript>();
-        }
 
-        // Check if submitLead is still null after trying to find it
-        if (submitLead == null)
-        {
-            Debug.LogError("SubmitLeaderboardScore component not found in the scene.");
-        }
-    }
     public void SubmitScoreBeginner(int level)
     {
         submitLead.GameManagerLevel(level);

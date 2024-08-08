@@ -6,18 +6,28 @@ public class UpdatePlayerBeginnerLevel1 : MonoBehaviour
 {
     public LevelUnlockScriptable Level;
 
-    public void UpdatePlayerProgression()
+    public void UpdatePlayerProgression(int level)
     {
-        Level.csharpBeginnerLevel2 = "Level2Beginner";
-
-        if (LootlockerSceneProgress.Instance != null)
+        if(LootlockerSceneProgress.Instance != null)
         {
-            LootlockerSceneProgress.Instance.UpdatePlayerFile();
-            Debug.Log(Level);
+            switch (level)
+            {
+                case 1:
+                    Level.csharpBeginnerLevel2 = "Level2Beginner";
+                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
+                    Debug.Log(Level);
+                    break;
+                case 2:
+                    Level.csharpBeginnerLevel3 = "Level3Beginner";
+                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
+                    Debug.Log(Level);
+                    break;
+                //add more levels
+            }
         }
         else
         {
             Debug.LogError("LevelSelectionLvl2 instance not found.");
-        }
+        }        
     }
 }

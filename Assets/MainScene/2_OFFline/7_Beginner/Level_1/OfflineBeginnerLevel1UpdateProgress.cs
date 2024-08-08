@@ -8,21 +8,21 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
     public LevelUnlockScriptable Level;
     public PlayerScoreScriptableObject PlayerStats;
     public OfflineScriptableObject LeaderboardStat;
+
+
     public void UpdatePlayerProgression(int level)
     {
         switch (level)
         {
-            case 2:
+            case 1:
                 Level.csharpBeginnerLevel2 = "Level2Beginner";
                 UploadOfflinePlayerStats(level);
                 break;
-            case 3:
+            case 2:
                 Level.csharpBeginnerLevel3 = "Level3Beginner";
                 UploadOfflinePlayerStats(level);
                 break;
-            default:
-                // Handle other levels or invalid input
-                break;
+            //add more levels
         }
     }
 
@@ -56,6 +56,7 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
         }
     }
 
+    //pass the value to scriptableObjects of leaderboard
     private void UpdateLeaderboardStats(int playerScore, int leaderboardScore,
     ref string timePhase1, ref string timePhase2, ref string timePhase3,
     ref float exerciseAccuracyPhase2, ref float exerciseAccuracyPhase3,
@@ -72,49 +73,6 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
 
             quizAccuracyPhase3 = PlayerStats.quizAccuracyPhase3;
             totalScore = playerScore;
-        }
-    }
-
-    //pass the value to scriptableObjects of leaderboard
-    public void UploadOfflinePlayerStatsLevel1()
-    {
-        if(PlayerStats.TotalScore > LeaderboardStat.TotalScore)
-        {
-            //Changed to new highestscore
-            LeaderboardStat.timePhase1 = PlayerStats.timePhase1;
-            LeaderboardStat.timePhase2 = PlayerStats.timePhase2;
-            LeaderboardStat.timePhase3 = PlayerStats.timePhase3;
-
-            LeaderboardStat.exerciseAccuracyPhase2 = PlayerStats.exerciseAccuracyPhase2;
-            LeaderboardStat.exerciseAccuracyPhase3 = PlayerStats.exerciseAccuracyPhase3;
-
-            LeaderboardStat.quizAccuracyPhase3 = PlayerStats.quizAccuracyPhase3;
-            LeaderboardStat.TotalScore = PlayerStats.TotalScore;
-        }
-        else
-        {
-            //remain the highscore
-        }
-    }
-
-    public void UploadOfflinePlayerStatsLevel2()
-    {
-        if (PlayerStats.TotalScore > LeaderboardStat.TotalScore)
-        {
-            //Changed to new highestscore
-            LeaderboardStat.lvl2_timePhase1 = PlayerStats.timePhase1;
-            LeaderboardStat.lvl2_timePhase2 = PlayerStats.timePhase2;
-            LeaderboardStat.lvl2_timePhase3 = PlayerStats.timePhase3;
-
-            LeaderboardStat.lvl2_exerciseAccuracyPhase2 = PlayerStats.exerciseAccuracyPhase2;
-            LeaderboardStat.lvl2_exerciseAccuracyPhase3 = PlayerStats.exerciseAccuracyPhase3;
-
-            LeaderboardStat.lvl2_quizAccuracyPhase3 = PlayerStats.quizAccuracyPhase3;
-            LeaderboardStat.lvl2_TotalScore = PlayerStats.TotalScore;
-        }
-        else
-        {
-            //remain the highscore
         }
     }
 }
