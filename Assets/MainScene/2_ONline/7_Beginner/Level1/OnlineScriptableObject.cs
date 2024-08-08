@@ -1,10 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "OfflineScoreScriptableObject", menuName = "ScriptableObjects/OfflineScore")]
-
-public class OfflineScriptableObject : ScriptableObject
+[CreateAssetMenu(fileName = "OnlineScoreScriptableObject", menuName = "ScriptableObjects/OnlineScore")]
+public class OnlineScriptableObject : ScriptableObject
 {
-    [Header("OFFLINE DATA")]
+    [Header("ONLINE DATA")]
     [Header("LEVEL 1")]
     public string timePhase1 = "00:00";
     public string timePhase2 = "00:00";

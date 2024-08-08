@@ -81,12 +81,10 @@ public class OnlineMainMenu : MonoBehaviour
             clicked = true;
 
             StartCoroutine(DelayedSceneLoad(name, 0.5f));
-            //SceneManager.LoadScene(name);
             Debug.Log("ISA LANG");
         }
 
         StartCoroutine(DelayedSceneLoad(name, 0.5f));
-        //SceneManager.LoadScene(name);
         Debug.Log("YES");
     }
     private IEnumerator DelayedSceneLoad(string sceneName, float delay)
