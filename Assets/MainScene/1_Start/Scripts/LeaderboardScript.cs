@@ -8,8 +8,10 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class LeaderboardScript : MonoBehaviour
 {
+    #region Variables
+
     public OfflineScriptableObject offlineScriptableObject;
-    SubmitLeaderBoardScript submitLead;
+    public SubmitLeaderBoardScript submitLead;
 
     private Dictionary<int, LevelData> levelDataDictionary;
 
@@ -37,6 +39,8 @@ public class LeaderboardScript : MonoBehaviour
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
 
+    #endregion
+
     public void Start()
     {
         // Initialize the dictionary with level-specific data
@@ -61,6 +65,59 @@ public class LeaderboardScript : MonoBehaviour
             // Add more levels soon
         };
     }
+    public void BackButtonPressed(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
+    #region SubmitLeaderBoardData
+
+    public void OffLineSubmitScore(int level)
+    {
+        if (levelDataDictionary.TryGetValue(level, out LevelData levelData))
+        {
+            // Validate data before submitting
+            if (IsValidData(levelData))
+            {
+                Debug.Log(level);
+                submitLead.GameManagerLevel(level);
+                submitLead.SubmitData(
+                    levelData.Score,
+                    levelData.TimePhase1,
+                    levelData.TimePhase2,
+                    levelData.TimePhase3,
+                    levelData.AccuracyExercisePhase2,
+                    levelData.AccuracyExercisePhase3,
+                    levelData.AccuracyQuizPhase3);
+
+                Debug.Log($"Submitted score for level {level}");
+            }
+            else
+            {
+                Debug.LogWarning("One or more required values are null or invalid. Submission aborted.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid level specified");
+        }
+    }
+    private bool IsValidData(LevelData data)
+    {
+        return data.Score != 0 &&
+               !string.IsNullOrEmpty(data.TimePhase1) &&
+               !string.IsNullOrEmpty(data.TimePhase2) &&
+               !string.IsNullOrEmpty(data.TimePhase3) &&
+               data.AccuracyExercisePhase2 != 0 &&
+               data.AccuracyExercisePhase3 != 0 &&
+               data.AccuracyQuizPhase3 != 0;
+    }
+
+    #endregion
+
+
+    #region GetLeaderBoardData
+
     public void LevelGetData()
     {
         if (leaderboardGamerText == null || leaderboardScoreText == null || timeTaken1 == null || timeTaken2 == null || timeTaken3 == null)
@@ -71,11 +128,6 @@ public class LeaderboardScript : MonoBehaviour
         {
             GetLeaderboardData();
         }
-    }
-
-    public void BackButtonPressed(string name)
-    {
-        SceneManager.LoadScene(name);
     }
 
     public void GetLeaderboardData()
@@ -139,6 +191,30 @@ public class LeaderboardScript : MonoBehaviour
             }
         });
     }
+
+    public void GetData(int level)
+    {
+        if (level == 1)
+        {
+            OffLineSubmitScore(level);
+            leaderboardKey = "BeginnerLevel1";
+            leaderboardLevelText.text = "Level1 Ranking";
+        }
+        else if (level == 2)
+        {
+            OffLineSubmitScore(level);
+            leaderboardKey = "BeginnerLevel2";
+            leaderboardLevelText.text = "Level2 Ranking";
+        }
+        // Add more levels as needed
+        LevelGetData();
+    }
+
+    #endregion
+
+
+    #region ErroMessageHandler
+
     // Show an error message on the screen
     public void showErrorMessage(string message, int showTime = 3)
     {
@@ -176,110 +252,9 @@ public class LeaderboardScript : MonoBehaviour
         return message;
     }
 
-    /*public void OffLineSubmitScoreBeginnerLevel1()
-    {
-        submitLead.GameManagerLevel(1);
-        int scoreToSubmit = offlineScriptableObject.TotalScore;
+    #endregion
 
-        string timeTaken1 = offlineScriptableObject.timePhase1;
-        string timeTaken2 = offlineScriptableObject.timePhase2;
-        string timeTaken3 = offlineScriptableObject.timePhase3;
-
-        float accuracyExercisePh2 = offlineScriptableObject.exerciseAccuracyPhase2;
-        float accuracyExercisePh3 = offlineScriptableObject.exerciseAccuracyPhase3;
-        float accuracyQuizPh3 = offlineScriptableObject.quizAccuracyPhase3;
-
-        // submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
-        submitLead.SubmitData(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
-    }
-
-    public void OffLineSubmitScoreBeginnerLevel2()
-    {
-        submitLead.GameManagerLevel(2);
-        int scoreToSubmit = offlineScriptableObject.lvl2_TotalScore;
-
-        string timeTaken1 = offlineScriptableObject.lvl2_timePhase1;
-        string timeTaken2 = offlineScriptableObject.lvl2_timePhase2;
-        string timeTaken3 = offlineScriptableObject.lvl2_timePhase3;
-
-        float accuracyExercisePh2 = offlineScriptableObject.lvl2_exerciseAccuracyPhase2;
-        float accuracyExercisePh3 = offlineScriptableObject.lvl2_exerciseAccuracyPhase3;
-        float accuracyQuizPh3 = offlineScriptableObject.lvl2_quizAccuracyPhase3;
-
-        // submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
-        submitLead.SubmitData(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
-    }*/
-
-    public void OffLineSubmitScore(int level)
-    {
-        if (levelDataDictionary.TryGetValue(level, out LevelData levelData))
-        {
-            // Validate data before submitting
-            if (IsValidData(levelData))
-            {
-                submitLead.GameManagerLevel(level);
-                submitLead.SubmitData(
-                    levelData.Score,
-                    levelData.TimePhase1,
-                    levelData.TimePhase2,
-                    levelData.TimePhase3,
-                    levelData.AccuracyExercisePhase2,
-                    levelData.AccuracyExercisePhase3,
-                    levelData.AccuracyQuizPhase3);
-
-                Debug.Log($"Submitted score for level {level}");
-            }
-            else
-            {
-                Debug.LogWarning("One or more required values are null or invalid. Submission aborted.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Invalid level specified");
-        }
-    }
-    /*public void BegginnerGetDataLevel1()
-    {
-        leaderboardKey = "BeginnerLevel1";
-        leaderboardLevelText.text = "Level1 Ranking";
-        LevelGetData();
-    }
-
-    public void BegginnerGetDataLevel2()
-    {
-        leaderboardKey = "BeginnerLevel2";
-        leaderboardLevelText.text = "Level2 Ranking";
-        LevelGetData();
-    }*/
-    public void GetData(int leveldata)
-    {
-        if (leveldata == 1)
-        {
-            OffLineSubmitScore(leveldata);
-            leaderboardKey = "BeginnerLevel1";
-            leaderboardLevelText.text = "Level1 Ranking";
-        }
-        else if (leveldata == 2)
-        {
-            OffLineSubmitScore(leveldata);
-            leaderboardKey = "BeginnerLevel2";
-            leaderboardLevelText.text = "Level2 Ranking";
-        }
-        // Add more levels as needed
-        LevelGetData();
-    }
-
-    private bool IsValidData(LevelData data)
-    {
-        return data.Score != 0 &&
-               !string.IsNullOrEmpty(data.TimePhase1) &&
-               !string.IsNullOrEmpty(data.TimePhase2) &&
-               !string.IsNullOrEmpty(data.TimePhase3) &&
-               data.AccuracyExercisePhase2 != 0 &&
-               data.AccuracyExercisePhase3 != 0 &&
-               data.AccuracyQuizPhase3 != 0;
-    }
+    
 }
 
 public class LevelData
@@ -292,9 +267,9 @@ public class LevelData
     public float AccuracyExercisePhase3 { get; }
     public float AccuracyQuizPhase3 { get; }
 
-    public LevelData(int score, string timePhase1, string timePhase2, string timePhase3, float accuracyExercisePhase2, float accuracyExercisePhase3, float accuracyQuizPhase3)
+    public LevelData(int scoreToSubmit, string timePhase1, string timePhase2, string timePhase3, float accuracyExercisePhase2, float accuracyExercisePhase3, float accuracyQuizPhase3)
     {
-        Score = score;
+        Score = scoreToSubmit;
         TimePhase1 = timePhase1;
         TimePhase2 = timePhase2;
         TimePhase3 = timePhase3;
