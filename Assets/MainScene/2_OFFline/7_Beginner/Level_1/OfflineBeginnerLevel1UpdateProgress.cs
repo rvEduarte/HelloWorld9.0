@@ -6,7 +6,7 @@ using UnityEngine;
 public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
 {
     public LevelUnlockScriptable Level;
-    public PlayerScoreScriptableObject PlayerStats;
+    public PlayerScoreScriptableObject playerData;
     public OfflineScriptableObject LeaderboardStat;
 
 
@@ -31,7 +31,7 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
         if (level == 1)
         {
             UpdateLeaderboardStats(
-                PlayerStats.TotalScore, 
+                playerData.TotalScore, 
                 LeaderboardStat.TotalScore,
                 ref LeaderboardStat.timePhase1, 
                 ref LeaderboardStat.timePhase2, 
@@ -44,7 +44,7 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
         else if (level == 2)
         {
             UpdateLeaderboardStats(
-                PlayerStats.TotalScore, 
+                playerData.TotalScore, 
                 LeaderboardStat.lvl2_TotalScore,
                 ref LeaderboardStat.lvl2_timePhase1, 
                 ref LeaderboardStat.lvl2_timePhase2, 
@@ -64,14 +64,14 @@ public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
     {
         if (playerScore > leaderboardScore)
         {
-            timePhase1 = PlayerStats.timePhase1;
-            timePhase2 = PlayerStats.timePhase2;
-            timePhase3 = PlayerStats.timePhase3;
+            timePhase1 = playerData.timePhase1;
+            timePhase2 = playerData.timePhase2;
+            timePhase3 = playerData.timePhase3;
 
-            exerciseAccuracyPhase2 = PlayerStats.exerciseAccuracyPhase2;
-            exerciseAccuracyPhase3 = PlayerStats.exerciseAccuracyPhase3;
+            exerciseAccuracyPhase2 = playerData.exerciseAccuracyPhase2;
+            exerciseAccuracyPhase3 = playerData.exerciseAccuracyPhase3;
 
-            quizAccuracyPhase3 = PlayerStats.quizAccuracyPhase3;
+            quizAccuracyPhase3 = playerData.quizAccuracyPhase3;
             totalScore = playerScore;
         }
     }

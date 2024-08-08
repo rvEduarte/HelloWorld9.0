@@ -15,7 +15,7 @@ public class JigsawScript : MonoBehaviour
 
     public GameObject jigsawPopup;
 
-    public RunningTimerLvl2Ph1 timer;
+    public RunningTimerLevel1Ph1 timer;
 
     private bool pickUpAllowed;
 
