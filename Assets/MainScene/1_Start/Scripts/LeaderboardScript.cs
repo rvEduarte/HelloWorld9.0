@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class LeaderboardScript : MonoBehaviour
 {
+    public OfflineScriptableObject offlineScriptableObject;
+    SubmitLeaderBoardScript submitLead;
+
+    private Dictionary<int, LevelData> levelDataDictionary;
+
     string leaderboardKey;
 
     [Header("Leaderboard Text")]
@@ -33,7 +39,27 @@ public class LeaderboardScript : MonoBehaviour
 
     public void Start()
     {
-       //LevelGetData();
+        // Initialize the dictionary with level-specific data
+        levelDataDictionary = new Dictionary<int, LevelData>
+        {
+            { 1, new LevelData(
+                offlineScriptableObject.TotalScore,
+                offlineScriptableObject.timePhase1,
+                offlineScriptableObject.timePhase2,
+                offlineScriptableObject.timePhase3,
+                offlineScriptableObject.exerciseAccuracyPhase2,
+                offlineScriptableObject.exerciseAccuracyPhase3,
+                offlineScriptableObject.quizAccuracyPhase3) },
+            { 2, new LevelData(
+                offlineScriptableObject.lvl2_TotalScore,
+                offlineScriptableObject.lvl2_timePhase1,
+                offlineScriptableObject.lvl2_timePhase2,
+                offlineScriptableObject.lvl2_timePhase3,
+                offlineScriptableObject.lvl2_exerciseAccuracyPhase2,
+                offlineScriptableObject.lvl2_exerciseAccuracyPhase3,
+                offlineScriptableObject.lvl2_quizAccuracyPhase3) }
+            // Add more levels soon
+        };
     }
     public void LevelGetData()
     {
@@ -119,15 +145,12 @@ public class LeaderboardScript : MonoBehaviour
         //set active
         errorPanel.SetActive(true);
         errorText.text = message.ToUpper();
-        //errorScreenAnimator.SetTrigger("Show");
         //wait for 3 seconds and hide the error panel
         Invoke("hideErrorMessage", showTime);
     }
 
     private void hideErrorMessage()
     {
-        //errorScreenAnimator.SetTrigger("Hide");
-        //BackButtonAnimator.SetTrigger("Show");
         errorPanel.SetActive(false);
     }
 
@@ -153,17 +176,130 @@ public class LeaderboardScript : MonoBehaviour
         return message;
     }
 
-    public void BegginnerGetDataLevel1()
+    /*public void OffLineSubmitScoreBeginnerLevel1()
     {
-        leaderboardKey = "BegginerLevel1";
+        submitLead.GameManagerLevel(1);
+        int scoreToSubmit = offlineScriptableObject.TotalScore;
+
+        string timeTaken1 = offlineScriptableObject.timePhase1;
+        string timeTaken2 = offlineScriptableObject.timePhase2;
+        string timeTaken3 = offlineScriptableObject.timePhase3;
+
+        float accuracyExercisePh2 = offlineScriptableObject.exerciseAccuracyPhase2;
+        float accuracyExercisePh3 = offlineScriptableObject.exerciseAccuracyPhase3;
+        float accuracyQuizPh3 = offlineScriptableObject.quizAccuracyPhase3;
+
+        // submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
+        submitLead.SubmitData(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
+    }
+
+    public void OffLineSubmitScoreBeginnerLevel2()
+    {
+        submitLead.GameManagerLevel(2);
+        int scoreToSubmit = offlineScriptableObject.lvl2_TotalScore;
+
+        string timeTaken1 = offlineScriptableObject.lvl2_timePhase1;
+        string timeTaken2 = offlineScriptableObject.lvl2_timePhase2;
+        string timeTaken3 = offlineScriptableObject.lvl2_timePhase3;
+
+        float accuracyExercisePh2 = offlineScriptableObject.lvl2_exerciseAccuracyPhase2;
+        float accuracyExercisePh3 = offlineScriptableObject.lvl2_exerciseAccuracyPhase3;
+        float accuracyQuizPh3 = offlineScriptableObject.lvl2_quizAccuracyPhase3;
+
+        // submitLead.SubmitData(scoreToSubmit, timeTaken, accuracy);
+        submitLead.SubmitData(scoreToSubmit, timeTaken1, timeTaken2, timeTaken3, accuracyExercisePh2, accuracyExercisePh3, accuracyQuizPh3);
+    }*/
+
+    public void OffLineSubmitScore(int level)
+    {
+        if (levelDataDictionary.TryGetValue(level, out LevelData levelData))
+        {
+            // Validate data before submitting
+            if (IsValidData(levelData))
+            {
+                submitLead.GameManagerLevel(level);
+                submitLead.SubmitData(
+                    levelData.Score,
+                    levelData.TimePhase1,
+                    levelData.TimePhase2,
+                    levelData.TimePhase3,
+                    levelData.AccuracyExercisePhase2,
+                    levelData.AccuracyExercisePhase3,
+                    levelData.AccuracyQuizPhase3);
+
+                Debug.Log($"Submitted score for level {level}");
+            }
+            else
+            {
+                Debug.LogWarning("One or more required values are null or invalid. Submission aborted.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid level specified");
+        }
+    }
+    /*public void BegginnerGetDataLevel1()
+    {
+        leaderboardKey = "BeginnerLevel1";
         leaderboardLevelText.text = "Level1 Ranking";
         LevelGetData();
     }
 
     public void BegginnerGetDataLevel2()
     {
-        leaderboardKey = "BegginerLevel2";
+        leaderboardKey = "BeginnerLevel2";
         leaderboardLevelText.text = "Level2 Ranking";
         LevelGetData();
+    }*/
+    public void GetData(int leveldata)
+    {
+        if (leveldata == 1)
+        {
+            OffLineSubmitScore(leveldata);
+            leaderboardKey = "BeginnerLevel1";
+            leaderboardLevelText.text = "Level1 Ranking";
+        }
+        else if (leveldata == 2)
+        {
+            OffLineSubmitScore(leveldata);
+            leaderboardKey = "BeginnerLevel2";
+            leaderboardLevelText.text = "Level2 Ranking";
+        }
+        // Add more levels as needed
+        LevelGetData();
+    }
+
+    private bool IsValidData(LevelData data)
+    {
+        return data.Score != 0 &&
+               !string.IsNullOrEmpty(data.TimePhase1) &&
+               !string.IsNullOrEmpty(data.TimePhase2) &&
+               !string.IsNullOrEmpty(data.TimePhase3) &&
+               data.AccuracyExercisePhase2 != 0 &&
+               data.AccuracyExercisePhase3 != 0 &&
+               data.AccuracyQuizPhase3 != 0;
+    }
+}
+
+public class LevelData
+{
+    public int Score { get; }
+    public string TimePhase1 { get; }
+    public string TimePhase2 { get; }
+    public string TimePhase3 { get; }
+    public float AccuracyExercisePhase2 { get; }
+    public float AccuracyExercisePhase3 { get; }
+    public float AccuracyQuizPhase3 { get; }
+
+    public LevelData(int score, string timePhase1, string timePhase2, string timePhase3, float accuracyExercisePhase2, float accuracyExercisePhase3, float accuracyQuizPhase3)
+    {
+        Score = score;
+        TimePhase1 = timePhase1;
+        TimePhase2 = timePhase2;
+        TimePhase3 = timePhase3;
+        AccuracyExercisePhase2 = accuracyExercisePhase2;
+        AccuracyExercisePhase3 = accuracyExercisePhase3;
+        AccuracyQuizPhase3 = accuracyQuizPhase3;
     }
 }

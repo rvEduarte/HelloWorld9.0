@@ -56,7 +56,6 @@ public class OfflineLeaderboardScript : MonoBehaviour
         leaderboardGamerText.text += "\n" + PlayerPrefs.GetString("PlayerName");
         leaderboardScoreText.text += "\n" + leaderboardstat.TotalScore;
 
-        // Parse metadata
         timeTaken1.text += "\n" + leaderboardstat.timePhase1;
         timeTaken2.text += "\n" + leaderboardstat.timePhase2;
         timeTaken3.text += "\n" + leaderboardstat.timePhase3;

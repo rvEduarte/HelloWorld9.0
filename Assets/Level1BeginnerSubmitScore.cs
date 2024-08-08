@@ -22,9 +22,9 @@ public class Level1BeginnerSubmitScore : MonoBehaviour
             Debug.LogError("SubmitLeaderboardScore component not found in the scene.");
         }
     }
-    public void SubmitScoreBeginner()
+    public void SubmitScoreBeginner(int level)
     {
-        submitLead.GameManagerLevel1();
+        submitLead.GameManagerLevel(level);
         int scoreToSubmit = playerData.TotalScore;
 
         string timeTaken1 = playerData.timePhase1;

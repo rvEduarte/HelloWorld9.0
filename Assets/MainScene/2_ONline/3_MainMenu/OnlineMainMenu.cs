@@ -58,7 +58,7 @@ public class OnlineMainMenu : MonoBehaviour
         });
         //DISPLAY PLAYER NAME
         playerNameText.text = PlayerPrefs.GetString("PlayerName");
-        SubmitLeaderBoardScript.GetPlayerHighScore();
+        //SubmitLeaderBoardScript.GetPlayerHighScore();
     }
     public void PlayButtonOnline(string name)
     {

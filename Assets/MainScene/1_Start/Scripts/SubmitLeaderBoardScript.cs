@@ -9,14 +9,15 @@ public class SubmitLeaderBoardScript : MonoBehaviour
     public LeaderBoardScriptableObject leaderboardData;
     public static string leaderboardKey;
 
-    public void GameManagerLevel1()
+    public void GameManagerLevel(int level)
     {
-        leaderboardKey = "BegginerLevel1";
-    }
-
-    public void GameManagerLevel2() 
-    {
-        leaderboardKey = "BegginerLevel2";
+        leaderboardKey = level switch
+        {
+            1 => "BeginnerLevel1",
+            2 => "BeginnerLevel2",
+            // Add more levels as needed
+            _ => throw new System.ArgumentException("Invalid level number")
+        };
     }
 
     public void SubmitData(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh2, float accuracyExercisePh3, float accuracyQuizPh3)
@@ -56,6 +57,7 @@ public class SubmitLeaderBoardScript : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("SubmitLeaderboardScore successful" + metadata);
+                GetPlayerHighScore();
             }
             else
             {
@@ -76,6 +78,7 @@ public class SubmitLeaderBoardScript : MonoBehaviour
                 Debug.Log("Successful");
                 Debug.Log("Player Score: " + response.score);
                 PlayerPrefs.SetInt("highScore", response.score);
+                Debug.Log(PlayerPrefs.GetInt("highScore"));
             }
             else
             {
