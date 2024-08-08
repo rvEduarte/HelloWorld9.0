@@ -5,10 +5,36 @@ using UnityEngine;
 public class Level1BeginnerSubmitScore : MonoBehaviour
 {
     public PlayerScoreScriptableObject playerData;
+    public LevelUnlockScriptable Level;
 
-    SubmitLeaderBoardScript submitLead;
+    public SubmitLeaderBoardScript submitLead;
 
-
+    public void UpdatePlayerProgression(int level)
+    {
+        if (LootlockerSceneProgress.Instance != null)
+        {
+            switch (level)
+            {
+                case 1:
+                    Level.csharpBeginnerLevel2 = "Level2Beginner";
+                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
+                    SubmitScoreBeginner(level);
+                    Debug.Log(Level);
+                    break;
+                case 2:
+                    Level.csharpBeginnerLevel3 = "Level3Beginner";
+                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
+                    SubmitScoreBeginner(level);
+                    Debug.Log(Level);
+                    break;
+                    //add more levels
+            }
+        }
+        else
+        {
+            Debug.LogError("LevelSelectionLvl2 instance not found.");
+        }
+    }
     public void SubmitScoreBeginner(int level)
     {
         submitLead.GameManagerLevel(level);
