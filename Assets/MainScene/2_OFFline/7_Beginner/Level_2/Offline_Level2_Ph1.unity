@@ -1444,8 +1444,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1064130269}
-        m_TargetAssemblyTypeName: JigsawScript, Assembly-CSharp
+      - m_Target: {fileID: 1064130272}
+        m_TargetAssemblyTypeName: JigsawScriptLevel2, Assembly-CSharp
         m_MethodName: ClickTask
         m_Mode: 1
         m_Arguments:
@@ -53833,7 +53833,7 @@ GameObject:
   - component: {fileID: 1064130268}
   - component: {fileID: 1064130271}
   - component: {fileID: 1064130270}
-  - component: {fileID: 1064130269}
+  - component: {fileID: 1064130272}
   m_Layer: 0
   m_Name: Jigsaw1
   m_TagString: Untagged
@@ -53857,24 +53857,6 @@ Transform:
   - {fileID: 1497241991}
   m_Father: {fileID: 1301144477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1064130269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064130267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ffd710928c60c4587742d6ee6bebcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickUpText: {fileID: 1497241990}
-  Greenportal: {fileID: 796473755}
-  jigsawPanel: {fileID: 1183181460}
-  jigsawPopup: {fileID: 1196486270}
-  timer: {fileID: 0}
-  isClicked: 0
 --- !u!61 &1064130270
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53972,6 +53954,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1064130272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064130267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecaf5f860c85e344bbcaaadbb8c7741b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpText: {fileID: 1497241990}
+  Greenportal: {fileID: 796473755}
+  jigsawPanel: {fileID: 1183181460}
+  jigsawPopup: {fileID: 1196486270}
+  timer: {fileID: 84083086}
+  isClicked: 0
 --- !u!1 &1091989642
 GameObject:
   m_ObjectHideFlags: 0
