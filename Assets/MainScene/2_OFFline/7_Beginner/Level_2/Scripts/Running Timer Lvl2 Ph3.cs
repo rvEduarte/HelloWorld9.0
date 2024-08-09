@@ -8,30 +8,43 @@ public class RunningTimerLvl2Ph3 : MonoBehaviour
     public PlayerScoreScriptableObject playerData;
 
     [SerializeField] TextMeshProUGUI timerTxt;
-    [SerializeField] TextMeshProUGUI textComplete;
 
     [Header("Timebased completion fade")]
-    [SerializeField] TextMeshProUGUI textCompletion1;
-    [SerializeField] TextMeshProUGUI textCompletion2;
-    [SerializeField] TextMeshProUGUI textCompletion3;
+    [SerializeField] TextMeshProUGUI timeFadeTxt1;
+    [SerializeField] TextMeshProUGUI timeFadeTxt2;
+    [SerializeField] TextMeshProUGUI timeFadeTxt3;
 
-    [SerializeField] TextMeshProUGUI textTimeScorePh1;
+    [Header("time value completion")]
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt1;
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt2;
+    [SerializeField] TextMeshProUGUI valueTimeCompleteTxt3;
 
-    [SerializeField] private Pause pauseMenu;
+    [SerializeField] TextMeshProUGUI textTotalScoreLevel1;
+
+    [Header("EXERCISE ACCURACY PERCENTAGE PHASE 2")]
+    [SerializeField] TextMeshProUGUI valueExerciseAccuracyTxtPh2;
+
+    [Header("EXERCISE ACCURACY PERCENTAGE PHASE 3")]
+    [SerializeField] TextMeshProUGUI valueExerciseAccuracyTxtPh3;
+
+    [Header("QUIZ ACCURACY PERCENTAGE PHASE 3")]
+    [SerializeField] TextMeshProUGUI valueQuizAccuracyTxtPh3;
+
+    [SerializeField] Pause pauseMenu;
 
     private float elapsedTime;
     public bool isPicked = false;
+    private bool accuracyCalculated = false;
 
-    [Header("PH1 ELAPSED TIME")]
-    [SerializeField] private string timeBeginnerLevel1Ph1;
-
-    [Header("PH1 SCORE")]
-    [SerializeField] private int scoreBeginnerLevel1Ph1;
+    [Header("PH3 ELAPSED TIME")]
+    [SerializeField] private string timePh3;
 
     private void Start()
     {
-        playerData.ResetAllValues();
+        playerData.ResetPh3Values();
+        DisplayInitialTimesAndAccuracy();
     }
+
     private void Update()
     {
         if (!pauseMenu.pause)
@@ -40,11 +53,19 @@ public class RunningTimerLvl2Ph3 : MonoBehaviour
             {
                 UpdateElapsedTime();
             }
-            else
+            else if (!accuracyCalculated)
             {
-                SaveAndDisplayCompletionTimes();
+                SaveAndDisplayCompletionTimesAndScores();
+                accuracyCalculated = true;
             }
         }
+    }
+
+    private void DisplayInitialTimesAndAccuracy()
+    {
+        valueTimeCompleteTxt1.text = $"{playerData.timePhase1} PH1";
+        valueTimeCompleteTxt2.text = $"{playerData.timePhase2} PH2";
+        valueExerciseAccuracyTxtPh2.text = $"{playerData.exerciseAccuracyPhase2}% PH2";
     }
 
     private void UpdateElapsedTime()
@@ -65,31 +86,28 @@ public class RunningTimerLvl2Ph3 : MonoBehaviour
         if (time <= 31)
         {
             SetScore(100);
-
         }
         else if (time <= 46)
         {
             SetScore(80);
-            DisplayCompletionText(textCompletion1, "100 score 30 sec.");
-
+            DisplayCompletionText(timeFadeTxt1, "100 score 30 sec.");
         }
         else if (time <= 61)
         {
             SetScore(50);
-            DisplayCompletionText(textCompletion2, "80 score 45 sec.");
-
+            DisplayCompletionText(timeFadeTxt2, "80 score 45 sec.");
         }
         else
         {
             SetScore(0);
-            DisplayCompletionText(textCompletion3, "50 score 60 sec.");
+            DisplayCompletionText(timeFadeTxt3, "50 score 60 sec.");
         }
     }
 
     private void SetScore(int score)
     {
         //Save TIME SCORE
-        playerData.scorePhase1 = score;
+        playerData.scorePhase3 = score;
     }
 
     private void DisplayCompletionText(TextMeshProUGUI textComponent, string text)
@@ -98,17 +116,47 @@ public class RunningTimerLvl2Ph3 : MonoBehaviour
         textComponent.text = $"<alpha={weight}>{text}";
     }
 
-    private void SaveAndDisplayCompletionTimes()
+    private void SaveAndDisplayCompletionTimesAndScores()
     {
-
-        timeBeginnerLevel1Ph1 = timerTxt.text;
+        timePh3 = timerTxt.text;
 
         //Save TIME VALUE
-        playerData.timePhase1 = timeBeginnerLevel1Ph1;
+        playerData.timePhase3 = timePh3;
 
-        textComplete.text = timeBeginnerLevel1Ph1;
+        valueTimeCompleteTxt3.text = timePh3 + " PH3";
 
-        textTimeScorePh1.text = playerData.scorePhase1.ToString();
+        CalculateExerciseAndQuizAccuracy();
+    }
+
+    private void CalculateExerciseAndQuizAccuracy()
+    {
+        // Calculate the percentage and assign it back to the ScriptableObject
+        float quizPercentage = ((5 - playerData.wrongQuizPhase3) / 5f) * 100;
+        playerData.quizAccuracyPhase3 += quizPercentage;
+
+        // Update the text to display the new Quiz accuracy
+        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% PH3";
+
+        //===========================================================================//
+
+        // Calculate the percentage and assign it back to the ScriptableObject
+        float exercisePercentage = Mathf.Max(100f - (playerData.rawExercisePhase3 - 1) * 10f, 0f);
+        playerData.exerciseAccuracyPhase3 += exercisePercentage;
+
+        // Update the text to display the Exercise accuracy
+        valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% PH3";
+
+        // Calculate the total score of PHASE 3 and assign it back to the ScriptableObject
+        int totalScorePhase3 = playerData.scoreQuizPhase3 + Mathf.RoundToInt(exercisePercentage);
+        playerData.scorePhase3 += totalScorePhase3;
+
+        // Calculate the total Level score and assign it back to the ScriptableObject
+        int totalLevelScore = playerData.scorePhase1 + playerData.scorePhase2 + playerData.scorePhase3;
+        playerData.TotalScore += totalLevelScore;
+
+        // Update the text to display the new Total Score
+        textTotalScoreLevel1.text = totalLevelScore.ToString();
+
     }
 }
 
