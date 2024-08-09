@@ -36,9 +36,9 @@ public class OfflineLeaderboardScript : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void BegginnerGetDataLevel1()
+    public void UpdateLeaderboardUI(string levelTitle, int totalScore, string timePh1, string timePh2, string timePh3, float accExPh2, float accExPh3, float accQuizPh3)
     {
-        leaderboardLevelText.text = "Level1 Ranking";
+        leaderboardLevelText.text = levelTitle;
 
         leaderboardGamerText.text = "PLAYER NAME";
         leaderboardScoreText.text = "SCORE";
@@ -52,17 +52,44 @@ public class OfflineLeaderboardScript : MonoBehaviour
 
         quizAccuracyPh3.text = "Quiz Accuracy PH3";
 
-        //add the score to the text
+        // Add the score to the text
         leaderboardGamerText.text += "\n" + PlayerPrefs.GetString("PlayerName");
-        leaderboardScoreText.text += "\n" + leaderboardstat.TotalScore;
+        leaderboardScoreText.text += "\n" + totalScore;
 
-        timeTaken1.text += "\n" + leaderboardstat.timePhase1;
-        timeTaken2.text += "\n" + leaderboardstat.timePhase2;
-        timeTaken3.text += "\n" + leaderboardstat.timePhase3;
+        timeTaken1.text += "\n" + timePh1;
+        timeTaken2.text += "\n" + timePh2;
+        timeTaken3.text += "\n" + timePh3;
 
-        exerciseAccuracyPh2.text += "\n" + leaderboardstat.exerciseAccuracyPhase2 + "%";
-        exerciseAccuracyPh3.text += "\n" + leaderboardstat.exerciseAccuracyPhase3 + "%";
+        exerciseAccuracyPh2.text += "\n" + accExPh2 + "%";
+        exerciseAccuracyPh3.text += "\n" + accExPh3 + "%";
+        quizAccuracyPh3.text += "\n" + accQuizPh3 + "%";
+    }
 
-        quizAccuracyPh3.text += "\n" + leaderboardstat.lvl2_quizAccuracyPhase3 + "%";
+    public void BegginnerGetDataLevel1()
+    {
+        UpdateLeaderboardUI(
+            "Level1 Ranking",
+            leaderboardstat.TotalScore,
+            leaderboardstat.timePhase1,
+            leaderboardstat.timePhase2,
+            leaderboardstat.timePhase3,
+            leaderboardstat.exerciseAccuracyPhase2,
+            leaderboardstat.exerciseAccuracyPhase3,
+            leaderboardstat.quizAccuracyPhase3
+        );
+    }
+
+    public void BegginnerGetDataLevel2()
+    {
+        UpdateLeaderboardUI(
+            "Level2 Ranking",
+            leaderboardstat.lvl2_TotalScore,
+            leaderboardstat.lvl2_timePhase1,
+            leaderboardstat.lvl2_timePhase2,
+            leaderboardstat.lvl2_timePhase3,
+            leaderboardstat.lvl2_exerciseAccuracyPhase2,
+            leaderboardstat.lvl2_exerciseAccuracyPhase3,
+            leaderboardstat.lvl2_quizAccuracyPhase3
+        );
     }
 }

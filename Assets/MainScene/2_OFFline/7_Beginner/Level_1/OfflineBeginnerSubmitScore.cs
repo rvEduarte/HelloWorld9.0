@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class OfflineBeginnerLevel1UpdateProgress : MonoBehaviour
+public class OfflineBeginnerSubmitScore : MonoBehaviour
 {
     public LevelUnlockScriptable Level;
     public PlayerScoreScriptableObject playerData;
