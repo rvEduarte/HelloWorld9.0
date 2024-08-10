@@ -8,6 +8,8 @@ public class addingimage : MonoBehaviour
     public TMP_FontAsset customFontPlayerName;
 
     public Sprite myImageSprite; // Assign this in the Inspector
+
+    public Sprite imageTrophy; // Assign this in the Inspector
     public Button myButton; // Assign this in the Inspector
     public GameObject targetPanel; // Assign this in the Inspector
 
@@ -151,23 +153,64 @@ public class addingimage : MonoBehaviour
         GameObject content = new GameObject("Content");
         content.transform.SetParent(Mask2d.transform);
         HorizontalLayoutGroup horizontalGroup = content.AddComponent<HorizontalLayoutGroup>();
-        ContentSizeFitter sizeFitter = content.AddComponent<ContentSizeFitter>();
-        sizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-        sizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-        horizontalGroup.childAlignment = TextAnchor.LowerCenter;
+        //ContentSizeFitter sizeFitter = content.AddComponent<ContentSizeFitter>();
+       // sizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        //sizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+        horizontalGroup.childAlignment = TextAnchor.MiddleCenter;
+
+        horizontalGroup.childForceExpandHeight = false;
+        horizontalGroup.childForceExpandWidth = false;
+
         scrollRect.content = content.GetComponent<RectTransform>();
+
         RectTransform contentRectTransform = content.GetComponent<RectTransform>();
-        contentRectTransform.localScale = Vector3.one;
+
+        contentRectTransform.pivot = Vector2.zero;
+        contentRectTransform.anchorMin = new Vector2(0, 0); // Set anchorMin to bottom-left corner
+        contentRectTransform.anchorMax = new Vector2(1, 1); // Set anchorMax to top-right corner
+        contentRectTransform.offsetMin = new Vector2(0, 0); // Set offsetMin to zero
+        contentRectTransform.offsetMax = new Vector2(-0.0001220703f, 0); // Set offsetMax to zero
+
+        //contentRectTransform.sizeDelta = new Vector2(-1900.687f, 0); // Adjust size as needed
+        //mask2dRectTransform.localPosition = new Vector3(-0.010088f, -0.0005111694f, 0); // Adjust position as needed
+
+        //======================================================================================//
+
+        // SCORE
+
+        // Create a new GameObject for the text
+        GameObject score = new GameObject("scoreText");
+
+        // Set the parent to the new image
+        score.transform.SetParent(content.transform);
+
+        // Add a TextMeshProUGUI component
+        TextMeshProUGUI textScoreComponent = score.AddComponent<TextMeshProUGUI>();
+
+        // Set the text
+        textScoreComponent.text = "1000"; // Set your desired text
+
+        // Set text properties (e.g., font size, color)
+        textScoreComponent.fontSize = 50; // Adjust font size as needed
+        textScoreComponent.color = Color.white; // Adjust color as needed
+        textScoreComponent.font = customFontLevel;
+
+        // Set the size of the text
+        RectTransform textScoreRectTransform = score.GetComponent<RectTransform>();
+        textScoreRectTransform.anchorMin = new Vector2(0, 0); // Set anchorMin to bottom-left corner
+        textScoreRectTransform.anchorMax = new Vector2(1, 1); // Set anchorMax to top-right corner
+        textScoreRectTransform.offsetMin = new Vector2(0, 0); // Set offsetMin to zero
+        textScoreRectTransform.offsetMax = new Vector2(0, 0); // Set offsetMax to zero
 
         // ITEM IMAGE 
         GameObject itemImage = new GameObject("iconImage");
-        itemImage.transform.SetParent(content.transform);
+        itemImage.transform.SetParent(score.transform);
         Image itemImageComponent = itemImage.AddComponent<Image>();
-        itemImageComponent.sprite = myImageSprite;
+        itemImageComponent.sprite = imageTrophy;
         itemImageComponent.type = Image.Type.Sliced;
         RectTransform itemImageRectTransform = itemImage.GetComponent<RectTransform>();
-        itemImageRectTransform.sizeDelta = new Vector2(100, 100); // Adjust size as needed
-        itemImageRectTransform.localPosition = Vector3.zero;
+        itemImageRectTransform.sizeDelta = new Vector2(60, 49); // Adjust size as needed
+        itemImageRectTransform.localPosition = new Vector3(96.45056f, 0, 0);
         itemImageRectTransform.localScale = Vector3.one;
 
 
