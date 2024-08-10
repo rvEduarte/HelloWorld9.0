@@ -145,7 +145,7 @@ public class addingimage : MonoBehaviour
         GameObject viewPort = new GameObject("ViewPort");
 
         // Set the parent to the new image
-        viewPort.transform.SetParent(scrollRect.transform);
+        viewPort.transform.SetParent(scrollView.transform);
 
         CanvasRenderer canvasRenderer = viewPort.AddComponent<CanvasRenderer>();
 
@@ -154,14 +154,24 @@ public class addingimage : MonoBehaviour
         
 
         RectTransform viewPortRectTransform = viewPort.GetComponent<RectTransform>();
-        SetAnchor(viewPortRectTransform, AnchorPresets.MiddleCenter);
-        //viewPortRectTransform.transform.SetParent(scrollViewRectTransform.transform);
+        SetAnchor(viewPortRectTransform, AnchorPresets.StretchAll);
+
+        // Set the pivot to the center
         viewPortRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        viewPortRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
-        viewPortRectTransform.localPosition = new Vector3(0, 0, 0); // Adjust position as needed
-        // Example of setting the anchor preset to "stretch (right)"
-       
-        
+
+        //viewPortRectTransform.sizeDelta = new Vector2(300, 152); // set its own size
+        //viewPortRectTransform.localPosition = new Vector3(0, 0, 0); // set its own position
+        viewPortRectTransform.offsetMin = Vector3.zero;
+        viewPortRectTransform.offsetMax = Vector3.zero;
+                // Set the ScrollRect's viewport
+        scrollRect.viewport = viewPortRectTransform;
+
+
+    }
+    public void center()
+    {
+
+  
     }
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
     {
