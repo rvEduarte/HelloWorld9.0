@@ -39,10 +39,10 @@ public class addingimage : MonoBehaviour
         imageComponent.type = Image.Type.Sliced;
 
         // Set the size of the image
-        RectTransform rectTransform = newImage.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(1209.212f, 152); // Adjust size as needed
-        //rectTransform.localPosition = new Vector3(0, 0, 0); // Adjust position as needed
+        RectTransform ImagerectTransform = newImage.GetComponent<RectTransform>();
+        ImagerectTransform.sizeDelta = new Vector2(1209.212f, 152); // Adjust size as needed
 
+        SetAnchor(ImagerectTransform, AnchorPresets.StretchAll);
 
         //======================================================================================//
 
@@ -65,10 +65,15 @@ public class addingimage : MonoBehaviour
         textComponent.color = Color.white; // Adjust color as needed
         textComponent.font = customFontLevel;
 
+
         // Set the size of the text
         RectTransform textRectTransform = levelName.GetComponent<RectTransform>();
-        textRectTransform.sizeDelta = new Vector2(108.9009f, 86.61948f); // Adjust size as needed
-        textRectTransform.localPosition = new Vector3(-501.8617f, -8.016724f, 0); // Adjust position as needed
+
+        textRectTransform.pivot = Vector2.zero;
+        textRectTransform.sizeDelta = new Vector2(34.64f, 50); // Adjust size as needed
+        textRectTransform.localPosition = new Vector2(47, -17); // Adjust position as needed
+
+        SetAnchor(textRectTransform, AnchorPresets.MiddleLeft);
 
         //======================================================================================//
 
@@ -89,18 +94,20 @@ public class addingimage : MonoBehaviour
         // Set text properties (e.g., font size, color)
         playerNameComponent.fontSize = 50; // Adjust font size as needed
         playerNameComponent.color = Color.white; // Adjust color as needed
-        playerNameComponent.font = customFontLevel;
+        playerNameComponent.font = customFontPlayerName;
+
 
         // Set the size of the text
         RectTransform playerNameRectTransform = playerName.GetComponent<RectTransform>();
-        playerNameRectTransform.sizeDelta = new Vector2(557.9701f, 70.87867f); // Adjust size as needed
-        playerNameRectTransform.localPosition = new Vector3(-159.8617f, -3.005615f, 0); // Adjust position as needed
 
+        playerNameRectTransform.pivot = Vector2.zero;
+        playerNameRectTransform.localPosition = new Vector2(165, -17); // Adjust position as needed
+        SetAnchor(playerNameRectTransform, AnchorPresets.MiddleLeft);
 
         //======================================================================================//
 
         // SCROLL RECT
-        GameObject scrollView = new GameObject("ScrollRect");
+        GameObject scrollView = new GameObject("ScrollView");
 
         // Set the parent to the new image
         scrollView.transform.SetParent(newImage.transform);
@@ -109,7 +116,7 @@ public class addingimage : MonoBehaviour
 
         scrollRect.horizontal = true;
 
-        scrollRect.vertical = false; 
+        scrollRect.vertical = false;
 
         scrollRect.movementType = ScrollRect.MovementType.Elastic;
 
@@ -124,12 +131,186 @@ public class addingimage : MonoBehaviour
 
         // Set the size of the text
         RectTransform scrollViewRectTransform = scrollView.GetComponent<RectTransform>();
-        scrollViewRectTransform.sizeDelta = new Vector2(267.7803f, 152); // Adjust size as needed
-        scrollViewRectTransform.localPosition = new Vector3(459.6886f, 0.00051212f, 0); // Adjust position as needed
+        scrollViewRectTransform.pivot = Vector2.zero;
+        scrollViewRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
+        scrollViewRectTransform.localPosition = new Vector2(-300f, -76); // Adjust position as needed
+
+
+        // Example of setting the anchor preset to "stretch (right)"
+        SetAnchor(scrollViewRectTransform, AnchorPresets.MiddleRight);
+
+        //======================================================================================//
+
+        // VIEW PORT
+        GameObject viewPort = new GameObject("ViewPort");
+
+        // Set the parent to the new image
+        viewPort.transform.SetParent(scrollRect.transform);
+
+        CanvasRenderer canvasRenderer = viewPort.AddComponent<CanvasRenderer>();
+
+        RectMask2D viewPortMask2d = viewPort.AddComponent<RectMask2D>();
+
+        
+
+        RectTransform viewPortRectTransform = viewPort.GetComponent<RectTransform>();
+        SetAnchor(viewPortRectTransform, AnchorPresets.MiddleCenter);
+        //viewPortRectTransform.transform.SetParent(scrollViewRectTransform.transform);
+        viewPortRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        viewPortRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
+        viewPortRectTransform.localPosition = new Vector3(0, 0, 0); // Adjust position as needed
+        // Example of setting the anchor preset to "stretch (right)"
+       
+        
+    }
+    public void SetAnchor(RectTransform rt, AnchorPresets allign)
+    {
+        if (rt == null)
+        {
+            Debug.LogError("RectTransform is null.");
+            return;
+        }
+
+        switch (allign)
+        {
+            case AnchorPresets.TopLeft:
+                rt.anchorMin = new Vector2(0, 1);
+                rt.anchorMax = new Vector2(0, 1);
+                break;
+            case AnchorPresets.TopCenter:
+                rt.anchorMin = new Vector2(0.5f, 1);
+                rt.anchorMax = new Vector2(0.5f, 1);
+                break;
+            case AnchorPresets.TopRight:
+                rt.anchorMin = new Vector2(1, 1);
+                rt.anchorMax = new Vector2(1, 1);
+                break;
+            case AnchorPresets.MiddleLeft:
+                rt.anchorMin = new Vector2(0, 0.5f);
+                rt.anchorMax = new Vector2(0, 0.5f);
+                break;
+            case AnchorPresets.MiddleCenter:
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                break;
+            case AnchorPresets.MiddleRight:
+                rt.anchorMin = new Vector2(1, 0.5f);
+                rt.anchorMax = new Vector2(1, 0.5f);
+                break;
+            case AnchorPresets.BottomLeft:
+                rt.anchorMin = new Vector2(0, 0);
+                rt.anchorMax = new Vector2(0, 0);
+                break;
+            case AnchorPresets.BottomCenter:
+                rt.anchorMin = new Vector2(0.5f, 0);
+                rt.anchorMax = new Vector2(0.5f, 0);
+                break;
+            case AnchorPresets.BottomRight:
+                rt.anchorMin = new Vector2(1, 0);
+                rt.anchorMax = new Vector2(1, 0);
+                break;
+            case AnchorPresets.StretchAll:
+                rt.anchorMin = new Vector2(0, 0);
+                rt.anchorMax = new Vector2(1, 1);
+                break;
+            case AnchorPresets.StretchVertical:
+                rt.anchorMin = new Vector2(0.5f, 0);
+                rt.anchorMax = new Vector2(0.5f, 1);
+                break;
+            case AnchorPresets.StretchHorizontal:
+                rt.anchorMin = new Vector2(0, 0.5f);
+                rt.anchorMax = new Vector2(1, 0.5f);
+                break;
+            case AnchorPresets.StretchRight:
+                rt.anchorMin = new Vector2(1, 0);
+                rt.anchorMax = new Vector2(1, 1);
+                break;
+        }
+    }
+
+    public enum AnchorPresets
+    {
+        TopLeft,
+        TopCenter,
+        TopRight,
+        MiddleLeft,
+        MiddleCenter,
+        MiddleRight,
+        BottomLeft,
+        BottomCenter,
+        BottomRight,
+        StretchAll,
+        StretchVertical,
+        StretchHorizontal,
+        StretchRight
+    }
+}
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         //======================================================================================//
 
         // MASK OBJECT
@@ -214,5 +395,5 @@ public class addingimage : MonoBehaviour
         itemImageRectTransform.localScale = Vector3.one;
 
 
-    }
-}
+    }*/
+
