@@ -27,7 +27,7 @@ public class SettingMeru : MonoBehaviour
     [SerializeField] float collapseFadeDuration;
 
     Button mainButton;
-    items[] menuItems;
+    //items[] menuItems;
     bool isExpanded = false;
 
     Vector2 mainButtonPosition;
@@ -36,10 +36,10 @@ public class SettingMeru : MonoBehaviour
     void Start()
     {
         itemsCount = transform.childCount - 1;
-        menuItems = new items[itemsCount];
+       // menuItems = new items[itemsCount];
         for (int i = 0; i < itemsCount; i++)
         {
-            menuItems[i] = transform.GetChild(i + 1).GetComponent <items> ();
+           // menuItems[i] = transform.GetChild(i + 1).GetComponent <items> ();
         }
 
         mainButton =  transform.GetChild(0).GetComponent <Button> ();
@@ -72,8 +72,8 @@ public class SettingMeru : MonoBehaviour
             for (int i = 0; i < itemsCount; i++)
             {
                 //menuItems[i].trans.position = mainButtonPosition + spacing * (i + 1 );
-                menuItems[i].trans.DOMove(mainButtonPosition + spacing * (i + 1), expandDuration).SetEase(expandEase);
-                menuItems[i].img.DOFade(1f, expandFadeDuration).From(0f);
+                //menuItems[i].trans.DOMove(mainButtonPosition + spacing * (i + 1), expandDuration).SetEase(expandEase);
+                //menuItems[i].img.DOFade(1f, expandFadeDuration).From(0f);
             }
         }
 
@@ -83,8 +83,8 @@ public class SettingMeru : MonoBehaviour
             for (int i = 0; i < itemsCount; i++)
             {
                 //menuItems[i].trans.position = mainButtonPosition;
-                menuItems[i].trans.DOMove(mainButtonPosition, collapseDuration).SetEase(collapseEase);
-                menuItems[i].img.DOFade(0f, collapseFadeDuration);
+                //menuItems[i].trans.DOMove(mainButtonPosition, collapseDuration).SetEase(collapseEase);
+                //menuItems[i].img.DOFade(0f, collapseFadeDuration);
             }
         }
 

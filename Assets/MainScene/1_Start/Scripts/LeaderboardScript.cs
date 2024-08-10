@@ -158,6 +158,7 @@ public class LeaderboardScript : MonoBehaviour
                 foreach (LootLockerLeaderboardMember score in response.items)
                 {
                     //add the score to the text
+                    Debug.Log(response.items);
                     leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
                     leaderboardScoreText.text += "\n" + score.score.ToString();
 
