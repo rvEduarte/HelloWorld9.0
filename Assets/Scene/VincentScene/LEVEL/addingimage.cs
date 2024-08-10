@@ -8,22 +8,42 @@ public class addingimage : MonoBehaviour
     public TMP_FontAsset customFontPlayerName;
 
     public Sprite myImageSprite; // Assign this in the Inspector
-
     public Sprite imageTrophy; // Assign this in the Inspector
+    public Sprite imageTimer;
+    public Sprite imageExercise;
+    public Sprite imageQuiz;
+
     public Button myButton; // Assign this in the Inspector
     public GameObject targetPanel; // Assign this in the Inspector
+
+    GameObject newImage;
+    GameObject levelName;
+    GameObject playerName;
+    GameObject scrollView;  
+    GameObject viewPort;
+    GameObject content;
+    GameObject scoreText;
+    GameObject imageTrophyObject;
+    GameObject textTimer;
+    GameObject imageTimerObject;
+    GameObject textExercise;
+    GameObject imageExerciseObject;
+    GameObject textQuiz;
+    GameObject imageQuizObject;
+
+    ScrollRect scrollRect;
 
     void Start()
     {
         myButton.onClick.AddListener(OnButtonClick);
     }
 
-    void OnButtonClick()
+    public void BackGroundImage()
     {
         // BACKGROUND IMAGE 
 
         // Create a new GameObject
-        GameObject newImage = new GameObject("BackGround");
+        newImage = new GameObject("BackGround");
 
         newImage.layer = LayerMask.NameToLayer("UI");
         // Set the parent to the target panel
@@ -43,13 +63,13 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.sizeDelta = new Vector2(1209.212f, 152); // Adjust size as needed
 
         SetAnchor(ImagerectTransform, AnchorPresets.StretchAll);
-
-        //======================================================================================//
-
+    }
+    public void LevelNumber()
+    {
         // LEVEL NUMBER 
 
         // Create a new GameObject for the text
-        GameObject levelName = new GameObject("LevelText");
+        levelName = new GameObject("LevelText");
 
         // Set the parent to the new image
         levelName.transform.SetParent(newImage.transform);
@@ -74,13 +94,13 @@ public class addingimage : MonoBehaviour
         textRectTransform.localPosition = new Vector2(47, -17); // Adjust position as needed
 
         SetAnchor(textRectTransform, AnchorPresets.MiddleLeft);
-
-        //======================================================================================//
-
+    }
+    public void PlayerName()
+    {
         // PLAYER NAME 
 
         // Create a new GameObject for the text
-        GameObject playerName = new GameObject("PlayerText");
+        playerName = new GameObject("PlayerText");
 
         // Set the parent to the new image
         playerName.transform.SetParent(newImage.transform);
@@ -103,17 +123,17 @@ public class addingimage : MonoBehaviour
         playerNameRectTransform.pivot = Vector2.zero;
         playerNameRectTransform.localPosition = new Vector2(165, -17); // Adjust position as needed
         SetAnchor(playerNameRectTransform, AnchorPresets.MiddleLeft);
-
-        //======================================================================================//
-
+    }
+    public void ScrollRectTransform()
+    {
         // SCROLL RECT
-        GameObject scrollView = new GameObject("ScrollView");
+        scrollView = new GameObject("ScrollView");
 
         scrollView.layer = LayerMask.NameToLayer("UI");
         // Set the parent to the new image
         scrollView.transform.SetParent(newImage.transform);
 
-        ScrollRect scrollRect = scrollView.AddComponent<ScrollRect>();
+        scrollRect = scrollView.AddComponent<ScrollRect>();
 
         scrollRect.horizontal = true;
 
@@ -140,10 +160,12 @@ public class addingimage : MonoBehaviour
         // Example of setting the anchor preset to "stretch (right)"
         SetAnchor(scrollViewRectTransform, AnchorPresets.MiddleRight);
 
-        //======================================================================================//
 
+    }
+    public void ViewPortObject()
+    {
         // VIEW PORT
-        GameObject viewPort = new GameObject("ViewPort");
+        viewPort = new GameObject("ViewPort");
 
         viewPort.layer = LayerMask.NameToLayer("UI");
         // Set the parent 
@@ -153,7 +175,7 @@ public class addingimage : MonoBehaviour
 
         RectMask2D viewPortMask2d = viewPort.AddComponent<RectMask2D>();
 
-        
+
 
         RectTransform viewPortRectTransform = viewPort.GetComponent<RectTransform>();
         SetAnchor(viewPortRectTransform, AnchorPresets.StretchAll);
@@ -162,12 +184,12 @@ public class addingimage : MonoBehaviour
         viewPortRectTransform.pivot = new Vector2(0.5f, 0.5f);
         viewPortRectTransform.offsetMin = Vector3.zero;
         viewPortRectTransform.offsetMax = Vector3.zero;
-
-        //======================================================================================//
-
+    }
+    public void ContentObject()
+    {
         // CONTENT
 
-        GameObject content = new GameObject("Content");
+        content = new GameObject("Content");
 
         content.layer = LayerMask.NameToLayer("UI");
         // Set the parent 
@@ -180,7 +202,7 @@ public class addingimage : MonoBehaviour
         contentLayoutGroup.childControlHeight = false;
         contentLayoutGroup.childControlWidth = false;
 
-        contentLayoutGroup.spacing = 100;
+        contentLayoutGroup.spacing = 80;
 
         ContentSizeFitter contentSizeFitter = content.AddComponent<ContentSizeFitter>();
         contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
@@ -188,18 +210,7 @@ public class addingimage : MonoBehaviour
 
         RectTransform contentRectTransform = content.GetComponent<RectTransform>();
         // Set the pivot to the center
-        /*contentRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        contentRectTransform.sizeDelta = new Vector2(30, 160); // Adjust size as needed
-        contentRectTransform.offsetMin = Vector3.zero;
-        contentRectTransform.offsetMax = Vector3.zero;*/
-
         contentRectTransform.pivot = new Vector2(0, 0.5f);
-
-        // Stretch the content horizontally while keeping its X position constant
-        //contentRectTransform.anchorMin = new Vector2(0, 0.5f);
-        //contentRectTransform.anchorMax = new Vector2(0, 0.5f);
-
-       
 
         // Set the sizeDelta to manage its height, width will be controlled by the ContentSizeFitter
         contentRectTransform.sizeDelta = new Vector2(0, 160); // Adjust the height as needed
@@ -209,16 +220,293 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(contentRectTransform, AnchorPresets.StretchHorizontal);
 
-        //=========================================================================//
-
         scrollRect.content = content.GetComponent<RectTransform>();
         scrollRect.viewport = viewPort.GetComponent<RectTransform>();
+
     }
-    public void center()
+    public void TextScoreImage()
     {
 
-  
+        // SCORE TEXT 
+
+        // Create a new GameObject for the text
+        scoreText = new GameObject("scoreText");
+
+        // Set the parent to the new image
+        scoreText.transform.SetParent(content.transform);
+
+        // Add a TextMeshProUGUI component
+        TextMeshProUGUI scoreTextComponent = scoreText.AddComponent<TextMeshProUGUI>();
+
+        // Set the text
+        scoreTextComponent.text = "1000"; // Set your desired text
+
+        // Set text properties (e.g., font size, color)
+        scoreTextComponent.fontSize = 50; // Adjust font size as needed
+        scoreTextComponent.color = Color.white; // Adjust color as needed
+        scoreTextComponent.font = customFontLevel;
+
+        scoreTextComponent.alignment = TextAlignmentOptions.MidlineRight;
+        //textComponent.alignment = TextAlignmentOptions.Midline;
+
+        // Set the size of the text
+        RectTransform scoreTextRectTransform = scoreText.GetComponent<RectTransform>();
+
+        scoreTextRectTransform.pivot = Vector2.zero;
+        scoreTextRectTransform.sizeDelta = new Vector2(194.119f, 164.4507f); // Adjust size as needed
+        SetAnchor(scoreTextRectTransform, AnchorPresets.MiddleLeft);
+
+        // TROPHY IMAGE 
+
+        // Create a new GameObject
+        imageTrophyObject = new GameObject("icon_Trophy");
+
+        imageTrophyObject.layer = LayerMask.NameToLayer("UI");
+        // Set the parent to the target panel
+        imageTrophyObject.transform.SetParent(scoreText.transform);
+
+        // Add an Image component
+        Image imageComponent = imageTrophyObject.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageTrophy;
+
+        // Set the image type to Sliced
+        imageComponent.type = Image.Type.Sliced;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = imageTrophyObject.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(61.7015f, 49.7804f); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(11, -28); ;
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
+
     }
+    public void TextTimerImage(string name)
+    {
+        //TEXT EXERCISE
+
+        // Create a new GameObject for the text
+        textTimer = new GameObject("textTimer");
+
+        // Set the parent to the new image
+        textTimer.transform.SetParent(content.transform);
+
+        // Add a TextMeshProUGUI component
+        TextMeshProUGUI scoreTextComponent = textTimer.AddComponent<TextMeshProUGUI>();
+
+        // Set the text
+        scoreTextComponent.text = name; // Set your desired text
+
+        // Set text properties (e.g., font size, color)
+        scoreTextComponent.fontSize = 50; // Adjust font size as needed
+        scoreTextComponent.color = Color.white; // Adjust color as needed
+        scoreTextComponent.font = customFontLevel;
+
+        scoreTextComponent.alignment = TextAlignmentOptions.MidlineRight;
+        //textComponent.alignment = TextAlignmentOptions.Midline;
+
+        // Set the size of the text
+        RectTransform scoreTextRectTransform = textTimer.GetComponent<RectTransform>();
+
+        scoreTextRectTransform.pivot = Vector2.zero;
+        scoreTextRectTransform.sizeDelta = new Vector2(229.2188f, 164.4507f); // Adjust size as needed
+        SetAnchor(scoreTextRectTransform, AnchorPresets.MiddleLeft);
+
+        //TIMER IMAGE 
+
+        // Create a new GameObject
+        imageTimerObject = new GameObject("icon_Timer");
+
+        imageTimerObject.layer = LayerMask.NameToLayer("UI");
+        // Set the parent to the target panel
+        imageTimerObject.transform.SetParent(textTimer.transform);
+
+        // Add an Image component
+        Image imageComponent = imageTimerObject.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageTimer;
+
+        // Set the image type to Sliced
+        imageComponent.type = Image.Type.Sliced;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = imageTimerObject.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(67.2983f, 63.3395f); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(8.7612f, -34.1032f); ;
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
+    }
+    public void TextExerciseImage(string name)
+    {
+        //TEXT EXERCISE
+
+        // Create a new GameObject for the text
+        textExercise = new GameObject("textExercise");
+
+        // Set the parent to the new image
+        textExercise.transform.SetParent(content.transform);
+
+        // Add a TextMeshProUGUI component
+        TextMeshProUGUI textComponent = textExercise.AddComponent<TextMeshProUGUI>();
+
+        // Set the text
+        textComponent.text = name; // Set your desired text
+
+        // Set text properties (e.g., font size, color)
+        textComponent.fontSize = 50; // Adjust font size as needed
+        textComponent.color = Color.white; // Adjust color as needed
+        textComponent.font = customFontLevel;
+
+        textComponent.alignment = TextAlignmentOptions.MidlineRight;
+        //textComponent.alignment = TextAlignmentOptions.Midline;
+
+        // Set the size of the text
+        RectTransform textRectTransform = textExercise.GetComponent<RectTransform>();
+
+        textRectTransform.pivot = Vector2.zero;
+        textRectTransform.sizeDelta = new Vector2(229.2188f, 164.4507f); // Adjust size as needed
+        SetAnchor(textRectTransform, AnchorPresets.MiddleLeft);
+
+        //Exercise IMAGE 
+
+        // Create a new GameObject
+        imageExerciseObject = new GameObject("icon_Exercise");
+
+        imageExerciseObject.layer = LayerMask.NameToLayer("UI");
+        // Set the parent to the target panel
+        imageExerciseObject.transform.SetParent(textExercise.transform);
+
+        // Add an Image component
+        Image imageComponent = imageExerciseObject.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageExercise;
+
+        // Set the image type to Sliced
+        imageComponent.type = Image.Type.Sliced;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = imageExerciseObject.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(67.2983f, 63.3395f); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(8.7612f, -34.1032f); ;
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
+    }
+    void OnButtonClick()
+    {
+        // BACKGROUND IMAGE
+        BackGroundImage();
+
+        // LEVEL NUMBER 
+        LevelNumber();
+
+        // PLAYER NAME 
+        PlayerName();
+
+        // SCROLL RECT
+        ScrollRectTransform();
+
+        // VIEW PORT
+        ViewPortObject();
+
+        // CONTENT
+        ContentObject();
+
+        // SCORE TEXT 
+        TextScoreImage();
+
+        // TIMER TEXT
+        TextTimerImage("10:00 P1");
+
+        TextTimerImage("05:00 P2");
+
+        TextTimerImage("10:00 P3");
+
+        // EXERCISE TEXT
+        TextExerciseImage("90% P2");
+
+        TextExerciseImage("100% P3");
+
+        // QUIZ TEXT 4 SPACES
+        TextQuizImage("    100% P3");
+
+        //=========================================================================//
+
+    }
+
+    public void TextQuizImage(string name)
+    {
+        //TEXT EXERCISE
+
+        // Create a new GameObject for the text
+        textQuiz = new GameObject("textQuiz");
+
+        // Set the parent to the new image
+        textQuiz.transform.SetParent(content.transform);
+
+        // Add a TextMeshProUGUI component
+        TextMeshProUGUI textComponent = textQuiz.AddComponent<TextMeshProUGUI>();
+
+        // Set the text
+        textComponent.text = name; // Set your desired text
+
+        // Set text properties (e.g., font size, color)
+        textComponent.fontSize = 50; // Adjust font size as needed
+        textComponent.color = Color.white; // Adjust color as needed
+        textComponent.font = customFontLevel;
+
+        textComponent.alignment = TextAlignmentOptions.MidlineLeft;
+        //textComponent.alignment = TextAlignmentOptions.Midline;
+
+        // Set the size of the text
+        RectTransform textRectTransform = textQuiz.GetComponent<RectTransform>();
+
+        textRectTransform.pivot = Vector2.zero;
+        textRectTransform.sizeDelta = new Vector2(330.5814f, 164.4507f); // Adjust size as needed
+        SetAnchor(textRectTransform, AnchorPresets.MiddleLeft);
+
+        //Exercise IMAGE 
+
+        // Create a new GameObject
+        imageQuizObject = new GameObject("icon_Quiz");
+
+        imageQuizObject.layer = LayerMask.NameToLayer("UI");
+        // Set the parent to the target panel
+        imageQuizObject.transform.SetParent(textQuiz.transform);
+
+        // Add an Image component
+        Image imageComponent = imageQuizObject.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageQuiz;
+
+        // Set the image type to Sliced
+        imageComponent.type = Image.Type.Sliced;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = imageQuizObject.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(67.2983f, 63.3395f); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(-94, -31.66975F);
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
+    }
+
+
+    
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
     {
         if (rt == null)
