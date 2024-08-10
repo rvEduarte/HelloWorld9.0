@@ -25,7 +25,7 @@ public class addingimage : MonoBehaviour
         // Create a new GameObject
         GameObject newImage = new GameObject("BackGround");
 
-
+        newImage.layer = LayerMask.NameToLayer("UI");
         // Set the parent to the target panel
         newImage.transform.SetParent(targetPanel.transform);
 
@@ -109,6 +109,7 @@ public class addingimage : MonoBehaviour
         // SCROLL RECT
         GameObject scrollView = new GameObject("ScrollView");
 
+        scrollView.layer = LayerMask.NameToLayer("UI");
         // Set the parent to the new image
         scrollView.transform.SetParent(newImage.transform);
 
@@ -144,7 +145,8 @@ public class addingimage : MonoBehaviour
         // VIEW PORT
         GameObject viewPort = new GameObject("ViewPort");
 
-        // Set the parent to the new image
+        viewPort.layer = LayerMask.NameToLayer("UI");
+        // Set the parent 
         viewPort.transform.SetParent(scrollView.transform);
 
         CanvasRenderer canvasRenderer = viewPort.AddComponent<CanvasRenderer>();
@@ -158,15 +160,59 @@ public class addingimage : MonoBehaviour
 
         // Set the pivot to the center
         viewPortRectTransform.pivot = new Vector2(0.5f, 0.5f);
-
-        //viewPortRectTransform.sizeDelta = new Vector2(300, 152); // set its own size
-        //viewPortRectTransform.localPosition = new Vector3(0, 0, 0); // set its own position
         viewPortRectTransform.offsetMin = Vector3.zero;
         viewPortRectTransform.offsetMax = Vector3.zero;
-                // Set the ScrollRect's viewport
-        scrollRect.viewport = viewPortRectTransform;
 
+        //======================================================================================//
 
+        // CONTENT
+
+        GameObject content = new GameObject("Content");
+
+        content.layer = LayerMask.NameToLayer("UI");
+        // Set the parent 
+        content.transform.SetParent(viewPort.transform);
+
+        HorizontalLayoutGroup contentLayoutGroup = content.AddComponent<HorizontalLayoutGroup>();
+        contentLayoutGroup.childAlignment = TextAnchor.MiddleCenter;
+        contentLayoutGroup.childForceExpandHeight = true;
+        contentLayoutGroup.childForceExpandWidth = true;
+        contentLayoutGroup.childControlHeight = false;
+        contentLayoutGroup.childControlWidth = false;
+
+        contentLayoutGroup.spacing = 100;
+
+        ContentSizeFitter contentSizeFitter = content.AddComponent<ContentSizeFitter>();
+        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+
+        RectTransform contentRectTransform = content.GetComponent<RectTransform>();
+        // Set the pivot to the center
+        /*contentRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        contentRectTransform.sizeDelta = new Vector2(30, 160); // Adjust size as needed
+        contentRectTransform.offsetMin = Vector3.zero;
+        contentRectTransform.offsetMax = Vector3.zero;*/
+
+        contentRectTransform.pivot = new Vector2(0, 0.5f);
+
+        // Stretch the content horizontally while keeping its X position constant
+        //contentRectTransform.anchorMin = new Vector2(0, 0.5f);
+        //contentRectTransform.anchorMax = new Vector2(0, 0.5f);
+
+       
+
+        // Set the sizeDelta to manage its height, width will be controlled by the ContentSizeFitter
+        contentRectTransform.sizeDelta = new Vector2(0, 160); // Adjust the height as needed
+
+        // Set the anchoredPosition to ensure X remains at 0
+        contentRectTransform.anchoredPosition = new Vector2(0, 0);
+
+        SetAnchor(contentRectTransform, AnchorPresets.StretchHorizontal);
+
+        //=========================================================================//
+
+        scrollRect.content = content.GetComponent<RectTransform>();
+        scrollRect.viewport = viewPort.GetComponent<RectTransform>();
     }
     public void center()
     {
