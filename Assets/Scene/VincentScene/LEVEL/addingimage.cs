@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +40,7 @@ public class addingimage : MonoBehaviour
     #endregion
 
     #region ClickButton Variables
-
+    /*
     [SerializeField] public float expandPosition = -668.461f;  // Width when the panel is expanded
     [SerializeField] public float expandWidth = 668.461f;
     [SerializeField] public float collapsedPosition = -282.0381f;  // Width when the panel is collapsed
@@ -48,7 +49,7 @@ public class addingimage : MonoBehaviour
 
     private bool isExpanded = false;  // Track the panel's state
 
-    private RectTransform panel;
+    private RectTransform panel;*/
     #endregion
 
     void Start()
@@ -210,10 +211,14 @@ public class addingimage : MonoBehaviour
         //add button
         Button toggleButton = imageButtonObject.AddComponent<Button>();
 
-        toggleButton.onClick.AddListener(TogglePanel);
+        PanelController panelController = imageButtonObject.AddComponent<PanelController>();
 
-        panel = scrollView.GetComponent<RectTransform>();
-        
+        toggleButton.onClick.AddListener(() => panelController.TogglePanel());
+
+        toggleButton.AddComponent<PanelController>();
+        //toggleButton.onClick.AddListener(TogglePanel);
+        //panel = scrollView.GetComponent<RectTransform>();
+
 
 
     }
@@ -560,7 +565,7 @@ public class addingimage : MonoBehaviour
 
     }
 
-    void TogglePanel()
+    /*void TogglePanel()
     {
         if (isExpanded)
         {
@@ -577,7 +582,7 @@ public class addingimage : MonoBehaviour
 
         // Toggle the state
         isExpanded = !isExpanded;
-    }
+    }*/
 
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
     {
