@@ -12,6 +12,7 @@ public class addingimage : MonoBehaviour
     public Sprite imageTimer;
     public Sprite imageExercise;
     public Sprite imageQuiz;
+    public Sprite imageButton;
 
     public Button myButton; // Assign this in the Inspector
     public GameObject targetPanel; // Assign this in the Inspector
@@ -30,6 +31,7 @@ public class addingimage : MonoBehaviour
     GameObject imageExerciseObject;
     GameObject textQuiz;
     GameObject imageQuizObject;
+    GameObject imageButtonObject;
 
     ScrollRect scrollRect;
 
@@ -153,13 +155,42 @@ public class addingimage : MonoBehaviour
         // Set the size of the text
         RectTransform scrollViewRectTransform = scrollView.GetComponent<RectTransform>();
         scrollViewRectTransform.pivot = Vector2.zero;
-        scrollViewRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
-        scrollViewRectTransform.localPosition = new Vector2(-300f, -76); // Adjust position as needed
+        //scrollViewRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
+        //scrollViewRectTransform.localPosition = new Vector2(-300f, -76); // Adjust position as needed
+        scrollViewRectTransform.sizeDelta = new Vector2(282.0381f, 152); // Adjust size as needed
+        scrollViewRectTransform.anchoredPosition = new Vector2(-282.0381f, -76); // Adjust position as needed
 
 
         // Example of setting the anchor preset to "stretch (right)"
         SetAnchor(scrollViewRectTransform, AnchorPresets.MiddleRight);
 
+        // BUTTON IMAGE
+
+        // Create a new GameObject
+        imageButtonObject = new GameObject("icon_Exercise");
+
+        imageButtonObject.layer = LayerMask.NameToLayer("UI");
+        // Set the parent to the target panel
+        imageButtonObject.transform.SetParent(scrollView.transform);
+
+        // Add an Image component
+        Image imageComponent = imageButtonObject.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageButton;
+
+        // Set the image type to Sliced
+        imageComponent.type = Image.Type.Sliced;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = imageButtonObject.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(38.9115f, 69.3609f); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(-15.60001f, -113.5f); ;
+
+        SetAnchor(ImagerectTransform, AnchorPresets.TopLeft);
 
     }
     public void ViewPortObject()
@@ -246,7 +277,7 @@ public class addingimage : MonoBehaviour
         scoreTextComponent.color = Color.white; // Adjust color as needed
         scoreTextComponent.font = customFontLevel;
 
-        scoreTextComponent.alignment = TextAlignmentOptions.MidlineRight;
+        scoreTextComponent.alignment = TextAlignmentOptions.Center;
         //textComponent.alignment = TextAlignmentOptions.Midline;
 
         // Set the size of the text
@@ -280,7 +311,7 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.pivot = Vector2.zero;
         ImagerectTransform.sizeDelta = new Vector2(61.7015f, 49.7804f); // Adjust size as needed
 
-        ImagerectTransform.anchoredPosition = new Vector2(11, -28); ;
+        ImagerectTransform.anchoredPosition = new Vector2(-18, -28); ;
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
 
@@ -306,7 +337,7 @@ public class addingimage : MonoBehaviour
         scoreTextComponent.color = Color.white; // Adjust color as needed
         scoreTextComponent.font = customFontLevel;
 
-        scoreTextComponent.alignment = TextAlignmentOptions.MidlineRight;
+        scoreTextComponent.alignment = TextAlignmentOptions.Center;
         //textComponent.alignment = TextAlignmentOptions.Midline;
 
         // Set the size of the text
@@ -340,7 +371,7 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.pivot = Vector2.zero;
         ImagerectTransform.sizeDelta = new Vector2(67.2983f, 63.3395f); // Adjust size as needed
 
-        ImagerectTransform.anchoredPosition = new Vector2(8.7612f, -34.1032f); ;
+        ImagerectTransform.anchoredPosition = new Vector2(0, -34.1032f); ;
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
     }
@@ -403,47 +434,6 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
     }
-    void OnButtonClick()
-    {
-        // BACKGROUND IMAGE
-        BackGroundImage();
-
-        // LEVEL NUMBER 
-        LevelNumber();
-
-        // PLAYER NAME 
-        PlayerName();
-
-        // SCROLL RECT
-        ScrollRectTransform();
-
-        // VIEW PORT
-        ViewPortObject();
-
-        // CONTENT
-        ContentObject();
-
-        // SCORE TEXT 
-        TextScoreImage();
-
-        // TIMER TEXT
-        TextTimerImage("10:00 P1");
-
-        TextTimerImage("05:00 P2");
-
-        TextTimerImage("10:00 P3");
-
-        // EXERCISE TEXT
-        TextExerciseImage("90% P2");
-
-        TextExerciseImage("100% P3");
-
-        // QUIZ TEXT 4 SPACES
-        TextQuizImage("    100% P3");
-
-        //=========================================================================//
-
-    }
 
     public void TextQuizImage(string name)
     {
@@ -503,6 +493,47 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.anchoredPosition = new Vector2(-94, -31.66975F);
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
+    }
+    void OnButtonClick()
+    {
+        // BACKGROUND IMAGE
+        BackGroundImage();
+
+        // LEVEL NUMBER 
+        LevelNumber();
+
+        // PLAYER NAME 
+        PlayerName();
+
+        // SCROLL RECT
+        ScrollRectTransform();
+
+        // VIEW PORT
+        ViewPortObject();
+
+        // CONTENT
+        ContentObject();
+
+        // SCORE TEXT 
+        TextScoreImage();
+
+        // TIMER TEXT
+        TextTimerImage("10:00 P1");
+
+        TextTimerImage("05:00 P2");
+
+        TextTimerImage("10:00 P3");
+
+        // EXERCISE TEXT
+        TextExerciseImage("90% P2");
+
+        TextExerciseImage("100% P3");
+
+        // QUIZ TEXT 4 SPACES
+        TextQuizImage("    100% P3");
+
+        //=========================================================================//
+
     }
 
 
