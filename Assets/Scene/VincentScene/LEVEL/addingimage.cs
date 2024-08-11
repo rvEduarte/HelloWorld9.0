@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class addingimage : MonoBehaviour
 {
+    #region DYNAMIC LEADERBOARD Variables
     public TMP_FontAsset customFontLevel;
     public TMP_FontAsset customFontPlayerName;
 
@@ -35,8 +36,24 @@ public class addingimage : MonoBehaviour
 
     ScrollRect scrollRect;
 
+    #endregion
+
+    #region ClickButton Variables
+
+    [SerializeField] public float expandPosition = -668.461f;  // Width when the panel is expanded
+    [SerializeField] public float expandWidth = 668.461f;
+    [SerializeField] public float collapsedPosition = -282.0381f;  // Width when the panel is collapsed
+    [SerializeField] public float collapsedWidth = 282.0381f;
+    public float animationDuration = 0.5f;  // Duration of the animation
+
+    private bool isExpanded = false;  // Track the panel's state
+
+    private RectTransform panel;
+    #endregion
+
     void Start()
     {
+        // Add listener to the button
         myButton.onClick.AddListener(OnButtonClick);
     }
 
@@ -155,8 +172,6 @@ public class addingimage : MonoBehaviour
         // Set the size of the text
         RectTransform scrollViewRectTransform = scrollView.GetComponent<RectTransform>();
         scrollViewRectTransform.pivot = Vector2.zero;
-        //scrollViewRectTransform.sizeDelta = new Vector2(300, 152); // Adjust size as needed
-        //scrollViewRectTransform.localPosition = new Vector2(-300f, -76); // Adjust position as needed
         scrollViewRectTransform.sizeDelta = new Vector2(282.0381f, 152); // Adjust size as needed
         scrollViewRectTransform.anchoredPosition = new Vector2(-282.0381f, -76); // Adjust position as needed
 
@@ -191,6 +206,15 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.anchoredPosition = new Vector2(-32.759f, -103.4f); ;
 
         SetAnchor(ImagerectTransform, AnchorPresets.TopLeft);
+
+        //add button
+        Button toggleButton = imageButtonObject.AddComponent<Button>();
+
+        toggleButton.onClick.AddListener(TogglePanel);
+
+        panel = scrollView.GetComponent<RectTransform>();
+        
+
 
     }
     public void ViewPortObject()
@@ -536,8 +560,25 @@ public class addingimage : MonoBehaviour
 
     }
 
+    void TogglePanel()
+    {
+        if (isExpanded)
+        {
+            // Collapse the panel
+            LeanTween.size(panel, new Vector2(collapsedWidth, panel.sizeDelta.y), animationDuration).setEase(LeanTweenType.easeInOutQuad);
+            LeanTween.moveX(panel, collapsedPosition, animationDuration).setEase(LeanTweenType.easeInOutQuad);
+        }
+        else
+        {
+            // Expand the panel
+            LeanTween.size(panel, new Vector2(expandWidth, panel.sizeDelta.y), animationDuration).setEase(LeanTweenType.easeInOutQuad);
+            LeanTween.moveX(panel, expandPosition, animationDuration).setEase(LeanTweenType.easeInOutQuad);
+        }
 
-    
+        // Toggle the state
+        isExpanded = !isExpanded;
+    }
+
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
     {
         if (rt == null)

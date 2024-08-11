@@ -3,12 +3,13 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
-    public RectTransform panel;  // Reference to the panel's RectTransform
-    public Button toggleButton;  // Reference to the button
-    public float expandPosition = -761.61F;  // Width when the panel is expanded
-    public float expandWidth = 761.61f;
-    public float collapsedPosition = -300f;  // Width when the panel is collapsed
-    public float collapsedWidth = 300f;
+    [SerializeField] public RectTransform panel;  // Reference to the panel's RectTransform
+    [SerializeField] private Button toggleButton;  // Reference to the button
+
+    [SerializeField] public float expandPosition = -668.461f;  // Width when the panel is expanded
+    [SerializeField] public float expandWidth = 668.461f;
+    [SerializeField] public float collapsedPosition = -282.0381f;  // Width when the panel is collapsed
+    [SerializeField] public float collapsedWidth = 282.0381f;
     public float animationDuration = 0.5f;  // Duration of the animation
 
     private bool isExpanded = false;  // Track the panel's state
@@ -16,10 +17,10 @@ public class PanelController : MonoBehaviour
     void Start()
     {
         // Add listener to the button
-        toggleButton.onClick.AddListener(TogglePanel);
+       // toggleButton.onClick.AddListener(TogglePanel);
     }
 
-    void TogglePanel()
+    public void TogglePanel()
     {
         if (isExpanded)
         {
