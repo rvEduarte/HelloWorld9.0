@@ -186,9 +186,9 @@ public class addingimage : MonoBehaviour
         RectTransform ImagerectTransform = imageButtonObject.GetComponent<RectTransform>();
 
         ImagerectTransform.pivot = Vector2.zero;
-        ImagerectTransform.sizeDelta = new Vector2(38.9115f, 69.3609f); // Adjust size as needed
+        ImagerectTransform.sizeDelta = new Vector2(32.7591f, 49.7356f); // Adjust size as needed
 
-        ImagerectTransform.anchoredPosition = new Vector2(-15.60001f, -113.5f); ;
+        ImagerectTransform.anchoredPosition = new Vector2(-32.759f, -103.4f); ;
 
         SetAnchor(ImagerectTransform, AnchorPresets.TopLeft);
 
