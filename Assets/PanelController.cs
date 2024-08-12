@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
-    [SerializeField] public RectTransform panel;  // Reference to the panel's RectTransform
-    [SerializeField] private Button toggleButton;  // Reference to the button
-
     [SerializeField] public float expandPosition = -668.461f;  // Width when the panel is expanded
     [SerializeField] public float expandWidth = 668.461f;
     [SerializeField] public float collapsedPosition = -282.0381f;  // Width when the panel is collapsed
@@ -14,10 +11,11 @@ public class PanelController : MonoBehaviour
 
     private bool isExpanded = false;  // Track the panel's state
 
-    void Start()
+    private RectTransform panel;
+
+    public void SetScrollViewRectTransform(RectTransform rectTransform)
     {
-        // Add listener to the button
-       // toggleButton.onClick.AddListener(TogglePanel);
+        panel = rectTransform;
     }
 
     public void TogglePanel()

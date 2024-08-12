@@ -213,11 +213,9 @@ public class addingimage : MonoBehaviour
 
         PanelController panelController = imageButtonObject.AddComponent<PanelController>();
 
-        toggleButton.onClick.AddListener(() => panelController.TogglePanel());
+        panelController.SetScrollViewRectTransform(scrollViewRectTransform);
 
-        toggleButton.AddComponent<PanelController>();
-        //toggleButton.onClick.AddListener(TogglePanel);
-        //panel = scrollView.GetComponent<RectTransform>();
+        toggleButton.onClick.AddListener(() => panelController.TogglePanel());
 
 
 
