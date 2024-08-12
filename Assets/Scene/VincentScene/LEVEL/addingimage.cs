@@ -47,7 +47,7 @@ public class addingimage : MonoBehaviour
     {
         count = 0;
         // Add listener to the button
-        myButton.onClick.AddListener(OnButtonClick);
+        //myButton.onClick.AddListener(OnButtonClick);
     }
 
     public void BackGroundImage()
@@ -558,7 +558,7 @@ public class addingimage : MonoBehaviour
         textComponent.color = Color.white; // Adjust color as needed
         textComponent.font = customFontLevel;
 
-        textComponent.alignment = TextAlignmentOptions.MidlineLeft;
+        textComponent.alignment = TextAlignmentOptions.Midline;
         //textComponent.alignment = TextAlignmentOptions.Midline;
 
         // Set the size of the text
