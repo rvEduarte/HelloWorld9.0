@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,15 +39,6 @@ public class addingimage : MonoBehaviour
     ScrollRect scrollRect;
 
     #endregion
-
-    int count;
-
-    void Start()
-    {
-        count = 0;
-        // Add listener to the button
-        //myButton.onClick.AddListener(OnButtonClick);
-    }
 
     public void BackGroundImage()
     {
@@ -102,7 +92,6 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
     }
-
     public void LevelSecondMedal()
     {
         // LEVEL MEDAL
@@ -129,7 +118,6 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
     }
-
     public void LevelThirdMedal()
     {
         // LEVEL MEDAL
@@ -536,7 +524,6 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
     }
-
     public void TextQuizImage(string name)
     {
         //TEXT EXERCISE
@@ -595,166 +582,6 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.anchoredPosition = new Vector2(-94, -31.66975F);
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleRight);
-    }
-    void OnButtonClick()
-    {
-        count++;
-        if(count == 1)
-        {
-            // BACKGROUND IMAGE
-            BackGroundImage();
-
-            // LEVEL NUMBER 
-            LevelFirstMedal();
-
-            // PLAYER NAME 
-            //PlayerName();
-
-            // SCROLL RECT
-            ScrollRectTransform();
-
-            // VIEW PORT
-            ViewPortObject();
-
-            // CONTENT
-            ContentObject();
-
-            // SCORE TEXT 
-            //TextScoreImage();
-
-            // TIMER TEXT
-            TextTimerImage("10:00 P1");
-
-            TextTimerImage("05:00 P2");
-
-            TextTimerImage("10:00 P3");
-
-            // EXERCISE TEXT
-            TextExerciseImage("90% P2");
-
-            TextExerciseImage("100% P3");
-
-            // QUIZ TEXT 4 SPACES
-            TextQuizImage("    100% P3");
-        }
-        else if(count == 2)
-        {
-            // BACKGROUND IMAGE
-            BackGroundImage();
-
-            // LEVEL NUMBER 
-            LevelSecondMedal();
-
-            // PLAYER NAME 
-            //PlayerName();
-
-            // SCROLL RECT
-            ScrollRectTransform();
-
-            // VIEW PORT
-            ViewPortObject();
-
-            // CONTENT
-            ContentObject();
-
-            // SCORE TEXT 
-            //TextScoreImage();
-
-            // TIMER TEXT
-            TextTimerImage("10:00 P1");
-
-            TextTimerImage("05:00 P2");
-
-            TextTimerImage("10:00 P3");
-
-            // EXERCISE TEXT
-            TextExerciseImage("90% P2");
-
-            TextExerciseImage("100% P3");
-
-            // QUIZ TEXT 4 SPACES
-            TextQuizImage("    100% P3");
-        }
-        else if (count == 3)
-        {
-            // BACKGROUND IMAGE
-            BackGroundImage();
-
-            // LEVEL NUMBER 
-            LevelThirdMedal();
-
-            // PLAYER NAME 
-            //PlayerName();
-
-            // SCROLL RECT
-            ScrollRectTransform();
-
-            // VIEW PORT
-            ViewPortObject();
-
-            // CONTENT
-            ContentObject();
-
-            // SCORE TEXT 
-            //TextScoreImage();
-
-            // TIMER TEXT
-            TextTimerImage("10:00 P1");
-
-            TextTimerImage("05:00 P2");
-
-            TextTimerImage("10:00 P3");
-
-            // EXERCISE TEXT
-            TextExerciseImage("90% P2");
-
-            TextExerciseImage("100% P3");
-
-            // QUIZ TEXT 4 SPACES
-            TextQuizImage("    100% P3");
-        }
-        else
-        {
-            // BACKGROUND IMAGE
-            BackGroundImage();
-
-            // LEVEL NUMBER 
-            //LevelNumber();
-
-            // PLAYER NAME 
-            //PlayerName();
-
-            // SCROLL RECT
-            ScrollRectTransform();
-
-            // VIEW PORT
-            ViewPortObject();
-
-            // CONTENT
-            ContentObject();
-
-            // SCORE TEXT 
-            //TextScoreImage();
-
-            // TIMER TEXT
-            TextTimerImage("10:00 P1");
-
-            TextTimerImage("05:00 P2");
-
-            TextTimerImage("10:00 P3");
-
-            // EXERCISE TEXT
-            TextExerciseImage("90% P2");
-
-            TextExerciseImage("100% P3");
-
-            // QUIZ TEXT 4 SPACES
-            TextQuizImage("    100% P3");
-        }
-
-
-        //=========================================================================//
-
     }
 
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
