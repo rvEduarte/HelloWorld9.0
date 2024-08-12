@@ -157,8 +157,6 @@ public class LeaderboardScript : MonoBehaviour
                 //for each item 
                 foreach (LootLockerLeaderboardMember score in response.items)
                 {
-                    if(score.rank == 1)
-                    {
                         //add the score to the text
                         Debug.Log(response.items);
                         leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
@@ -174,62 +172,7 @@ public class LeaderboardScript : MonoBehaviour
                         exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
 
                         quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
-                    }
-                    else if (score.rank == 2)
-                    {
-                        //add the score to the text
-                        Debug.Log(response.items);
-                        leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
-                        leaderboardScoreText.text += "\n" + score.score.ToString();
-
-                        // Parse metadata
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        timeTaken1.text += "\n" + metadata.timeTaken1;
-                        timeTaken2.text += "\n" + metadata.timeTaken2;
-                        timeTaken3.text += "\n" + metadata.timeTaken3;
-
-                        exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
-                        exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
-
-                        quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
-                    }
-                    else if(score.rank == 3)
-                    {
-                        //add the score to the text
-                        Debug.Log(response.items);
-                        leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
-                        leaderboardScoreText.text += "\n" + score.score.ToString();
-
-                        // Parse metadata
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        timeTaken1.text += "\n" + metadata.timeTaken1;
-                        timeTaken2.text += "\n" + metadata.timeTaken2;
-                        timeTaken3.text += "\n" + metadata.timeTaken3;
-
-                        exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
-                        exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
-
-                        quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
-                    }
-                    else if (score.rank == 4)
-                    {
-                        //add the score to the text
-                        Debug.Log(response.items);
-                        leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
-                        leaderboardScoreText.text += "\n" + score.score.ToString();
-
-                        // Parse metadata
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        timeTaken1.text += "\n" + metadata.timeTaken1;
-                        timeTaken2.text += "\n" + metadata.timeTaken2;
-                        timeTaken3.text += "\n" + metadata.timeTaken3;
-
-                        exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
-                        exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
-
-                        quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
-                    }
-                }
+                }   
             }
             else
             {

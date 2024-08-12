@@ -15,6 +15,9 @@ public class addingimage : MonoBehaviour
     public Sprite imageExercise;
     public Sprite imageQuiz;
     public Sprite imageButton;
+    public Sprite imageFirstMedal;
+    public Sprite imageSecondMedal;
+    public Sprite imageThirdMedal;
 
     public Button myButton; // Assign this in the Inspector
     public GameObject targetPanel; // Assign this in the Inspector
@@ -39,21 +42,11 @@ public class addingimage : MonoBehaviour
 
     #endregion
 
-    #region ClickButton Variables
-    /*
-    [SerializeField] public float expandPosition = -668.461f;  // Width when the panel is expanded
-    [SerializeField] public float expandWidth = 668.461f;
-    [SerializeField] public float collapsedPosition = -282.0381f;  // Width when the panel is collapsed
-    [SerializeField] public float collapsedWidth = 282.0381f;
-    public float animationDuration = 0.5f;  // Duration of the animation
-
-    private bool isExpanded = false;  // Track the panel's state
-
-    private RectTransform panel;*/
-    #endregion
+    int count;
 
     void Start()
     {
+        count = 0;
         // Add listener to the button
         myButton.onClick.AddListener(OnButtonClick);
     }
@@ -83,6 +76,86 @@ public class addingimage : MonoBehaviour
         ImagerectTransform.sizeDelta = new Vector2(1209.212f, 152); // Adjust size as needed
 
         SetAnchor(ImagerectTransform, AnchorPresets.StretchAll);
+    }
+    public void LevelFirstMedal()
+    {
+        // LEVEL MEDAL
+        levelName = new GameObject("LevelTextImage");
+
+        levelName.layer = LayerMask.NameToLayer("UI");
+
+        // Set the parent to the new image
+        levelName.transform.SetParent(newImage.transform);
+
+        // Add an Image component
+        Image imageComponent = levelName.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageFirstMedal;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = levelName.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(124, 108); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(0.9000244f, -52.3f);
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
+    }
+
+    public void LevelSecondMedal()
+    {
+        // LEVEL MEDAL
+        levelName = new GameObject("LevelTextImage");
+
+        levelName.layer = LayerMask.NameToLayer("UI");
+
+        // Set the parent to the new image
+        levelName.transform.SetParent(newImage.transform);
+
+        // Add an Image component
+        Image imageComponent = levelName.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageSecondMedal;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = levelName.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(111, 108); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(7, -52.3f);
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
+    }
+
+    public void LevelThirdMedal()
+    {
+        // LEVEL MEDAL
+        levelName = new GameObject("LevelTextImage");
+
+        levelName.layer = LayerMask.NameToLayer("UI");
+
+        // Set the parent to the new image
+        levelName.transform.SetParent(newImage.transform);
+
+        // Add an Image component
+        Image imageComponent = levelName.AddComponent<Image>();
+
+        // Set the sprite
+        imageComponent.sprite = imageThirdMedal;
+
+        // Set the size of the image
+        RectTransform ImagerectTransform = levelName.GetComponent<RectTransform>();
+
+        ImagerectTransform.pivot = Vector2.zero;
+        ImagerectTransform.sizeDelta = new Vector2(82, 103); // Adjust size as needed
+
+        ImagerectTransform.anchoredPosition = new Vector2(22, -52.3f);
+
+        SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
     }
     public void LevelNumber()
     {
@@ -197,6 +270,9 @@ public class addingimage : MonoBehaviour
 
         // Set the image type to Sliced
         imageComponent.type = Image.Type.Sliced;
+
+        // Set image raycast
+        imageComponent.raycastPadding = new Vector4(-40, -40, -40, -40);
 
         // Set the size of the image
         RectTransform ImagerectTransform = imageButtonObject.GetComponent<RectTransform>();
@@ -523,64 +599,164 @@ public class addingimage : MonoBehaviour
     }
     void OnButtonClick()
     {
-        // BACKGROUND IMAGE
-        BackGroundImage();
+        count++;
+        if(count == 1)
+        {
+            // BACKGROUND IMAGE
+            BackGroundImage();
 
-        // LEVEL NUMBER 
-        LevelNumber();
+            // LEVEL NUMBER 
+            LevelFirstMedal();
 
-        // PLAYER NAME 
-        PlayerName();
+            // PLAYER NAME 
+            PlayerName();
 
-        // SCROLL RECT
-        ScrollRectTransform();
+            // SCROLL RECT
+            ScrollRectTransform();
 
-        // VIEW PORT
-        ViewPortObject();
+            // VIEW PORT
+            ViewPortObject();
 
-        // CONTENT
-        ContentObject();
+            // CONTENT
+            ContentObject();
 
-        // SCORE TEXT 
-        TextScoreImage();
+            // SCORE TEXT 
+            TextScoreImage();
 
-        // TIMER TEXT
-        TextTimerImage("10:00 P1");
+            // TIMER TEXT
+            TextTimerImage("10:00 P1");
 
-        TextTimerImage("05:00 P2");
+            TextTimerImage("05:00 P2");
 
-        TextTimerImage("10:00 P3");
+            TextTimerImage("10:00 P3");
 
-        // EXERCISE TEXT
-        TextExerciseImage("90% P2");
+            // EXERCISE TEXT
+            TextExerciseImage("90% P2");
 
-        TextExerciseImage("100% P3");
+            TextExerciseImage("100% P3");
 
-        // QUIZ TEXT 4 SPACES
-        TextQuizImage("    100% P3");
+            // QUIZ TEXT 4 SPACES
+            TextQuizImage("    100% P3");
+        }
+        else if(count == 2)
+        {
+            // BACKGROUND IMAGE
+            BackGroundImage();
+
+            // LEVEL NUMBER 
+            LevelSecondMedal();
+
+            // PLAYER NAME 
+            PlayerName();
+
+            // SCROLL RECT
+            ScrollRectTransform();
+
+            // VIEW PORT
+            ViewPortObject();
+
+            // CONTENT
+            ContentObject();
+
+            // SCORE TEXT 
+            TextScoreImage();
+
+            // TIMER TEXT
+            TextTimerImage("10:00 P1");
+
+            TextTimerImage("05:00 P2");
+
+            TextTimerImage("10:00 P3");
+
+            // EXERCISE TEXT
+            TextExerciseImage("90% P2");
+
+            TextExerciseImage("100% P3");
+
+            // QUIZ TEXT 4 SPACES
+            TextQuizImage("    100% P3");
+        }
+        else if (count == 3)
+        {
+            // BACKGROUND IMAGE
+            BackGroundImage();
+
+            // LEVEL NUMBER 
+            LevelThirdMedal();
+
+            // PLAYER NAME 
+            PlayerName();
+
+            // SCROLL RECT
+            ScrollRectTransform();
+
+            // VIEW PORT
+            ViewPortObject();
+
+            // CONTENT
+            ContentObject();
+
+            // SCORE TEXT 
+            TextScoreImage();
+
+            // TIMER TEXT
+            TextTimerImage("10:00 P1");
+
+            TextTimerImage("05:00 P2");
+
+            TextTimerImage("10:00 P3");
+
+            // EXERCISE TEXT
+            TextExerciseImage("90% P2");
+
+            TextExerciseImage("100% P3");
+
+            // QUIZ TEXT 4 SPACES
+            TextQuizImage("    100% P3");
+        }
+        else
+        {
+            // BACKGROUND IMAGE
+            BackGroundImage();
+
+            // LEVEL NUMBER 
+            LevelNumber();
+
+            // PLAYER NAME 
+            PlayerName();
+
+            // SCROLL RECT
+            ScrollRectTransform();
+
+            // VIEW PORT
+            ViewPortObject();
+
+            // CONTENT
+            ContentObject();
+
+            // SCORE TEXT 
+            TextScoreImage();
+
+            // TIMER TEXT
+            TextTimerImage("10:00 P1");
+
+            TextTimerImage("05:00 P2");
+
+            TextTimerImage("10:00 P3");
+
+            // EXERCISE TEXT
+            TextExerciseImage("90% P2");
+
+            TextExerciseImage("100% P3");
+
+            // QUIZ TEXT 4 SPACES
+            TextQuizImage("    100% P3");
+        }
+
 
         //=========================================================================//
 
     }
-
-    /*void TogglePanel()
-    {
-        if (isExpanded)
-        {
-            // Collapse the panel
-            LeanTween.size(panel, new Vector2(collapsedWidth, panel.sizeDelta.y), animationDuration).setEase(LeanTweenType.easeInOutQuad);
-            LeanTween.moveX(panel, collapsedPosition, animationDuration).setEase(LeanTweenType.easeInOutQuad);
-        }
-        else
-        {
-            // Expand the panel
-            LeanTween.size(panel, new Vector2(expandWidth, panel.sizeDelta.y), animationDuration).setEase(LeanTweenType.easeInOutQuad);
-            LeanTween.moveX(panel, expandPosition, animationDuration).setEase(LeanTweenType.easeInOutQuad);
-        }
-
-        // Toggle the state
-        isExpanded = !isExpanded;
-    }*/
 
     public void SetAnchor(RectTransform rt, AnchorPresets allign)
     {
