@@ -2901,62 +2901,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654833247}
   m_CullTransparentMesh: 1
---- !u!1 &671864136
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 671864138}
-  - component: {fileID: 671864137}
-  m_Layer: 0
-  m_Name: AddDynamicLeaderboard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &671864137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671864136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7a0c194a2f83f44ebf1031462a9da2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customFontLevel: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
-  customFontPlayerName: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
-  myImageSprite: {fileID: 21300000, guid: 1c2eec4f264c34c92b06e3c5ad8dc5ed, type: 3}
-  imageTrophy: {fileID: 21300000, guid: 3122e1848dc7b48918ba4e3b31a39425, type: 3}
-  imageTimer: {fileID: 21300000, guid: 3a01b20c1dcc44b48b32c36782b2bf9a, type: 3}
-  imageExercise: {fileID: 21300000, guid: b570928da823f4d96842cdc283f0b8ae, type: 3}
-  imageQuiz: {fileID: 21300000, guid: fbed015079d4e49f6be6a1a4bbf1f275, type: 3}
-  imageButton: {fileID: 21300000, guid: 399c25c9dce384160839b459896c826e, type: 3}
-  imageFirstMedal: {fileID: 21300000, guid: a3f6ade06695e433b90d2395867e368a, type: 3}
-  imageSecondMedal: {fileID: 21300000, guid: 4da9e92e9eaca4909941db29d7425baa, type: 3}
-  imageThirdMedal: {fileID: 21300000, guid: bfd61c98d74144657b1aa56db3fd048a, type: 3}
-  targetPanel: {fileID: 1645551867}
---- !u!4 &671864138
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671864136}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 844.0711, y: 583.0723, z: 4.1064315}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676333836
 GameObject:
   m_ObjectHideFlags: 0
@@ -9389,18 +9333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offlineScriptableObject: {fileID: 11400000, guid: be786ccd3aab81948b3e07f306f6426d, type: 2}
   submitLead: {fileID: 1377293896}
-  leaderboardLevelText: {fileID: 1050238345}
-  leaderboardGamerText: {fileID: 1223256564}
-  leaderboardScoreText: {fileID: 1264404961}
-  timeTaken1: {fileID: 79892038}
-  timeTaken2: {fileID: 751186783}
-  timeTaken3: {fileID: 767942234}
-  exerciseAccuracyPh2: {fileID: 1808947653}
-  exerciseAccuracyPh3: {fileID: 1870921122}
-  quizAccuracyPh3: {fileID: 1083409039}
   errorText: {fileID: 117088833}
   errorPanel: {fileID: 654833247}
-  addingimage: {fileID: 671864137}
 --- !u!4 &2039903350
 Transform:
   m_ObjectHideFlags: 0
@@ -9637,4 +9571,3 @@ SceneRoots:
   - {fileID: 2143351033}
   - {fileID: 2039903350}
   - {fileID: 1377293897}
-  - {fileID: 671864138}

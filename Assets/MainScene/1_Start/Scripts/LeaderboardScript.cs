@@ -16,33 +16,11 @@ public class LeaderboardScript : MonoBehaviour
 
     private Dictionary<int, LevelData> levelDataDictionary;
 
-    string leaderboardKey;
-
-    [Header("Leaderboard Text")]
-    public TextMeshProUGUI leaderboardLevelText;
-    public TextMeshProUGUI leaderboardGamerText;
-    public TextMeshProUGUI leaderboardScoreText;
-
-    [Header("Leaderboard TimeTaken Text")]
-    public TextMeshProUGUI timeTaken1;
-    public TextMeshProUGUI timeTaken2;
-    public TextMeshProUGUI timeTaken3;
-
-    [Header("Leaderboard Exercise Accuracy Text")]
-    public TextMeshProUGUI exerciseAccuracyPh2;
-    public TextMeshProUGUI exerciseAccuracyPh3;
-
-    [Header("Leaderboard Quiz Accuracy Text")]
-    public TextMeshProUGUI quizAccuracyPh3;
-
-
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
 
     #endregion
-
-    public addingimage addingimage;
 
     public void Start()
     {
@@ -121,200 +99,27 @@ public class LeaderboardScript : MonoBehaviour
 
     #region GetLeaderBoardData
 
-    public void LevelGetData()
-    {
-        if (leaderboardGamerText == null || leaderboardScoreText == null || timeTaken1 == null || timeTaken2 == null || timeTaken3 == null)
-        {
-            Debug.Log("Not assigned");
-        }
-        else
-        {
-            GetLeaderboardData();
-        }
-    }
-
-    public void GetLeaderboardData()
-    {
-        //how many scores to retrieve
-        int count = 10;
-
-        LootLockerSDKManager.GetScoreList(leaderboardKey, count, 0, (response) =>
-        {
-            if (response.success)
-            {
-                // Leaderboard was retrieved
-                Debug.Log("Leaderboard was retrieved");
-                //show the leaderboard screen and populate it with the data 
-                leaderboardGamerText.text = "PLAYER NAME";
-                leaderboardScoreText.text = "SCORE";
-
-                timeTaken1.text = "elapsed time ph1";
-                timeTaken2.text = "elapsed time ph2";
-                timeTaken3.text = "elapsed time ph3";
-
-                exerciseAccuracyPh2.text = "Challenge Exercise Accuracy PH2";
-                exerciseAccuracyPh3.text = "Challenge Exercise Accuracy PH3";
-
-                quizAccuracyPh3.text = "Quiz Accuracy PH3";
-
-                //for each item 
-                foreach (LootLockerLeaderboardMember score in response.items)
-                {
-                    /*//add the score to the text
-                    Debug.Log(response.items);
-                    leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
-                    leaderboardScoreText.text += "\n" + score.score.ToString();
-
-                    // Parse metadata
-                    PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-
-                    timeTaken1.text += "\n" + metadata.timeTaken1;
-                    timeTaken2.text += "\n" + metadata.timeTaken2;
-                    timeTaken3.text += "\n" + metadata.timeTaken3;
-
-                    exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
-                    exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
-
-                    quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
-                    */
-                    if(score.rank == 1)
-                    {
-                        addingimage.BackGroundImage();
-
-                        addingimage.LevelFirstMedal();
-
-                        addingimage.PlayerName(score.player.name);
-
-                        addingimage.ScrollRectTransform();
-
-                        addingimage.ViewPortObject();
-
-                        addingimage.ContentObject();
-
-                        addingimage.TextScoreImage(score.score.ToString());
-
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        addingimage.TextTimerImage(metadata.timeTaken1);
-                        addingimage.TextTimerImage(metadata.timeTaken2);
-                        addingimage.TextTimerImage(metadata.timeTaken3);
-
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
-
-                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
-
-                    }
-                    else if (score.rank == 2)
-                    {
-                        addingimage.BackGroundImage();
-
-                        addingimage.LevelSecondMedal();
-
-                        addingimage.PlayerName(score.player.name);
-
-                        addingimage.ScrollRectTransform();
-
-                        addingimage.ViewPortObject();
-
-                        addingimage.ContentObject();
-
-                        addingimage.TextScoreImage(score.score.ToString());
-
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        addingimage.TextTimerImage(metadata.timeTaken1);
-                        addingimage.TextTimerImage(metadata.timeTaken2);
-                        addingimage.TextTimerImage(metadata.timeTaken3);
-
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
-
-                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
-                    }
-                    else if(score.rank == 3)
-                    {
-                        addingimage.BackGroundImage();
-
-                        addingimage.LevelThirdMedal();
-
-                        addingimage.PlayerName(score.player.name);
-
-                        addingimage.ScrollRectTransform();
-
-                        addingimage.ViewPortObject();
-
-                        addingimage.ContentObject();
-
-                        addingimage.TextScoreImage(score.score.ToString());
-
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        addingimage.TextTimerImage(metadata.timeTaken1);
-                        addingimage.TextTimerImage(metadata.timeTaken2);
-                        addingimage.TextTimerImage(metadata.timeTaken3);
-
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
-
-                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
-                    }
-                    else
-                    {
-                        addingimage.BackGroundImage();
-
-                        addingimage.LevelNumber(score.rank.ToString());
-
-                        addingimage.PlayerName(score.player.name);
-
-                        addingimage.ScrollRectTransform();
-
-                        addingimage.ViewPortObject();
-
-                        addingimage.ContentObject();
-
-                        addingimage.TextScoreImage(score.score.ToString());
-
-                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        addingimage.TextTimerImage(metadata.timeTaken1);
-                        addingimage.TextTimerImage(metadata.timeTaken2);
-                        addingimage.TextTimerImage(metadata.timeTaken3);
-
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
-
-                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
-                    }
-                }   
-            }
-            else
-            {
-                // Error
-                Debug.Log(response.errorData.ToString());
-                if (response.errorData.ToString().Contains("message"))
-                {
-                    showErrorMessage(extractMessageFromLootLockerError(response.errorData.ToString()));
-                }
-                else
-                {
-                    showErrorMessage("Error retrieving leaderboard");
-                }
-            }
-        });
-    }
     public void GetData(int level)
     {
         if (level == 1)
         {
             OffLineSubmitScore(level);
-            leaderboardKey = "BeginnerLevel1";
-            leaderboardLevelText.text = "Level1 Ranking";
+            PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel1");
+            PlayerPrefs.SetString("level", "Level 1");
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("Ranking");
         }
         else if (level == 2)
         {
             OffLineSubmitScore(level);
-            leaderboardKey = "BeginnerLevel2";
-            leaderboardLevelText.text = "Level2 Ranking";
+            PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel2");
+            PlayerPrefs.SetString("level", "Level 2");
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("Ranking");
         }
-        // Add more levels as needed
-        LevelGetData();
+        //ADD MORE LEVELS
     }
 
     #endregion
