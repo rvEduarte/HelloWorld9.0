@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Cinemachine.DocumentationSortingAttribute;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class LeaderboardScript : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class LeaderboardScript : MonoBehaviour
     public GameObject errorPanel;
 
     #endregion
+
+    public addingimage addingimage;
 
     public void Start()
     {
@@ -157,21 +160,128 @@ public class LeaderboardScript : MonoBehaviour
                 //for each item 
                 foreach (LootLockerLeaderboardMember score in response.items)
                 {
-                        //add the score to the text
-                        Debug.Log(response.items);
-                        leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
-                        leaderboardScoreText.text += "\n" + score.score.ToString();
+                    /*//add the score to the text
+                    Debug.Log(response.items);
+                    leaderboardGamerText.text += "\n" + score.rank + ". " + score.player.name;
+                    leaderboardScoreText.text += "\n" + score.score.ToString();
 
-                        // Parse metadata
+                    // Parse metadata
+                    PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
+
+                    timeTaken1.text += "\n" + metadata.timeTaken1;
+                    timeTaken2.text += "\n" + metadata.timeTaken2;
+                    timeTaken3.text += "\n" + metadata.timeTaken3;
+
+                    exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
+                    exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
+
+                    quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
+                    */
+                    if(score.rank == 1)
+                    {
+                        addingimage.BackGroundImage();
+
+                        addingimage.LevelFirstMedal();
+
+                        addingimage.PlayerName(score.player.name);
+
+                        addingimage.ScrollRectTransform();
+
+                        addingimage.ViewPortObject();
+
+                        addingimage.ContentObject();
+
+                        addingimage.TextScoreImage(score.score.ToString());
+
                         PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
-                        timeTaken1.text += "\n" + metadata.timeTaken1;
-                        timeTaken2.text += "\n" + metadata.timeTaken2;
-                        timeTaken3.text += "\n" + metadata.timeTaken3;
+                        addingimage.TextTimerImage(metadata.timeTaken1);
+                        addingimage.TextTimerImage(metadata.timeTaken2);
+                        addingimage.TextTimerImage(metadata.timeTaken3);
 
-                        exerciseAccuracyPh2.text += "\n" + metadata.accuracyExercisePh2 + "%";
-                        exerciseAccuracyPh3.text += "\n" + metadata.accuracyExercisePh3 + "%";
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
 
-                        quizAccuracyPh3.text += "\n" + metadata.accuracyQuizPh3 + "%";
+                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
+
+                    }
+                    else if (score.rank == 2)
+                    {
+                        addingimage.BackGroundImage();
+
+                        addingimage.LevelSecondMedal();
+
+                        addingimage.PlayerName(score.player.name);
+
+                        addingimage.ScrollRectTransform();
+
+                        addingimage.ViewPortObject();
+
+                        addingimage.ContentObject();
+
+                        addingimage.TextScoreImage(score.score.ToString());
+
+                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
+                        addingimage.TextTimerImage(metadata.timeTaken1);
+                        addingimage.TextTimerImage(metadata.timeTaken2);
+                        addingimage.TextTimerImage(metadata.timeTaken3);
+
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
+
+                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
+                    }
+                    else if(score.rank == 3)
+                    {
+                        addingimage.BackGroundImage();
+
+                        addingimage.LevelThirdMedal();
+
+                        addingimage.PlayerName(score.player.name);
+
+                        addingimage.ScrollRectTransform();
+
+                        addingimage.ViewPortObject();
+
+                        addingimage.ContentObject();
+
+                        addingimage.TextScoreImage(score.score.ToString());
+
+                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
+                        addingimage.TextTimerImage(metadata.timeTaken1);
+                        addingimage.TextTimerImage(metadata.timeTaken2);
+                        addingimage.TextTimerImage(metadata.timeTaken3);
+
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
+
+                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
+                    }
+                    else
+                    {
+                        addingimage.BackGroundImage();
+
+                        addingimage.LevelNumber(score.rank.ToString());
+
+                        addingimage.PlayerName(score.player.name);
+
+                        addingimage.ScrollRectTransform();
+
+                        addingimage.ViewPortObject();
+
+                        addingimage.ContentObject();
+
+                        addingimage.TextScoreImage(score.score.ToString());
+
+                        PlayerMetaData1 metadata = JsonUtility.FromJson<PlayerMetaData1>(score.metadata);
+                        addingimage.TextTimerImage(metadata.timeTaken1);
+                        addingimage.TextTimerImage(metadata.timeTaken2);
+                        addingimage.TextTimerImage(metadata.timeTaken3);
+
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
+                        addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
+
+                        addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
+                    }
                 }   
             }
             else
@@ -189,26 +299,6 @@ public class LeaderboardScript : MonoBehaviour
             }
         });
     }
-    public void EnableLeaderboard(int count)
-    {
-        if (count == 1)
-        {
-
-        }
-        else if (count == 2)
-        {
-
-        }
-        else if (count == 3)
-        {
-
-        }
-        else if (count == 4)
-        {
-
-        }
-    }
-
     public void GetData(int level)
     {
         if (level == 1)

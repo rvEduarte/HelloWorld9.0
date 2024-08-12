@@ -19,7 +19,6 @@ public class addingimage : MonoBehaviour
     public Sprite imageSecondMedal;
     public Sprite imageThirdMedal;
 
-    public Button myButton; // Assign this in the Inspector
     public GameObject targetPanel; // Assign this in the Inspector
 
     GameObject newImage;
@@ -157,7 +156,7 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(ImagerectTransform, AnchorPresets.MiddleLeft);
     }
-    public void LevelNumber()
+    public void LevelNumber(string name)
     {
         // LEVEL NUMBER 
 
@@ -171,7 +170,7 @@ public class addingimage : MonoBehaviour
         TextMeshProUGUI textComponent = levelName.AddComponent<TextMeshProUGUI>();
 
         // Set the text
-        textComponent.text = "6"; // Set your desired text
+        textComponent.text = name; // Set your desired text
 
         // Set text properties (e.g., font size, color)
         textComponent.fontSize = 50; // Adjust font size as needed
@@ -188,7 +187,7 @@ public class addingimage : MonoBehaviour
 
         SetAnchor(textRectTransform, AnchorPresets.MiddleLeft);
     }
-    public void PlayerName()
+    public void PlayerName(string name)
     {
         // PLAYER NAME 
 
@@ -202,7 +201,7 @@ public class addingimage : MonoBehaviour
         TextMeshProUGUI playerNameComponent = playerName.AddComponent<TextMeshProUGUI>();
 
         // Set the text
-        playerNameComponent.text = "KarlTite"; // Set your desired text
+        playerNameComponent.text = name; // Set your desired text
 
         // Set text properties (e.g., font size, color)
         playerNameComponent.fontSize = 50; // Adjust font size as needed
@@ -358,7 +357,7 @@ public class addingimage : MonoBehaviour
         scrollRect.viewport = viewPort.GetComponent<RectTransform>();
 
     }
-    public void TextScoreImage()
+    public void TextScoreImage(string name)
     {
 
         // SCORE TEXT 
@@ -373,7 +372,7 @@ public class addingimage : MonoBehaviour
         TextMeshProUGUI scoreTextComponent = scoreText.AddComponent<TextMeshProUGUI>();
 
         // Set the text
-        scoreTextComponent.text = "1000"; // Set your desired text
+        scoreTextComponent.text = name; // Set your desired text
 
         // Set text properties (e.g., font size, color)
         scoreTextComponent.fontSize = 50; // Adjust font size as needed
@@ -609,7 +608,7 @@ public class addingimage : MonoBehaviour
             LevelFirstMedal();
 
             // PLAYER NAME 
-            PlayerName();
+            //PlayerName();
 
             // SCROLL RECT
             ScrollRectTransform();
@@ -621,7 +620,7 @@ public class addingimage : MonoBehaviour
             ContentObject();
 
             // SCORE TEXT 
-            TextScoreImage();
+            //TextScoreImage();
 
             // TIMER TEXT
             TextTimerImage("10:00 P1");
@@ -647,7 +646,7 @@ public class addingimage : MonoBehaviour
             LevelSecondMedal();
 
             // PLAYER NAME 
-            PlayerName();
+            //PlayerName();
 
             // SCROLL RECT
             ScrollRectTransform();
@@ -659,7 +658,7 @@ public class addingimage : MonoBehaviour
             ContentObject();
 
             // SCORE TEXT 
-            TextScoreImage();
+            //TextScoreImage();
 
             // TIMER TEXT
             TextTimerImage("10:00 P1");
@@ -685,7 +684,7 @@ public class addingimage : MonoBehaviour
             LevelThirdMedal();
 
             // PLAYER NAME 
-            PlayerName();
+            //PlayerName();
 
             // SCROLL RECT
             ScrollRectTransform();
@@ -697,7 +696,7 @@ public class addingimage : MonoBehaviour
             ContentObject();
 
             // SCORE TEXT 
-            TextScoreImage();
+            //TextScoreImage();
 
             // TIMER TEXT
             TextTimerImage("10:00 P1");
@@ -720,10 +719,10 @@ public class addingimage : MonoBehaviour
             BackGroundImage();
 
             // LEVEL NUMBER 
-            LevelNumber();
+            //LevelNumber();
 
             // PLAYER NAME 
-            PlayerName();
+            //PlayerName();
 
             // SCROLL RECT
             ScrollRectTransform();
@@ -735,7 +734,7 @@ public class addingimage : MonoBehaviour
             ContentObject();
 
             // SCORE TEXT 
-            TextScoreImage();
+            //TextScoreImage();
 
             // TIMER TEXT
             TextTimerImage("10:00 P1");
