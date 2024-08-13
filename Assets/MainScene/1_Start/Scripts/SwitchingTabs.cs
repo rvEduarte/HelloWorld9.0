@@ -14,7 +14,7 @@ public class SwitchingTabs : MonoBehaviour
     void Start()
     {
         ES = EventSystem.current;
-        firstInput.Select();
+        //firstInput.Select();
     }
 
     // Update is called once per frame

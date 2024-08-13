@@ -51,7 +51,7 @@ public class LoginScript : MonoBehaviour
 
     [SerializeField] public bool newAndLoad; //FALSE
 
-    public Button disableRegisterButton;
+    public GameObject disableRegisterButton;
 
     // Start is called before the first frame update
     public void Start()
