@@ -95,7 +95,7 @@ public class OnlineMainMenu : MonoBehaviour
     }
     public void GotoScene(string name)
     {
-        SceneManager.LoadSceneAsync(name);
+        SceneManager.LoadScene(name);
     }
     public void onNoPLayerId()
     {
