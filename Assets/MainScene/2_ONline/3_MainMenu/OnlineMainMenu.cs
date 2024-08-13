@@ -96,6 +96,7 @@ public class OnlineMainMenu : MonoBehaviour
     public void GotoScene(string name)
     {
         SceneManager.LoadScene(name);
+        //tite
     }
     public void onNoPLayerId()
     {
