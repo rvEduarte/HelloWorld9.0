@@ -1,11 +1,7 @@
-using LootLocker.Requests;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Cinemachine.DocumentationSortingAttribute;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class LeaderboardScript : MonoBehaviour
 {
