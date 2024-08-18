@@ -101,19 +101,19 @@ public class LeaderboardScript : MonoBehaviour
         {
             OffLineSubmitScore(level);
             PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel1");
-            PlayerPrefs.SetString("level", "Level 1");
+            PlayerPrefs.SetString("level", "Beginner Level 1");
             PlayerPrefs.Save();
 
-            SceneManager.LoadScene("Ranking");
+            SceneManager.LoadScene("C#RankingBeginner");
         }
         else if (level == 2)
         {
             OffLineSubmitScore(level);
             PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel2");
-            PlayerPrefs.SetString("level", "Level 2");
+            PlayerPrefs.SetString("level", "Beginner Level 2");
             PlayerPrefs.Save();
 
-            SceneManager.LoadScene("Ranking");
+            SceneManager.LoadScene("C#RankingBeginner");
         }
         //ADD MORE LEVELS
     }
@@ -121,7 +121,7 @@ public class LeaderboardScript : MonoBehaviour
     #endregion
 
 
-    #region ErroMessageHandler
+    /*#region ErroMessageHandler
 
     // Show an error message on the screen
     public void showErrorMessage(string message, int showTime = 3)
@@ -160,7 +160,7 @@ public class LeaderboardScript : MonoBehaviour
         return message;
     }
 
-    #endregion
+    #endregion*/
 
     
 }

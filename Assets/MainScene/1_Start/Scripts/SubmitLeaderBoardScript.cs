@@ -57,6 +57,8 @@ public class SubmitLeaderBoardScript : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("SubmitLeaderboardScore successful" + metadata);
+
+                //HIGHSCORE
                 GetPlayerHighScore();
             }
             else
