@@ -26,13 +26,13 @@ public class LootlockerSceneProgress : MonoBehaviour
     }
     private void Start()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+        //filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
     }
 
     // PATH
     public void UploadFileFromPath(LevelUnlockScriptable levelUnlockScriptable)
     {
-        string path = WriteToFile("save.txt", levelUnlockScriptable);
+        string path = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
         string filePurpose = "saveFile";
         LootLockerSDKManager.UploadPlayerFile(path, filePurpose, (response) =>
         {
