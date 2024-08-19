@@ -26,7 +26,15 @@ public class LootlockerSceneProgress : MonoBehaviour
     }
     private void Start()
     {
-        //filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+        if(File.Exists(filePath))
+        {
+            Debug.Log("NO CREATION");
+            //Don't make another file
+        }else
+        {
+            Debug.Log("YES CREATION");
+            filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+        }
     }
 
     // PATH
