@@ -54,6 +54,7 @@ public class LoginScript : MonoBehaviour
     public GameObject disableRegisterButton;
 
     // Start is called before the first frame update
+
     public void Start()
     {
         // See if we should log in the player automatically
