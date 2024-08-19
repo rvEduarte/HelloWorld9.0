@@ -24,18 +24,6 @@ public class LootlockerSceneProgress : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-        if(File.Exists(filePath))
-        {
-            Debug.Log("NO CREATION");
-            //Don't make another file
-        }else
-        {
-            Debug.Log("YES CREATION");
-            filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
-        }
-    }
 
     // PATH
     public void UploadFileFromPath(LevelUnlockScriptable levelUnlockScriptable)
