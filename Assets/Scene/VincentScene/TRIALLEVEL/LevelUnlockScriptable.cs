@@ -27,4 +27,6 @@ public class LevelUnlockScriptable : ScriptableObject
     {
         JsonUtility.FromJsonOverwrite(jsonData, this);
     }
+
+
 }
