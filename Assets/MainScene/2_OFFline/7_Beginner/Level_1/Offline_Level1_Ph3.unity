@@ -16671,6 +16671,7 @@ Transform:
   - {fileID: 352176904}
   - {fileID: 687128884}
   - {fileID: 970444949}
+  - {fileID: 1452991874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609016634
@@ -25185,6 +25186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0773ff46c8c7cb40a92e32840615354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressData: {fileID: 1916862467}
   Level: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
   playerData: {fileID: 11400000, guid: 46c995e7e571c5449abc61cc5758ecb6, type: 2}
   LeaderboardStat: {fileID: 11400000, guid: be786ccd3aab81948b3e07f306f6426d, type: 2}
@@ -80522,6 +80524,51 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1452991873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452991874}
+  - component: {fileID: 1452991875}
+  m_Layer: 0
+  m_Name: LootlockerSceneProgress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1452991874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452991873}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 692.6442, y: 578.5447, z: 3.9958298}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 591923915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452991875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452991873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729220f854d5c4747bef23ce7c84b948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
 --- !u!1 &1459373503
 GameObject:
   m_ObjectHideFlags: 0
@@ -94303,6 +94350,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1916862466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916862468}
+  - component: {fileID: 1916862467}
+  m_Layer: 0
+  m_Name: LootlockerSceneProgress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1916862467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916862466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729220f854d5c4747bef23ce7c84b948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
+--- !u!4 &1916862468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916862466}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 707.08673, y: 589.3273, z: 4.457292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917091750
 GameObject:
   m_ObjectHideFlags: 0
@@ -98338,3 +98430,4 @@ SceneRoots:
   - {fileID: 1111257683}
   - {fileID: 985538514}
   - {fileID: 591923915}
+  - {fileID: 1916862468}

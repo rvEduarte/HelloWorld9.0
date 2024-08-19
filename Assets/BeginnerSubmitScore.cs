@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BeginnerSubmitScore : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+
     public PlayerScoreScriptableObject playerData;
     public LevelUnlockScriptable Level;
     public OfflineScriptableObject LeaderboardStat;
@@ -12,28 +14,21 @@ public class BeginnerSubmitScore : MonoBehaviour
 
     public void UpdatePlayerProgression(int level)
     {
-        if (LootlockerSceneProgress.Instance != null)
+        switch (level)
         {
-            switch (level)
-            {
-                case 1:
-                    Level.csharpBeginnerLevel2 = "Level2Beginner";
-                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
-                    UploadOnlinePlayerStats(level);
-                    Debug.Log(Level);
-                    break;
-                case 2:
-                    Level.csharpBeginnerLevel3 = "Level3Beginner";
-                    LootlockerSceneProgress.Instance.UpdatePlayerFile();
-                    UploadOnlinePlayerStats(level);
-                    Debug.Log(Level);
-                    break;
-                    //add more levels
-            }
-        }
-        else
-        {
-            Debug.LogError("LevelSelectionLvl2 instance not found.");
+            case 1:
+                Level.csharpBeginnerLevel2 = "Level2Beginner";
+                progressData.UpdatePlayerFile();
+                UploadOnlinePlayerStats(level);
+                Debug.Log(Level);
+                break;
+            case 2:
+                Level.csharpBeginnerLevel3 = "Level3Beginner";
+                progressData.UpdatePlayerFile();
+                UploadOnlinePlayerStats(level);
+                Debug.Log(Level);
+                break;
+                //add more levels
         }
     }
     public void UploadOnlinePlayerStats(int level)

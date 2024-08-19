@@ -6,31 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class LootlockerSceneProgress : MonoBehaviour
 {
-    public static LootlockerSceneProgress Instance { get; private set; }
-
     public LevelUnlockScriptable levelUnlockScriptable;
 
-    private string filePath;
+    public static string filePath;
 
+    private void Start()
+    {
+        filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+    }
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
     }
 
     // PATH
     public void UploadFileFromPath(LevelUnlockScriptable levelUnlockScriptable)
     {
-        string path = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
+        filePath = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
         string filePurpose = "saveFile";
-        LootLockerSDKManager.UploadPlayerFile(path, filePurpose, (response) =>
+        LootLockerSDKManager.UploadPlayerFile(filePath, filePurpose, (response) =>
         {
             // Save the file id in PlayerPrefs
             PlayerPrefs.SetInt("PlayerSaveDataFileID", response.id);
@@ -39,18 +33,18 @@ public class LootlockerSceneProgress : MonoBehaviour
 
     public static string WriteToFile(string fileName, LevelUnlockScriptable levelUnlockScriptable)
     {
-        string path = Application.persistentDataPath + "/" + fileName;
+        filePath = Path.Combine(Application.persistentDataPath, fileName);
 
         // Convert the ScriptableObject to JSON
         string content = JsonUtility.ToJson(levelUnlockScriptable, true);
 
         // Write the JSON string to the file
-        using (StreamWriter writer = new StreamWriter(path, false))
+        using (StreamWriter writer = new StreamWriter(filePath, false))
         {
             writer.WriteLine(content);
         }
 
-        return path;
+        return filePath;
     }
 
     public void UpdatePlayerFile()
@@ -69,5 +63,49 @@ public class LootlockerSceneProgress : MonoBehaviour
                 Debug.LogError("Failed to update file: " + response.errorData);
             }
         });
+    }
+
+    // Load data from a local file
+    public void LoadFromLocalFile()
+    {
+        // Ensure filePath is set before attempting to read
+        if (string.IsNullOrEmpty(filePath))
+        {
+            filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+        }
+
+        if (File.Exists(filePath))
+        {
+            string jsonData = File.ReadAllText(filePath);
+            levelUnlockScriptable.UpdateFromJson(jsonData);
+            Debug.Log("Data loaded from local file: " + filePath);
+        }
+        else
+        {
+            Debug.LogWarning("For load data => No local save file found at " + filePath);
+        }
+    }
+    // Save data to a local file
+    public void SaveToLocalFile()
+    {
+        filePath = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
+        Debug.Log("Data saved locally to: " + filePath);
+    }
+    private void OnApplicationQuit()
+    {
+        SaveToLocalFile();
+    }
+    // Method to delete the JSON file
+    public void DeleteData()
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("File deleted: " + filePath);
+        }
+        else
+        {
+            Debug.LogWarning("No file found to delete at " + filePath);
+        }
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OfflineBeginnerSubmitScore : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+
     public LevelUnlockScriptable Level;
     public PlayerScoreScriptableObject playerData;
     public OfflineScriptableObject LeaderboardStat;
@@ -16,10 +18,12 @@ public class OfflineBeginnerSubmitScore : MonoBehaviour
         {
             case 1:
                 Level.csharpBeginnerLevel2 = "Level2Beginner";
+                progressData.SaveToLocalFile();
                 UploadOfflinePlayerStats(level);
                 break;
             case 2:
                 Level.csharpBeginnerLevel3 = "Level3Beginner";
+                progressData.SaveToLocalFile();
                 UploadOfflinePlayerStats(level);
                 break;
             //add more levels

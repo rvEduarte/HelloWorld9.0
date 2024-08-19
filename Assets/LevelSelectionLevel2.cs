@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LevelSelectionLevel2 : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
     //public bool unlock = false;
     public Image Unlocked;
     public Button buttons;
@@ -19,6 +20,7 @@ public class LevelSelectionLevel2 : MonoBehaviour
 
     public void Start()
     {
+        progressData.LoadFromLocalFile();
         LevelUnlock();
     }
     public void LevelUnlock()

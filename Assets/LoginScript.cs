@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+
     private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
     private string offlineMainMenuScene = "Offline_MainMenu";
@@ -57,6 +59,8 @@ public class LoginScript : MonoBehaviour
 
     public void Start()
     {
+        progressData.LoadFromLocalFile();
+
         // See if we should log in the player automatically
         if (PlayerPrefs.GetInt("AutoLogin") == 1)
         {

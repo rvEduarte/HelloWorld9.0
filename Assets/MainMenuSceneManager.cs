@@ -6,6 +6,8 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class MainMenuSceneManager : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+
     [SerializeField] public bool clicked; //FALSE
     public LevelUnlockScriptable levelUnlockScriptable;
     private void Start()
@@ -26,15 +28,8 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         if (!clicked)
         {
-            if (LootlockerSceneProgress.Instance != null)
-            {
-                LootlockerSceneProgress.Instance.UploadFileFromPath(levelUnlockScriptable);
-                Debug.Log(levelUnlockScriptable);
-            }
-            else
-            {
-                Debug.LogError("LevelSelectionLvl2 instance not found.");
-            }
+            progressData.UploadFileFromPath(levelUnlockScriptable);
+            Debug.Log(levelUnlockScriptable);
 
             // Mark the action as performed and save the state
             PlayerPrefs.SetInt("uploadPlayer", 1); // 1 means true
