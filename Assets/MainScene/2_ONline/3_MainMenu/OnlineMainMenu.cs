@@ -152,7 +152,7 @@ public class OnlineMainMenu : MonoBehaviour
             //Enable the registerButton
             PlayerPrefs.SetInt("RegisterState", 0);
 
-            progressData.DeleteData();
+            progressData.ResetProgress();
         });
     }
     public void QuitApp()

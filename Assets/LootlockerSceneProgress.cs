@@ -108,4 +108,14 @@ public class LootlockerSceneProgress : MonoBehaviour
             Debug.LogWarning("No file found to delete at " + filePath);
         }
     }
+
+    // Reset the values in the ScriptableObject and save locally and/or upload to the server
+    public void ResetProgress()
+    {
+        // Reset the ScriptableObject values
+        levelUnlockScriptable.ResetValues();
+
+        // Save the reset data to a local file
+        SaveToLocalFile();
+    }
 }
