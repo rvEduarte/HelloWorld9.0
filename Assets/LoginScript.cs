@@ -462,5 +462,10 @@ public class LoginScript : MonoBehaviour
 
         return message;
     }
+
+    public void OnApplicationQuit()
+    {
+        Debug.Log("Succesfully Quit");
+    }
 }
 
