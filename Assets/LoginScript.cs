@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+    public Button registerButtonDisable;
+
     private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
     private string offlineMainMenuScene = "Offline_MainMenu";
@@ -27,8 +30,6 @@ public class LoginScript : MonoBehaviour
 
     [Header("RememberMe")]
     // Components for enabling auto login
-    //public Toggle rememberMeToggle;
-    //private int rememberMe;
     public bool autoLogin;
 
     [Header("New Player Name")]
@@ -54,8 +55,11 @@ public class LoginScript : MonoBehaviour
     public GameObject disableRegisterButton;
 
     // Start is called before the first frame update
+
     public void Start()
     {
+        progressData.LoadFromLocalFile();
+
         // See if we should log in the player automatically
         if (PlayerPrefs.GetInt("AutoLogin") == 1)
         {
@@ -332,6 +336,7 @@ public class LoginScript : MonoBehaviour
             {
                 Debug.Log("Account Created");
                 registerButton.text = "AccountCreated";
+                registerButtonDisable.enabled = false;
                 // Succesful response
                 // Log in player to set name
                 // Login the player  
@@ -456,6 +461,26 @@ public class LoginScript : MonoBehaviour
         string message = rawError.Substring(startIndex, endIndex - startIndex);
 
         return message;
+    }
+
+    public void OnApplicationQuit()
+    {
+        Debug.Log("Succesfully Quit");
+        Application.Quit();
+    }
+
+    public void ClearInput()
+    {
+        registerButton.text = "Register";
+        registerButtonDisable.enabled = false;
+
+        //empty
+        newUserEmailInputField.text = string.Empty;
+        newUserPasswordInputField.text = string.Empty;
+
+        //empty
+        existingUserEmailInputField.text = string.Empty;
+        existingUserPasswordInputField.text = string.Empty;
     }
 }
 

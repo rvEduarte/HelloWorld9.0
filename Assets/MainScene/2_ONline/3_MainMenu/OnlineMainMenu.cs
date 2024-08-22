@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class OnlineMainMenu : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
+
     [SerializeField] public bool clicked; //FALSE
     public LevelUnlockScriptable levelUnlockScriptable;
 
@@ -64,15 +66,8 @@ public class OnlineMainMenu : MonoBehaviour
     {
         if (!clicked)
         {
-            if (LootlockerSceneProgress.Instance != null)
-            {
-                LootlockerSceneProgress.Instance.UploadFileFromPath(levelUnlockScriptable);
-                Debug.Log(levelUnlockScriptable);
-            }
-            else
-            {
-                Debug.LogError("errorUploadFile");
-            }
+            progressData.UploadFileFromPath(levelUnlockScriptable);
+            Debug.Log(levelUnlockScriptable);
 
             // Mark the action as performed and save the state
             PlayerPrefs.SetInt("uploadPlayer", 1); // 1 means true
@@ -156,6 +151,8 @@ public class OnlineMainMenu : MonoBehaviour
 
             //Enable the registerButton
             PlayerPrefs.SetInt("RegisterState", 0);
+
+            progressData.ResetProgress();
         });
     }
     public void QuitApp()

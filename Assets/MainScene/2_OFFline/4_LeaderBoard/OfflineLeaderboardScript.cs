@@ -31,7 +31,7 @@ public class OfflineLeaderboardScript : MonoBehaviour
     {
         
     }
-    public void BackButtonPressed(string name)
+    public void GoToScene(string name)
     {
         SceneManager.LoadScene(name);
     }

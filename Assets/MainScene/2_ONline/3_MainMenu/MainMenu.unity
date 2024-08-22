@@ -377,6 +377,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 104.5794}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &79386941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79386943}
+  - component: {fileID: 79386942}
+  m_Layer: 0
+  m_Name: LootlockerSceneProgress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79386942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79386941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729220f854d5c4747bef23ce7c84b948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
+--- !u!4 &79386943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79386941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 707.08673, y: 589.3273, z: 4.457292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91677582
 GameObject:
   m_ObjectHideFlags: 0
@@ -8234,6 +8279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfafedcbc3e0c0409f0bc3cdf8bd0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressData: {fileID: 79386942}
   clicked: 0
   levelUnlockScriptable: {fileID: 11400000, guid: 263cae7621093c6419ff77895cbe17b1, type: 2}
   playerNameText: {fileID: 1267561048}
@@ -10625,7 +10671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -377, y: -254}
+  m_AnchoredPosition: {x: -808, y: -122}
   m_SizeDelta: {x: 234.9985, y: 50.8329}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1654446370
@@ -12665,7 +12711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2049598084
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13868,3 +13914,4 @@ SceneRoots:
   - {fileID: 1104559100}
   - {fileID: 413207325}
   - {fileID: 1298605576}
+  - {fileID: 79386943}
