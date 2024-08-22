@@ -41,7 +41,7 @@ public class GetPlayerOnline : MonoBehaviour
             }
             else
             {
-                ShowErrorMessage("Error to get player file. Check your internet connection!");
+                ShowErrorMessage("File not found!");
                 return;
             }
         });
