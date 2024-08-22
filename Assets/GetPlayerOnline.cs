@@ -15,6 +15,11 @@ public class GetPlayerOnline : MonoBehaviour
     [Header("Error Handling")]
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
+
+
+    // The URL of your Facebook page
+    [SerializeField]public string facebookURL = "https://www.facebook.com/people/HelloWorld/61564328804290/";
+
     public void GetPlayerFileData()
     {
         // Check if the input field is empty
@@ -102,5 +107,12 @@ public class GetPlayerOnline : MonoBehaviour
     private void HideErrorMessage()
     {
         errorPanel.SetActive(false);
+    }
+
+
+    // This method will be called when the button is clicked
+    public void OpenFacebook()
+    {
+        Application.OpenURL(facebookURL);
     }
 }

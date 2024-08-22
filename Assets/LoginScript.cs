@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class LoginScript : MonoBehaviour
 {
     public LootlockerSceneProgress progressData;
+    public Button registerButtonDisable;
 
     private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
@@ -29,8 +30,6 @@ public class LoginScript : MonoBehaviour
 
     [Header("RememberMe")]
     // Components for enabling auto login
-    //public Toggle rememberMeToggle;
-    //private int rememberMe;
     public bool autoLogin;
 
     [Header("New Player Name")]
@@ -337,6 +336,7 @@ public class LoginScript : MonoBehaviour
             {
                 Debug.Log("Account Created");
                 registerButton.text = "AccountCreated";
+                registerButtonDisable.enabled = false;
                 // Succesful response
                 // Log in player to set name
                 // Login the player  
@@ -466,6 +466,20 @@ public class LoginScript : MonoBehaviour
     public void OnApplicationQuit()
     {
         Debug.Log("Succesfully Quit");
+    }
+
+    public void ClearInput()
+    {
+        registerButton.text = "Register";
+        registerButtonDisable.enabled = false;
+
+        //empty
+        newUserEmailInputField.text = string.Empty;
+        newUserPasswordInputField.text = string.Empty;
+
+        //empty
+        existingUserEmailInputField.text = string.Empty;
+        existingUserPasswordInputField.text = string.Empty;
     }
 }
 
