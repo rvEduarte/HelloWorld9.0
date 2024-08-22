@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class OfflineMainMenu : MonoBehaviour
 {
+    public LootlockerSceneProgress progressData;
     [Header("Player name")]
     public TextMeshProUGUI playerNameText;
 
@@ -21,6 +22,7 @@ public class OfflineMainMenu : MonoBehaviour
     }
     public void QuitApp()
     {
+        progressData.SaveToLocalFile();
         Application.Quit();
         Debug.Log("Application Successfully Quit");
     }

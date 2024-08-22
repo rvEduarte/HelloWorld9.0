@@ -69,10 +69,10 @@ public class LootlockerSceneProgress : MonoBehaviour
     public void LoadFromLocalFile()
     {
         // Ensure filePath is set before attempting to read
-        if (string.IsNullOrEmpty(filePath))
-        {
-            filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
-        }
+        //if (string.IsNullOrEmpty(filePath))
+        //{
+        //    filePath = Path.Combine(Application.persistentDataPath, "LevelUnlockData.json");
+        //}
 
         if (File.Exists(filePath))
         {
@@ -88,6 +88,7 @@ public class LootlockerSceneProgress : MonoBehaviour
     // Save data to a local file
     public void SaveToLocalFile()
     {
+        LoadFromLocalFile();
         filePath = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
         Debug.Log("Data saved locally to: " + filePath);
     }

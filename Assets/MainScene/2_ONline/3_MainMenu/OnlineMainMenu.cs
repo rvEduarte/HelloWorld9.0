@@ -157,6 +157,7 @@ public class OnlineMainMenu : MonoBehaviour
     }
     public void QuitApp()
     {
+        progressData.SaveToLocalFile();
         Application.Quit();
         Debug.Log("Application Successfully Quit");
     }

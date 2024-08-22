@@ -19,12 +19,14 @@ public class BeginnerSubmitScore : MonoBehaviour
             case 1:
                 Level.csharpBeginnerLevel2 = "Level2Beginner";
                 progressData.UpdatePlayerFile();
+                submitLead.GameManagerLevel(level);
                 UploadOnlinePlayerStats(level);
                 Debug.Log(Level);
                 break;
             case 2:
                 Level.csharpBeginnerLevel3 = "Level3Beginner";
                 progressData.UpdatePlayerFile();
+                submitLead.GameManagerLevel(level);
                 UploadOnlinePlayerStats(level);
                 Debug.Log(Level);
                 break;
