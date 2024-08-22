@@ -58,6 +58,7 @@ public class LoginScript : MonoBehaviour
 
     public void Start()
     {
+        registerButtonDisable.enabled = true;
         progressData.LoadFromLocalFile();
 
         // See if we should log in the player automatically
