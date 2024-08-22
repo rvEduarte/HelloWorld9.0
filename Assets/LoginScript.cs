@@ -473,7 +473,7 @@ public class LoginScript : MonoBehaviour
     public void ClearInput()
     {
         registerButton.text = "Register";
-        registerButtonDisable.enabled = false;
+        registerButtonDisable.enabled = true;
 
         //empty
         newUserEmailInputField.text = string.Empty;
