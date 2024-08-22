@@ -115,7 +115,7 @@ public class LootlockerSceneProgress : MonoBehaviour
     {
         // Reset the ScriptableObject values
         levelUnlockScriptable.ResetValues();
-
+        filePath = WriteToFile("LevelUnlockData.json", levelUnlockScriptable);
         // Save the reset data to a local file
         SaveToLocalFile();
     }
