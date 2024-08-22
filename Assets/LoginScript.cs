@@ -466,6 +466,7 @@ public class LoginScript : MonoBehaviour
     public void OnApplicationQuit()
     {
         Debug.Log("Succesfully Quit");
+        Application.Quit();
     }
 
     public void ClearInput()
