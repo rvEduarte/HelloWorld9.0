@@ -4,12 +4,18 @@ using System;
 using UnityEngine.UI;
 using LootLocker.Requests;
 using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class LoginScript : MonoBehaviour
 {
+    public static int Pekpek;
     public LootlockerSceneProgress progressData;
-    public Button registerButtonDisable;
 
+    [Header("Buttons")]
+    public Button registerButtonDisableInteractable;
+    public Button resetButtonDisableInteractable;
+
+    [Header("Scenes")]
     private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
     private string offlineMainMenuScene = "Offline_MainMenu";
@@ -54,11 +60,14 @@ public class LoginScript : MonoBehaviour
 
     public GameObject disableRegisterButton;
 
+    public GameObject registerPanel;
+    public GameObject loginPanel;
+
     // Start is called before the first frame update
 
     public void Start()
     {
-        registerButtonDisable.enabled = true;
+        registerButtonDisableInteractable.enabled = true;
         progressData.LoadFromLocalFile();
 
         // See if we should log in the player automatically
@@ -136,7 +145,7 @@ public class LoginScript : MonoBehaviour
         {
             if (error.Contains("message"))
             {
-                ShowErrorMessage(ExtractMessageFromLootLockerError(error));
+                ShowErrorMessage("Incorrect Password/Email");
                 return;
             }
 
@@ -167,10 +176,10 @@ public class LoginScript : MonoBehaviour
             }
 
             // Is the account verified?
-            /*if (response.VerifiedAt == null)
+            if (response.VerifiedAt == null)
             {
-                // Stop here if you want to require your players to verify their email before continuing
-            }*/
+                Debug.Log("Hindi Pa verify");
+            }
 
             LootLockerSDKManager.StartWhiteLabelSession((response) =>
             {
@@ -272,7 +281,7 @@ public class LoginScript : MonoBehaviour
     }
 
     // Show an error message on the screen
-    public void ShowErrorMessage(string message, int showTime = 3)
+    public void ShowErrorMessage(string message, float showTime = 1.5f)
     {
         //set active
         errorPanel.SetActive(true);
@@ -337,10 +346,14 @@ public class LoginScript : MonoBehaviour
             {
                 Debug.Log("Account Created");
                 registerButton.text = "AccountCreated";
-                registerButtonDisable.enabled = false;
+                registerButtonDisableInteractable.enabled = false;
                 // Succesful response
-                // Log in player to set name
-                // Login the player  
+
+                Pekpek = response.ID;
+                //Pekpek = response.Email;
+                //Debug.Log(Pekpek);
+                
+                ResendVerificationEmail();
             }
         });
     }
@@ -427,17 +440,22 @@ public class LoginScript : MonoBehaviour
             Debug.Log("requested password reset successfully");
 
             resetPassButton.text = "SENT";
+            resetButtonDisableInteractable.enabled = false;
         });
     }
 
     public void ResendVerificationEmail()
     {
-        int playerID = 0;
-        LootLockerSDKManager.WhiteLabelRequestVerification(playerID, (response) =>
+        //int playerID = 0;
+        LootLockerSDKManager.WhiteLabelRequestVerification(Pekpek, (response) =>
         {
             if (response.success)
             {
-                // Email was sent!
+                Debug.LogError("NASEND");
+            }
+            else
+            {
+                Debug.LogError("HINDI NASEND");
             }
         });
     }
@@ -473,7 +491,7 @@ public class LoginScript : MonoBehaviour
     public void ClearInput()
     {
         registerButton.text = "Register";
-        registerButtonDisable.enabled = true;
+        registerButtonDisableInteractable.enabled = true;
 
         //empty
         newUserEmailInputField.text = string.Empty;
@@ -482,6 +500,12 @@ public class LoginScript : MonoBehaviour
         //empty
         existingUserEmailInputField.text = string.Empty;
         existingUserPasswordInputField.text = string.Empty;
+
+
+        resetPassButton.text = "RESET";
+        resetButtonDisableInteractable.enabled = true;
+        //empty
+        resetPasswordInputField.text = string.Empty;
     }
 }
 
