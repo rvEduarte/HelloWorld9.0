@@ -1,10 +1,8 @@
 using UnityEngine;
 using TMPro;
-using System;
 using UnityEngine.UI;
 using LootLocker.Requests;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
 
 public class LoginScript : MonoBehaviour
 {
@@ -313,12 +311,19 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
+        if (!email.EndsWith("@gmail.com"))
+        {
+            ShowErrorMessage("Email must end with @gmail.com");
+            return;
+        }
+
         //if password is shorter than 8 characters display an error
         if (password.Length < 8)
         {
             ShowErrorMessage("Password must be at least 8 characters long");
             return;
         }
+
 
         void isError(string error)
         {
