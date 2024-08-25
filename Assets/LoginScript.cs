@@ -178,28 +178,32 @@ public class LoginScript : MonoBehaviour
             // Is the account verified?
             if (response.VerifiedAt == null)
             {
-                Debug.Log("Hindi Pa verify");
+                ShowErrorMessage("Your account is not verified. Please check your email for the verification.");
+
+                ResendVerificationEmail();
             }
-
-            LootLockerSDKManager.StartWhiteLabelSession((response) =>
+            else
             {
-                if (!response.success)
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
                 {
-                    // Error
-                    isError(response.errorData.ToString());
-                    return;
-                }
-                else
-                {
-                    PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                    LoginPanel.SetActive(false);
-                    Debug.Log("session started successfully");
-                    CheckIfPlayerHasName(response.public_uid);
+                    if (!response.success)
+                    {
+                        // Error
+                        isError(response.errorData.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                        LoginPanel.SetActive(false);
+                        Debug.Log("session started successfully");
+                        CheckIfPlayerHasName(response.public_uid);
 
-                    //DisableRegisterButton
-                    disableRegisterButton.gameObject.SetActive(false);
-                }
-            });
+                        //DisableRegisterButton
+                        disableRegisterButton.gameObject.SetActive(false);
+                    }
+                });
+            }
         });
     }
 
@@ -345,14 +349,13 @@ public class LoginScript : MonoBehaviour
             else
             {
                 Debug.Log("Account Created");
-                registerButton.text = "AccountCreated";
+                registerButton.text = "Check your inbox";
+                registerButton.fontSize = 55;
                 registerButtonDisableInteractable.enabled = false;
                 // Succesful response
 
                 Pekpek = response.ID;
-                //Pekpek = response.Email;
-                //Debug.Log(Pekpek);
-                
+
                 ResendVerificationEmail();
             }
         });
@@ -449,15 +452,16 @@ public class LoginScript : MonoBehaviour
         //int playerID = 0;
         LootLockerSDKManager.WhiteLabelRequestVerification(Pekpek, (response) =>
         {
-            if (response.success)
+            if (!response.success)
             {
-                Debug.LogError("NASEND");
+                Debug.LogError("Error sending verification email: " + response.errorData.ToString());
             }
             else
             {
-                Debug.LogError("HINDI NASEND");
+                Debug.Log("Verification email sent successfully.");
             }
         });
+        return;
     }
 
     private string ExtractMessageFromLootLockerError(string rawError)
