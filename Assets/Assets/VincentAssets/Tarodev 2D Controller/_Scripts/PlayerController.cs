@@ -46,39 +46,69 @@ namespace TarodevController
 
         private void GatherInput()
         {
+            if (!TriggerTutorial.disableMove)
+            {
+                _frameInput = new FrameInput();  // Zero out input when movement is disabled
+                return;
+            }
+
             _frameInput = new FrameInput
             {
-                JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C),
-                JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C),
                 Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
             };
+
+            if (!TriggerTutorial.disableJump)
+            {
+                _frameInput.JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C);
+                _frameInput.JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C);
+
+                if (_frameInput.JumpDown)
+                {
+                    _jumpToConsume = true;
+                    _timeJumpWasPressed = _time;
+                }
+            }
 
             if (_stats.SnapInput)
             {
                 _frameInput.Move.x = Mathf.Abs(_frameInput.Move.x) < _stats.HorizontalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.x);
                 _frameInput.Move.y = Mathf.Abs(_frameInput.Move.y) < _stats.VerticalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.y);
             }
-
-            if (_frameInput.JumpDown)
-            {
-                _jumpToConsume = true;
-                _timeJumpWasPressed = _time;
-            }
         }
 
         private void FixedUpdate()
         {
+            if (!TriggerTutorial.disableMove)
+            {
+                _rb.velocity = Vector2.zero;  // Stop all movement
+                return;
+            }
+
             CheckCollisions();
 
             HandleJump();
             HandleDirection();
             HandleGravity();
-            
+
             ApplyMovement();
         }
 
+        // Rest of your code (HandleJump, HandleDirection, HandleGravity) remains the same...
+
+        private void ApplyMovement()
+        {
+            if (!TriggerTutorial.disableMove)
+            {
+                _rb.velocity = Vector2.zero;  // Ensure the velocity is zero if movement is disabled
+            }
+            else
+            {
+                _rb.velocity = _frameVelocity;
+            }
+        }
+
         #region Collisions
-        
+
         private float _frameLeftGrounded = float.MinValue;
         private bool _grounded;
 
@@ -185,7 +215,6 @@ namespace TarodevController
 
         #endregion
 
-        private void ApplyMovement() => _rb.velocity = _frameVelocity;
 
 #if UNITY_EDITOR
         private void OnValidate()
