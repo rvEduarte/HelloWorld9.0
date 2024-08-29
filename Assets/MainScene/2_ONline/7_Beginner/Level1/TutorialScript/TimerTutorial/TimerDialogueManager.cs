@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class TimerDialogueManager : MonoBehaviour
 {
+    public GameObject triggerTimerPanel;
+
+    public GameObject objectivePanel;
+
+    public GameObject firstCursorBox;
+    public GameObject bg1;
+
+    public GameObject secondCursorBox;
+    public GameObject bg2;
+
     public Image actorImage;
     public TextMeshProUGUI actorName;
     public TextMeshProUGUI messageText;
@@ -42,6 +52,22 @@ public class TimerDialogueManager : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TypeMessage(messageToDisplay.message));
+
+        if(activeMessage == 1)
+        {
+            firstCursorBox.SetActive(false);
+            bg1.SetActive(false);
+
+            objectivePanel.SetActive(true);
+            secondCursorBox.SetActive(true);
+            bg2.SetActive(true);
+        }
+        if(activeMessage == 2)
+        {
+            secondCursorBox.SetActive(false);
+            bg2.SetActive(false);
+             
+        }
     }
 
     IEnumerator TypeMessage(string message)
@@ -88,6 +114,11 @@ public class TimerDialogueManager : MonoBehaviour
             Debug.Log("Conversation ended!");
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
+
+            RunningTimerLevel1Ph1.timerStop = true;
+            TriggerTutorial.disableMove = true;
+
+            triggerTimerPanel.SetActive(false);
         }
     }
 
