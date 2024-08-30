@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class TriggerTutorial : MonoBehaviour
 {
-    public static bool disableMove;
-    public static bool disableJump;
+    [SerializeField]public static bool disableMove;
+    [SerializeField]public static bool disableJump;
 
     public GameObject jumpTutorialPanel;
     public GameObject triggerJump;
