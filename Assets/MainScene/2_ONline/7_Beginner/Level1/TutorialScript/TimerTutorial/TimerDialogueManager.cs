@@ -115,7 +115,7 @@ public class TimerDialogueManager : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            RunningTimerLevel1Ph1.timerStop = true;
+            RunningTimerLevel1Ph1.timerStop = true; //enable time
             TriggerTutorial.disableMove = true;
 
             triggerTimerPanel.SetActive(false);
