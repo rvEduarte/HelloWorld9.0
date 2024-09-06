@@ -32,6 +32,7 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
 
     private void Start()
     {
+        timerStop = false;
         playerData.ResetAllValues();
     }
     private void Update()
