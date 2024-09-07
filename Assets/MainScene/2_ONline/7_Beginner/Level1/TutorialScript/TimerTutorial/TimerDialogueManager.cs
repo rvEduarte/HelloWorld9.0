@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class TimerDialogueManager : MonoBehaviour
 {
+    public Button tutorialButton;
+    public Button backpackButton;
+
+    public GameObject tutorialArchive;
+
+    public GameObject backpack;
+
     public GameObject triggerTimerPanel;
 
     public GameObject objectivePanel;
@@ -14,6 +21,12 @@ public class TimerDialogueManager : MonoBehaviour
 
     public GameObject secondCursorBox;
     public GameObject bg2;
+
+    public GameObject thirdCursorBox;
+    public GameObject bg3;    
+    
+    public GameObject fourthCursorBox;
+    public GameObject bg4;
 
     public Image actorImage;
     public TextMeshProUGUI actorName;
@@ -66,7 +79,22 @@ public class TimerDialogueManager : MonoBehaviour
         {
             secondCursorBox.SetActive(false);
             bg2.SetActive(false);
+
+            tutorialArchive.SetActive(true);
              
+        }
+        if(activeMessage == 7)
+        {
+            thirdCursorBox.SetActive(false);
+            bg3.SetActive(false);
+
+            backpack.SetActive(true);
+
+        }
+        if (activeMessage == 10)
+        {
+            fourthCursorBox.SetActive(false);
+            //bg4.SetActive(false);
         }
     }
 
@@ -118,7 +146,11 @@ public class TimerDialogueManager : MonoBehaviour
             RunningTimerLevel1Ph1.timerStop = true; //enable time
             TriggerTutorial.disableMove = true;
 
+            tutorialButton.enabled = true; 
+            backpackButton.enabled = true;
             triggerTimerPanel.SetActive(false);
+            bg4.SetActive(false);
+
         }
     }
 
@@ -131,6 +163,8 @@ public class TimerDialogueManager : MonoBehaviour
     void Start()
     {
         backgroundBox.transform.localScale = Vector3.zero;
+        tutorialButton.enabled = false;
+        backpackButton.enabled = false;
     }
 
     void Update()

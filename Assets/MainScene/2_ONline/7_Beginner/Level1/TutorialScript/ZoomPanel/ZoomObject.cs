@@ -2,9 +2,16 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ZoomObject : MonoBehaviour
 {
+    public Button tutorialButton;
+    public Button backpackButton;
+
+    public GameObject tutorialPanel;
+    public GameObject backpackPanel;
+
     public CinemachineVirtualCamera jigsawCamera;
     public GameObject triggerZoom;
 
@@ -12,6 +19,10 @@ public class ZoomObject : MonoBehaviour
     {
         if (collision.gameObject.name.Equals("Player"))
         {
+            LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            tutorialButton.enabled = false;
+            backpackButton.enabled = false;
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = false; //disable jumping
             RunningTimerLevel1Ph1.timerStop = false; // disable time
@@ -32,6 +43,8 @@ public class ZoomObject : MonoBehaviour
     IEnumerator enableMovement()
     {
         yield return new WaitForSeconds(5);
+        tutorialButton.enabled = true;
+        backpackButton.enabled = true;
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
         RunningTimerLevel1Ph1.timerStop = true; //enable time
