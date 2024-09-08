@@ -3,9 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class JigsawDialogueManager : MonoBehaviour
 {
+    private bool enableClick = false;
+
+    public GameObject dialogueBox;
+    public Image dialogueImage;
+    public Image avatar;
+
+    public GameObject yesButton;
+    public GameObject noButton;
+
     public Image actorImage;
     public TextMeshProUGUI actorName;
     public TextMeshProUGUI messageText;
@@ -44,8 +54,22 @@ public class JigsawDialogueManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TypeMessage(messageToDisplay.message));
 
+        if (activeMessage == 0)
+        {
+            // This will now be checked after typing is done
+            //StartCoroutine(CheckTextFullyDisplayed());
+        }
+
         if (activeMessage == 1)
         {
+            dialogueImage.color = new Color(1f, 1f, 1f, 0f);   //instant transparent
+            avatar.color = new Color(1f, 1f, 1f, 0f);   //instant transparent
+            LeanTween.scale(dialogueBox, new Vector3(0, 0, 0), 0.5f);
+
+            yesButton.SetActive(true);
+            noButton.SetActive(true);
+            yesButton.LeanScale(Vector3.one, 0.5f);
+            noButton.LeanScale(Vector3.one, 0.5f);
 
         }
     }
@@ -110,19 +134,41 @@ public class JigsawDialogueManager : MonoBehaviour
     void Start()
     {
         backgroundBox.transform.localScale = Vector3.zero;
+        yesButton.LeanScale(Vector3.zero, 0f);
+        noButton.LeanScale(Vector3.zero, 0f);
     }
 
-    /*void Update()
+    void Update()
     {
+        if (textFullyDisplayed && activeMessage == 0)
+        {
+            // Detect mouse click only for the first message (index 0)
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Clicked at index 0");
+                NextMessage();
+            }
+        }
+
+        if (!enableClick) return;
         if (Input.GetMouseButtonDown(0) && isActive == true)
         {
             NextMessage();
-            MouseLeftClick();
         }
     }
 
-    void MouseLeftClick()
+    public void YesAndNoButton()
     {
-        Debug.Log("Left mouse button clicked.");
-    }*/
+        yesButton.LeanScale(Vector3.zero, 0.5f);
+        noButton.LeanScale(Vector3.zero, 0.5f);
+        yesButton.SetActive(false);
+        noButton.SetActive(false);
+
+        dialogueImage.color = new Color(1f, 1f, 1f, 1f);   //instant transparent
+        avatar.color = new Color(1f, 1f, 1f, 1f);   //instant transparent
+        LeanTween.scale(dialogueBox, new Vector3(1, 1, 1), 0.5f);
+        NextMessage();
+
+        enableClick = true;
+    }
 }
