@@ -16,6 +16,10 @@ public class ZoomObject : MonoBehaviour
     public CinemachineVirtualCamera jigsawCamera;
     public GameObject triggerZoom;
 
+    public ZoomDialogueTrigger zoomDialogueTrigger;
+
+    public ZoomDialogueManager zoomDialogueManager;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.Equals("Player"))
@@ -30,6 +34,7 @@ public class ZoomObject : MonoBehaviour
             RunningTimerLevel1Ph1.timerStop = false; // disable time
             jigsawCamera.Priority = 11;
 
+            zoomDialogueTrigger.StartDialogue();
 
             StartCoroutine(backCamera());
         }
@@ -37,20 +42,22 @@ public class ZoomObject : MonoBehaviour
 
     IEnumerator backCamera()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         jigsawCamera.Priority = 0;
 
         StartCoroutine (enableMovement());
     }
     IEnumerator enableMovement()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
+        zoomDialogueManager.NextMessage();
         tutorialButton.enabled = true;
         backpackButton.enabled = true;
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
         RunningTimerLevel1Ph1.timerStop = true; //enable time
         triggerZoom.SetActive(false); //disable trigger
+
     }
 
 }
