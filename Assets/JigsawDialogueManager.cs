@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class JigsawDialogueManager : MonoBehaviour
 {
+    public Button tutorialButton;
+    public Button backpackButton;
+
     private bool enableClick = false;
 
     public GameObject dialogueBox;
@@ -33,6 +35,8 @@ public class JigsawDialogueManager : MonoBehaviour
 
     public void OpenDialogue(JigsawMessage[] messages, JigsawActor[] actors)
     {
+        tutorialButton.enabled = false; //disable clickable
+        backpackButton.enabled = false; // disable clickable
         currentMessage = messages;
         currentActors = actors;
         activeMessage = 0;
@@ -119,8 +123,11 @@ public class JigsawDialogueManager : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            //RunningTimerLevel1Ph1.timerStop = true; //enable time
-            //TriggerTutorial.disableMove = true;
+            TriggerTutorial.disableMove = true; //enable Move
+            TriggerTutorial.disableJump = false; //enable jumping
+
+            tutorialButton.enabled = true; //enable clickable
+            backpackButton.enabled = true; // enable clickable
 
         }
     }

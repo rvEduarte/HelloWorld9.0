@@ -30,7 +30,7 @@ public class ZoomObject : MonoBehaviour
             tutorialButton.enabled = false;
             backpackButton.enabled = false;
             TriggerTutorial.disableMove = false; //disable Move
-            TriggerTutorial.disableJump = false; //disable jumping
+            TriggerTutorial.disableJump = true; //disable jumping
             RunningTimerLevel1Ph1.timerStop = false; // disable time
             jigsawCamera.Priority = 11;
 

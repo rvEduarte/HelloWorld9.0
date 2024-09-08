@@ -21,8 +21,12 @@ public class JigsawTriggerPanel : MonoBehaviour
     public JigsawMessage[] message;
     public JigsawActor[] actor;
 
+
     public void StartDialogue()
     {
         FindObjectOfType<JigsawDialogueManager>().OpenDialogue(message, actor);
+        TriggerTutorial.disableMove = false; //disable Move
+        TriggerTutorial.disableJump = true; //disable jumping
+
     }
 }

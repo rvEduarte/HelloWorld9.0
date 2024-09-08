@@ -19,6 +19,9 @@ public class JigsawScript : MonoBehaviour
 
     public bool isClicked = false;
 
+    public GameObject tutorialPanel;
+    public GameObject backpackPanel;
+    public GameObject timerPanel;
     void Start()
     {
         LeanTween.scale(jigsawPanel, Vector3.zero, 0f);
@@ -33,8 +36,13 @@ public class JigsawScript : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+
             timer.isPicked = true;
-            LeanTween.scale(jigsawPanel, Vector3.one, 0.8f);
+            LeanTween.scale(timerPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            LeanTween.scale(jigsawPanel, Vector3.one, 0.5f);
+
 
             Debug.Log("TITE");
         }         
