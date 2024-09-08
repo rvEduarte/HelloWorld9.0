@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ZoomObject : MonoBehaviour
 {
+    public GameObject bgMask;
     public Button tutorialButton;
     public Button backpackButton;
 
@@ -19,6 +20,7 @@ public class ZoomObject : MonoBehaviour
     {
         if (collision.gameObject.name.Equals("Player"))
         {
+            bgMask.SetActive(false);
             LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             tutorialButton.enabled = false;

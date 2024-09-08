@@ -38,7 +38,7 @@ public class ShowHideScript : MonoBehaviour
 
         // Show the selected panel
         panelToShow.SetActive(true);
-        LeanTween.scale(panelToShow, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+        LeanTween.scale(panelToShow, new Vector3(1, 1, 1), 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
 
     public void HidePanel(GameObject panelToHide)
@@ -59,15 +59,18 @@ public class ShowHideScript : MonoBehaviour
     // Method to show backpack panel and hide tutorial panel
     public void OnBackpackButtonPressed()
     {
+        TriggerTutorial.disableMove = false; //disable Move
+        TriggerTutorial.disableJump = true; //disable jumping
         ShowPanel(backpackPanel, tutorialPanel);
     }
 
     // Method to show tutorial panel and hide backpack panel
     public void OnTutorialButtonPressed()
     {
+        TriggerTutorial.disableMove = false; //disable Move
+        TriggerTutorial.disableJump = true; //disable jumping
         ShowPanel(tutorialPanel, backpackPanel);
     }
-
     public void ShowSpecificPanel(GameObject name)
     {
         bgMask.SetActive(true);
@@ -75,4 +78,11 @@ public class ShowHideScript : MonoBehaviour
         LeanTween.scale(name, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
 
+    public void HideSpecificPanel(GameObject name)
+    {
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
+        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+        StartCoroutine(SetActive(name));
+    }
 }
