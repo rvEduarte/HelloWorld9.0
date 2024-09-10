@@ -8,9 +8,6 @@ public class JigsawScript : MonoBehaviour
     [SerializeField]
     private GameObject pickUpText;
 
-    [SerializeField]
-    private GameObject Greenportal;
-
     public GameObject jigsawPanel;
 
     public RunningTimerLevel1Ph1 timer;
@@ -27,7 +24,6 @@ public class JigsawScript : MonoBehaviour
         LeanTween.scale(jigsawPanel, Vector3.zero, 0f);
 
         pickUpText.SetActive(false);
-        Greenportal.SetActive(false);
 
         Debug.Log("TITE");
     }
@@ -75,7 +71,6 @@ public class JigsawScript : MonoBehaviour
 
     private void PickUp()
     {
-        Greenportal.SetActive(true);
         Destroy(gameObject);
     }  
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,11 @@ using UnityEngine.UI;
 
 public class JigsawDialogueManager : MonoBehaviour
 {
+    public Animator anim;
+
+    public CinemachineVirtualCamera portalCamera;
+    public GameObject portal;
+
     public Button tutorialButton;
     public Button backpackButton;
 
@@ -129,7 +135,29 @@ public class JigsawDialogueManager : MonoBehaviour
             tutorialButton.enabled = true; //enable clickable
             backpackButton.enabled = true; // enable clickable
 
+            StartCoroutine(MoveCameraPortal());
+            //zoom
+            //activate portal
+            //activate idle portal animation
+
         }
+    }
+
+    IEnumerator MoveCameraPortal()
+    {
+        yield return new WaitForSeconds(1);
+        portalCamera.Priority = 12;
+
+        portal.SetActive(true);
+        anim.SetTrigger("TriggerShow");
+        anim.SetTrigger("TriggerIdle");
+        StartCoroutine(BackCamera());
+    }
+
+    IEnumerator BackCamera()
+    {
+        yield return new WaitForSeconds(2);
+        portalCamera.Priority = 0;
     }
 
     void AnimationTextColor()
@@ -140,6 +168,7 @@ public class JigsawDialogueManager : MonoBehaviour
 
     void Start()
     {
+        portal.SetActive(false);
         backgroundBox.transform.localScale = Vector3.zero;
         yesButton.LeanScale(Vector3.zero, 0f);
         noButton.LeanScale(Vector3.zero, 0f);
