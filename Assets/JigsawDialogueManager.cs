@@ -39,6 +39,48 @@ public class JigsawDialogueManager : MonoBehaviour
     private bool isTyping = false;
     private bool textFullyDisplayed = false;
 
+    // Define your color dictionary here
+    private Dictionary<string, string> colorTags = new Dictionary<string, string>()
+    {
+        { "MOVE", "<color=yellow>MOVE</color>" },
+        { "mouse", "<color=green>mouse</color>" },
+        { "gun", "<color=green>gun</color>" },
+        { "FOLLOW", "<color=yellow>FOLLOW</color>" },
+        { "AIM", "<color=yellow>AIM</color>" },
+        { "target", "<color=red>target</color>" },
+        { "POSITION", "<color=yellow>POSITION</color>" },
+        { "CURSOR", "<color=yellow>CURSOR</color>" },
+        { "CLICK", "<color=yellow>CLICK</color>" },
+        { "left mouse button", "<color=green>left mouse button</color>" }
+    };
+
+    void Start()
+    {
+        portal.SetActive(false);
+        backgroundBox.transform.localScale = Vector3.zero;
+        yesButton.LeanScale(Vector3.zero, 0f);
+        noButton.LeanScale(Vector3.zero, 0f);
+    }
+
+    void Update()
+    {
+        if (textFullyDisplayed && activeMessage == 0)
+        {
+            // Detect mouse click only for the first message (index 0)
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Clicked at index 0");
+                NextMessage();
+            }
+        }
+
+        if (!enableClick) return;
+        if (Input.GetMouseButtonDown(0) && isActive == true)
+        {
+            NextMessage();
+        }
+    }
+
     public void OpenDialogue(JigsawMessage[] messages, JigsawActor[] actors)
     {
         tutorialButton.enabled = false; //disable clickable
@@ -64,12 +106,6 @@ public class JigsawDialogueManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TypeMessage(messageToDisplay.message));
 
-        if (activeMessage == 0)
-        {
-            // This will now be checked after typing is done
-            //StartCoroutine(CheckTextFullyDisplayed());
-        }
-
         if (activeMessage == 1)
         {
             dialogueImage.color = new Color(1f, 1f, 1f, 0f);   //instant transparent
@@ -90,21 +126,40 @@ public class JigsawDialogueManager : MonoBehaviour
         textFullyDisplayed = false;
         messageText.text = "";
 
+        string characters = "";
+
+        // Type out the message
         foreach (char letter in message.ToCharArray())
         {
-            messageText.text += letter;
+            characters += letter;
+            messageText.text = ReplaceWordsWithColorTags(characters);
             yield return new WaitForSeconds(textSpeed);
 
+            Debug.Log("inside loop: " + messageText.text);
             if (!isTyping) // If the user clicks during typing
             {
-                messageText.text = message; // Complete the message immediately
+                messageText.text = ReplaceWordsWithColorTags(message); // Complete the message immediately
                 break;
             }
         }
-
+        Debug.Log("outside loop: " + messageText.text);
         textFullyDisplayed = true;
         isTyping = false;
         AnimationTextColor();
+    }
+
+    string ReplaceWordsWithColorTags(string message)
+    {
+        foreach (var entry in colorTags)
+        {
+            message = message.Replace(entry.Key, entry.Value);
+        }
+        return message;
+    }
+    void AnimationTextColor()
+    {
+        LeanTween.textAlpha(messageText.rectTransform, 0, 0);
+        LeanTween.textAlpha(messageText.rectTransform, 1, 0.5f);
     }
 
     public void NextMessage()
@@ -160,40 +215,9 @@ public class JigsawDialogueManager : MonoBehaviour
         portalCamera.Priority = 0;
     }
 
-    void AnimationTextColor()
-    {
-        LeanTween.textAlpha(messageText.rectTransform, 0, 0);
-        LeanTween.textAlpha(messageText.rectTransform, 1, 0.5f);
-    }
 
-    void Start()
-    {
-        portal.SetActive(false);
-        backgroundBox.transform.localScale = Vector3.zero;
-        yesButton.LeanScale(Vector3.zero, 0f);
-        noButton.LeanScale(Vector3.zero, 0f);
-    }
 
-    void Update()
-    {
-        if (textFullyDisplayed && activeMessage == 0)
-        {
-            // Detect mouse click only for the first message (index 0)
-            if (Input.GetMouseButtonDown(0))
-            {
-                Debug.Log("Clicked at index 0");
-                NextMessage();
-            }
-        }
-
-        if (!enableClick) return;
-        if (Input.GetMouseButtonDown(0) && isActive == true)
-        {
-            NextMessage();
-        }
-    }
-
-    public void YesAndNoButton()
+    public void YesAndNoButton()  // BUTTON YES AND NO AFTER THE QUESTION
     {
         yesButton.LeanScale(Vector3.zero, 0.5f);
         noButton.LeanScale(Vector3.zero, 0.5f);
