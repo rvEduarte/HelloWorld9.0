@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RunningTimerLevel1Ph2 : MonoBehaviour
 {
+    public static bool timerStopPh2;
     public PlayerScoreScriptableObject playerData;
 
     [SerializeField] TextMeshProUGUI timerTxt;
@@ -34,6 +35,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void Start()
     {
+        timerStopPh2 = true;
         playerData.ResetPh2Values();
     }
     private void Update()
@@ -54,6 +56,7 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
     private void UpdateElapsedTime()
     {
+        if (!timerStopPh2) return;
         elapsedTime += Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(elapsedTime / 60);

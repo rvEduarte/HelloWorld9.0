@@ -42,16 +42,19 @@ public class JigsawDialogueManager : MonoBehaviour
     // Define your color dictionary here
     private Dictionary<string, string> colorTags = new Dictionary<string, string>()
     {
-        { "MOVE", "<color=yellow>MOVE</color>" },
-        { "mouse", "<color=green>mouse</color>" },
-        { "gun", "<color=green>gun</color>" },
-        { "FOLLOW", "<color=yellow>FOLLOW</color>" },
-        { "AIM", "<color=yellow>AIM</color>" },
-        { "target", "<color=red>target</color>" },
-        { "POSITION", "<color=yellow>POSITION</color>" },
-        { "CURSOR", "<color=yellow>CURSOR</color>" },
-        { "CLICK", "<color=yellow>CLICK</color>" },
-        { "left mouse button", "<color=green>left mouse button</color>" }
+        { "jigsaw puzzle", "<color=yellow>jigsaw puzzle</color>" },
+        { "Console.WriteLine", "<color=green>Console.WriteLine</color>" },
+        { "Console.Write", "<color=green>Console.Write</color>" },
+        { "adding letters or words", "<color=green>adding letters or words</color>" },
+        { "same line without pressing Enter", "<color=yellow>same line without pressing Enter</color>" },
+        { "all lined up next to each other", "<color=yellow>all lined up next to each other</color>" },
+        { "typing and then pressing Enter after each line", "<color=yellow>typing and then pressing Enter after each line</color>" },
+        { "next thing ", "<color=green>next thing </color>" },
+        { "output numbers", "<color=yellow>output numbers</color>" },
+        { "even perform calculations directly", "<color=yellow>even perform calculations directly</color>" },
+        { "display", "<color=green>display</color>" },
+        { "appear on a new line", "<color=green>appear on a new line</color>" },
+        { "results of those calculations too", "<color=yellow>results of those calculations too</color>" }
     };
 
     void Start()
@@ -214,8 +217,6 @@ public class JigsawDialogueManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         portalCamera.Priority = 0;
     }
-
-
 
     public void YesAndNoButton()  // BUTTON YES AND NO AFTER THE QUESTION
     {
