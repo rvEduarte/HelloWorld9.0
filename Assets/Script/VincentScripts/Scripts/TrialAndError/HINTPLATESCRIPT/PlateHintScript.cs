@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlateHintScript : MonoBehaviour
 {
+    public Button backPackButton;
+    public Button TutorialButton;
     public ShowHideScript showHideScript;
     public BoxCollider2D box2D;
     public GameObject EXLA;
@@ -29,6 +32,11 @@ public class PlateHintScript : MonoBehaviour
             {
                 box2D.enabled = false;
                 showHideScript.ShowSpecificPanel(HintPanel);
+                backPackButton.enabled = false;
+                TutorialButton.enabled = false;
+
+                TriggerTutorial.disableMove = false; //disable Move
+                TriggerTutorial.disableJump = true; //disable jumping
             }
         }
     }

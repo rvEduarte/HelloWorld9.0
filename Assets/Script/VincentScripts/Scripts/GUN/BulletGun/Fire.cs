@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Fire : MonoBehaviour
 {
+    public static bool enableFire;
     [SerializeField] private Rigidbody2D bullet;
 
     [SerializeField] private Transform barrel;
@@ -16,9 +17,15 @@ public class Fire : MonoBehaviour
     private float nextFire = 0f;
 
     // Update is called once per frame
-    void Update()
-        
+
+    private void Start()
     {
+        enableFire = true; //ENABLE
+    }
+    void Update()       
+    {
+        //if (!enableFire) return;
+
         if(Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;

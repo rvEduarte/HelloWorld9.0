@@ -4,13 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LaserDialogueButtonManager : MonoBehaviour
+
+public class RedAlarmDialogueManager : MonoBehaviour
 {
     public Button backpackButton;
     public Button tutorialButton;
-    public GameObject iconShoot;
-    public GameObject target;
-    public GameObject bg;
 
     public Image actorImage;
     public TextMeshProUGUI actorName;
@@ -70,14 +68,10 @@ public class LaserDialogueButtonManager : MonoBehaviour
 
         if (activeMessage == 0)
         {
-            target.SetActive(true);
-            bg.SetActive(true);
-            iconShoot.LeanScale(Vector3.one, 0);
+
         }
         if (activeMessage == 3)
         {
-            target.SetActive(false);
-            bg.SetActive(false);
             RunningTimerLevel1Ph2.timerStopPh2 = true; //enable time
         }
     }

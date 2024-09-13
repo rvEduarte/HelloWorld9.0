@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class TrialButtonCircle : MonoBehaviour
 {
+    public Button backpackButton;
+    public Button tutorialButton;
 
     public Button yourButton;
 
@@ -66,12 +68,16 @@ public class TrialButtonCircle : MonoBehaviour
         {
             CullAllObjects(false); // Show objects
             SetImageVisibility(true);
+            backpackButton.enabled = false;
+            tutorialButton.enabled = false;
 
         }
         else
         {
             CullAllObjects(true); // Hide objects
             SetImageVisibility(false);
+            backpackButton.enabled = true;
+            tutorialButton.enabled = true;
         }
     }
 

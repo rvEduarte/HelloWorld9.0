@@ -4,9 +4,15 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Drawing;
+using Cinemachine;
 
 public class TrialComputer : MonoBehaviour
 {
+    public CinemachineVirtualCamera billBoardCamera;
+    public CinemachineVirtualCamera redAlarmCamera;
+
+    //public GameObject ObjectivePanel;
+
     public PlayerScoreScriptableObject playerData;
 
     [SerializeField]
@@ -68,6 +74,10 @@ public class TrialComputer : MonoBehaviour
 
                 Laser1.SetActive(false);
                 BoolLaser1.La1 = false;
+
+                billBoardCamera.Priority = 11;
+                Fire.enableFire = false; //disableFire
+                ////ObjectivePanel.SetActive(false);
             }
 
             else if(a == "7")
@@ -76,6 +86,10 @@ public class TrialComputer : MonoBehaviour
                 string color = "#18eded";
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
+
+                billBoardCamera.Priority = 11;
+                Fire.enableFire = false; //disableFire
+               // ObjectivePanel.SetActive(false);
             }
 
             else if(a == "SPACE_HELLOWORLD")
@@ -85,7 +99,9 @@ public class TrialComputer : MonoBehaviour
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
 
-
+                billBoardCamera.Priority = 11;
+                Fire.enableFire = false; //disableFire
+                //ObjectivePanel.SetActive(false);
                 //TITE = "L1";
             }
 
@@ -95,7 +111,13 @@ public class TrialComputer : MonoBehaviour
                 string color = "#18eded";
                 canvasText.text = "" + "<color=" + color + ">" + myObj.Name + "</color>";
                 firstText = myObj.Name;
+
+                billBoardCamera.Priority = 11;
+                Fire.enableFire = false; //disableFire
+               // ObjectivePanel.SetActive(false);
             }
+
+            StartCoroutine(BackCamera());
         }
         if (Counter1.counter == 2)
         {
@@ -174,6 +196,9 @@ public class TrialComputer : MonoBehaviour
                 {
                     Debug.Log("HINDE__KANTOTERO");
                     BlueAlarm.SetActive(false);
+
+                    redAlarmCamera.Priority = 11;
+                    Fire.enableFire = false; //disableFire
                 }
             }
 
@@ -206,6 +231,9 @@ public class TrialComputer : MonoBehaviour
                 {
                     Debug.Log("HINDE__KANTOTERO");
                     BlueAlarm.SetActive(false);
+
+                    redAlarmCamera.Priority = 11;
+                    Fire.enableFire = false; //disableFire
                 }
             }
 
@@ -231,6 +259,9 @@ public class TrialComputer : MonoBehaviour
                 {
                     Debug.Log("HINDE__KANTOTERO");
                     BlueAlarm.SetActive(false);
+
+                    redAlarmCamera.Priority = 11;
+                    Fire.enableFire = false; //disableFire
                 }
             }
             else if (a == "SPACE_7")
@@ -255,9 +286,33 @@ public class TrialComputer : MonoBehaviour
                 {
                     Debug.Log("HINDE__KANTOTERO");
                     BlueAlarm.SetActive(false);
+
+                    redAlarmCamera.Priority = 11;
+                    Fire.enableFire = false; //disableFire
                 }
-            }      
+            }
+            StartCoroutine(BackCamera2());
         }
+        
+    }
+
+    IEnumerator BackCamera()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("CameraBill");
+        Fire.enableFire = true; //enaableFire
+        billBoardCamera.Priority = 0;
+        //ObjectivePanel.SetActive(true);
+
+    }
+
+    IEnumerator BackCamera2()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("CameraAlarm");
+        Fire.enableFire = true; //enaableFire
+        redAlarmCamera.Priority = 0;
+        
     }
 
     /*public void IncreaseAccuracy(string key, int increment)
