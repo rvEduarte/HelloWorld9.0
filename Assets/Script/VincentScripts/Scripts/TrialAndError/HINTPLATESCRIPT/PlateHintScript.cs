@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlateHintScript : MonoBehaviour
 {
+    public ShowHideScript showHideScript;
+    public BoxCollider2D box2D;
     public GameObject EXLA;
 
     public GameObject Hint;
@@ -25,8 +27,8 @@ public class PlateHintScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                HintPanel.SetActive(true);
-                Debug.Log("TITE SI KARL");
+                box2D.enabled = false;
+                showHideScript.ShowSpecificPanel(HintPanel);
             }
         }
     }

@@ -103,6 +103,7 @@ public class ZoomDialogueManager : MonoBehaviour
     }
     public void NextMessage()
     {
+        Debug.Log("NextMessage");
         if (isTyping)
         {
             isTyping = false; // Stop typing and display the whole message
