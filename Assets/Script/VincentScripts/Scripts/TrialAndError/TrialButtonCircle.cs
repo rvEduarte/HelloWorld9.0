@@ -8,6 +8,8 @@ public class TrialButtonCircle : MonoBehaviour
 {
     public Button yourButton;
 
+    public Image border;
+
     public Image slotDrop;
 
     public Image drag1;
@@ -20,7 +22,7 @@ public class TrialButtonCircle : MonoBehaviour
     public Image hintPanel;
     public Image hintButton;
 
-    public Image bgBorder;
+    //public Image bgBorder;
     public Image moveButton;
     public Image rightButton1;
     public Image leftButton1;
@@ -44,7 +46,7 @@ public class TrialButtonCircle : MonoBehaviour
     public CanvasRenderer rightFire;
     public CanvasRenderer hintText2;
     public CanvasRenderer startText;
-    public CanvasRenderer endText;
+    //public CanvasRenderer endText;
 
     void Start()
     {
@@ -91,12 +93,13 @@ public class TrialButtonCircle : MonoBehaviour
 
         hintText2.cull = shouldCull;
         startText.cull = shouldCull;
-        endText.cull = shouldCull;
+        //endText.cull = shouldCull;
     }
 
     void SetImageVisibility(bool isVisible)
     {
         // Using `enabled` to show or hide the images
+        border.enabled = isVisible;
         drag1.enabled = isVisible;
         drag2.enabled = isVisible;
         drag3.enabled = isVisible;
@@ -105,7 +108,7 @@ public class TrialButtonCircle : MonoBehaviour
         draggableSlots.enabled = isVisible;
         hintPanel.enabled = isVisible;
         hintButton.enabled = isVisible;
-        bgBorder.enabled = isVisible;
+        //bgBorder.enabled = isVisible;
         moveButton.enabled = isVisible;
         rightButton1.enabled = isVisible;
         leftButton1.enabled = isVisible;
