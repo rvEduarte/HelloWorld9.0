@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    public MouseControllerScript mouseController;
     private RectTransform rectTransform2;
     private CanvasGroup canvasGroup2;
 
@@ -57,6 +58,7 @@ public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         if (collision.gameObject.tag == "Player")
         {
             Gunportal.gameObject.SetActive(true);
+            mouseController.OnMouseEnter();
         }
     }
 
@@ -65,6 +67,7 @@ public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         if (collision.gameObject.tag == "Player")
         {
             Gunportal.gameObject.SetActive(false);
+            mouseController.OnMouseExit();
         }
     }
 }

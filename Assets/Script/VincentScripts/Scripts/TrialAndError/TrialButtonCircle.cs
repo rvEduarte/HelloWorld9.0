@@ -6,6 +6,7 @@ using UnityEditor;
 
 public class TrialButtonCircle : MonoBehaviour
 {
+
     public Button yourButton;
 
     public Image border;
@@ -65,6 +66,7 @@ public class TrialButtonCircle : MonoBehaviour
         {
             CullAllObjects(false); // Show objects
             SetImageVisibility(true);
+
         }
         else
         {
