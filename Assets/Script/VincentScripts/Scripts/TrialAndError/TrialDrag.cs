@@ -9,10 +9,12 @@ public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     [SerializeField]
     private GameObject Gunportal;
 
+    private Vector2 originalPosition;
+
     private void Start()
     {
-
         Gunportal.SetActive(false);
+        originalPosition = rectTransform2.anchoredPosition;  // Store the original position
     }
 
     private void Awake()
@@ -20,54 +22,49 @@ public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         rectTransform2 = GetComponent<RectTransform>();
         canvasGroup2 = GetComponent<CanvasGroup>();
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-       // Debug.Log("OnBeginDrag");
         canvasGroup2.alpha = .6f;
         canvasGroup2.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-       // Debug.Log("OnDrag");
         rectTransform2.anchoredPosition += eventData.delta;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnEndDrag");
         canvasGroup2.alpha = 1f;
         canvasGroup2.blocksRaycasts = true;
+
+        // Check if the object is dropped on a valid drop zone
+        if (eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<TrialDrop>() == null)
+        {
+            // If not dropped on a valid drop zone, snap back to the original position
+            rectTransform2.anchoredPosition = originalPosition;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("OnPointerDown");
+        // Handle pointer down logic here if needed
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-
-        
-   // }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("ENTERWORLD");
-        //if the game object we collided with is not equal to the current game object (so anything other than itself)
         if (collision.gameObject.tag == "Player")
         {
-            //turn dragging for this object off because we hit something
             Gunportal.gameObject.SetActive(true);
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-
             Gunportal.gameObject.SetActive(false);
         }
     }
-
 }
