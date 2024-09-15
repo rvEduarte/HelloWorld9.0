@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class LaserDialogueManager : MonoBehaviour
 {
+    public Button backpackButton;
+    public Button tutorialButton;
+
     public GameObject shootPanel;
     public Image actorImage;
     public TextMeshProUGUI actorName;
@@ -129,6 +132,8 @@ public class LaserDialogueManager : MonoBehaviour
             Debug.Log("Conversation ended!");
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
+            backpackButton.interactable = true;
+            tutorialButton.interactable = true;
 
             StartCoroutine(WaitForSec());
         }

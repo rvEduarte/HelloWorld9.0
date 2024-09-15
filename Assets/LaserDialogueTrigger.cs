@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LaserMessage
@@ -17,6 +18,9 @@ public class LaserActor
 }
 public class LaserDialogueTrigger : MonoBehaviour
 {
+    public Button backpackButton;
+    public Button tutorialButton;
+
     [Header("Laser")]
     public LaserMessage[] message;
     public LaserActor[] actor;
@@ -27,17 +31,28 @@ public class LaserDialogueTrigger : MonoBehaviour
 
     public void LaserStartDialogue()
     {
-        FindObjectOfType<LaserDialogueButtonManager>().OpenDialogue(laserMessage, laserActor);
+        StartCoroutine(WaitForSecond());
+        backpackButton.interactable = false;
+        tutorialButton.interactable = false;
     }
     public void StartDialogue()
     {
         StartCoroutine(WaitSecond());
+        backpackButton.interactable = false;
+        tutorialButton.interactable = false;
     }
 
     IEnumerator WaitSecond()
     {
         yield return new WaitForSeconds(0.5f);
         FindObjectOfType<LaserDialogueManager>().OpenDialogue(message, actor);
+
+    }
+
+    IEnumerator WaitForSecond() 
+    {
+        yield return new WaitForSeconds(1);
+        FindObjectOfType<LaserDialogueButtonManager>().OpenDialogue(laserMessage, laserActor);
     }
 
 

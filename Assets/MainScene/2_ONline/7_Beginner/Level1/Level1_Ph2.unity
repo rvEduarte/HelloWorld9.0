@@ -11480,6 +11480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5eba804b5699d44d970795de67dd5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backpackButton: {fileID: 1176998928437296475}
+  tutorialButton: {fileID: 5083845440955224292}
   message:
   - actorId: 1
     message: Woah, what's with that instruction?
@@ -12382,7 +12384,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.949063
+      m_AnimationSpeed: 6.9153404
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -15185,7 +15187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &977109825
@@ -15238,6 +15240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db56c60256acb7542ae741356f499a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backpackButton: {fileID: 1176998928437296475}
+  tutorialButton: {fileID: 5083845440955224292}
   shootPanel: {fileID: 1588807113}
   actorImage: {fileID: 969803833}
   actorName: {fileID: 856931782}
@@ -41504,6 +41508,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995793400}
+        m_TargetAssemblyTypeName: MouseControllerScript, Assembly-CSharp
+        m_MethodName: OnMouseExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -68810,7 +68826,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 6.6399636
+      m_AnimationSpeed: 6.5046554
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: 2, z: 0}
@@ -68829,7 +68845,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 6.796637
+      m_AnimationSpeed: 6.8410654
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -76137,7 +76153,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -949435529, guid: 3195833ad24c3614faed1a3eb141509a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -88635,7 +88651,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.1349683
+      m_AnimationSpeed: 7.4684496
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -101330,6 +101346,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995793400}
+        m_TargetAssemblyTypeName: MouseControllerScript, Assembly-CSharp
+        m_MethodName: OnMouseExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!224 &9178288147181437201

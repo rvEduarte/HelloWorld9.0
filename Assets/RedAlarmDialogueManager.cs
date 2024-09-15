@@ -140,8 +140,7 @@ public class RedAlarmDialogueManager : MonoBehaviour
             backpackButton.enabled = true;
             tutorialButton.enabled = true;
 
-            TriggerTutorial.disableMove = true; //enable Move
-            TriggerTutorial.disableJump = false; //enable jumping
+
         }
     }
 }
