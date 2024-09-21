@@ -24,7 +24,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     public void ChangeMasterVolume()
     {
-        settingAudioMixer.SetFloat("MasterV", masterVol.value);
+        settingAudioMixer.SetFloat("MasterVol", masterVol.value);
     }
 
     public void ChangeMusicVolume()
