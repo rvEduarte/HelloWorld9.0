@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class K_Pause : MonoBehaviour
 {
-    public GameObject pauseMenuUI; // Reference to the Pause Menu UI GameObject
-    public Button resumeButton; // Reference to the Resume Button UI element
-    public Button pauseButton; // Reference to the Pause Button UI element
-    public Button restartButton; // Reference to the Restart Button UI element
+    public GameObject pauseMenuUI; 
+    public Button resumeButton; 
+    public Button pauseButton; 
+    public Button restartButton; 
 
-    private bool isPaused = false; // Tracks whether the game is paused
+    private bool isPaused = false;
 
     void Start()
     {
@@ -19,14 +19,14 @@ public class K_Pause : MonoBehaviour
         pauseMenuUI.SetActive(false);
 
         // Add listeners to the buttons
-        pauseButton.onClick.AddListener(Pause); // Listener for the Pause button
-        resumeButton.onClick.AddListener(Resume); // Listener for the Resume button
-        restartButton.onClick.AddListener(RestartGame); // Listener for the Restart button
+        pauseButton.onClick.AddListener(Pause); 
+        resumeButton.onClick.AddListener(Resume); 
+        restartButton.onClick.AddListener(RestartGame); 
     }
 
     void Update()
     {
-        // Check if the player pressed the "Escape" key
+    
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -42,16 +42,16 @@ public class K_Pause : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenuUI.SetActive(true); // Show the pause menu
-        pauseButton.gameObject.SetActive(false); // Hide the pause button
+        pauseMenuUI.SetActive(true); 
+        pauseButton.gameObject.SetActive(false); 
         Time.timeScale = 0f; // Pause the game
         isPaused = true;
     }
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false); // Hide the pause menu
-        pauseButton.gameObject.SetActive(true); // Show the pause button
+        pauseMenuUI.SetActive(false); 
+        pauseButton.gameObject.SetActive(true); 
         Time.timeScale = 1f; // Unpause the game
         isPaused = false;
     }
