@@ -47,6 +47,7 @@ public class LoginScript : MonoBehaviour
     public GameObject errorPanel;
 
     [Header("NEW FUCKINSHIT")]
+    public GameObject onlineButtonPanel;
     public GameObject LoginPanel;
     public GameObject SetNickNamePanel;
     public GameObject NewUserPanel;
@@ -374,7 +375,9 @@ public class LoginScript : MonoBehaviour
             Debug.Log("Auto login");
 
             // Hide the buttons on the login screen
+            onlineButtonPanel.SetActive(false);
             LoginPanel.SetActive(false);
+            
 
             LootLockerSDKManager.CheckWhiteLabelSession(response =>
             {
@@ -385,7 +388,8 @@ public class LoginScript : MonoBehaviour
                     // they will get to the login screen
                     ShowErrorMessage("error while logging in");
                     LoginPanel.SetActive(true);
-                    
+                    onlineButtonPanel.SetActive(true);
+
                     //PlayerPrefs.SetInt("AutoLogin", 0);
                     //PlayerPrefs.Save();
                 }
