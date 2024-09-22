@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class TrialDragTwo : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     //public MouseControllerScript mouseController;
     private RectTransform rectTransform2;
@@ -41,7 +43,7 @@ public class TrialDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         canvasGroup2.blocksRaycasts = true;
 
         // Check if the object is dropped on a valid drop zone
-        if (eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<TrialDrop>() == null)
+        if (eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<TrialDropTWO>() == null)
         {
             // If not dropped on a valid drop zone, snap back to the original position
             rectTransform2.anchoredPosition = originalPosition;

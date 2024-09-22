@@ -38,7 +38,8 @@ public class JigsawScript : MonoBehaviour
             LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(jigsawPanel, Vector3.one, 0.5f);
-
+            TriggerTutorial.disableMove = false; //disable Move
+            TriggerTutorial.disableJump = true; //disable jumping
 
             Debug.Log("TITE");
         }         

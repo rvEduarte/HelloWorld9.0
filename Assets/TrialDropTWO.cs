@@ -4,13 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TrialDrop : MonoBehaviour, IDropHandler
+public class TrialDropTWO : MonoBehaviour, IDropHandler
 {
-    public TextMeshProUGUI line7Hint;
-    public TextMeshProUGUI line7Hint2;
+    public TextMeshProUGUI line8Hint;
     public ScriptableOutput output;
     public TextMeshProUGUI textOutput;
     public TextMeshProUGUI textLine7;
+    public TextMeshProUGUI textLine8;
 
     public GameObject outputPanel;
     public GameObject computerPanel;
@@ -20,7 +20,7 @@ public class TrialDrop : MonoBehaviour, IDropHandler
     public bool onceZoom;
     private void Start()
     {
-        onceZoom = false;    
+        onceZoom = false;
     }
     public void OnDrop(PointerEventData eventData)
     {
@@ -33,29 +33,29 @@ public class TrialDrop : MonoBehaviour, IDropHandler
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("WriteUp"))
+        if (collision.gameObject.CompareTag("WriteUp"))
         {
             Debug.Log("WriteUp");
-            textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
-            output.FirstOutput = "Console.Write(\"UP\")";
+            textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
+            output.SecondOutput = "Console.Write(\"UP\")";
         }
         else if (collision.gameObject.CompareTag("WriteDown"))
         {
-            Debug.Log("WriteDown");  
-            textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
-            output.FirstOutput = "Console.Write(\"DOWN\")";
+            Debug.Log("WriteDown");
+            textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
+            output.SecondOutput = "Console.Write(\"DOWN\")";
         }
         else if (collision.gameObject.CompareTag("WriteLineUp"))
         {
             Debug.Log("WriteLineUp");
-            textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"UP\"</color>);";
-            output.FirstOutput = "Console.WriteLine(\"UP\")";
+            textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"UP\"</color>);";
+            output.SecondOutput = "Console.WriteLine(\"UP\")";
         }
         else if (collision.gameObject.CompareTag("WriteLineDown"))
         {
             Debug.Log("WriteLineDown");
-            textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
-            output.FirstOutput = "Console.WriteLine(\"DOWN\")";
+            textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
+            output.SecondOutput = "Console.WriteLine(\"DOWN\")";
         }
     }
 
@@ -64,8 +64,8 @@ public class TrialDrop : MonoBehaviour, IDropHandler
         if (collision.gameObject.CompareTag("WriteUp"))
         {
             Debug.Log("WriteUp");
-            textLine7.text = "";
-            output.FirstOutput = "";
+            textLine8.text = "";
+            output.SecondOutput = "";
 
             textOutput.text = "";
             outputPanel.SetActive(false);
@@ -73,8 +73,8 @@ public class TrialDrop : MonoBehaviour, IDropHandler
         else if (collision.gameObject.CompareTag("WriteDown"))
         {
             Debug.Log("WriteDown");
-            textLine7.text = "";
-            output.FirstOutput = "";
+            textLine8.text = "";
+            output.SecondOutput = "";
 
             textOutput.text = "";
             outputPanel.SetActive(false);
@@ -82,8 +82,8 @@ public class TrialDrop : MonoBehaviour, IDropHandler
         else if (collision.gameObject.CompareTag("WriteLineUp"))
         {
             Debug.Log("WriteLineUp");
-            textLine7.text = "";
-            output.FirstOutput = "";
+            textLine8.text = "";
+            output.SecondOutput = "";
 
             textOutput.text = "";
             outputPanel.SetActive(false);
@@ -91,8 +91,8 @@ public class TrialDrop : MonoBehaviour, IDropHandler
         else if (collision.gameObject.CompareTag("WriteLineDown"))
         {
             Debug.Log("WriteLineDown");
-            textLine7.text = "";
-            output.FirstOutput = "";
+            textLine8.text = "";
+            output.SecondOutput = "";
 
             textOutput.text = "";
             outputPanel.SetActive(false);
@@ -102,48 +102,45 @@ public class TrialDrop : MonoBehaviour, IDropHandler
     public void RunButton()
     {
         outputPanel.SetActive(true);
-        if (output.FirstOutput == "Console.Write(\"UP\")")
+        if (output.SecondOutput == "Console.Write(\"UP\")")
         {
             onceZoom = true;
-            textOutput.text = "UP" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
-            output.FirstRunOutput = "UP";
-            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
-            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
-            StartCoroutine(hidePanel(3.43f));
-        }
-        else if (output.FirstOutput == "Console.Write(\"DOWN\")")
-        {
-            onceZoom = true;
-            textOutput.text = "DOWN" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
-            output.FirstRunOutput = "DOWN";
-            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
-            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
+            textOutput.text = output.FirstRunOutput + "UP" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
+            output.SecondRunOutput = "UP";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
 
-            StartCoroutine(hidePanel(-5.08f));
+            StartCoroutine(hidePanel(11.34f));
         }
-        else if (output.FirstOutput == "Console.WriteLine(\"UP\")")
+        else if (output.SecondOutput == "Console.Write(\"DOWN\")")
         {
             onceZoom = true;
-            textOutput.text = "UP\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
-            output.FirstRunOutput = "UP\n";
-            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"UP\"</color>);";
-            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
+            textOutput.text = output.FirstRunOutput + "DOWN" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
+            output.SecondRunOutput = "DOWN";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
 
-            StartCoroutine(hidePanel(3.43f));
+            StartCoroutine(hidePanel(-1.46f));
         }
-        else if (output.FirstOutput == "Console.WriteLine(\"DOWN\")")
+        else if (output.SecondOutput == "Console.WriteLine(\"UP\")")
         {
             onceZoom = true;
-            textOutput.text = "DOWN\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
-            output.FirstRunOutput = "DOWN\n";
-            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
-            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
+            textOutput.text = output.FirstRunOutput + "UP\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
+            output.SecondRunOutput = "UP\n";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"UP\"</color>);";
 
-            StartCoroutine(hidePanel(-5.08f));
+            StartCoroutine(hidePanel(11.34f));
+        }
+        else if (output.SecondOutput == "Console.WriteLine(\"DOWN\")")
+        {
+            onceZoom = true;
+            textOutput.text = output.FirstRunOutput + "DOWN\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
+            output.SecondRunOutput = "DOWN\n";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
+
+            StartCoroutine(hidePanel(-1.46f));
         }
         else
         {
-            textOutput.text = "<color=#03960f>ERROR!</color>";
+            textOutput.text = output.FirstRunOutput;
         }
 
         /*if (!onceZoom)
@@ -237,5 +234,4 @@ public class TrialDrop : MonoBehaviour, IDropHandler
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
     }
-
 }

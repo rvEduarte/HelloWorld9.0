@@ -186,13 +186,6 @@ public class JigsawDialogueManager : MonoBehaviour
             Debug.Log("Conversation ended!");
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
-
-            TriggerTutorial.disableMove = true; //enable Move
-            TriggerTutorial.disableJump = false; //enable jumping
-
-            tutorialButton.enabled = true; //enable clickable
-            backpackButton.enabled = true; // enable clickable
-
             StartCoroutine(MoveCameraPortal());
             //zoom
             //activate portal
@@ -203,7 +196,7 @@ public class JigsawDialogueManager : MonoBehaviour
 
     IEnumerator MoveCameraPortal()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         portalCamera.Priority = 12;
 
         portal.SetActive(true);
@@ -214,8 +207,15 @@ public class JigsawDialogueManager : MonoBehaviour
 
     IEnumerator BackCamera()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         portalCamera.Priority = 0;
+
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
+
+        tutorialButton.enabled = true; //enable clickable
+        backpackButton.enabled = true; // enable clickable
+        ComputerLevel1Ph1.disableInteract = true;
     }
 
     public void YesAndNoButton()  // BUTTON YES AND NO AFTER THE QUESTION
