@@ -8,27 +8,27 @@ using UnityEngine.UI;
 public class KurtSettingManager : MonoBehaviour
 {
     [Header("Sliders")]
-    public Slider masterVol; // Slider for master volume
-    public Slider musicVol;  // Slider for music volume
-    public Slider sfxVol;    // Slider for sound effects volume
+    public Slider masterVol; 
+    public Slider musicVol;  
+    public Slider sfxVol;    
 
     [Header("Audio Mixer")]
-    public AudioMixer settingAudioMixer; // Reference to the audio mixer
+    public AudioMixer settingAudioMixer; 
 
     [Header("Music Volume Icons")]
-    public Image musicIcon;             // UI Image component for the music icon
-    public Sprite musicVolumeSprite;    // Sprite for when there is music volume
-    public Sprite musicMutedSprite;     // Sprite for when music is muted
+    public Image musicIcon;             
+    public Sprite musicVolumeSprite;    
+    public Sprite musicMutedSprite;     
 
     [Header("Master Volume Icons")]
-    public Image masterIcon;            // UI Image component for the master icon
-    public Sprite masterVolumeSprite;   // Sprite for when there is master volume
-    public Sprite masterMutedSprite;    // Sprite for when master volume is muted
+    public Image masterIcon;           
+    public Sprite masterVolumeSprite;   
+    public Sprite masterMutedSprite;    
 
     [Header("Sound Effects Icons")]
-    public Image sfxIcon;               // UI Image component for the sound effects icon
-    public Sprite sfxVolumeSprite;      // Sprite for when there is sound effects volume
-    public Sprite sfxMutedSprite;       // Sprite for when sound effects are muted
+    public Image sfxIcon;               
+    public Sprite sfxVolumeSprite;      
+    public Sprite sfxMutedSprite;      
 
     private bool muted = false;
 
@@ -37,13 +37,13 @@ public class KurtSettingManager : MonoBehaviour
         settingAudioMixer.SetFloat("MasterVol", masterVol.value);
 
         // Change the sprite based on the master volume value
-        if (masterVol.value <= masterVol.minValue + 0.01f) // Check if slider value is close to minimum
+        if (masterVol.value <= masterVol.minValue + 0.01f) 
         {
-            masterIcon.sprite = masterMutedSprite; // Set to muted icon
+            masterIcon.sprite = masterMutedSprite; 
         }
         else
         {
-            masterIcon.sprite = masterVolumeSprite; // Set to volume icon
+            masterIcon.sprite = masterVolumeSprite; 
         }
     }
 
@@ -52,13 +52,13 @@ public class KurtSettingManager : MonoBehaviour
         settingAudioMixer.SetFloat("MusicV", musicVol.value);
 
         // Change the sprite based on the music volume value
-        if (musicVol.value <= musicVol.minValue + 0.01f) // Check if slider value is close to minimum
+        if (musicVol.value <= musicVol.minValue + 0.01f) 
         {
-            musicIcon.sprite = musicMutedSprite; // Set to muted icon
+            musicIcon.sprite = musicMutedSprite; 
         }
         else
         {
-            musicIcon.sprite = musicVolumeSprite; // Set to volume icon
+            musicIcon.sprite = musicVolumeSprite; 
         }
     }
 
@@ -67,13 +67,13 @@ public class KurtSettingManager : MonoBehaviour
         settingAudioMixer.SetFloat("MyExposedParam 2", sfxVol.value);
 
         // Change the sprite based on the SFX volume value
-        if (sfxVol.value <= sfxVol.minValue + 0.01f) // Check if slider value is close to minimum
+        if (sfxVol.value <= sfxVol.minValue + 0.01f) 
         {
-            sfxIcon.sprite = sfxMutedSprite; // Set to muted icon
+            sfxIcon.sprite = sfxMutedSprite; 
         }
         else
         {
-            sfxIcon.sprite = sfxVolumeSprite; // Set to volume icon
+            sfxIcon.sprite = sfxVolumeSprite; 
         }
     }
 
@@ -116,6 +116,6 @@ public class KurtSettingManager : MonoBehaviour
 
     void Update()
     {
-        // Update code if needed
+        // Empty for now
     }
 }

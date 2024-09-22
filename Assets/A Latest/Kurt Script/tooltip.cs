@@ -5,13 +5,13 @@ using TMPro;
 
 public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject tooltipPanel;           // Reference to the tooltip panel GameObject
-    public TextMeshProUGUI tooltipText;       // Reference to the TextMeshProUGUI component in the tooltip panel
-    public string tooltipMessage;             // The message to display in the tooltip
-    public float animationDuration = 0.2f;    // Duration of the fade animation
-    public GameObject otherButton;            // Reference to the other button to hide
+    public GameObject tooltipPanel;           
+    public TextMeshProUGUI tooltipText;       
+    public string tooltipMessage;             
+    public float animationDuration = 0.2f;    
+    public GameObject otherButton;            
 
-    private CanvasGroup canvasGroup;          // Reference to the CanvasGroup component on the tooltip panel
+    private CanvasGroup canvasGroup;         
     private Coroutine currentAnimation;
 
     void Start()
@@ -22,8 +22,8 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             canvasGroup = tooltipPanel.AddComponent<CanvasGroup>();
         }
-        canvasGroup.alpha = 0f;               // Tooltip starts as invisible
-        tooltipPanel.SetActive(false);        // Set the tooltip panel inactive initially
+        canvasGroup.alpha = 0f; // Tooltip starts as invisible
+        tooltipPanel.SetActive(false);        
     }
 
     // When the cursor enters the UI element area
@@ -32,7 +32,7 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // Set the tooltip message
         tooltipText.text = tooltipMessage;
 
-        // Activate the tooltip panel and start the fade-in animation
+        
         tooltipPanel.SetActive(true);
         if (currentAnimation != null)
         {
