@@ -2,34 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComputerLevel1Ph1 : MonoBehaviour
+public class ComputerLevel1Ph2 : MonoBehaviour
 {
     [SerializeField] public RectTransform WriteDown;
     [SerializeField] public RectTransform WriteUp;
     [SerializeField] public RectTransform WriteLineUp;
     [SerializeField] public RectTransform WriteLineDown;
 
-    [SerializeField]public GameObject ComputerPanel;
+    [SerializeField] public GameObject ComputerPanel;
 
     public GameObject hintText;
 
     private bool pickUpAllowed;
 
-    public static bool disableInteract;
-
     private void Start()
     {
         hintText.SetActive(false);
-        disableInteract = false;
     }
 
     private void Update()
     {
-        if(!disableInteract) return;
-
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
-            disableInteract = false;
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 
@@ -42,7 +36,6 @@ public class ComputerLevel1Ph1 : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!disableInteract) return;
         if (collision.gameObject.CompareTag("Player"))
         {
             hintText.SetActive(true);

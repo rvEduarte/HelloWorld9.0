@@ -12,4 +12,12 @@ public class ScriptableOutput : ScriptableObject
     public string FirstRunOutput;
     public string SecondRunOutput;
     public string LastRunOutput;
+
+    [Header("Output")]
+    [Header("LEVEL 1 PH2")]
+    public string FirstOutputPH2;
+    public string SecondOutputPH2;
+
+    public string FirstRunOutputPH2;
+    public string SecondRunOutputPH2;
 }
