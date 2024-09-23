@@ -78,7 +78,8 @@ public class TrialDropPh2ONE : MonoBehaviour, IDropHandler
             onceZoom = true;
             textOutput.text = "HE" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutputPH2 = "HE";
-            //line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
+            output.FirstOutputPH2TWO = "Console.Write(\"HE\")";
+            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
             //line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
             StartCoroutine(hidePanel(0.82f));
         }
@@ -87,7 +88,8 @@ public class TrialDropPh2ONE : MonoBehaviour, IDropHandler
             onceZoom = true;
             textOutput.text = "HE\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutputPH2 = "HE\n";
-            //line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"HE\"</color>);";
+            output.FirstOutputPH2TWO = "Console.WriteLine(\"HE\")";
+            line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"HE\"</color>);";
             //line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
 
             StartCoroutine(hidePanel(0.82f));

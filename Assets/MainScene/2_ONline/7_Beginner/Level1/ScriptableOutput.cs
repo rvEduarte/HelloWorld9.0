@@ -16,7 +16,10 @@ public class ScriptableOutput : ScriptableObject
     [Header("Output")]
     [Header("LEVEL 1 PH2")]
     public string FirstOutputPH2;
+    public string FirstOutputPH2TWO;
+
     public string SecondOutputPH2;
+    public string SecondOutputPH2TWO;
 
     public string FirstRunOutputPH2;
     public string SecondRunOutputPH2;

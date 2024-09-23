@@ -33,13 +33,13 @@ public class TrialDropTWO : MonoBehaviour, IDropHandler
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("WriteLine"))
+        if (collision.gameObject.CompareTag("WriteUp"))
         {
-            Debug.Log("WriteLine");
+            Debug.Log("Write");
             textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
             output.SecondOutput = "Console.Write(\"UP\")";
         }
-        else if (collision.gameObject.CompareTag("Write"))
+        else if (collision.gameObject.CompareTag("WriteDown"))
         {
             Debug.Log("Write");
             textLine8.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
@@ -61,16 +61,16 @@ public class TrialDropTWO : MonoBehaviour, IDropHandler
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("WriteLine"))
+        if (collision.gameObject.CompareTag("WriteUp"))
         {
-            Debug.Log("WriteLine");
+            Debug.Log("WriteUp");
             textLine8.text = "";
             output.SecondOutput = "";
 
             textOutput.text = "";
             outputPanel.SetActive(false);
         }
-        else if (collision.gameObject.CompareTag("Write"))
+        else if (collision.gameObject.CompareTag("WriteDown"))
         {
             Debug.Log("Write");
             textLine8.text = "";
