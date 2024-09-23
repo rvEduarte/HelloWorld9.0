@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComputerLevel1Ph2ONE : MonoBehaviour
+public class ComputerLevel1Ph2THREE : MonoBehaviour
 {
-    public GameObject bridgeObject1;
-    public GameObject bridgeObject2;
-    public GameObject bridgeObject3;
-
     [SerializeField] public RectTransform Write;
     [SerializeField] public RectTransform WriteLine;
 
@@ -26,9 +22,6 @@ public class ComputerLevel1Ph2ONE : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
-            bridgeObject1.SetActive(false);
-            bridgeObject2.SetActive(false);
-            bridgeObject3.SetActive(false);
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 

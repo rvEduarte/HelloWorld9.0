@@ -21,6 +21,8 @@ public class ScriptableOutput : ScriptableObject
     public string SecondOutputPH2;
     public string SecondOutputPH2TWO;
 
+    public string LastOutputPH2;
+
     public string FirstRunOutputPH2;
     public string SecondRunOutputPH2;
 }

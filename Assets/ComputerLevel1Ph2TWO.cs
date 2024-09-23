@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ComputerLevel1Ph2TWO : MonoBehaviour
 {
+    public GameObject moveObject1;
+    public GameObject moveObject2;
     [SerializeField] public RectTransform Write;
     [SerializeField] public RectTransform WriteLine;
 
@@ -22,6 +24,8 @@ public class ComputerLevel1Ph2TWO : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            moveObject1.SetActive(false);
+            moveObject2.SetActive(false);
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 

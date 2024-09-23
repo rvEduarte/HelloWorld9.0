@@ -80,7 +80,7 @@ public class TrialDropPh2ONE : MonoBehaviour, IDropHandler
             output.FirstRunOutputPH2 = "HE";
             output.FirstOutputPH2TWO = "Console.Write(\"HE\")";
             line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
-            //line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
+            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
             StartCoroutine(hidePanel(0.82f));
         }
         else if (output.FirstOutputPH2 == "Console.WriteLine(\"HE\")")
@@ -90,7 +90,7 @@ public class TrialDropPh2ONE : MonoBehaviour, IDropHandler
             output.FirstRunOutputPH2 = "HE\n";
             output.FirstOutputPH2TWO = "Console.WriteLine(\"HE\")";
             line7Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"HE\"</color>);";
-            //line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"HE\"</color>);";
+            line7Hint2.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"HE\"</color>);";
 
             StartCoroutine(hidePanel(0.82f));
         }

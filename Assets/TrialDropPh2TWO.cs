@@ -79,7 +79,8 @@ public class TrialDropPh2TWO : MonoBehaviour, IDropHandler
             onceZoom = true;
             textOutput.text = output.FirstRunOutputPH2 + "LL" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.SecondRunOutputPH2 = "LL";
-            //line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"LL\"</color>);";
+            output.SecondOutputPH2TWO = "Console.Write(\"LL\")";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"LL\"</color>);";
 
             StartCoroutine(hidePanel(84.71f, 0.82f));
         }
@@ -88,27 +89,30 @@ public class TrialDropPh2TWO : MonoBehaviour, IDropHandler
             onceZoom = true;
             textOutput.text = output.FirstRunOutputPH2 + "LL" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.SecondRunOutputPH2 = "LL\n";
-            //line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"LL\"</color>);";
+            output.SecondOutputPH2TWO = "Console.WriteLine(\"LL\")";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"LL\"</color>);";
 
             StartCoroutine(hidePanel(84.71f, 0.82f));
         }
-        else if (output.FirstOutputPH2TWO == "Console.WriteLine(\"HE\")" && output.SecondOutput == "Console.Write(\"LL\")")
+        else if (output.FirstOutputPH2TWO == "Console.WriteLine(\"HE\")" && output.SecondOutputPH2 == "Console.Write(\"LL\")")
         {
             onceZoom = true;
             textOutput.text = output.FirstRunOutputPH2 + "LL\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.SecondRunOutputPH2 = "LL";
-            //line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"LL\"</color>);";
+            output.SecondOutputPH2TWO = "Console.Write(\"LL\")";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"LL\"</color>);";
 
-            StartCoroutine(hidePanel(74.05f, -5.86f));
+            StartCoroutine(hidePanel(73.82f, -5.86f));
         }
-        else if (output.FirstOutputPH2TWO == "Console.WriteLine(\"HE\")" && output.SecondOutput == "Console.WriteLine(\"LL\")")
+        else if (output.FirstOutputPH2TWO == "Console.WriteLine(\"HE\")" && output.SecondOutputPH2 == "Console.WriteLine(\"LL\")")
         {
             onceZoom = true;
             textOutput.text = output.FirstRunOutputPH2 + "LL\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.SecondRunOutputPH2 = "LL\n";
-            //line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"LL\"</color>);";
+            output.SecondOutputPH2TWO = "Console.WriteLine(\"LL\")";
+            line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"LL\"</color>);";
 
-            StartCoroutine(hidePanel(74.05f , - 5.86f));
+            StartCoroutine(hidePanel(73.82f, - 5.86f));
         }
         else
         {
@@ -201,8 +205,10 @@ public class TrialDropPh2TWO : MonoBehaviour, IDropHandler
     {
         yield return new WaitForSeconds(0.5f);
         platform1.SetActive(true);
-        LeanTween.moveY(platform1, numberY, 0.1f);
-        LeanTween.moveX(platform1, numberX, 0.1f);
+        //LeanTween.moveY(platform1, numberY, 0.1f);
+        //LeanTween.moveX(platform1, numberX, 0.1f);
+
+        platform1.transform.position = new Vector3(numberX, numberY, platform1.transform.position.z);
 
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move
