@@ -20,11 +20,11 @@ public class KurtComputer : MonoBehaviour
 
     private void Update()
     {
-        if (!disableInteract) return;
+        //if (!disableInteract) return;
 
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
-            disableInteract = false;
+            //disableInteract = false;
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 
@@ -34,7 +34,7 @@ public class KurtComputer : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!disableInteract) return;
+        //if (!disableInteract) return;
         if (collision.gameObject.name.Equals("Player"))
         {
             hintText.SetActive(true);

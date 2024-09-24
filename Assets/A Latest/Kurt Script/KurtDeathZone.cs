@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class KurtDeathZone : MonoBehaviour
 {
-    // The position to which the player will respawn.
-    public Transform respawnPoint;
+    Vector2 startPoint;
 
-    // This method is called when the player enters a trigger collider.
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Start()
     {
-        // Check if the player has entered the DeadZone.
-        if (other.CompareTag("DeadZone"))
+        startPoint = transform.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DeadZone"))
         {
-            // Respawn the player to the respawn point.
-            Respawn();
+            Die();
         }
     }
 
-    // Method to respawn the player.
-    private void Respawn()
+    void Die()
     {
-        // Set the player's position to the respawn point.
-        transform.position = respawnPoint.position;
+        Respawn();
     }
+
+    void Respawn()
+    {
+        transform.position = startPoint;   
+    }
+
 }
