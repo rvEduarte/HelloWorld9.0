@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ComputerLevel1Ph2ONE : MonoBehaviour
 {
+    public GameObject laserObject;
     public GameObject bridgeObject1;
     public GameObject bridgeObject2;
     public GameObject bridgeObject3;
@@ -26,6 +27,7 @@ public class ComputerLevel1Ph2ONE : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            laserObject.SetActive(true);
             bridgeObject1.SetActive(false);
             bridgeObject2.SetActive(false);
             bridgeObject3.SetActive(false);

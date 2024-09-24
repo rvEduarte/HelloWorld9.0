@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,12 @@ using UnityEngine.EventSystems;
 
 public class TrialDropPh2THREE : MonoBehaviour, IDropHandler
 {
+    public CinemachineVirtualCamera vCam;
+    public GameObject player;
+    public GameObject movingObject1;
+    public GameObject movingObject2;
+    public GameObject movingObject3;
+
     public GameObject laserObject;
     public ScriptableOutput output;
     public TextMeshProUGUI textOutput;
@@ -69,6 +76,20 @@ public class TrialDropPh2THREE : MonoBehaviour, IDropHandler
         }
     }
 
+    public void ResetButton()
+    {
+        player.transform.position = new Vector3(66.1f, 3.59f, platform1.transform.position.z);
+
+        movingObject1.SetActive(false);
+        movingObject2.SetActive(false);
+        movingObject3.SetActive(false);
+
+        LeanTween.scale(computerPanel, Vector2.zero, 0.5f);
+        ComputerLevel1Ph1.disableInteract = true;
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
+
+    }
     public void RunButton()
     {
         outputPanel.SetActive(true);
@@ -248,9 +269,17 @@ public class TrialDropPh2THREE : MonoBehaviour, IDropHandler
         //LeanTween.moveY(platform1, numberY, 0.1f);
         //LeanTween.moveX(platform1, numberX, 0.1f);
 
+        vCam.Priority = 12;
         laserObject.SetActive(false);
         platform1.transform.position = new Vector3(numberX, numberY, platform1.transform.position.z);
+        StartCoroutine(BackCamera());
 
+
+    }
+    IEnumerator BackCamera()
+    {
+        yield return new WaitForSeconds(5f);
+        vCam.Priority = 0;
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping

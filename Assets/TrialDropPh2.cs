@@ -31,13 +31,13 @@ public class TrialDropPh2 : MonoBehaviour, IDropHandler
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("WriteLine"))
+        if (collision.gameObject.CompareTag("WriteUp"))
         {
             Debug.Log("WriteLine");
             textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"UP\"</color>);";
             output.FirstOutput = "Console.Write(\"UP\")";
         }
-        else if (collision.gameObject.CompareTag("Write"))
+        else if (collision.gameObject.CompareTag("WriteDown"))
         {
             Debug.Log("Write");
             textLine7.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
@@ -59,7 +59,7 @@ public class TrialDropPh2 : MonoBehaviour, IDropHandler
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("WriteLine"))
+        if (collision.gameObject.CompareTag("WriteUp"))
         {
             Debug.Log("WriteLine");
             textLine7.text = "";
@@ -68,7 +68,7 @@ public class TrialDropPh2 : MonoBehaviour, IDropHandler
             textOutput.text = "";
             outputPanel.SetActive(false);
         }
-        else if (collision.gameObject.CompareTag("Write"))
+        else if (collision.gameObject.CompareTag("WriteDown"))
         {
             Debug.Log("Write");
             textLine7.text = "";
