@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class KurtDeathZone : MonoBehaviour
 {
-    Vector2 startPoint;
+    Vector2 checkPoint;
 
     private void Start()
     {
-        startPoint = transform.position;
+        checkPoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,6 +19,11 @@ public class KurtDeathZone : MonoBehaviour
         }
     }
 
+    public void UpdateCheckPoint(Vector2 pos)
+    {
+        checkPoint = pos;
+    }
+
     void Die()
     {
         Respawn();
@@ -26,7 +31,7 @@ public class KurtDeathZone : MonoBehaviour
 
     void Respawn()
     {
-        transform.position = startPoint;   
+        transform.position = checkPoint;   
     }
 
 }
