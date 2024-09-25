@@ -28,6 +28,7 @@ public class ComputerLevel1Ph2 : MonoBehaviour
             TriggerTutorial.disableJump = true; //disable jumping
 
             LeanTween.scale(ComputerPanel, Vector2.one, 0.5f);
+
             WriteDown.anchoredPosition = new Vector2(-519f, -5f);
             WriteUp.anchoredPosition = new Vector2(-66.35299f, -5f);
             WriteLineUp.anchoredPosition = new Vector2(-66.35299f, -191f);
