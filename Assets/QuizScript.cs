@@ -6,65 +6,131 @@ using UnityEngine.UI;
 
 public class QuizScript : MonoBehaviour
 {
-    [Header("Quiz UI Elements")]
-    public GameObject quizPanel;           // The panel that shows the quiz
-    public Text questionText;              // Text component to display the question
-    public Button option1Button;           // Button for the first answer option
-    public Button option2Button;           // Button for the second answer option
-    public Button option3Button;           // Button for the third answer option
-    public Text feedbackText;              // Feedback text to show if the answer is correct or not
-
-    [Header("Platform Control")]
-    public GameObject platform;            // The platform that will move up
-    public Animator platformAnimator;      // Animator component to control platform movement
-
-    private string correctAnswer = "int";  // The correct answer for the quiz question
+    public GameObject bridge;                   // Reference to the bridge GameObject
+    public TextMeshProUGUI consoleOutput;       // TextMeshProUGUI component for console output
+    public TMP_InputField consoleInput;         // TMP_InputField for player input
+    private bool isBridgeRaised = false;        // To check if the bridge is already raised
 
     private void Start()
     {
-        // Hide the quiz panel and feedback at the start
-        quizPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false);
-
-        // Add listeners to the option buttons
-        option1Button.onClick.AddListener(() => CheckAnswer(option1Button.GetComponentInChildren<Text>().text));
-        option2Button.onClick.AddListener(() => CheckAnswer(option2Button.GetComponentInChildren<Text>().text));
-        option3Button.onClick.AddListener(() => CheckAnswer(option3Button.GetComponentInChildren<Text>().text));
+        consoleOutput.text = "Console: Type commands to raise the bridge.\n";
+        consoleOutput.text += "Commands: setBridgeHeight <int>, toggleBridge <bool>, setBridgeStatus <string>.\n";
+        consoleInput.onEndEdit.AddListener(HandleConsoleInput); // Add listener for input submission
     }
 
-    // Function to show the quiz panel
-    public void ShowQuiz()
+    // Handles the player's input from the console
+    private void HandleConsoleInput(string input)
     {
-        quizPanel.SetActive(true);
-        feedbackText.gameObject.SetActive(false);
-        questionText.text = "Which keyword is used to declare an integer variable in C#?";
-        option1Button.GetComponentInChildren<Text>().text = "string";
-        option2Button.GetComponentInChildren<Text>().text = "float";
-        option3Button.GetComponentInChildren<Text>().text = "int";
-    }
+        consoleInput.text = ""; // Clear the input field after submission
+        consoleInput.ActivateInputField(); // Re-focus the input field after clearing
 
-    // Function to check if the selected answer is correct
-    private void CheckAnswer(string selectedAnswer)
-    {
-        if (selectedAnswer == correctAnswer)
+        if (input.StartsWith("setBridgeHeight"))
         {
-            feedbackText.text = "Correct! The platform will now rise.";
-            feedbackText.color = Color.green;
-            ActivatePlatform(); // Call function to move the platform
+            SetBridgeHeightCommand(input);
+        }
+        else if (input.StartsWith("toggleBridge"))
+        {
+            ToggleBridgeCommand(input);
+        }
+        else if (input.StartsWith("setBridgeStatus"))
+        {
+            SetBridgeStatusCommand(input);
         }
         else
         {
-            feedbackText.text = "Incorrect. Try again!";
-            feedbackText.color = Color.red;
+            DisplayMessage("Invalid command. Try again.");
         }
-        feedbackText.gameObject.SetActive(true);
     }
 
-    // Function to activate the platform's upward movement
-    private void ActivatePlatform()
+    // Command to set the height of the bridge
+    private void SetBridgeHeightCommand(string input)
     {
-        quizPanel.SetActive(false); // Hide the quiz panel
-        platform.SetActive(true); // Make sure the platform is active
-        platformAnimator.SetTrigger("Rise"); // Trigger the platform's rise animation
+        string[] parts = input.Split(' ');
+        if (parts.Length == 2 && int.TryParse(parts[1], out int height))
+        {
+            if (height > 0 && !isBridgeRaised)
+            {
+                bridge.transform.position += new Vector3(0, height, 0); // Move the bridge up
+                isBridgeRaised = true;
+                DisplayMessage($"Bridge raised by {height} units.");
+            }
+            else if (isBridgeRaised)
+            {
+                DisplayMessage("Bridge is already raised.");
+            }
+            else
+            {
+                DisplayMessage("Height must be greater than 0.");
+            }
+        }
+        else
+        {
+            DisplayMessage("Usage: setBridgeHeight <int>");
+        }
+    }
+
+    // Command to toggle the bridge up or down using a boolean
+    private void ToggleBridgeCommand(string input)
+    {
+        string[] parts = input.Split(' ');
+        if (parts.Length == 2 && bool.TryParse(parts[1], out bool toggle))
+        {
+            if (toggle && !isBridgeRaised)
+            {
+                bridge.transform.position += new Vector3(0, 5, 0); // Move the bridge up
+                isBridgeRaised = true;
+                DisplayMessage("Bridge raised.");
+            }
+            else if (!toggle && isBridgeRaised)
+            {
+                bridge.transform.position -= new Vector3(0, 5, 0); // Move the bridge down
+                isBridgeRaised = false;
+                DisplayMessage("Bridge lowered.");
+            }
+            else
+            {
+                DisplayMessage("Bridge is already in the desired state.");
+            }
+        }
+        else
+        {
+            DisplayMessage("Usage: toggleBridge <bool>");
+        }
+    }
+
+    // Command to set the status of the bridge with a string
+    private void SetBridgeStatusCommand(string input)
+    {
+        string[] parts = input.Split(' ');
+        if (parts.Length == 2)
+        {
+            string status = parts[1].ToLower();
+            if (status == "up" && !isBridgeRaised)
+            {
+                bridge.transform.position += new Vector3(0, 5, 0); // Move the bridge up
+                isBridgeRaised = true;
+                DisplayMessage("Bridge status set to UP.");
+            }
+            else if (status == "down" && isBridgeRaised)
+            {
+                bridge.transform.position -= new Vector3(0, 5, 0); // Move the bridge down
+                isBridgeRaised = false;
+                DisplayMessage("Bridge status set to DOWN.");
+            }
+            else
+            {
+                DisplayMessage("Bridge is already in the desired status.");
+            }
+        }
+        else
+        {
+            DisplayMessage("Usage: setBridgeStatus <string> (up/down)");
+        }
+    }
+
+    // Display a message on the console output
+    private void DisplayMessage(string message)
+    {
+        consoleOutput.text += message + "\n";
     }
 }
