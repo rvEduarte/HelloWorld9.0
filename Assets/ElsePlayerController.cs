@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ElsePlayerController : MonoBehaviour, pIPlayerController
 {
+    [SerializeField] private SpriteRenderer sprite;
+
     [SerializeField] private ElseScriptableStats _stats;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _col;
@@ -48,7 +50,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
 
         if (!TriggerTutorial.disableJump)
         {
-            _frameInput.JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C);
+            //_frameInput.JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C);
         }
 
         if (_stats.SnapInput)
@@ -76,36 +78,42 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         HandleGravity();
 
         ApplyMovement();
-    }
 
+        ElseController();
+    }
     // UI Button Input Methods
     public void OnLeftButtonDown()
     {
-        Debug.Log("LeftButtonDown");
+        //Debug.Log("LeftButtonDown");
         _frameInput.Move.x = -1f;
     }
 
     public void OnRightButtonDown()
     {
-        Debug.Log("LeftButton");
+        
         _frameInput.Move.x = 1f;
     }
-
     public void OnJumpButtonDown()
     {
+        //Debug.Log("LeftButtonDown");
         _frameInput.JumpDown = true;
         _frameInput.JumpHeld = true;
-        _jumpToConsume = true;
-        _timeJumpWasPressed = _time;
+        if (_frameInput.JumpDown)
+        {
+            _jumpToConsume = true;
+            _timeJumpWasPressed = _time;
+        }
     }
 
     public void OnJumpButtonUp()
     {
-        _frameInput.JumpHeld = false;  // Release jump button
+        //Debug.Log("LeftButtonUP");
+        _frameInput.JumpHeld = false;
     }
 
     public void OnLeftButtonUp()
     {
+        //Debug.Log("LeftButtonUP");
         if (_frameInput.Move.x < 0) _frameInput.Move.x = 0;
     }
 
@@ -125,6 +133,28 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             _rb.velocity = _frameVelocity;
         }
     }
+
+    //------------------------------------------------------ELSE CONTROLLER-----------------------------------------------------------------------------
+    private void ElseController()
+    {
+
+        //---------------------------------------------------------SECOND ROW--------------------------------------------------------------------------------//
+
+
+        //---------------------------------------------------------LAST ROW--------------------------------------------------------------------------------//
+        if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
+        {
+            //Debug.Log("move left");
+            OnLeftButtonDown();
+        }
+        else if(sprite.flipX == false && Row3ThirdSlotScript.Row3Walk == true) // MOVE RIGHT
+        {
+            OnRightButtonDown();
+        }
+    }
+
+
+
 
     #region Collisions
 
@@ -201,6 +231,8 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         _frameVelocity.y = _stats.InitialJumpPower;
         Jumped?.Invoke();
 
+        Debug.Log("Jump executed. Starting coroutine for jump hold.");
+
         // Start the coroutine to extend the jump if the button is held
         StartCoroutine(ApplyHeldJump());
     }
@@ -209,13 +241,18 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     {
         float elapsedTime = 0f;
 
+        Debug.Log($"JumpHeld: {_frameInput.JumpHeld}");
+
         // Continue increasing jump force while jump button is held and time hasn't exceeded max jump hold time
         while (_frameInput.JumpHeld && elapsedTime < _stats.MaxJumpHoldTime)
         {
+            Debug.Log("Extending jump...");
             _frameVelocity.y += _stats.HeldJumpPower * Time.fixedDeltaTime;
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+
+        Debug.Log("Jump extension finished.");
     }
 
     #endregion

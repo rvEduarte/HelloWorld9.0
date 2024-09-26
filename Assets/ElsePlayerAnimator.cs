@@ -32,6 +32,10 @@ public class ElsePlayerAnimator : MonoBehaviour
     private bool _grounded;
     private ParticleSystem.MinMaxGradient _currentGradient;
 
+    //-------------------------- NEW --------------------------
+    private bool _isFlippingWall;
+    // -------------------------------------------------------
+
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
@@ -67,9 +71,21 @@ public class ElsePlayerAnimator : MonoBehaviour
         HandleCharacterTilt();
     }
 
-    private void HandleSpriteFlip()
+    /*private void HandleSpriteFlip()
     {
         if (_player.FrameInput.x != 0) _sprite.flipX = _player.FrameInput.x < 0;
+    }*/
+    // Add this method to set the wall flip state
+    public void SetWallFlip(bool isFlipping)
+    {
+        _isFlippingWall = isFlipping;
+    }
+    private void HandleSpriteFlip()
+    {
+        if (!_isFlippingWall && _player.FrameInput.x != 0)
+        {
+            _sprite.flipX = _player.FrameInput.x < 0;
+        }
     }
 
     private void HandleIdleSpeed()
