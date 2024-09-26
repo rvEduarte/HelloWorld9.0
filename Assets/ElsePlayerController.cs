@@ -5,12 +5,12 @@ using TarodevController;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class ElsePlayerController : MonoBehaviour
+public class ElsePlayerController : MonoBehaviour, pIPlayerController
 {
-    [SerializeField] private ScriptableStats _stats;
+    [SerializeField] private ElseScriptableStats _stats;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _col;
-    private FrameInput _frameInput;
+    private ElseFrameInput _frameInput;
     private Vector2 _frameVelocity;
     private bool _cachedQueryStartInColliders;
 
@@ -42,7 +42,7 @@ public class ElsePlayerController : MonoBehaviour
     {
         if (!TriggerTutorial.disableMove)
         {
-            _frameInput = new FrameInput();  // Zero out input when movement is disabled
+            _frameInput = new ElseFrameInput();  // Zero out input when movement is disabled
             return;
         }
 
@@ -95,11 +95,13 @@ public class ElsePlayerController : MonoBehaviour
     {
         _frameInput.JumpDown = true;
         _frameInput.JumpHeld = true;
+        _jumpToConsume = true;
+        _timeJumpWasPressed = _time;
     }
 
     public void OnJumpButtonUp()
     {
-        _frameInput.JumpHeld = false;
+        _frameInput.JumpHeld = false;  // Release jump button
     }
 
     public void OnLeftButtonUp()
@@ -176,7 +178,10 @@ public class ElsePlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;
+        if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0)
+        {
+            _endedJumpEarly = true;
+        }
 
         if (!_jumpToConsume && !HasBufferedJump) return;
 
@@ -191,8 +196,26 @@ public class ElsePlayerController : MonoBehaviour
         _timeJumpWasPressed = 0;
         _bufferedJumpUsable = false;
         _coyoteUsable = false;
-        _frameVelocity.y = _stats.JumpPower;
+
+        // Apply initial jump power
+        _frameVelocity.y = _stats.InitialJumpPower;
         Jumped?.Invoke();
+
+        // Start the coroutine to extend the jump if the button is held
+        StartCoroutine(ApplyHeldJump());
+    }
+
+    private IEnumerator ApplyHeldJump()
+    {
+        float elapsedTime = 0f;
+
+        // Continue increasing jump force while jump button is held and time hasn't exceeded max jump hold time
+        while (_frameInput.JumpHeld && elapsedTime < _stats.MaxJumpHoldTime)
+        {
+            _frameVelocity.y += _stats.HeldJumpPower * Time.fixedDeltaTime;
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     #endregion
@@ -241,7 +264,7 @@ public class ElsePlayerController : MonoBehaviour
 #endif
 }
 
-public struct FrameInput
+public struct ElseFrameInput
 {
     public bool JumpDown;
     public bool JumpHeld;

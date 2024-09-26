@@ -5,6 +5,11 @@ namespace TarodevController
     [CreateAssetMenu]
     public class ScriptableStats : ScriptableObject
     {
+        [Header("JUMP")]
+        public float InitialJumpPower = 36;  // Power for the initial jump
+        public float HeldJumpPower = 10;     // Additional power when holding the jump button
+        public float MaxJumpHoldTime = 0.5f; // Maximum time for holding the jump button
+
         [Header("LAYERS")] [Tooltip("Set this to the layer your player is on")]
         public LayerMask PlayerLayer;
 
