@@ -7,6 +7,7 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
 {
     private ElsePlayerController playerController;
     public static bool Row3Walk;
+    public static bool Row3Jump;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -26,6 +27,10 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Row3Walk = true;
         }
+        if (collision.gameObject.CompareTag("Jump"))
+        {
+            Row3Jump = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -34,6 +39,10 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
             Row3Walk = false;
             playerController.OnLeftButtonUp();
             playerController.OnRightButtonUp();
+        }
+        if (collision.gameObject.CompareTag("Jump"))
+        {
+            Row3Jump = false;
         }
     }
 }

@@ -16,6 +16,8 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     private Vector2 _frameVelocity;
     private bool _cachedQueryStartInColliders;
 
+    private bool _isJumping = true;
+
     #region Interface
 
     public Vector2 FrameInput => _frameInput.Move;
@@ -142,7 +144,17 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
 
 
         //---------------------------------------------------------LAST ROW--------------------------------------------------------------------------------//
-        if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
+
+        if (sprite.flipX && Row3ThirdSlotScript.Row3Walk && Row2ThirdSlotScript.Row2Jump == true) // MOVE LEFT AND JUMP
+        {
+            Debug.Log("move left AND JUMP");
+            OnLeftButtonDown();
+
+            if (!_isJumping) return;
+            StartCoroutine(HandleJumpCoroutine());
+
+        }
+        else if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
         {
             //Debug.Log("move left");
             OnLeftButtonDown();
@@ -151,6 +163,24 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         {
             OnRightButtonDown();
         }
+        else if(Row3ThirdSlotScript.Row3Jump == true)
+        {
+            if (!_isJumping) return;
+            StartCoroutine(HandleJumpCoroutine());
+        }
+    }
+
+    // Coroutine for holding jump button
+    private IEnumerator HandleJumpCoroutine()
+    {
+        _isJumping = false;  // Set jumping status to true
+
+        OnJumpButtonDown();  // Simulate pressing the jump button
+        yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
+
+        OnJumpButtonUp();  // Simulate releasing the jump button
+
+        _isJumping = true;  // Set jumping status to false after finishing the jump
     }
 
 

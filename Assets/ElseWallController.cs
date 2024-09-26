@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ElseWallController : MonoBehaviour
 {
+    public ElsePlayerController playerController;
     public SpriteRenderer sprite;
     private ElsePlayerAnimator playerAnimator;
 
@@ -11,6 +12,8 @@ public class ElseWallController : MonoBehaviour
     public LayerMask playerLayer;  // Layer for player detection
 
     private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
+
+    private bool _isJumping = true;
 
     private void Awake()
     {
@@ -46,11 +49,48 @@ public class ElseWallController : MonoBehaviour
             // Update player detection state for the next frame
             playerDetectedLastFrame = playerDetectedThisFrame;
         }
+        else if(Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
+        {
+            // Cast a ray from the wall to detect if the player is nearby
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
+
+            bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
+
+            // If the player was detected last frame but is no longer detected, the player has left the raycast
+            if (!playerDetectedThisFrame && playerDetectedLastFrame)
+            {
+                Debug.Log("Player left the raycast");
+                //playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
+            }
+
+            // If the player was just detected this frame and was not detected in the last frame, trigger the flip
+            if (playerDetectedThisFrame && !playerDetectedLastFrame)
+            {
+                Debug.Log("Player detected by wall raycast");
+                if (!_isJumping) return;
+                StartCoroutine(HandleJumpCoroutine());
+            }
+
+            // Update player detection state for the next frame
+            playerDetectedLastFrame = playerDetectedThisFrame;
+
+        }
         else
         {
             // Conditions are not met, skipping execution
             return;
         }
+    }
+    private IEnumerator HandleJumpCoroutine()
+    {
+        _isJumping = false;  // Set jumping status to true
+
+        playerController.OnJumpButtonDown();  // Simulate pressing the jump button
+        yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
+
+        playerController.OnJumpButtonUp();  // Simulate releasing the jump button
+
+        _isJumping = true;  // Set jumping status to false after finishing the jump
     }
 
     private void OnDrawGizmos()
