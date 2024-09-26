@@ -8,6 +8,7 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
     private ElsePlayerController playerController;
     public static bool Row3Walk;
     public static bool Row3Jump;
+    public static bool Row3Flip;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -31,6 +32,10 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Row3Jump = true;
         }
+        if (collision.gameObject.CompareTag("Flip"))
+        {
+            Row3Flip = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -43,6 +48,10 @@ public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
         if (collision.gameObject.CompareTag("Jump"))
         {
             Row3Jump = false;
+        }
+        if (collision.gameObject.CompareTag("Flip"))
+        {
+            Row3Flip = false;
         }
     }
 }

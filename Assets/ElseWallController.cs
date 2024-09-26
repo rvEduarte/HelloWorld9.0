@@ -22,64 +22,42 @@ public class ElseWallController : MonoBehaviour
 
     private void Update()
     {
-        // Check if all three conditions are true before proceeding
-        if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
+        // Cast a ray from the wall to detect if the player is nearby
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
+
+        bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
+
+        // If the player was detected last frame but is no longer detected, the player has left the raycast
+        if (!playerDetectedThisFrame && playerDetectedLastFrame)
         {
-            // Cast a ray from the wall to detect if the player is nearby
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
+            Debug.Log("Player left the raycast");
+            playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
+        }
 
-            bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
-
-            // If the player was detected last frame but is no longer detected, the player has left the raycast
-            if (!playerDetectedThisFrame && playerDetectedLastFrame)
+        // If the player was just detected this frame and was not detected in the last frame, trigger the flip
+        if (playerDetectedThisFrame && !playerDetectedLastFrame)
+        {
+            // Check if all three conditions are true before proceeding
+            if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
             {
-                Debug.Log("Player left the raycast");
-                playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
-            }
-
-            // If the player was just detected this frame and was not detected in the last frame, trigger the flip
-            if (playerDetectedThisFrame && !playerDetectedLastFrame)
-            {
-                Debug.Log("Player detected by wall raycast");
+                Debug.Log("Player detected by wall raycast FLIP");
                 playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
                 sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
             }
-
-            // Update player detection state for the next frame
-            playerDetectedLastFrame = playerDetectedThisFrame;
-        }
-        else if(Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
-        {
-            // Cast a ray from the wall to detect if the player is nearby
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
-
-            bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
-
-            // If the player was detected last frame but is no longer detected, the player has left the raycast
-            if (!playerDetectedThisFrame && playerDetectedLastFrame)
+            else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
             {
-                Debug.Log("Player left the raycast");
-                //playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
-            }
-
-            // If the player was just detected this frame and was not detected in the last frame, trigger the flip
-            if (playerDetectedThisFrame && !playerDetectedLastFrame)
-            {
-                Debug.Log("Player detected by wall raycast");
+                Debug.Log("Player detected by wall raycast JUMP");
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
             }
-
-            // Update player detection state for the next frame
-            playerDetectedLastFrame = playerDetectedThisFrame;
-
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            // Conditions are not met, skipping execution
-            return;
-        }
+        // Update player detection state for the next frame
+        playerDetectedLastFrame = playerDetectedThisFrame;
     }
     private IEnumerator HandleJumpCoroutine()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ThirdDRAGScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class JumpDragScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     //public MouseControllerScript mouseController;
     private RectTransform rectTransform2;
@@ -14,9 +14,8 @@ public class ThirdDRAGScript : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public Vector2 originalPosition;
 
-    private void Start()
+    public void SavePosition()
     {
-        //Gunportal.SetActive(false);
         originalPosition = rectTransform2.anchoredPosition;  // Store the original position
     }
 

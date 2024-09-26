@@ -59,7 +59,4 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
             Row2Jump = false;
         }
     }
-
-
-
 }

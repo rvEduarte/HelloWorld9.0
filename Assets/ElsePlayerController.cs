@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ElsePlayerController : MonoBehaviour, pIPlayerController
 {
+    private ElsePlayerAnimator playerAnimator;
     [SerializeField] private SpriteRenderer sprite;
 
     [SerializeField] private ElseScriptableStats _stats;
@@ -17,6 +18,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     private bool _cachedQueryStartInColliders;
 
     private bool _isJumping = true;
+    private bool _isFliping = true;
 
     #region Interface
 
@@ -30,6 +32,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
 
     private void Awake()
     {
+        playerAnimator = FindObjectOfType<ElsePlayerAnimator>();  // Assuming there's only one animator
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<CapsuleCollider2D>();
 
@@ -124,6 +127,14 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         if (_frameInput.Move.x > 0) _frameInput.Move.x = 0;
     }
 
+    public void OnFlipButtonDown()
+    {
+        playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
+
+        sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+    }
+
+
     private void ApplyMovement()
     {
         if (!TriggerTutorial.disableMove)
@@ -139,22 +150,9 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     //------------------------------------------------------ELSE CONTROLLER-----------------------------------------------------------------------------
     private void ElseController()
     {
-
-        //---------------------------------------------------------SECOND ROW--------------------------------------------------------------------------------//
-
-
         //---------------------------------------------------------LAST ROW--------------------------------------------------------------------------------//
 
-        if (sprite.flipX && Row3ThirdSlotScript.Row3Walk && Row2ThirdSlotScript.Row2Jump == true) // MOVE LEFT AND JUMP
-        {
-            Debug.Log("move left AND JUMP");
-            OnLeftButtonDown();
-
-            if (!_isJumping) return;
-            StartCoroutine(HandleJumpCoroutine());
-
-        }
-        else if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
+        if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
         {
             //Debug.Log("move left");
             OnLeftButtonDown();
@@ -167,6 +165,12 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         {
             if (!_isJumping) return;
             StartCoroutine(HandleJumpCoroutine());
+        }
+        else if(Row3ThirdSlotScript.Row3Flip == true)
+        {
+            if (!_isFliping) return;
+
+            StartCoroutine(HandleFlipCoroutine());
         }
     }
 
@@ -181,6 +185,17 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         OnJumpButtonUp();  // Simulate releasing the jump button
 
         _isJumping = true;  // Set jumping status to false after finishing the jump
+    }
+
+    // Coroutine for holding Flip button
+    private IEnumerator HandleFlipCoroutine()
+    {
+        _isFliping = false;  // Set jumping status to true
+
+        OnFlipButtonDown();  // Simulate pressing the jump button
+        yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
+
+        _isFliping = true;  // Set jumping status to false after finishing the jump
     }
 
 
