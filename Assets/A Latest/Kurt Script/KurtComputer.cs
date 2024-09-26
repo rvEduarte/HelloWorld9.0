@@ -13,6 +13,7 @@ public class KurtComputer : MonoBehaviour
     private bool isPanelVisible = false;
     private CanvasGroup panelCanvasGroup;       // For smooth transition effect
     private bool handleEscapeForPanel = false;  // Flag to handle Escape key specifically for the panel
+    private bool disableE = true;
 
     private void Start()
     {
@@ -31,17 +32,20 @@ public class KurtComputer : MonoBehaviour
 
     private void Update()
     {
+        if (!disableE) return;
+
         // Check if the player is in range and presses the E key to show the panel
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ShowPanel();
+            disableE = false;
         }
+    }
 
-        // Check if the Escape key is pressed and specifically handle it for the panel
-        if (isPanelVisible && handleEscapeForPanel && Input.GetKeyDown(KeyCode.Escape))
-        {
-            HidePanel();
-        }
+    public void EscPanel()
+    {
+        HidePanel();
+        disableE = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
