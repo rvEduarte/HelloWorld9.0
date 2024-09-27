@@ -71,7 +71,7 @@ public class WallBelowRaycast : MonoBehaviour
             }
         }
         // Update player detection state for the next frame
-        playerDetectedLastFrame = playerDetectedThisFrame;
+        playerDetectedLastFrame = playerDetectedThisFrame1;
     }
     private IEnumerator HandleJumpCoroutine()
     {
