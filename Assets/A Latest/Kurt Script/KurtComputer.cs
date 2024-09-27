@@ -48,6 +48,11 @@ public class KurtComputer : MonoBehaviour
         disableE = true;
     }
 
+    public void CloseJigsawPanel()
+    {
+        PlayerController.enabled = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the collider
