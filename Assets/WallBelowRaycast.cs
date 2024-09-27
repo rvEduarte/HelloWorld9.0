@@ -22,10 +22,11 @@ public class WallBelowRaycast : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("tite");
         // Cast a ray from the wall to detect if the player is nearby
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
 
-        bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Platform");
+        bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
 
         // If the player was detected last frame but is no longer detected, the player has left the raycast
         if (!playerDetectedThisFrame && playerDetectedLastFrame)
