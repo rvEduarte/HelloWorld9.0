@@ -11,7 +11,7 @@ public class KurtCheckPoint : MonoBehaviour
         kurtDeathZone = GameObject.FindGameObjectWithTag("Player").GetComponent<KurtDeathZone>();
     }
 
-    private void OnTriggerEnter2D(Collider collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
