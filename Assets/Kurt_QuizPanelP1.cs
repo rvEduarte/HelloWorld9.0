@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Kurt_CodeInputManager : MonoBehaviour
-
+public class Kurt_QuizPanelP1 : MonoBehaviour
 {
+
     // Reference to the input fields in the UI
     public TMP_InputField inputField1;
     public TMP_InputField inputField2;
@@ -24,7 +25,7 @@ public class Kurt_CodeInputManager : MonoBehaviour
     public TextMeshProUGUI feedbackText5;
 
     // Reference to the moving platform script
-    public KurtUpwardPlatform movingPlatform;  // Link to the MovingPlatform script
+    public MovingPlatform movingPlatform;  // Link to the MovingPlatform script
 
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
@@ -62,5 +63,4 @@ public class Kurt_CodeInputManager : MonoBehaviour
             return false;
         }
     }
-
 }

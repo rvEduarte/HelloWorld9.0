@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class KurtUpwardPlatform : MonoBehaviour
 {
-    // Speed at which the platform will move
-    public float speed = 2.0f;
+    public Rigidbody2D body;
 
-    // Position A and Position B
-    public Transform positionA;  // Reference to Position A
-    public Transform positionB;  // Reference to Position B
+    public float speed = 2.0f;  // Speed at which the platform will move
+    public Transform positionA;  // Position A
+    public Transform positionB;  // Position B
 
-    // A flag to control when the platform should start moving
-    private bool shouldMove = false;
-
-    // Direction in which the platform is moving
-    private bool movingToPositionB = true;
+    private bool shouldMove = false;  // Controls when the platform should start moving
+    private bool movingToPositionB = true;  // Direction in which the platform is moving
 
     private void Update()
     {
@@ -26,13 +22,11 @@ public class KurtUpwardPlatform : MonoBehaviour
         }
     }
 
-    // Function to start moving the platform
     public void StartMoving()
     {
         shouldMove = true;
     }
 
-    // Function to move the platform between Position A and Position B
     private void MovePlatform()
     {
         if (movingToPositionB)
@@ -40,7 +34,6 @@ public class KurtUpwardPlatform : MonoBehaviour
             // Move towards Position B
             transform.position = Vector3.MoveTowards(transform.position, positionB.position, speed * Time.deltaTime);
 
-            // Check if the platform has reached Position B
             if (Vector3.Distance(transform.position, positionB.position) < 0.01f)
             {
                 movingToPositionB = false;
@@ -51,7 +44,6 @@ public class KurtUpwardPlatform : MonoBehaviour
             // Move towards Position A
             transform.position = Vector3.MoveTowards(transform.position, positionA.position, speed * Time.deltaTime);
 
-            // Check if the platform has reached Position A
             if (Vector3.Distance(transform.position, positionA.position) < 0.01f)
             {
                 movingToPositionB = true;
@@ -59,11 +51,23 @@ public class KurtUpwardPlatform : MonoBehaviour
         }
     }
 
-    // Optional: Function to reset the platform to Position A
-    public void ResetPlatform()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        transform.position = positionA.position;
-        shouldMove = false;
-        movingToPositionB = true;
+        // If the player is on the platform, parent the player to the platform
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.SetParent(transform);
+            body.interpolation = RigidbodyInterpolation2D.None;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // When the player leaves the platform, un-parent them
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.SetParent(null);
+            body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
     }
 }
