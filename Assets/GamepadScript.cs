@@ -23,8 +23,7 @@ public class GamepadScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            jumpPanel.anchoredPosition = new Vector2(314, 948.9999f);
-            flipPanel.anchoredPosition = new Vector2(474, 949);
+
 
             LeanTween.moveY(gamepad, 17f, 1f);
             StartCoroutine(ShowPanel());
@@ -43,6 +42,19 @@ public class GamepadScript : MonoBehaviour
     IEnumerator ShowPanel()
     {
         yield return new WaitForSeconds(1);
-        LeanTween.moveLocalY(gamePanel, 233.7885f, 0.5f);
+        LeanTween.moveLocalY(gamePanel, -307, 0.5f);
+        MovePanelToY(929);
+    }
+
+    public void MovePanelToY(float newYPosition)
+    {
+        // Get the current anchored position (X and Y) of the RectTransform
+        Vector2 currentPos = jumpPanel.anchoredPosition;
+
+        Vector2 currentPos1 = flipPanel.anchoredPosition;
+
+        // Change only the Y position
+        jumpPanel.anchoredPosition = new Vector2(currentPos.x, newYPosition);
+        flipPanel.anchoredPosition = new Vector2(currentPos1.x, newYPosition);
     }
 }

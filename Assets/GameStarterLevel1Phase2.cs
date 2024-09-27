@@ -8,7 +8,6 @@ public class GameStarterLevel1Phase2 : MonoBehaviour
     {
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
-        RunningTimerLevel1Ph1.timerStop = true;
     }
 
 }

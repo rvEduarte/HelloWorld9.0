@@ -40,7 +40,7 @@ public class ElseWallController : MonoBehaviour
             // Check if all three conditions are true before proceeding
             if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
             {
-                Debug.Log("Player detected by wall raycast FLIP");
+                Debug.Log("Player detected by wall raycast FLIP ROW2");
                 playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
                 sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
@@ -48,6 +48,19 @@ public class ElseWallController : MonoBehaviour
             else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
             {
                 Debug.Log("Player detected by wall raycast JUMP");
+                if (!_isJumping) return;
+                StartCoroutine(HandleJumpCoroutine());
+            }
+            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Flip)
+            {
+                Debug.Log("Player detected by wall raycast FLIP ROW1");
+                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
+
+                sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+            }
+            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Jump)
+            {
+                Debug.Log("Player detected by wall raycast JUMP ROW1");
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
             }

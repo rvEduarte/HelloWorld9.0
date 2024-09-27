@@ -28,6 +28,6 @@ public class SecondSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Ahead - FALSE");
             Row1Ahead = false;
-        }
+        } 
     }
 }
