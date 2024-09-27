@@ -5,10 +5,11 @@ using UnityEngine.EventSystems;
 
 public class Row3ThirdSlotScript : MonoBehaviour, IDropHandler
 {
-    private ElsePlayerController playerController;
+    
     public static bool Row3Walk;
     public static bool Row3Jump;
     public static bool Row3Flip;
+    private ElsePlayerController playerController;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();

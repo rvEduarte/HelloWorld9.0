@@ -5,9 +5,15 @@ using UnityEngine.EventSystems;
 
 public class ThirdSlotScript : MonoBehaviour, IDropHandler
 {
+    private ElsePlayerController playerController;
     public static bool Row1Flip = false;
     public static bool Row1Walk = false;
     public static bool Row1Jump = false;
+
+    private void Awake()
+    {
+        playerController = FindObjectOfType<ElsePlayerController>();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
@@ -50,6 +56,8 @@ public class ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Walk - FALSE");
             Row1Walk = false;
+            playerController.OnLeftButtonUp();
+            playerController.OnRightButtonUp();
         }
         //--------------------------------------- JUMP ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Jump"))
