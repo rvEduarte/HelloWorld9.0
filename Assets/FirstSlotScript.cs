@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class FirstSlotScript : MonoBehaviour, IDropHandler
 {
     public static bool Row1Wall = false;
+    private ElsePlayerController playerController;
+    private void Awake()
+    {
+        playerController = FindObjectOfType<ElsePlayerController>();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
@@ -28,6 +34,8 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Wall - FALSE");
             Row1Wall = false;
+            playerController.OnLeftButtonUp();
+            playerController.OnRightButtonUp();
         }
     }
 }

@@ -14,6 +14,9 @@ public class WallBelowRaycast : MonoBehaviour
     private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
 
     private bool _isJumping = true;
+    private bool _isFliping = true;
+
+    public GameObject raycast;
 
     private void Awake()
     {
@@ -23,9 +26,9 @@ public class WallBelowRaycast : MonoBehaviour
     private void Update()
     {
         // Cast a ray from the wall to detect if the player is nearby
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, playerLayer);
 
-        bool playerDetectedThisFrame1 = hit.collider != null && hit.collider.CompareTag("Player");
+        bool playerDetectedThisFrame1 = hit.collider != null && hit.collider.CompareTag("GROUNDER");
 
         // If the player was detected last frame but is no longer detected, the player has left the raycast
         if (!playerDetectedThisFrame1 && playerDetectedLastFrame)
@@ -37,14 +40,12 @@ public class WallBelowRaycast : MonoBehaviour
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
         if (playerDetectedThisFrame1 && !playerDetectedLastFrame)
         {
-            Debug.Log("Player Detected");
             // Check if all three conditions are true before proceeding
             if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Below && Row2ThirdSlotScript.Row2Flip)
             {
                 Debug.Log("Player detected by BELOW wall raycast FLIP ROW2");
-                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
-
-                sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+                if (!_isFliping) return;
+                StartCoroutine(HandleFlipCoroutine());
             }
             else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Below && Row2ThirdSlotScript.Row2Jump)
             {
@@ -52,18 +53,40 @@ public class WallBelowRaycast : MonoBehaviour
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
             }
+            // WALK
+            else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Below && Row2ThirdSlotScript.Row2Walk && sprite.flipX == true) // MOVE LEFT
+            {
+                Debug.Log("Player detected by BELOW wall raycast WALK LEFT");
+                playerController.OnLeftButtonDown();
+            }
+            else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Below && Row2ThirdSlotScript.Row2Walk && sprite.flipX == false) // MOVE RIGHT
+            {
+                Debug.Log("Player detected by BELOW wall raycast WALK RIGHT");
+                playerController.OnRightButtonDown();
+            }
+            
             else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Flip)
             {
                 Debug.Log("Player detected by BELOW wall raycast FLIP ROW1");
-                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
-
-                sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+                if (!_isFliping) return;
+                StartCoroutine(HandleFlipCoroutine());
             }
             else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Jump)
             {
                 Debug.Log("Player detected by BELOW wall raycast JUMP ROW1");
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
+            }
+            // WALK
+            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Walk && sprite.flipX == true) // MOVE LEFT
+            {
+                Debug.Log("Player detected by BELOW wall raycast WALK LEFT");
+                playerController.OnLeftButtonDown();
+            }
+            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Walk && sprite.flipX == false) // MOVE RIGHT
+            {
+                Debug.Log("Player detected by BELOW wall raycast WALK LEFT");
+                playerController.OnRightButtonDown();
             }
             else
             {
@@ -75,6 +98,7 @@ public class WallBelowRaycast : MonoBehaviour
     }
     private IEnumerator HandleJumpCoroutine()
     {
+        
         _isJumping = false;  // Set jumping status to true
 
         playerController.OnJumpButtonDown();  // Simulate pressing the jump button
@@ -85,11 +109,26 @@ public class WallBelowRaycast : MonoBehaviour
         _isJumping = true;  // Set jumping status to false after finishing the jump
     }
 
+    private IEnumerator HandleFlipCoroutine()
+    {
+        Debug.Log("FLIP - COROUTINE");
+        _isFliping = false;
+        raycast.transform.localPosition = new Vector2(0.006f, 0.074f);
+        playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
+
+        sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+        yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
+
+        raycast.transform.localPosition = new Vector2(0.006f, -0.313f);
+        _isFliping = true;
+        playerAnimator.SetWallFlip(false);
+    }
+
     private void OnDrawGizmos()
     {
         // Visualize the raycast in the Scene view for debugging
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * raycastDistance);
 
     }
 }

@@ -7,6 +7,11 @@ using UnityEngine.EventSystems;
 public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
 {
     public static bool Row2Wall = false;
+    private ElsePlayerController playerController;
+    private void Awake()
+    {
+        playerController = FindObjectOfType<ElsePlayerController>();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
@@ -29,6 +34,8 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Wall - FALSE");
             Row2Wall = false;
+            playerController.OnLeftButtonUp();
+            playerController.OnRightButtonUp();
         }
     }
 }
