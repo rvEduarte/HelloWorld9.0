@@ -10,6 +10,8 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
     public static bool Row2Walk = false;
     public static bool Row2Jump = false;
 
+    public GameObject raycast;
+
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -30,18 +32,21 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Flip - TRUE");
             Row2Flip = true;
+            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
         //--------------------------------------- WALK ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Walk"))
         {
             Debug.Log("Walk - TRUE");
             Row2Walk = true;
+            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
         //--------------------------------------- JUMP ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Jump"))
         {
             Debug.Log("Jump - TRUE");
             Row2Jump = true;
+            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -51,6 +56,7 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Flip - FALSE");
             Row2Flip = false;
+            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
         //--------------------------------------- WALK ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Walk"))
@@ -59,12 +65,14 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
             Row2Walk = false;
             playerController.OnLeftButtonUp();
             playerController.OnRightButtonUp();
+            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
         //--------------------------------------- JUMP ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Jump"))
         {
             Debug.Log("Jump - FALSE");
             Row2Jump = false;
+            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
     }
 }

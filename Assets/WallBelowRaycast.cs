@@ -113,13 +113,13 @@ public class WallBelowRaycast : MonoBehaviour
     {
         Debug.Log("FLIP - COROUTINE");
         _isFliping = false;
-        raycast.transform.localPosition = new Vector2(0.006f, 0.074f);
+        raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
         sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
         yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
 
-        raycast.transform.localPosition = new Vector2(0.006f, -0.313f);
+        raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         _isFliping = true;
         playerAnimator.SetWallFlip(false);
     }

@@ -8,6 +8,8 @@ public class SecondSlotScript : MonoBehaviour, IDropHandler
     public static bool Row1Ahead = false;
     public static bool Row1Below = false;
     private ElsePlayerController playerController;
+
+    public GameObject raycast;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -31,6 +33,7 @@ public class SecondSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Below - TRUE");
             Row1Below = true;
+            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -46,6 +49,7 @@ public class SecondSlotScript : MonoBehaviour, IDropHandler
             Row1Below = false;
             playerController.OnLeftButtonUp();
             playerController.OnRightButtonUp();
+            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
     }
 }
