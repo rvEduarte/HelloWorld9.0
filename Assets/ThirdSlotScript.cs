@@ -10,7 +10,7 @@ public class ThirdSlotScript : MonoBehaviour, IDropHandler
     public static bool Row1Walk = false;
     public static bool Row1Jump = false;
 
-    public GameObject raycast;
+    public GameObject belowRaycast;
 
     private void Awake()
     {
@@ -31,21 +31,21 @@ public class ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Flip - TRUE");
             Row1Flip = true;
-            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
         //--------------------------------------- WALK ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Walk"))
         {
             Debug.Log("Walk - TRUE");
             Row1Walk = true;
-            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
         //--------------------------------------- JUMP ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Jump"))
         {
             Debug.Log("Jump - TRUE");
             Row1Jump = true;
-            raycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -55,7 +55,7 @@ public class ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Flip - FALSE");
             Row1Flip = false;
-            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
         //--------------------------------------- WALK ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Walk"))
@@ -64,14 +64,14 @@ public class ThirdSlotScript : MonoBehaviour, IDropHandler
             Row1Walk = false;
             playerController.OnLeftButtonUp();
             playerController.OnRightButtonUp();
-            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
         //--------------------------------------- JUMP ------------------------------------------------------//
         else if (collision.gameObject.CompareTag("Jump"))
         {
             Debug.Log("Jump - FALSE");
             Row1Jump = false;
-            raycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
+            belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
         }
     }
 }
