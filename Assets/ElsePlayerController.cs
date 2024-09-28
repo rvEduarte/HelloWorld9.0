@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ElsePlayerController : MonoBehaviour, pIPlayerController
 {
+    public GameObject aheadRaycastIF;
+    public GameObject aheadRaycastELSEIF;
+
     private ElsePlayerAnimator playerAnimator;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -120,11 +123,15 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     {
         //Debug.Log("LeftButtonUP");
         if (_frameInput.Move.x < 0) _frameInput.Move.x = 0;
+        aheadRaycastIF.transform.localPosition = new Vector2(0.016f, 0.775f); // nasa MIDDLE
+        aheadRaycastELSEIF.transform.localPosition = new Vector2(0.016f, 0.775f); // nasa MIDDLE
     }
 
     public void OnRightButtonUp()
     {
         if (_frameInput.Move.x > 0) _frameInput.Move.x = 0;
+        aheadRaycastIF.transform.localPosition = new Vector2(0.016f, 0.775f); // nasa MIDDLE
+        aheadRaycastELSEIF.transform.localPosition = new Vector2(0.016f, 0.775f); // nasa MIDDLE
     }
 
     public void OnFlipButtonDown()
@@ -132,6 +139,17 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
         sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+
+        if (sprite.flipX == false) // FACING RIGHT
+        {
+            aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
+            aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
+        }
+        else if (sprite.flipX == true) // FACING LEFT
+        {
+            aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
+            aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
+        }
     }
 
 
@@ -156,10 +174,14 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         {
             //Debug.Log("move left");
             OnLeftButtonDown();
+            aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
+            aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
         }
         else if(sprite.flipX == false && Row3ThirdSlotScript.Row3Walk == true) // MOVE RIGHT
         {
             OnRightButtonDown();
+            aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
+            aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
         }
         else if(Row3ThirdSlotScript.Row3Jump == true)
         {

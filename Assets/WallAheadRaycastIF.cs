@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElseWallController : MonoBehaviour
+public class WallAheadRaycastIF : MonoBehaviour
 {
     public ElsePlayerController playerController;
     public SpriteRenderer sprite;
@@ -25,34 +25,21 @@ public class ElseWallController : MonoBehaviour
         // Cast a ray from the wall to detect if the player is nearby
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
 
-        bool playerDetectedThisFrame = hit.collider != null && hit.collider.CompareTag("Player");
+        bool playerDetectedThisFrame2 = hit.collider != null && hit.collider.CompareTag("WL7");
 
         // If the player was detected last frame but is no longer detected, the player has left the raycast
-        if (!playerDetectedThisFrame && playerDetectedLastFrame)
+        if (!playerDetectedThisFrame2 && playerDetectedLastFrame)
         {
             Debug.Log("Player left the raycast");
             playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
         }
 
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
-        if (playerDetectedThisFrame && !playerDetectedLastFrame)
+        if (playerDetectedThisFrame2 && !playerDetectedLastFrame)
         {
             Debug.Log("PUMASOK");
             // Check if all three conditions are true before proceeding
-            if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
-            {
-                Debug.Log("Player detected by wall raycast FLIP ROW2");
-                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
-
-                sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
-            }
-            else if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
-            {
-                Debug.Log("Player detected by wall raycast JUMP ROW2");
-                if (!_isJumping) return;
-                StartCoroutine(HandleJumpCoroutine());
-            }
-            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Flip)
+            if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Flip)
             {
                 Debug.Log("Player detected by wall raycast FLIP ROW1");
                 playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
@@ -71,7 +58,7 @@ public class ElseWallController : MonoBehaviour
             }
         }
         // Update player detection state for the next frame
-        playerDetectedLastFrame = playerDetectedThisFrame;
+        playerDetectedLastFrame = playerDetectedThisFrame2;
     }
     private IEnumerator HandleJumpCoroutine()
     {
@@ -92,35 +79,4 @@ public class ElseWallController : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * raycastDistance);
 
     }
-
-    /*public SpriteRenderer sprite;
-    private ElsePlayerAnimator playerAnimator;
-
-    private void Awake()
-    {
-        playerAnimator = FindObjectOfType<ElsePlayerAnimator>();  // Assuming there's only one animator
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!Row2ThirdSlotScript.Row2Flip) return;
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Pumasok");
-            playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
-
-            sprite.flipX = !sprite.flipX;  // Flip the sprite
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!Row2ThirdSlotScript.Row2Flip) return;
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            playerAnimator.SetWallFlip(false);  // Allow normal flipping when the player exits the wall
-        }
-    }*/
 }
