@@ -37,6 +37,7 @@ public class ElseWallController : MonoBehaviour
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
         if (playerDetectedThisFrame && !playerDetectedLastFrame)
         {
+            Debug.Log("PUMASOK");
             // Check if all three conditions are true before proceeding
             if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
             {
