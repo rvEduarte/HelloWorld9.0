@@ -74,10 +74,4 @@ public class KurtJigsawScript : MonoBehaviour
             pickUpAllowed = false;
         }
     }
-    public void ClosePanel()
-    {
-        TriggerTutorial.disableMove = true; //disable Move
-        TriggerTutorial.disableJump = false; //disable jumping
-    }
-
 }
