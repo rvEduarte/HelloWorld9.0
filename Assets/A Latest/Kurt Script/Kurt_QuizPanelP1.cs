@@ -35,6 +35,9 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
     // Delay before closing the panel
     public float closeDelay = 2f; // Set this to the desired delay duration in seconds
 
+    // Delay before the platform starts moving up
+    public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
+
     // Reference to error and success images
     public GameObject errorImage;
     public GameObject successImage;
@@ -58,18 +61,25 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
 
-        // If all answers are correct, start moving the platform and close the panel after a delay
+        // If all answers are correct, start moving the platform after a delay and close the panel
         if (allCorrect)
         {
             successImage.SetActive(true); // Show success image
             StartCoroutine(ClosePanelWithScale());
-            movingPlatform.StartMoving();
+            StartCoroutine(StartPlatformAfterDelay());
         }
         else
         {
             errorImage.SetActive(true); // Show error image
             StartCoroutine(BlinkErrorImage());
         }
+    }
+
+    // Coroutine to start the platform after a delay
+    private IEnumerator StartPlatformAfterDelay()
+    {
+        yield return new WaitForSeconds(platformMoveDelay);
+        movingPlatform.StartMoving();
     }
 
     // Helper function to check each input field's answer

@@ -6477,7 +6477,7 @@ Transform:
   m_GameObject: {fileID: 129496524}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.447388, y: -0.9909668, z: 0.14060545}
+  m_LocalPosition: {x: 10.447388, y: -0.69, z: 0.14060545}
   m_LocalScale: {x: 10.974944, y: 0.4208, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6921,7 +6921,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 164793696}
-  - component: {fileID: 164793697}
   m_Layer: 5
   m_Name: Popup_Jigsaw
   m_TagString: Untagged
@@ -6952,19 +6951,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2460, y: 1340}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &164793697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 164793695}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99cf42140c3104393ba145bec6abebb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  otherPanels: []
 --- !u!1 &169904111
 GameObject:
   m_ObjectHideFlags: 0
@@ -15312,6 +15298,7 @@ GameObject:
   - component: {fileID: 454614615}
   - component: {fileID: 454614614}
   - component: {fileID: 454614617}
+  - component: {fileID: 454614618}
   m_Layer: 5
   m_Name: QuizPanel
   m_TagString: Untagged
@@ -15408,9 +15395,28 @@ MonoBehaviour:
   movingPlatform: {fileID: 522056807}
   scaleDuration: 0.5
   closeDelay: 2
+  platformMoveDelay: 2
   errorImage: {fileID: 1590676488}
   successImage: {fileID: 330382001}
   jigsawScript: {fileID: 5809981382069206203}
+--- !u!114 &454614618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454614613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9892dc4e373af4da7c16895d2ee0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputFields:
+  - {fileID: 1911394794}
+  - {fileID: 1295936123}
+  - {fileID: 1681679498}
+  - {fileID: 1415205482}
+  - {fileID: 1828318694}
 --- !u!1 &455140860
 GameObject:
   m_ObjectHideFlags: 0
@@ -17731,7 +17737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 168.9093}
+  m_AnchoredPosition: {x: 31, y: 101.9093}
   m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663410045
@@ -33277,7 +33283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 561, y: 530}
+  m_AnchoredPosition: {x: 469, y: 471.82}
   m_SizeDelta: {x: 106.99988, y: 103}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053449023
@@ -34187,7 +34193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179770233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99cf42140c3104393ba145bec6abebb6, type: 3}
   m_Name: 
@@ -42388,7 +42394,7 @@ RectTransform:
   m_GameObject: {fileID: 1355121113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 563460510}
@@ -42401,7 +42407,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2460, y: 1340}
+  m_SizeDelta: {x: 1820, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1355121115
 MonoBehaviour:
@@ -42410,7 +42416,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355121113}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99cf42140c3104393ba145bec6abebb6, type: 3}
   m_Name: 
@@ -71289,7 +71295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 171}
+  m_AnchoredPosition: {x: 37, y: 104}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1962255548
@@ -77973,7 +77979,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.322383
+      m_AnimationSpeed: 7.4698296
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -15, y: -5, z: 0}
@@ -77992,7 +77998,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 6.381223
+      m_AnimationSpeed: 7.8548083
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: -5, z: 0}
@@ -78049,7 +78055,7 @@ Tilemap:
       - {fileID: -1957302584, guid: 77f95b82d940dbb4180c6757661a8db1, type: 3}
       - {fileID: -323013223, guid: 77f95b82d940dbb4180c6757661a8db1, type: 3}
       - {fileID: -50989402, guid: 77f95b82d940dbb4180c6757661a8db1, type: 3}
-      m_AnimationSpeed: 12
+      m_AnimationSpeed: 12.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 44, y: -5, z: 0}
@@ -78087,7 +78093,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 7.3139563
+      m_AnimationSpeed: 7.704054
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: -3, z: 0}
@@ -78106,7 +78112,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.5363703
+      m_AnimationSpeed: 6.913666
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -17, y: -2, z: 0}
@@ -78125,7 +78131,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.415126
+      m_AnimationSpeed: 6.381694
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: -2, z: 0}
@@ -78144,7 +78150,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.117158
+      m_AnimationSpeed: 6.9329944
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 40, y: -2, z: 0}
@@ -78163,7 +78169,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.9354463
+      m_AnimationSpeed: 7.289528
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -23, y: -1, z: 0}
@@ -78182,7 +78188,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.5233693
+      m_AnimationSpeed: 6.663757
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -79998,6 +80004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31037b104e824d24bbe170676f6c9582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 1012881274}
 --- !u!1 &2135252511
 GameObject:
   m_ObjectHideFlags: 0

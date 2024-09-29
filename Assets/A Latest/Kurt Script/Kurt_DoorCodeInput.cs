@@ -10,17 +10,16 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public TMP_InputField inputField2;
     public TMP_InputField inputField3;
     public TMP_InputField inputField4;
-    //public TMP_InputField inputField5;
+  
 
     // Correct answers
-    private string[] correctAnswers = { "bool", "true", "Console", "WriteLine"};
+    private string[] correctAnswers = { "bool", "true", "Console", "WriteLine" };
 
     // Reference to the feedback texts
     public TextMeshProUGUI feedbackText1;
     public TextMeshProUGUI feedbackText2;
     public TextMeshProUGUI feedbackText3;
     public TextMeshProUGUI feedbackText4;
-    //public TextMeshProUGUI feedbackText5;
 
     // Reference to the moving platform script
     public MovingPlatform movingPlatform;  // Link to the MovingPlatform script

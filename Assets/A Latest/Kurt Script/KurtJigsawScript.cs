@@ -36,6 +36,8 @@ public class KurtJigsawScript : MonoBehaviour
 
             Debug.Log("Jigsaw picked up");
             Destroy(jigsaw); // Destroy the jigsaw GameObject
+
+
         }
     }
 
@@ -61,6 +63,7 @@ public class KurtJigsawScript : MonoBehaviour
     public void CloseJigsawPanel()
     {
         jigsawPanel.SetActive(false); // Hide the jigsaw panel
+       
         playerController.enabled = true; // Enable player movement
     }
 }
