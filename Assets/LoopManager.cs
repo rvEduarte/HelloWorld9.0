@@ -10,7 +10,7 @@ public class LoopManager : MonoBehaviour
     {
         foreach (Kurt_ArcadeLoopG piece in puzzlePieces)
         {
-            if (!piece.isCorrectlyConnected)
+            //if (!piece.isCorrectlyConnected)
             {
                 Debug.Log("Puzzle is not yet complete.");
                 return;
