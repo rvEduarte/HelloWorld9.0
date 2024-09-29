@@ -1,7 +1,9 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Kurt_DoorCodeInput : MonoBehaviour
 {
@@ -10,7 +12,6 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public TMP_InputField inputField2;
     public TMP_InputField inputField3;
     public TMP_InputField inputField4;
-  
 
     // Correct answers
     private string[] correctAnswers = { "bool", "true", "Console", "WriteLine" };
@@ -21,8 +22,24 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public TextMeshProUGUI feedbackText3;
     public TextMeshProUGUI feedbackText4;
 
+    // Reference to the output panel
+    public GameObject outputPanel;
+
     // Reference to the moving platform script
     public MovingPlatform movingPlatform;  // Link to the MovingPlatform script
+
+    // Scaling duration
+    public float scaleDuration = 0.5f;
+
+    // Delay before closing the panel
+    public float closeDelay = 2f; // Set this to the desired delay duration in seconds
+
+    // Delay before the platform starts moving up
+    public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
+
+    // Reference to error and success images
+    public GameObject errorImage;
+    public GameObject successImage;
 
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
@@ -35,18 +52,44 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         if (!CheckAnswer(inputField2, correctAnswers[1], feedbackText2)) allCorrect = false;
         if (!CheckAnswer(inputField3, correctAnswers[2], feedbackText3)) allCorrect = false;
         if (!CheckAnswer(inputField4, correctAnswers[3], feedbackText4)) allCorrect = false;
-        //if (!CheckAnswer(inputField5, correctAnswers[4], feedbackText5)) allCorrect = false;
 
-        // If all answers are correct, start moving the platform
+        // Show the output panel after validation
+        ShowOutputPanel(allCorrect);
+
+        // If all answers are correct, start moving the platform after a delay and close the panel
         if (allCorrect)
         {
-            movingPlatform.StartMoving();
+            successImage.SetActive(true); // Show success image
+            StartCoroutine(ClosePanelWithScale());
+            StartCoroutine(StartPlatformAfterDelay());
+
+            // Enable player movement
+            TriggerTutorial.disableMove = false; // Assuming you use this to manage movement in PlayerController
         }
+        else
+        {
+            errorImage.SetActive(true); // Show error image
+            StartCoroutine(BlinkErrorImage());
+        }
+    }
+
+    // Coroutine to start the platform after a delay
+    private IEnumerator StartPlatformAfterDelay()
+    {
+        yield return new WaitForSeconds(platformMoveDelay);
+        movingPlatform.StartMoving();
     }
 
     // Helper function to check each input field's answer
     private bool CheckAnswer(TMP_InputField inputField, string correctAnswer, TextMeshProUGUI feedbackText)
     {
+        if (string.IsNullOrWhiteSpace(inputField.text))
+        {
+            feedbackText.text = "Answer required!";
+            feedbackText.color = Color.red;
+            return false;
+        }
+
         if (inputField.text == correctAnswer)
         {
             feedbackText.text = "Correct!";
@@ -59,5 +102,56 @@ public class Kurt_DoorCodeInput : MonoBehaviour
             feedbackText.color = Color.red;
             return false;
         }
+    }
+
+    // Function to show the output panel
+    private void ShowOutputPanel(bool allCorrect)
+    {
+        outputPanel.SetActive(true); // Activate the output panel
+
+        // Update the output panel's content based on correctness
+        TextMeshProUGUI outputText = outputPanel.GetComponentInChildren<TextMeshProUGUI>();
+        if (outputText != null)
+        {
+            outputText.text = allCorrect ? "All answers are correct!" : "Syntax Denied. Please try again.";
+        }
+    }
+
+    // Coroutine to blink the error image
+    private IEnumerator BlinkErrorImage()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            errorImage.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            errorImage.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Coroutine to scale down and close the panel after a delay
+    private IEnumerator ClosePanelWithScale()
+    {
+        // Wait for the specified delay before starting to close the panel
+        yield return new WaitForSeconds(closeDelay);
+
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = Vector3.zero;
+        float time = 0;
+
+        // Smoothly scale down the panel
+        while (time < scaleDuration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, time / scaleDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure final scale is zero and deactivate the panel
+        transform.localScale = targetScale;
+        gameObject.SetActive(false);
+
+        // Re-enable player movement after closing the panel
+        TriggerTutorial.disableMove = false; // Enable movement here
     }
 }
