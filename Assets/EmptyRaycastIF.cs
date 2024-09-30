@@ -93,7 +93,8 @@ public class EmptyRaycastIF : MonoBehaviour
     private IEnumerator HandleJumpCoroutine()
     {
         _isJumping = false;  // Set jumping status to true
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.001f);
         playerController.OnJumpButtonDown();  // Simulate pressing the jump button
         yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
 
