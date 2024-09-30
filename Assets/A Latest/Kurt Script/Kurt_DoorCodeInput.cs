@@ -1,4 +1,3 @@
-using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +40,9 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public GameObject errorImage;
     public GameObject successImage;
 
+    // Reference to Kurt_GameStartLvl script
+    public Kurt_GameStartLvl kurt_GameStartLvl;
+
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
     {
@@ -62,9 +64,6 @@ public class Kurt_DoorCodeInput : MonoBehaviour
             successImage.SetActive(true); // Show success image
             StartCoroutine(ClosePanelWithScale());
             StartCoroutine(StartPlatformAfterDelay());
-
-            // Enable player movement
-            TriggerTutorial.disableMove = false; // Assuming you use this to manage movement in PlayerController
         }
         else
         {
@@ -98,7 +97,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         }
         else
         {
-            feedbackText.text = "Incorrect!";
+            feedbackText.text = "Incorrect Input. Try again.";
             feedbackText.color = Color.red;
             return false;
         }
@@ -120,7 +119,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     // Coroutine to blink the error image
     private IEnumerator BlinkErrorImage()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             errorImage.SetActive(true);
             yield return new WaitForSeconds(0.5f);
@@ -132,6 +131,12 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     // Coroutine to scale down and close the panel after a delay
     private IEnumerator ClosePanelWithScale()
     {
+        if (kurt_GameStartLvl != null)
+        {
+            TriggerTutorial.disableMove = false;
+            Debug.Log("Player movement enabled");
+        }
+
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
@@ -150,8 +155,5 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         // Ensure final scale is zero and deactivate the panel
         transform.localScale = targetScale;
         gameObject.SetActive(false);
-
-        // Re-enable player movement after closing the panel
-        TriggerTutorial.disableMove = false; // Enable movement here
     }
 }
