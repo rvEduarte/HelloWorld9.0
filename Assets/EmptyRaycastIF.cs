@@ -8,10 +8,10 @@ public class EmptyRaycastIF : MonoBehaviour
     public SpriteRenderer sprite;
     private ElsePlayerAnimator playerAnimator;
 
-    [SerializeField] public float raycastDistance = 4f;  // Set this to how far the ray should cast
-    public LayerMask playerLayer;  // Layer for player detection
+    //[SerializeField] public float raycastDistance = 4f;  // Set this to how far the ray should cast
+    //public LayerMask playerLayer;  // Layer for player detection
 
-    private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
+   //private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
 
     private bool _isJumping = true;
     private bool _isFliping = true;
@@ -20,8 +20,39 @@ public class EmptyRaycastIF : MonoBehaviour
     {
         playerAnimator = FindObjectOfType<ElsePlayerAnimator>();  // Assuming there's only one animator
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("GROUNDER"))
+        {
+            Debug.Log("Player ENTER");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("GROUNDER"))
+        {
+            Debug.Log("Player Exit");
+            if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Flip)
+            {
+                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
-    private void Update()
+                if (!_isFliping) return;
+                StartCoroutine(HandleFlip());
+            }
+            else if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Jump)
+            {
+                if (!_isJumping) return;
+                StartCoroutine(HandleJumpCoroutine());
+            }
+            else
+            {
+                playerAnimator.SetWallFlip(false);
+                //return;
+            }
+        }    
+    }
+
+    /*private void Update()
     {
         // Cast a ray from the wall to detect if the player is nearby
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, playerLayer);
@@ -52,17 +83,17 @@ public class EmptyRaycastIF : MonoBehaviour
         }
 
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
-        if (playerDetectedThisFrame2 && !playerDetectedLastFrame)
+        else if (playerDetectedThisFrame2 && !playerDetectedLastFrame)
         {
             Debug.Log("PUMASOK");
         }
         // Update player detection state for the next frame
         playerDetectedLastFrame = playerDetectedThisFrame2;
-    }
+    }*/
     private IEnumerator HandleJumpCoroutine()
     {
         _isJumping = false;  // Set jumping status to true
-
+        yield return new WaitForSeconds(0.2f);
         playerController.OnJumpButtonDown();  // Simulate pressing the jump button
         yield return new WaitForSeconds(1f);  // Hold the jump for 0.5 seconds
 
@@ -80,11 +111,13 @@ public class EmptyRaycastIF : MonoBehaviour
         _isFliping = true;
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         // Visualize the raycast in the Scene view for debugging
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
 
-    }
+    }*/
+
+
 }

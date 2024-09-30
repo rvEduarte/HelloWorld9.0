@@ -7,34 +7,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class JigsawPosition : MonoBehaviour
-{
-    /*[SerializeField] public GameObject panel;
-    [SerializeField] private GameObject jigsaw;
-    [SerializeField] private float positionGameObject;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            LeanTween.moveY(jigsaw, positionGameObject, 1f);
-            StartCoroutine(ShowPanel());
-        }
-
-        IEnumerator ShowPanel()
-        {
-            yield return new WaitForSeconds(1);
-            panel.LeanScale(Vector2.one, 1f);
-        }
-    }*/
-
-
-    
+{   
     [Header("GAME OBJECTS")]
     [SerializeField] private RectTransform panelRectTransform;  // Reference to the RectTransform of your UI Panel;
     [SerializeField] private GameObject jigsaw;
     [SerializeField] private float positionGameObject;
 
-    [SerializeField] private float xPosition;
+    [SerializeField] private float yPosition;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -47,7 +26,7 @@ public class JigsawPosition : MonoBehaviour
     IEnumerator ShowPanel()
     {
         yield return new WaitForSeconds(1);
-        MovePanelToY(xPosition);
+        MovePanelToY(yPosition);
     }
 
     public void MovePanelToY(float newYPosition)
