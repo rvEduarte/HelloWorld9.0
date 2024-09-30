@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class FirstSlotScript : MonoBehaviour, IDropHandler
 {
     public static bool Row1Wall = false;
+    public static bool Row1Empty = false;
     private ElsePlayerController playerController;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -41,6 +42,20 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
                 aheadRaycastIFSLOTS.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             }
         }
+        else if (collision.gameObject.CompareTag("Empty"))
+        {
+            Debug.Log("Empty - TRUE");
+            Row1Empty = true;
+
+            if (sprite.flipX == false) // FACING RIGHT
+            {
+                //
+            }
+            else if (sprite.flipX == true) // FACING LEFT
+            {
+                //
+            }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -53,6 +68,11 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
             belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
             
             aheadRaycastIFSLOTS.transform.localPosition = new Vector2(0.016f, 0.775f); // nasa MIDDLE
+        }
+        else if (collision.gameObject.CompareTag("Empty"))
+        {
+            Debug.Log("Empty - FALSE");
+            Row1Empty = false;
         }
     }
 }
