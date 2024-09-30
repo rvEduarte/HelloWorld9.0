@@ -13,6 +13,7 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
 
     public GameObject belowRaycast;
     public GameObject aheadRaycastIFSLOTS;
+    public GameObject emptyRaycastIFSLOTS;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -49,11 +50,11 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
 
             if (sprite.flipX == false) // FACING RIGHT
             {
-                //
+                emptyRaycastIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
             }
             else if (sprite.flipX == true) // FACING LEFT
             {
-                //
+                emptyRaycastIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
             }
         }
     }

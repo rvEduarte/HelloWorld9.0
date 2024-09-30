@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,39 +23,36 @@ public class EmptyRaycastIF : MonoBehaviour
     private void Update()
     {
         // Cast a ray from the wall to detect if the player is nearby
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, playerLayer);
 
-        bool playerDetectedThisFrame2 = hit.collider != null && hit.collider.CompareTag("WL7");
+        bool playerDetectedThisFrame2 = hit.collider != null && hit.collider.CompareTag("GROUNDER");
 
         // If the player was detected last frame but is no longer detected, the player has left the raycast
         if (!playerDetectedThisFrame2 && playerDetectedLastFrame)
         {
             Debug.Log("Player left the raycast");
-            playerAnimator.SetWallFlip(false);  // Reset flip behavior when the player leaves
+            if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Flip)
+            {
+                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
+
+                StartCoroutine(HandleFlip());
+            }
+            else if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Jump)
+            {
+                if (!_isJumping) return;
+                StartCoroutine(HandleJumpCoroutine());
+            }
+            else
+            {
+                //playerAnimator.SetWallFlip(false);
+                //return;
+            }
         }
 
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
         if (playerDetectedThisFrame2 && !playerDetectedLastFrame)
         {
             Debug.Log("PUMASOK");
-            // Check if all three conditions are true before proceeding
-            if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Flip)
-            {
-                Debug.Log("Player detected by wall raycast FLIP ROW1");
-                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
-
-                sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
-            }
-            else if (FirstSlotScript.Row1Wall && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Jump)
-            {
-                Debug.Log("Player detected by wall raycast JUMP ROW1");
-                if (!_isJumping) return;
-                StartCoroutine(HandleJumpCoroutine());
-            }
-            else
-            {
-                return;
-            }
         }
         // Update player detection state for the next frame
         playerDetectedLastFrame = playerDetectedThisFrame2;
@@ -72,11 +69,18 @@ public class EmptyRaycastIF : MonoBehaviour
         _isJumping = true;  // Set jumping status to false after finishing the jump
     }
 
+    private IEnumerator HandleFlip()
+    {
+        sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
+        yield return new WaitForSeconds(1f);
+        playerAnimator.SetWallFlip(false);
+    }
+
     private void OnDrawGizmos()
     {
         // Visualize the raycast in the Scene view for debugging
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * raycastDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
 
     }
 }
