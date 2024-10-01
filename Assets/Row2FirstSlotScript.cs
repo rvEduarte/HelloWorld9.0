@@ -8,12 +8,15 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
 {
     public static bool Row2Wall = false;
     public static bool Row2Empty = false;
+    public static bool Row2Spike = false;
     private ElsePlayerController playerController;
     [SerializeField] private SpriteRenderer sprite;
 
     public GameObject belowRaycast;
     public GameObject aheadRaycastElseIFSLOTS;
-    public GameObject emptyRaycastIFSLOTS;
+    public GameObject emptyOntrigger;
+    public GameObject spikeOntriggerBelow;
+    public GameObject spikeOntriggerAhead;
     private void Awake()
     {
         playerController = FindObjectOfType<ElsePlayerController>();
@@ -50,11 +53,27 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
 
             if (sprite.flipX == false) // FACING RIGHT
             {
-                emptyRaycastIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+                emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
             }
             else if (sprite.flipX == true) // FACING LEFT
             {
-                emptyRaycastIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+                emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+            }
+        }
+        else if (collision.gameObject.CompareTag("Spike"))
+        {
+            Debug.Log("Spike - TRUE");
+            Row2Spike = true;
+
+            if (sprite.flipX == false) // FACING RIGHT
+            {
+                spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
+                spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
+            }
+            else if (sprite.flipX == true) // FACING LEFT
+            {
+                spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, 0); // nasa RIGHT   X   Y
+                spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa RIGHT   X   Y
             }
         }
     }
@@ -73,6 +92,11 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
         {
             Debug.Log("Empty - FALSE");
             Row2Empty = false;
+        }
+        else if (collision.gameObject.CompareTag("Spike"))
+        {
+            Debug.Log("Spike - FALSE");
+            Row2Spike = false;
         }
     }
 }

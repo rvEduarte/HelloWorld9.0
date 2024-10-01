@@ -1,8 +1,8 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptyRaycastIF : MonoBehaviour
+public class SpikeOntriggerAhead : MonoBehaviour
 {
     public ElsePlayerController playerController;
     public SpriteRenderer sprite;
@@ -11,7 +11,7 @@ public class EmptyRaycastIF : MonoBehaviour
     //[SerializeField] public float raycastDistance = 4f;  // Set this to how far the ray should cast
     //public LayerMask playerLayer;  // Layer for player detection
 
-   //private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
+    //private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
 
     private bool _isJumping = true;
     private bool _isFliping = true;
@@ -22,24 +22,29 @@ public class EmptyRaycastIF : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("GROUNDER"))
+        if (collision.gameObject.CompareTag("Spike"))
         {
             Debug.Log("Player ENTER");
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("GROUNDER"))
-        {
-            Debug.Log("Player Exit");
-            if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Flip)
+            if (FirstSlotScript.Row1Spike && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Flip)
             {
                 playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
                 if (!_isFliping) return;
                 StartCoroutine(HandleFlip());
             }
-            else if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Jump)
+            else if (FirstSlotScript.Row1Spike && SecondSlotScript.Row1Ahead && ThirdSlotScript.Row1Jump)
+            {
+                if (!_isJumping) return;
+                StartCoroutine(HandleJumpCoroutine());
+            }
+            else if (Row2FirstSlotScript.Row2Spike && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Flip)
+            {
+                playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
+
+                if (!_isFliping) return;
+                StartCoroutine(HandleFlip());
+            }
+            else if (Row2FirstSlotScript.Row2Spike && Row2SecondSlotScript.Row2Ahead && Row2ThirdSlotScript.Row2Jump)
             {
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
@@ -49,7 +54,14 @@ public class EmptyRaycastIF : MonoBehaviour
                 playerAnimator.SetWallFlip(false);
                 //return;
             }
-        }    
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("GROUNDER"))
+        {
+            Debug.Log("Player Exit");
+        }
     }
 
     /*private void Update()
