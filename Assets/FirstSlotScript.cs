@@ -67,13 +67,13 @@ public class FirstSlotScript : MonoBehaviour, IDropHandler
 
             if (sprite.flipX == false) // FACING RIGHT
             {
-                spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
+                spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, -0.502f); // nasa RIGHT   X   Y
                 spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
             }
             else if (sprite.flipX == true) // FACING LEFT
             {
-                spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, 0); // nasa RIGHT   X   Y
-                spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa RIGHT   X   Y
+                spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, -0.502f); // nasa LEFT   X   Y
+                spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa LEFT   X   Y
             }
         }
     }

@@ -9,7 +9,9 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
 {
     public GameObject aheadRaycastIF;
     public GameObject aheadRaycastELSEIF;
-    public GameObject emptyRaycastIFSLOTS;
+    public GameObject emptyOntrigger;
+    public GameObject spikeOntriggerAhead;
+    public GameObject spikeOntriggerBelow;
 
 
     private ElsePlayerAnimator playerAnimator;
@@ -146,13 +148,19 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         {
             aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
-            emptyRaycastIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+            emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+
+            spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, -0.502f); // nasa RIGHT   X   Y
+            spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
         }
         else if (sprite.flipX == true) // FACING LEFT
         {
             aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
-            emptyRaycastIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+            emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+
+            spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, -0.502f); // nasa LEFT   X   Y
+            spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa LEFT   X   Y
         }
     }
 
@@ -180,14 +188,22 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             OnLeftButtonDown();
             aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
-            emptyRaycastIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+            emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+
+            spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, -0.502f); // nasa LEFT   X   Y
+            spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa LEFT   X   Y
+
         }
         else if(sprite.flipX == false && Row3ThirdSlotScript.Row3Walk == true) // MOVE RIGHT
         {
             OnRightButtonDown();
             aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
-            emptyRaycastIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+            emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+
+            spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, -0.502f); // nasa RIGHT   X   Y
+            spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
+
         }
         else if(Row3ThirdSlotScript.Row3Jump == true)
         {

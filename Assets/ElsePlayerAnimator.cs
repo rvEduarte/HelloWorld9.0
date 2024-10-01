@@ -69,6 +69,8 @@ public class ElsePlayerAnimator : MonoBehaviour
         HandleIdleSpeed();
 
         HandleCharacterTilt();
+
+        RotateSprite();
     }
 
     /*private void HandleSpriteFlip()
@@ -99,6 +101,29 @@ public class ElsePlayerAnimator : MonoBehaviour
     {
         var runningTilt = _grounded ? Quaternion.Euler(0, 0, _maxTilt * _player.FrameInput.x) : Quaternion.identity;
         _anim.transform.up = Vector3.RotateTowards(_anim.transform.up, runningTilt * Vector2.up, _tiltSpeed * Time.deltaTime, 0f);
+    }
+
+    private void RotateSprite()
+    {
+        if (!SpikeScript.isRotate) return;
+        StartCoroutine(RotateSpriteSmoothly(0.5f));
+    }
+    public IEnumerator RotateSpriteSmoothly(float duration)
+    {
+        float startRotation = _sprite.transform.rotation.eulerAngles.z;
+        float endRotation = startRotation + 90f;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            float zRotation = Mathf.Lerp(startRotation, endRotation, timeElapsed / duration);
+            _sprite.transform.rotation = Quaternion.Euler(0, 0, zRotation);
+            yield return null;
+        }
+
+        // Ensure the final rotation is exactly 90 degrees
+        _sprite.transform.rotation = Quaternion.Euler(0, 0, endRotation);
     }
 
     private void OnJumped()

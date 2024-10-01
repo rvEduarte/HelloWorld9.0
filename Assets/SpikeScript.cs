@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SpikeScript : MonoBehaviour
 {
+    public SpriteRenderer sprite;
     public GameObject player;
     public CapsuleCollider2D playerCollider;
     public Rigidbody2D rb;
@@ -12,41 +13,39 @@ public class SpikeScript : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;     // Speed of the movement
     public ElsePlayerController playerController;
 
+    public static bool isRotate;
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.Equals("Player"))
         {
+            isRotate = true;
             // Disable freeze rotation to allow the player to rotate
+            //rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
             rb.constraints = RigidbodyConstraints2D.None;
+
             Debug.Log("HIT");
-            Vector3 targetRotation = new Vector3(0, 0, 90); // Rotate 90 degrees on Z-axis
-            Vector3 targetPosition = player.transform.position + new Vector3(2, 2, 0); // Move 10 units up on Y-axis
-            StartCoroutine(SmoothRotateAndMove(player.transform, targetRotation, targetPosition, rotationSpeed));
             playerCollider.enabled = false;
             playerController.enabled = false;
+
+            //LeanTween.rotate(player, new Vector3(0, 0, 90), 1f);
+            StartCoroutine(Respawn());
         }
     }
 
-    private IEnumerator SmoothRotateAndMove(Transform target, Vector3 targetRotation, Vector3 targetPosition, float duration)
+    private IEnumerator Respawn()
     {
-        Quaternion startRotation = target.rotation;
-        Quaternion endRotation = Quaternion.Euler(targetRotation);
-        Vector3 startPosition = target.position;
-        float timeElapsed = 0f;
+        yield return new WaitForSeconds(1.5f);
+        isRotate = false;
 
-        while (timeElapsed < duration)
-        {
-            timeElapsed += Time.deltaTime;
-            // Smoothly interpolate rotation
-            target.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / duration);
-            // Smoothly interpolate position
-            target.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
-            yield return null;
-        }
-
-        // Ensure final rotation and position are exactly at the target values
-        target.rotation = endRotation;
-        target.position = targetPosition;
+        yield return new WaitForSeconds(0.5f);
+        sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player.transform.localPosition = new Vector2(92.35f, 19.72f);
+        playerCollider.enabled = true;
+        playerController.enabled = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Freeze rotation (Z axis)
+        rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX; // Allow movement on X axis
+        rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY; // Allow movement on Y axis
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)
