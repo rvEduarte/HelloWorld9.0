@@ -12,6 +12,8 @@ public class SpikeScript : MonoBehaviour
     [SerializeField] private float rotationSpeed = 2f; // Speed of the rotation
     [SerializeField] private float moveSpeed = 2f;     // Speed of the movement
     public ElsePlayerController playerController;
+    [SerializeField] private float xPosition;
+    [SerializeField] private float yPosition;
 
     public static bool isRotate;
 
@@ -40,7 +42,7 @@ public class SpikeScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player.transform.localPosition = new Vector2(92.35f, 19.72f);
+        player.transform.localPosition = new Vector2(xPosition, yPosition);
         playerCollider.enabled = true;
         playerController.enabled = true;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Freeze rotation (Z axis)
