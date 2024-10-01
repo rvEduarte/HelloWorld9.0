@@ -7,7 +7,7 @@ public class KurtLoopPuzzlePiece : MonoBehaviour
     [SerializeField] private bool[] connections = new bool[4]; // Top, Right, Bottom, Left
     [SerializeField] private KurtLoopPuzzlePiece[] neighbors = new KurtLoopPuzzlePiece[4]; // Neighboring pieces (Top, Right, Bottom, Left)
 
-    [SerializeField] private GameObject completePuzzleObject; // GameObject to activate when the puzzle is complete
+    [SerializeField] private GameObject completePuzzleObject; // GameObject to activate when the puzzle is complete 
 
     private int currentRotation = 0;
 
