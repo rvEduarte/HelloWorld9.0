@@ -10,11 +10,19 @@ public class KurT_LoopQuiz : MonoBehaviour
     public TextMeshProUGUI questionText;
     public Button[] answerButtons;
 
-    // UI elements for feedback
+    // UI element for feedback
     public TextMeshProUGUI feedbackText;
-    public GameObject feedbackOutputPanel; // Panel or object for displaying feedback
 
     public GameObject quizPanel;
+
+    // Reference to the moving platform script
+    public MovingPlatform movingPlatform;  // Link to the MovingPlatform script
+
+    // Reference to the PlayerMovement script (disabling/enabling player movement)
+    public MonoBehaviour playerMovement;
+
+    // Delay before proceeding to the next question
+    public float delay = 2f;
 
     // Quiz data structure
     [System.Serializable]
@@ -30,9 +38,6 @@ public class KurT_LoopQuiz : MonoBehaviour
 
     // Index for tracking the current question
     private int currentQuestionIndex = 0;
-
-    // Delay before closing the feedback or proceeding to the next question
-    public float delay = 2f;
 
     void Start()
     {
@@ -69,14 +74,14 @@ public class KurT_LoopQuiz : MonoBehaviour
             }
         }
 
-        // Hide feedback panel initially
-        feedbackOutputPanel.SetActive(false);
+        // Hide feedback text initially
+        feedbackText.gameObject.SetActive(false);
     }
 
     // Check if the selected answer is correct
     void CheckAnswer(int index)
     {
-        feedbackOutputPanel.SetActive(true); // Show feedback panel
+        feedbackText.gameObject.SetActive(true); // Show feedback text
 
         if (index == questions[currentQuestionIndex].correctAnswerIndex)
         {
@@ -96,8 +101,8 @@ public class KurT_LoopQuiz : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // Hide feedback panel before moving to the next question
-        feedbackOutputPanel.SetActive(false);
+        // Hide feedback text before moving to the next question
+        feedbackText.gameObject.SetActive(false);
 
         // Check if there are more questions
         if (currentQuestionIndex < questions.Count - 1)
@@ -107,8 +112,28 @@ public class KurT_LoopQuiz : MonoBehaviour
         }
         else
         {
-            // No more questions left, close the quiz panel
+            // No more questions left, close the quiz panel and trigger the platform movement
             quizPanel.SetActive(false);
+            EnablePlayerMovement(); // Re-enable player movement
+            StartPlatform(); // Start moving the platform
+        }
+    }
+
+    // Function to re-enable player movement when the quiz is finished
+    private void EnablePlayerMovement()
+    {
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = true; // Re-enable the player's movement script
+        }
+    }
+
+    // Function to start the platform movement when the quiz ends
+    private void StartPlatform()
+    {
+        if (movingPlatform != null)
+        {
+            movingPlatform.StartMoving(); // Trigger the platform movement
         }
     }
 }

@@ -25,23 +25,23 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public GameObject outputPanel;
 
     // Reference to the moving platform script
-    public MovingPlatform movingPlatform;  // Link to the MovingPlatform script
+    public Kurt_DoorMovingPlatform movingPlatform;
 
     // Scaling duration
     public float scaleDuration = 0.5f;
 
     // Delay before closing the panel
-    public float closeDelay = 2f; // Set this to the desired delay duration in seconds
+    public float closeDelay = 2f;
 
-    // Delay before the platform starts moving up
-    public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
+    // Delay before the platform starts moving
+    public float platformMoveDelay = 3f;
 
     // Reference to error and success images
     public GameObject errorImage;
     public GameObject successImage;
 
-    // Reference to Kurt_GameStartLvl script
-    public Kurt_GameStartLvl kurt_GameStartLvl;
+    // Reference to the KurtComputer script to access the PlayerController
+    public KurtComputer kurtComputer;
 
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
@@ -76,7 +76,16 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     private IEnumerator StartPlatformAfterDelay()
     {
         yield return new WaitForSeconds(platformMoveDelay);
-        movingPlatform.StartMoving();
+
+        if (movingPlatform != null)
+        {
+            Debug.Log("Moving platform now...");
+            movingPlatform.StartMoving();
+        }
+        else
+        {
+            Debug.LogError("MovingPlatform reference is not assigned!");
+        }
     }
 
     // Helper function to check each input field's answer
@@ -131,12 +140,6 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     // Coroutine to scale down and close the panel after a delay
     private IEnumerator ClosePanelWithScale()
     {
-        if (kurt_GameStartLvl != null)
-        {
-            TriggerTutorial.disableMove = false;
-            Debug.Log("Player movement enabled");
-        }
-
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
@@ -155,5 +158,11 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         // Ensure final scale is zero and deactivate the panel
         transform.localScale = targetScale;
         gameObject.SetActive(false);
+
+        // Re-enable player movement once the panel is closed
+        if (kurtComputer != null)
+        {
+            kurtComputer.CloseJigsawPanel();  // This will re-enable the PlayerController
+        }
     }
 }
