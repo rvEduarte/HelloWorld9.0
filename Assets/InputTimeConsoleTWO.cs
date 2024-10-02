@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InputTimeConsole : MonoBehaviour
+public class InputTimeConsoleTWO : MonoBehaviour
 {
     public TMP_Text textMeshPro; // Reference to the TextMeshPro component
     public TMP_InputField inputField1; // First input field
     public TMP_InputField inputField2; // Second input field
 
-    private string baseText = "( > )"; // Base template text
-    private string coloredComment = "  <color=#d48326>// If statement only runs when the condition is true</color>";
+    private string baseText = "( < )"; // Base template text
+    private string coloredComment = "  <color=#d48326> //else if statement only run when the first condition is false</color>";
 
     private void Start()
     {
@@ -27,7 +26,7 @@ public class InputTimeConsole : MonoBehaviour
     private void UpdateTextMeshFromInput1(string input)
     {
         // Rebuild the text by inserting the first input after "("
-        string newText = "(" + input + " > )";
+        string newText = "(" + input + " < )";
 
         // Update TextMeshPro with the new text and retain the colored comment
         textMeshPro.text = newText + coloredComment;
@@ -43,10 +42,10 @@ public class InputTimeConsole : MonoBehaviour
         string currentText = textMeshPro.text;
 
         // Find the index of ">" and update text after ">"
-        int indexOfGreaterThan = currentText.IndexOf('>') + 1;
+        int indexOfGreaterThan = currentText.IndexOf('<') + 1;
 
         // Rebuild the text by adding the second input after ">"
-        string newText = currentText.Substring(0, indexOfGreaterThan) + " " + input + ")";
+        string newText = currentText.Substring(0, indexOfGreaterThan) +" "+ input + ")";
 
         // Update TextMeshPro with the new text and retain the colored comment
         textMeshPro.text = newText + coloredComment;
