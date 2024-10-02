@@ -12,7 +12,7 @@ public class KurtComputer : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isPanelVisible = false;
     private CanvasGroup panelCanvasGroup;       // For smooth transition effect
-    private bool handleEscapeForPanel = false;  // Flag to handle Escape key specifically for the panel
+    private bool handleEscapeForPanel = false;  // Flag to handle Escape key specifically for the panel 
     private bool disableE = true;
 
     private void Start()

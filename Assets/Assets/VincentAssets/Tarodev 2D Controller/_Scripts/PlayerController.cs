@@ -42,6 +42,7 @@ namespace TarodevController
         {
             _time += Time.unscaledDeltaTime;
             GatherInput();
+
         }
 
         private void GatherInput()

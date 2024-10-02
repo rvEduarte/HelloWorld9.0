@@ -2,58 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Kurt_DoorCodeInput : MonoBehaviour
+public class Kurt_QuizPanel2 : MonoBehaviour
 {
     // Reference to the input fields in the UI
-    public TMP_InputField inputField1;
-    public TMP_InputField inputField2;
-    public TMP_InputField inputField3;
-    public TMP_InputField inputField4;
+    public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
 
-    // Correct answers
-    private string[] correctAnswers = { "bool", "true", "Console", "WriteLine" };
+    // Correct answers array (configured in the Inspector)
+    public string[] correctAnswers;
 
     // Reference to the feedback texts
-    public TextMeshProUGUI feedbackText1;
-    public TextMeshProUGUI feedbackText2;
-    public TextMeshProUGUI feedbackText3;
-    public TextMeshProUGUI feedbackText4;
+    public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
 
     // Reference to the output panel
     public GameObject outputPanel;
 
-    // Reference to the platform GameObject (can be multiple platforms)
-    public GameObject platformObject;  // Now holds the GameObject of the platform
+    // Reference to the platform GameObject (can have different scripts in different scenes)
+    public GameObject platformObject;
 
     // Scaling duration
     public float scaleDuration = 0.5f;
 
     // Delay before closing the panel
-    public float closeDelay = 2f;
+    public float closeDelay = 2f; // Set this to the desired delay duration in seconds
 
-    // Delay before the platform starts moving
-    public float platformMoveDelay = 3f;
+    // Delay before the platform starts moving up
+    public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
 
     // Reference to error and success images
     public GameObject errorImage;
     public GameObject successImage;
 
-    // Reference to the KurtComputer script to access the PlayerController
-    public KurtComputer kurtComputer;
+    // Reference to the KurtComputer script
+    public KurtComputer computerScript;
 
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
     {
+        // Check if the number of input fields matches the number of correct answers
+        if (inputFields.Length != correctAnswers.Length)
+        {
+            Debug.LogError("Number of input fields and correct answers do not match!");
+            return;
+        }
+
         // Track whether all answers are correct
         bool allCorrect = true;
 
         // Check each input field and provide feedback
-        if (!CheckAnswer(inputField1, correctAnswers[0], feedbackText1)) allCorrect = false;
-        if (!CheckAnswer(inputField2, correctAnswers[1], feedbackText2)) allCorrect = false;
-        if (!CheckAnswer(inputField3, correctAnswers[2], feedbackText3)) allCorrect = false;
-        if (!CheckAnswer(inputField4, correctAnswers[3], feedbackText4)) allCorrect = false;
+        for (int i = 0; i < inputFields.Length; i++)
+        {
+            if (!CheckAnswer(inputFields[i], correctAnswers[i], feedbackTexts[i]))
+                allCorrect = false;
+        }
 
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
@@ -63,6 +64,8 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         {
             successImage.SetActive(true); // Show success image
             StartCoroutine(ClosePanelWithScale());
+
+            Debug.Log("PLATFORM STARTS TO MOVE");
             StartCoroutine(StartPlatformAfterDelay());
         }
         else
@@ -77,18 +80,25 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     {
         yield return new WaitForSeconds(platformMoveDelay);
 
-        // Access the specific platform's script and trigger movement
         if (platformObject != null)
         {
-            Kurt_DoorMovingPlatform movingPlatform = platformObject.GetComponent<Kurt_DoorMovingPlatform>();
+            var movingPlatform = platformObject.GetComponent<MonoBehaviour>(); // Find platform movement script
+
             if (movingPlatform != null)
             {
-                Debug.Log("Moving platform now...");
-                movingPlatform.StartMoving();  // Trigger platform movement
+                var method = movingPlatform.GetType().GetMethod("StartMoving");
+                if (method != null)
+                {
+                    method.Invoke(movingPlatform, null);
+                }
+                else
+                {
+                    Debug.LogError("The assigned platform does not have a 'StartMoving' method.");
+                }
             }
             else
             {
-                Debug.LogError("Kurt_DoorMovingPlatform component is missing on the assigned platform object!");
+                Debug.LogError("No platform movement script found on the platform object.");
             }
         }
         else
@@ -115,7 +125,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         }
         else
         {
-            feedbackText.text = "Incorrect Input. Try again.";
+            feedbackText.text = "Incorrect!";
             feedbackText.color = Color.red;
             return false;
         }
@@ -137,7 +147,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     // Coroutine to blink the error image
     private IEnumerator BlinkErrorImage()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             errorImage.SetActive(true);
             yield return new WaitForSeconds(0.5f);
@@ -168,10 +178,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         transform.localScale = targetScale;
         gameObject.SetActive(false);
 
-        // Re-enable player movement once the panel is closed
-        if (kurtComputer != null)
-        {
-            kurtComputer.CloseJigsawPanel();  // This will re-enable the PlayerController
-        }
+        // Call the KurtComputer method to re-enable player movement
+        computerScript.CloseJigsawPanel();
     }
 }
