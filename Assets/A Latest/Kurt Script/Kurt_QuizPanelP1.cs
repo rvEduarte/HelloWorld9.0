@@ -7,27 +7,19 @@ using UnityEngine.UI;
 public class Kurt_QuizPanelP1 : MonoBehaviour
 {
     // Reference to the input fields in the UI
-    public TMP_InputField inputField1;
-    public TMP_InputField inputField2;
-    public TMP_InputField inputField3;
-    public TMP_InputField inputField4;
-    public TMP_InputField inputField5;
+    public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
 
-    // Correct answers
-    private string[] correctAnswers = { "int", "int", "WriteLine", "WriteLine", "bridgeHeight" };
+    // Correct answers array (configured in the Inspector)
+    public string[] correctAnswers;
 
     // Reference to the feedback texts
-    public TextMeshProUGUI feedbackText1;
-    public TextMeshProUGUI feedbackText2;
-    public TextMeshProUGUI feedbackText3;
-    public TextMeshProUGUI feedbackText4;
-    public TextMeshProUGUI feedbackText5;
+    public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
 
     // Reference to the output panel
     public GameObject outputPanel;
 
-    // Reference to the moving platform script
-    public MovingPlatform movingPlatform;  // Link to the MovingPlatform script
+    // Reference to the platform GameObject (can have different scripts in different scenes)
+    public GameObject platformObject;
 
     // Scaling duration
     public float scaleDuration = 0.5f;
@@ -48,15 +40,22 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
     {
+        // Check if the number of input fields matches the number of correct answers
+        if (inputFields.Length != correctAnswers.Length)
+        {
+            Debug.LogError("Number of input fields and correct answers do not match!");
+            return;
+        }
+
         // Track whether all answers are correct
         bool allCorrect = true;
 
         // Check each input field and provide feedback
-        if (!CheckAnswer(inputField1, correctAnswers[0], feedbackText1)) allCorrect = false;
-        if (!CheckAnswer(inputField2, correctAnswers[1], feedbackText2)) allCorrect = false;
-        if (!CheckAnswer(inputField3, correctAnswers[2], feedbackText3)) allCorrect = false;
-        if (!CheckAnswer(inputField4, correctAnswers[3], feedbackText4)) allCorrect = false;
-        if (!CheckAnswer(inputField5, correctAnswers[4], feedbackText5)) allCorrect = false;
+        for (int i = 0; i < inputFields.Length; i++)
+        {
+            if (!CheckAnswer(inputFields[i], correctAnswers[i], feedbackTexts[i]))
+                allCorrect = false;
+        }
 
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
@@ -79,7 +78,34 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
     private IEnumerator StartPlatformAfterDelay()
     {
         yield return new WaitForSeconds(platformMoveDelay);
-        movingPlatform.StartMoving();
+
+        if (platformObject != null)
+        {
+            // Try to find any script that handles platform movement on the assigned platformObject
+            var movingPlatform = platformObject.GetComponent<MonoBehaviour>(); // Or replace with a specific base class or interface if available
+
+            if (movingPlatform != null)
+            {
+                // Check if the script has a "StartMoving" method and invoke it dynamically
+                var method = movingPlatform.GetType().GetMethod("StartMoving");
+                if (method != null)
+                {
+                    method.Invoke(movingPlatform, null);
+                }
+                else
+                {
+                    Debug.LogError("The assigned platform does not have a 'StartMoving' method.");
+                }
+            }
+            else
+            {
+                Debug.LogError("No platform movement script found on the platform object.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Platform object reference is not assigned!");
+        }
     }
 
     // Helper function to check each input field's answer
