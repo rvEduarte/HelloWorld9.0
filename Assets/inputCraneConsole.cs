@@ -19,11 +19,20 @@ public class inputCraneConsole : MonoBehaviour
     // Update TextMeshPro when first input field changes
     private void UpdateTextMeshFromInput1(string input)
     {
-        // Rebuild the text by inserting the first input after "("
+        // Set default text
         string newText = "= " + input + ";";
 
-        // Update TextMeshPro with the new text and retain the colored comment
-        textMeshPro.text = newText;
+        // Apply color if the input is "true" or "false"
+        if (input == "true")
+        {
+            newText = "= <color=#0A64B2>" + input + "</color>;"; 
+        }
+        else if (input == "false")
+        {
+            newText = "= <color=#0A64B2>" + input + "</color>;";
+        }
 
+        // Update TextMeshPro with the new text
+        textMeshPro.text = newText;
     }
 }
