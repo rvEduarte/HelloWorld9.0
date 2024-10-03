@@ -8,11 +8,12 @@ public class BatteryComputer : MonoBehaviour
     [SerializeField] public GameObject ComputerPanel;
 
     public ComputerDialogue computerTrigger;
+    public ComputerDialogueTwo computerTriggerTwo;
 
     public GameObject hintText;
     public GameObject computer;
 
-    private bool pickUpAllowed;
+    public static bool pickUpAllowed;
 
     public static bool battery1;
     public static bool battery2;
@@ -25,6 +26,7 @@ public class BatteryComputer : MonoBehaviour
     {
         hintText.SetActive(false);
         computer.SetActive(false);
+        onceZoomCam = true;
     }
 
     private void Update()
@@ -40,6 +42,7 @@ public class BatteryComputer : MonoBehaviour
             }
             else if(!onceZoom)
             {
+                pickUpAllowed = false;
                 computer.SetActive(true);
                 Debug.Log("Once");
                 onceZoom = true;
@@ -48,8 +51,7 @@ public class BatteryComputer : MonoBehaviour
             else
             {
                 Debug.Log("YES");
-                TriggerTutorial.disableMove = true; //enable Move
-                TriggerTutorial.disableJump = false; //enable jumping
+                computerTriggerTwo.StartDialogue();
             }
         }
     }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ComputerDialogueManager : MonoBehaviour
 {
+    public GameObject ComputerPanel;
     public CinemachineVirtualCamera vCam;
     public Image actorImage;
     public TextMeshProUGUI actorName;
@@ -132,9 +133,24 @@ public class ComputerDialogueManager : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            if (BatteryComputer.onceZoomCam == true) return;
-            vCam.Priority = 11;
-            StartCoroutine(backCamera());
+            if (BatteryComputer.onceZoomCam == true) 
+            {
+                vCam.Priority = 11;
+                StartCoroutine(backCamera());
+            }
+            else if(TimeConsoleComputer.onceTalkDialogue && TimeConsoleComputer.onceTalkAllowed == true)
+            {
+                Debug.LogError("HINDI PWEDE");
+                LeanTween.scale(ComputerPanel, Vector2.one, 0.5f);
+                TimeConsoleComputer.onceTalkDialogue = false;
+                TimeConsoleComputer.pickUpAllowed = true;
+
+            }
+            else
+            {
+                TriggerTutorial.disableMove = true; //enable Move
+                TriggerTutorial.disableJump = false; //enable jumping
+            }
         }
     }
     IEnumerator backCamera()
@@ -145,6 +161,6 @@ public class ComputerDialogueManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
-
+        BatteryComputer.pickUpAllowed = true;
     }
 }
