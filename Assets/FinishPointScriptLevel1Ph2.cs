@@ -14,7 +14,8 @@ public class FinishPointScriptLevel1Ph2 : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             gameCompletion.SetActive(true);
-
+            TriggerTutorial.disableMove = false; //disable Move
+            TriggerTutorial.disableJump = true; //disable jumping
             timer.isPicked = true;
         }
     }

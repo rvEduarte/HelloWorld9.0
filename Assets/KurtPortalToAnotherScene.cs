@@ -6,7 +6,7 @@ public class KurtPortalToAnotherScene : MonoBehaviour
 {
     GameObject player;
     Rigidbody2D playerRb;
-    public Kurt_LvlLoader levelLoader;  // Reference to LevelLoader script
+    public Kurt_LvlLoader levelLoader;
 
     private void Awake()
     {

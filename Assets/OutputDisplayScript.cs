@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class OutputDisplayScript : MonoBehaviour
 {
@@ -83,8 +85,20 @@ public class OutputDisplayScript : MonoBehaviour
                 }
                 catch (System.Exception ex)
                 {
-                    string errorMsg = "Error: " + ex.Message;
-                    AppendOutput(errorMsg, isWriteLine);
+                    string error = ex.Message;
+                    string pattern1 = @"\[(.*?)\]";
+                    Match match1 = Regex.Match(error, pattern1);
+
+                    if (match1.Success)
+                    {
+                        // Extract the value inside the square brackets
+                        string result = match1.Groups[1].Value;
+                        //Console.WriteLine("Text inside []: " + result);
+                        string errorMsg = "Error: The name " + "'" +result+ "'" + " does not exist in the current context";
+                        AppendOutput(errorMsg, isWriteLine);
+                    }
+                    //string errorMsg = "Error: " + ex.Message;
+                    //Debug.Log(errorMsg);                   
                 }
             }
         }
@@ -187,10 +201,11 @@ public class OutputDisplayScript : MonoBehaviour
     public void ClearInputFields()
     {
         // Clear the input fields
-        codeInputField1.text = "";
-        codeInputField2.text = "";
+        //codeInputField1.text = "";
+        //codeInputField2.text = "";
         // Clear the current output
-        currentOutput = "";
-        outputDisplay.text = "Input fields cleared.";
+        //currentOutput = "";
+        //outputDisplay.text = "Input fields cleared.";
+
     }
 }

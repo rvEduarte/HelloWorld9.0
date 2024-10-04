@@ -14,7 +14,6 @@ public class LoginScript : MonoBehaviour
     public Button resetButtonDisableInteractable;
 
     [Header("Scenes")]
-    private string newAndLoadScene = "NewAndLoad";
     private string mainMenuScene = "MainMenu";
     private string offlineMainMenuScene = "Offline_MainMenu";
 
@@ -62,6 +61,8 @@ public class LoginScript : MonoBehaviour
     public GameObject registerPanel;
     public GameObject loginPanel;
 
+    public GameObject hideLoginSignUpButton;
+
     // Start is called before the first frame update
 
     public void Start()
@@ -105,22 +106,7 @@ public class LoginScript : MonoBehaviour
     }
     public void PlayGame()
     {
-        if (!newAndLoad)
-        {
-            //ONCE load scene
-            SceneManager.LoadScene(newAndLoadScene);
-
-            // Mark the action as performed and save the state
-            PlayerPrefs.SetInt("NewAndLoad", 1); // 1 means true
-            PlayerPrefs.Save(); // Make sure changes are saved to disk
-
-            newAndLoad = true;
-        }
-        else
-        {
-            SceneManager.LoadScene(mainMenuScene);
-        }
-        
+        SceneManager.LoadScene(mainMenuScene);     
     }
     public void PlayGameOffline()
     {
@@ -200,6 +186,7 @@ public class LoginScript : MonoBehaviour
 
                         //DisableRegisterButton
                         disableRegisterButton.gameObject.SetActive(false);
+                        hideLoginSignUpButton.SetActive(false);
                     }
                 });
             }
