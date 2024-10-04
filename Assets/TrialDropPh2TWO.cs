@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class TrialDropPh2TWO : MonoBehaviour, IDropHandler
 {
+    public GameObject player;
+    public GameObject movingObject1;
+    public GameObject movingObject2;
+
     public TextMeshProUGUI line8Hint;
     public ScriptableOutput output;
     public TextMeshProUGUI textOutput;
@@ -68,6 +72,18 @@ public class TrialDropPh2TWO : MonoBehaviour, IDropHandler
             textOutput.text = "";
             outputPanel.SetActive(false);
         }
+    }
+
+    public void ResetButton()
+    {
+        player.transform.position = new Vector3(66.1f, 3.59f, platform1.transform.position.z);
+        movingObject1.SetActive(false);
+        movingObject2.SetActive(false);
+
+        LeanTween.scale(computerPanel, Vector2.zero, 0.5f);
+        //ComputerLevel1Ph1.disableInteract = true;
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
     }
 
     public void RunButton()
