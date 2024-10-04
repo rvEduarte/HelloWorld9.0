@@ -1,12 +1,15 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BatteryComputer : MonoBehaviour
 {
     [SerializeField] public GameObject ComputerPanel;
 
+
+    public TMP_InputField inputField;
     public ComputerDialogue computerTrigger;
     public ComputerDialogueTwo computerTriggerTwo;
 
@@ -24,6 +27,7 @@ public class BatteryComputer : MonoBehaviour
 
     private void Start()
     {
+        inputField.interactable = false;
         hintText.SetActive(false);
         computer.SetActive(false);
         onceZoomCam = true;
@@ -38,6 +42,7 @@ public class BatteryComputer : MonoBehaviour
 
             if(battery1 && battery2 == true)
             {
+                inputField.interactable = true;
                 LeanTween.scale(ComputerPanel, Vector2.one, 0.5f);
             }
             else if(!onceZoom)

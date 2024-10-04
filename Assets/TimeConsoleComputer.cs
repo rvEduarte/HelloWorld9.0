@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TimeConsoleComputer : MonoBehaviour
 {
-
+    [SerializeField] private List<TMP_InputField> input;
     [SerializeField] public GameObject ComputerPanel;
 
     public ComputerDialogueFour computerDialogueFour;
@@ -40,6 +41,11 @@ public class TimeConsoleComputer : MonoBehaviour
             }
             else
             {
+                foreach (TMP_InputField var in input)
+                {
+                    var.enabled = true;
+                    Debug.Log(var);
+                }
                 LeanTween.scale(ComputerPanel, Vector2.one, 0.5f);
             }
         }

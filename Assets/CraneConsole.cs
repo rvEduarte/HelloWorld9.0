@@ -82,6 +82,7 @@ public class CraneConsole : MonoBehaviour
         vCam.Priority = 11;
         OutputPanel.SetActive(false);
         LeanTween.scale(ComputerPanel, Vector2.zero, 0.5f);
+        inputfield.interactable = false;
         yield return new WaitForSeconds(2f);
         LeanTween.moveY(platform1, number, 3f);
 

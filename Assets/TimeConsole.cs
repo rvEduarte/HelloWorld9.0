@@ -10,7 +10,7 @@ public class TimeConsole : MonoBehaviour
     [SerializeField] private GameObject ComputerPanel;
     public TMP_Text timeLine, OutputText;
     public TMP_InputField firstInputFieldIF, secondInputFieldIF, firstInputFieldELSEIF, secondInputFieldELSEIF;
-    private int _firstInput, _secondInput, _thirdInput, _fourthInput;
+    private double _firstInput, _secondInput, _thirdInput, _fourthInput;
     private string input1, input2, input3, input4;
 
     [Header("TimeConsoleObjects")]
@@ -97,6 +97,11 @@ public class TimeConsole : MonoBehaviour
         OutputText.text = "";
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
+
+        firstInputFieldIF.enabled = false;
+        secondInputFieldIF.enabled = false;
+        firstInputFieldELSEIF.enabled = false;
+        secondInputFieldELSEIF.enabled = false;
     }
 
     private void FutureEvent()
