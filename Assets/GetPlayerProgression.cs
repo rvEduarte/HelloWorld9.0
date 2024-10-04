@@ -34,6 +34,7 @@ public class GetPlayerProgression : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("The player is currently level" + response.step.ToString());
+
                 if (response.next_threshold != null)
                 {
                     Debug.Log("Points needed to reach next level:" + (response.next_threshold - response.points).ToString());
