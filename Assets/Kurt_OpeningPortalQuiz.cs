@@ -26,6 +26,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
         {
+            Debug.LogError("PUMASOK");
             portal.SetActive(false);
         }
     }
