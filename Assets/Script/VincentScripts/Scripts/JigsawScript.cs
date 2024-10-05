@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class JigsawScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject pickUpText;
+    private GameObject pickUpText, jigsaw;
 
-    public GameObject jigsawPanel;
+    public GameObject jigsawPanel, dimed;
 
     public RunningTimerLevel1Ph1 timer;
 
@@ -22,6 +22,7 @@ public class JigsawScript : MonoBehaviour
     void Start()
     {
         LeanTween.scale(jigsawPanel, Vector3.zero, 0f);
+        dimed.SetActive(false);
 
         pickUpText.SetActive(false);
 
@@ -38,10 +39,12 @@ public class JigsawScript : MonoBehaviour
             LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(jigsawPanel, Vector3.one, 0.5f);
+            dimed.SetActive(true);
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 
             Debug.Log("TITE");
+            PickUp();
         }         
     }
     public void ClickTask()
@@ -72,6 +75,6 @@ public class JigsawScript : MonoBehaviour
 
     private void PickUp()
     {
-        Destroy(gameObject);
+        Destroy(jigsaw);
     }  
 }
