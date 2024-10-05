@@ -21,12 +21,14 @@ public class BatteryComputer : MonoBehaviour
     public static bool battery1;
     public static bool battery2;
 
-    public bool onceZoom;
+    public bool onceZoom = false;
 
     public static bool onceZoomCam;
 
     private void Start()
     {
+        battery1 = false;
+        battery2 = false;
         inputField.interactable = false;
         hintText.SetActive(false);
         computer.SetActive(false);

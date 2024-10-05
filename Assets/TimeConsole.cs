@@ -61,12 +61,23 @@ public class TimeConsole : MonoBehaviour
             OutputText.text = "Line 12: Invalid expression term ' < ' \n\nHint: Please FILL the required fields";
             return;
         }
-        _firstInput = int.Parse(input1);
-        _secondInput = int.Parse(input2);
-        _thirdInput = int.Parse(input3);
-        _fourthInput = int.Parse(input4);
+        bool isValidInput = true; // Flag to track if all inputs are valid
 
-        if (_firstInput > _secondInput)
+        // Try parsing each input and check for validity
+        isValidInput &= double.TryParse(input1, out _firstInput);
+        isValidInput &= double.TryParse(input2, out _secondInput);
+        isValidInput &= double.TryParse(input3, out _thirdInput);
+        isValidInput &= double.TryParse(input4, out _fourthInput);
+
+        // Check if all inputs are valid
+        if (!isValidInput)
+        {
+            Debug.Log("Invalid input detected. Please enter valid numbers.");
+            OutputPanel.SetActive(true);
+            OutputText.text = "Error: Please enter valid numbers. \n\n Hint: Accept only int or double";
+            return; // Exit the method early
+        }
+        if (_firstInput >= _secondInput)
         {
             Debug.Log("if statement");
             OutputPanel.SetActive(true);
@@ -74,7 +85,7 @@ public class TimeConsole : MonoBehaviour
             FutureEvent();
 
         }
-        else if (_thirdInput < _fourthInput)
+        else if (_thirdInput <= _fourthInput)
         {
             Debug.Log("else if statement");
             OutputPanel.SetActive(true);
@@ -91,17 +102,16 @@ public class TimeConsole : MonoBehaviour
     }
     private IEnumerator DelayHidePanel()
     {
+        firstInputFieldIF.enabled = false;
+        secondInputFieldIF.enabled = false;
+        firstInputFieldELSEIF.enabled = false;
+        secondInputFieldELSEIF.enabled = false;
         yield return new WaitForSeconds(2);
         LeanTween.scale(ComputerPanel, Vector2.zero, 0.5f);
         OutputPanel.SetActive(false);
         OutputText.text = "";
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
-
-        firstInputFieldIF.enabled = false;
-        secondInputFieldIF.enabled = false;
-        firstInputFieldELSEIF.enabled = false;
-        secondInputFieldELSEIF.enabled = false;
     }
 
     private void FutureEvent()

@@ -9,7 +9,7 @@ public class InputTimeConsoleTWO : MonoBehaviour
     public TMP_InputField inputField1; // First input field
     public TMP_InputField inputField2; // Second input field
 
-    private string baseText = "( < )"; // Base template text
+    private string baseText = "( <= )"; // Base template text
     private string coloredComment = "  <color=#d48326> //else if statement only run when the first condition is false</color>";
 
     private void Start()
@@ -26,7 +26,7 @@ public class InputTimeConsoleTWO : MonoBehaviour
     private void UpdateTextMeshFromInput1(string input)
     {
         // Rebuild the text by inserting the first input after "("
-        string newText = "(" + input + " < )";
+        string newText = "(" + input + " <= )";
 
         // Update TextMeshPro with the new text and retain the colored comment
         textMeshPro.text = newText + coloredComment;
@@ -42,12 +42,13 @@ public class InputTimeConsoleTWO : MonoBehaviour
         string currentText = textMeshPro.text;
 
         // Find the index of ">" and update text after ">"
-        int indexOfGreaterThan = currentText.IndexOf('<') + 1;
+        int indexOfGreaterThan = currentText.IndexOf("<=") + 2;
 
         // Rebuild the text by adding the second input after ">"
         string newText = currentText.Substring(0, indexOfGreaterThan) +" "+ input + ")";
 
         // Update TextMeshPro with the new text and retain the colored comment
         textMeshPro.text = newText + coloredComment;
+        Debug.Log(newText);
     }
 }
