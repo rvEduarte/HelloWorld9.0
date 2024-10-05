@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OptionalScript : MonoBehaviour
 {
+    public int tite = 1;
     public void EnableMovement()
     {
         TriggerTutorial.disableMove = true; //enable Move
