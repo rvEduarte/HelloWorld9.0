@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
-using static UnityEngine.InputManagerEntry;
 using System.Drawing;
 
 public class TimerDialogueManager : MonoBehaviour

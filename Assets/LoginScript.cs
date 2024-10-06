@@ -289,70 +289,78 @@ public class LoginScript : MonoBehaviour
     // Called when pressing "CREATE" on new user screen
     public void NewUser()
     {
-        string email = newUserEmailInputField.text;
-        string password = newUserPasswordInputField.text;
-        // string newNickName = nickNameInputField.text;
+    string email = newUserEmailInputField.text;
+    string password = newUserPasswordInputField.text;
+    string nickname = newUserNicknameInputField.text;
 
-        if (email.Length < 1 || password.Length < 1)
+    // Validate inputs
+    if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nickname))
+    {
+        ShowErrorMessage("Please fill in all fields");
+        return;
+    }
+
+    if (!email.Contains("@") || !email.EndsWith(".com"))
+    {
+        ShowErrorMessage("Please enter a valid email address (example@domain.com)");
+        return;
+    }
+
+    if (password.Length < 8)
+    {
+        ShowErrorMessage("Password must be at least 8 characters long");
+        return;
+    }
+
+    // Error handling method
+    void isError(string error)
+    {
+        string message = ExtractMessageFromLootLockerError(error);
+        if (message.Contains("UNIQUE"))
         {
-            ShowErrorMessage("Please fill in all fields");
+            ShowErrorMessage("Display name already taken");
+        }
+        else
+        {
+            ShowErrorMessage(message);
+        }
+    }
+
+    // Step 1: Check if nickname is available
+    LootLockerSDKManager.SetPlayerName(nickname, (nameResponse) =>
+    {
+        if (!nameResponse.success)
+        {
+            isError(nameResponse.errorData.ToString());
             return;
         }
 
-        if (!email.Contains("@") || !email.EndsWith(".com"))
-        {
-            ShowErrorMessage("Please enter a valid email address (example@domain.com)");
-            return;
-        }
-
-        //if password is shorter than 8 characters display an error
-        if (password.Length < 8)
-        {
-            ShowErrorMessage("Password must be at least 8 characters long");
-            return;
-        }
-
-
-        void isError(string error)
-        {
-            if (error.Contains("message"))
-            {
-                ShowErrorMessage(ExtractMessageFromLootLockerError(error));
-            }
-
-            if (!error.Contains("message"))
-            {
-                ShowErrorMessage("Error creating account");
-            }
-
-            return;
-        }
-
-
-        //if passes all above checks, create the account
+        // Step 2: Proceed to account creation if nickname is valid
         Debug.Log("Creating account");
 
-        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, (signUpResponse) =>
         {
-            if (!response.success)
+            if (!signUpResponse.success)
             {
-                isError(response.errorData.ToString());
+                isError(signUpResponse.errorData.ToString());
                 return;
             }
             else
             {
+                // Account created successfully
+                PlayerPrefs.SetString("PlayerName", nickname);
+                PlayerPrefs.Save();
+
                 Debug.Log("Account Created");
-                //registerButton.text = "Check your inbox";
-                //registerButton.fontSize = 55;
                 registerButtonDisableInteractable.enabled = false;
                 registerToLogin.gameObject.SetActive(true);
-                // Succesful response
 
-                Pekpek = response.ID;
-
+                // Store user ID and resend verification email
+                Pekpek = signUpResponse.ID;
                 ResendVerificationEmail();
             }
         });
+    });
     }
     public void RegisterToLogin()
     {
