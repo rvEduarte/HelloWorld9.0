@@ -23,6 +23,7 @@ public class LoginScript : MonoBehaviour
     [Header("New User")]
     public TMP_InputField newUserEmailInputField;
     public TMP_InputField newUserPasswordInputField;
+    public TMP_InputField newUserNicknameInputField;
 
     [Header("Existing User")]
     public TMP_InputField existingUserEmailInputField;
@@ -45,7 +46,7 @@ public class LoginScript : MonoBehaviour
     public TextMeshProUGUI errorText;
     public GameObject errorPanel;
 
-    [Header("NEW FUCKINSHIT")]
+    [Header("NEW FEATURE")]
     public GameObject onlineButtonPanel;
     public GameObject LoginPanel;
     public GameObject SetNickNamePanel;
@@ -58,10 +59,9 @@ public class LoginScript : MonoBehaviour
 
     public GameObject disableRegisterButton;
 
-    public GameObject registerPanel;
-    public GameObject loginPanel;
-
     public GameObject hideLoginSignUpButton;
+
+    public Button registerToLogin;
 
     // Start is called before the first frame update
 
@@ -299,9 +299,9 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
-        if (!email.EndsWith("@gmail.com"))
+        if (!email.Contains("@") || !email.EndsWith(".com"))
         {
-            ShowErrorMessage("Email must end with @gmail.com");
+            ShowErrorMessage("Please enter a valid email address (example@domain.com)");
             return;
         }
 
@@ -342,14 +342,91 @@ public class LoginScript : MonoBehaviour
             else
             {
                 Debug.Log("Account Created");
-                registerButton.text = "Check your inbox";
-                registerButton.fontSize = 55;
+                //registerButton.text = "Check your inbox";
+                //registerButton.fontSize = 55;
                 registerButtonDisableInteractable.enabled = false;
+                registerToLogin.gameObject.SetActive(true);
                 // Succesful response
 
                 Pekpek = response.ID;
 
                 ResendVerificationEmail();
+            }
+        });
+    }
+    public void RegisterToLogin()
+    {
+        string email = newUserEmailInputField.text;
+        string password = newUserPasswordInputField.text;
+
+        if (email.Length < 1 || password.Length < 1)
+        {
+            ShowErrorMessage("Please fill in all fields");
+            return;
+        }
+
+
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                ShowErrorMessage("Incorrect Password/Email");
+                return;
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error logging in");
+                return;
+            }
+
+            return;
+        }
+
+        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
+        {
+            if (!response.success)
+            {
+                // Error
+                isError(response.errorData.ToString());
+                Debug.Log("error while logging in");
+                return;
+            }
+            else
+            {
+                Debug.Log("Player was logged in succesfully");
+                PlayerPrefs.SetInt("RegisterState", 1);
+                PlayerPrefs.SetInt("AutoLogin", 1);
+                PlayerPrefs.Save();
+            }
+
+            // Is the account verified?
+            if (response.VerifiedAt == null)
+            {
+                ShowErrorMessage("Please check your email for the verification.");
+            }
+            else
+            {
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (!response.success)
+                    {
+                        // Error
+                        isError(response.errorData.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                        LoginPanel.SetActive(false);
+                        Debug.Log("session started successfully");
+                        CheckIfPlayerHasName(response.public_uid);
+
+                        //DisableRegisterButton
+                        disableRegisterButton.gameObject.SetActive(false);
+                        hideLoginSignUpButton.SetActive(false);
+                    }
+                });
             }
         });
     }
@@ -492,11 +569,11 @@ public class LoginScript : MonoBehaviour
     {
         registerButton.text = "Register";
         registerButtonDisableInteractable.enabled = true;
-
+        registerToLogin.gameObject.SetActive(false);
         //empty
         newUserEmailInputField.text = string.Empty;
         newUserPasswordInputField.text = string.Empty;
-
+        newUserNicknameInputField.text = string.Empty;
         //empty
         existingUserEmailInputField.text = string.Empty;
         existingUserPasswordInputField.text = string.Empty;
