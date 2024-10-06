@@ -1,3 +1,5 @@
+
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,17 +7,23 @@ using UnityEngine;
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
+    public CinemachineVirtualCamera vCam;
     public TMP_InputField inputField;    // TextMesh Pro Input Field for the player to type the code
     public TextMeshProUGUI messageText;  // TextMesh Pro for displaying messages
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
-    public List<KurtPortalController> portalControllers; // List of portal controller scripts
-    public KurtComputer computerScript;  // Reference to the KurtComputer script to enable player movement
+    public RvComputer rvComputerScript;  // Reference to the KurtComputer script to enable player movement
 
     public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
 
-    private string correctCode = "1234";     // The correct code for the console
+    // Correct codes for the console
+    private string correctCode1 = "bool isPortalOpen = true;";
+    private string correctCode2 = "bool isPortalOpen=true;";
+
+    // Reference to error and success images
+    public GameObject errorImage;
+    public GameObject successImage;
 
     void Start()
     {
@@ -36,15 +44,18 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Get the player's input from the TMP InputField
         string playerInput = inputField.text;
 
-        // Check if the input matches the correct code
-        if (playerInput == correctCode)
+        // Check if the input matches any of the correct codes
+        if (playerInput == correctCode1 || playerInput == correctCode2)
         {
             messageText.text = "Correct code! Closing console...";
+            successImage.SetActive(true); // Show success image
             StartCoroutine(ClosePanelAndActivatePortals());
         }
         else
         {
             messageText.text = "Wrong code. Try again!";
+            errorImage.SetActive(true);
+            StartCoroutine(BlinkErrorImage());
         }
 
         // Clear the input field after checking
@@ -60,11 +71,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Close the console panel
         consolePanel.SetActive(false);
 
-        // Re-enable player movement using the KurtComputer script
-        if (computerScript != null)
-        {
-            computerScript.CloseJigsawPanel();
-        }
+        vCam.Priority = 11;
 
         // Wait for the specified delay before activating the portals
         yield return new WaitForSeconds(portalActivationDelay);
@@ -73,10 +80,22 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         for (int i = 0; i < portals.Count; i++)
         {
             portals[i].SetActive(true); // Activate each portal
-            if (portalControllers[i] != null)
-            {
-                portalControllers[i].enabled = true; // Enable each portal controller
-            }
+        }
+
+        yield return new WaitForSeconds(3f);
+        vCam.Priority = 0;
+        TriggerTutorial.disableMove = true; // Enable movement
+        TriggerTutorial.disableJump = false; // Enable jumping
+    }
+
+    private IEnumerator BlinkErrorImage()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            errorImage.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            errorImage.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
