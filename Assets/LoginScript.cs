@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
-    public static int Pekpek;
     public LootlockerSceneProgress progressData;
 
     [Header("Buttons")]
@@ -23,7 +22,6 @@ public class LoginScript : MonoBehaviour
     [Header("New User")]
     public TMP_InputField newUserEmailInputField;
     public TMP_InputField newUserPasswordInputField;
-    public TMP_InputField newUserNicknameInputField;
 
     [Header("Existing User")]
     public TMP_InputField existingUserEmailInputField;
@@ -154,18 +152,13 @@ public class LoginScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("Player was logged in succesfully");
-                PlayerPrefs.SetInt("RegisterState", 1);
-                PlayerPrefs.SetInt("AutoLogin", 1);
-                PlayerPrefs.Save();
+
             }
 
             // Is the account verified?
             if (response.VerifiedAt == null)
             {
-                ShowErrorMessage("Your account is not verified. Please check your email for the verification.");
-
-                ResendVerificationEmail();
+                ShowErrorMessage("Your account is not verified. Please check your email for verification.");
             }
             else
             {
@@ -187,6 +180,11 @@ public class LoginScript : MonoBehaviour
                         //DisableRegisterButton
                         disableRegisterButton.gameObject.SetActive(false);
                         hideLoginSignUpButton.SetActive(false);
+
+                        Debug.Log("Player was logged in succesfully");
+                        PlayerPrefs.SetInt("RegisterState", 1);
+                        PlayerPrefs.SetInt("AutoLogin", 1);
+                        PlayerPrefs.Save();
                     }
                 });
             }
@@ -289,78 +287,77 @@ public class LoginScript : MonoBehaviour
     // Called when pressing "CREATE" on new user screen
     public void NewUser()
     {
-    string email = newUserEmailInputField.text;
-    string password = newUserPasswordInputField.text;
-    string nickname = newUserNicknameInputField.text;
+        string email = newUserEmailInputField.text;
+        string password = newUserPasswordInputField.text;
 
-    // Validate inputs
-    if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nickname))
-    {
-        ShowErrorMessage("Please fill in all fields");
-        return;
-    }
 
-    if (!email.Contains("@") || !email.EndsWith(".com"))
-    {
-        ShowErrorMessage("Please enter a valid email address (example@domain.com)");
-        return;
-    }
-
-    if (password.Length < 8)
-    {
-        ShowErrorMessage("Password must be at least 8 characters long");
-        return;
-    }
-
-    // Error handling method
-    void isError(string error)
-    {
-        string message = ExtractMessageFromLootLockerError(error);
-        if (message.Contains("UNIQUE"))
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            ShowErrorMessage("Display name already taken");
-        }
-        else
-        {
-            ShowErrorMessage(message);
-        }
-    }
-
-    // Step 1: Check if nickname is available
-    LootLockerSDKManager.SetPlayerName(nickname, (nameResponse) =>
-    {
-        if (!nameResponse.success)
-        {
-            isError(nameResponse.errorData.ToString());
+            ShowErrorMessage("Please fill in all fields");
             return;
         }
 
-        // Step 2: Proceed to account creation if nickname is valid
+        if (!email.Contains("@") || !email.EndsWith(".com"))
+        {
+            ShowErrorMessage("Please enter a valid email address (example@domain.com)");
+            return;
+        }
+
+        //if password is shorter than 8 characters display an error
+        if (password.Length < 8)
+        {
+            ShowErrorMessage("Password must be at least 8 characters long");
+            return;
+        }
+
+
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                string message = ExtractMessageFromLootLockerError(error);
+                if (message.Contains("UNIQUE"))
+                {
+                    ShowErrorMessage("Display name already taken");
+                }
+                else
+                {
+                    ShowErrorMessage(message);
+                }
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error creating account");
+            }
+
+            return;
+        }
+
+        //if passes all above checks, create the account
         Debug.Log("Creating account");
 
-        LootLockerSDKManager.WhiteLabelSignUp(email, password, (signUpResponse) =>
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
         {
-            if (!signUpResponse.success)
+            if (!response.success)
             {
-                isError(signUpResponse.errorData.ToString());
+                isError(response.errorData.ToString());
                 return;
             }
             else
             {
-                // Account created successfully
-                PlayerPrefs.SetString("PlayerName", nickname);
+                // Store the ID from the sign-up response
+                PlayerPrefs.SetInt("VerificationCode", response.ID);
                 PlayerPrefs.Save();
 
                 Debug.Log("Account Created");
                 registerButtonDisableInteractable.enabled = false;
                 registerToLogin.gameObject.SetActive(true);
 
-                // Store user ID and resend verification email
-                Pekpek = signUpResponse.ID;
+                // Send verification email
                 ResendVerificationEmail();
             }
         });
-    });
     }
     public void RegisterToLogin()
     {
@@ -402,10 +399,7 @@ public class LoginScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("Player was logged in succesfully");
-                PlayerPrefs.SetInt("RegisterState", 1);
-                PlayerPrefs.SetInt("AutoLogin", 1);
-                PlayerPrefs.Save();
+
             }
 
             // Is the account verified?
@@ -433,6 +427,14 @@ public class LoginScript : MonoBehaviour
                         //DisableRegisterButton
                         disableRegisterButton.gameObject.SetActive(false);
                         hideLoginSignUpButton.SetActive(false);
+
+                        //HideRegisterPanel
+                        NewUserPanel.SetActive(false);
+
+                        Debug.Log("Player was logged in succesfully");
+                        PlayerPrefs.SetInt("RegisterState", 1);
+                        PlayerPrefs.SetInt("AutoLogin", 1);
+                        PlayerPrefs.Save();
                     }
                 });
             }
@@ -530,8 +532,8 @@ public class LoginScript : MonoBehaviour
 
     public void ResendVerificationEmail()
     {
-        //int playerID = 0;
-        LootLockerSDKManager.WhiteLabelRequestVerification(Pekpek, (response) =>
+        int code = PlayerPrefs.GetInt("VerificationCode");
+        LootLockerSDKManager.WhiteLabelRequestVerification(code, (response) =>
         {
             if (!response.success)
             {
@@ -581,11 +583,9 @@ public class LoginScript : MonoBehaviour
         //empty
         newUserEmailInputField.text = string.Empty;
         newUserPasswordInputField.text = string.Empty;
-        newUserNicknameInputField.text = string.Empty;
         //empty
         existingUserEmailInputField.text = string.Empty;
         existingUserPasswordInputField.text = string.Empty;
-
 
         resetPassButton.text = "RESET";
         resetButtonDisableInteractable.enabled = true;
