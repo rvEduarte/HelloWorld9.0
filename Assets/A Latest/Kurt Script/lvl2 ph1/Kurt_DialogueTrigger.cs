@@ -7,11 +7,11 @@ public class Kurt_DialogueTrigger : MonoBehaviour
     public TriggerMessage[] messages;
     public TriggerActor[] actors;
 
-    public void StartDialogue()
+    public void StartDialogue(Kurt_NPC npcRef)
     {
-        FindObjectOfType<Kurt_DialogueManager>().OpenDialaogue(messages, actors);
+        // Start the dialogue and pass the NPC reference to the manager
+        FindObjectOfType<Kurt_DialogueManager>().OpenDialaogue(messages, actors, npcRef);
     }
-
 }
 
 [System.Serializable]
@@ -27,5 +27,3 @@ public class TriggerActor
     public string triggerName;
     public Sprite triggerSprite;
 }
-
-
