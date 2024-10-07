@@ -179,7 +179,6 @@ public class LoginScript : MonoBehaviour
 
                         //DisableRegisterButton
                         disableRegisterButton.gameObject.SetActive(false);
-                        hideLoginSignUpButton.SetActive(false);
 
                         Debug.Log("Player was logged in succesfully");
                         PlayerPrefs.SetInt("RegisterState", 1);
@@ -426,7 +425,6 @@ public class LoginScript : MonoBehaviour
 
                         //DisableRegisterButton
                         disableRegisterButton.gameObject.SetActive(false);
-                        hideLoginSignUpButton.SetActive(false);
 
                         //HideRegisterPanel
                         NewUserPanel.SetActive(false);

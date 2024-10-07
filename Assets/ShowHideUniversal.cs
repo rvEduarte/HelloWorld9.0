@@ -17,4 +17,14 @@ public class ShowHideUniversal : MonoBehaviour
         bg.SetActive(false);
         LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
+
+    public void ShowPanel(GameObject name)
+    {
+        LeanTween.scale(name, Vector3.one, 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
+
+    public void HidePanel(GameObject name)
+    {
+        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
 }
