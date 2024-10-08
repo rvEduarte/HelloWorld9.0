@@ -531,6 +531,7 @@ public class LoginScript : MonoBehaviour
 
     public void ClearInput()
     {
+        //tite
         registerButton.text = "Register";
         registerButtonDisableInteractable.enabled = true;
         registerToLogin.gameObject.SetActive(false);
