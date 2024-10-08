@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using LootLocker.Requests;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class LoginScript : MonoBehaviour
 {
@@ -60,6 +62,12 @@ public class LoginScript : MonoBehaviour
     [Header("AUTO LOGIN")]
     public GameObject onlineButtons;
     public GameObject startButtons;
+
+    [Header("DEBUGGER TEXXT")]
+
+    public TMP_Text debuggerText;
+    // URL of a reliable server (can be adjusted if needed)
+    private string testUrl = "https://www.google.com";
 
     // Start is called before the first frame update
 
@@ -433,55 +441,10 @@ public class LoginScript : MonoBehaviour
         if (autoLogin == true)
         {
             Debug.Log("Auto login");
-            // Hide the buttons on the login screen
-            startButtons.SetActive(false);
-            onlineButtons.SetActive(false);
 
-            // Hide the buttons on the login screen
-            //onlineButtonPanel.SetActive(false);
-            //LoginPanel.SetActive(false);
+            //-------------------------------------CHECK INTERNET CONNECION--------------------------------------------//
+            CheckInternetConnection();
 
-
-            LootLockerSDKManager.CheckWhiteLabelSession(response =>
-            {
-                if (response == false)
-                {
-                    // Session was not valid, show error
-                    // set the remember me bool to false here, so that the next time the player press login
-                    // they will get to the login screen
-                    ShowErrorMessage("error while logging in");
-                    LoginPanel.SetActive(true);
-                    onlineButtonPanel.SetActive(true);
-
-                    PlayerPrefs.SetInt("AutoLogin", 0);
-                    PlayerPrefs.Save();
-                }
-                else
-                {
-                    // Session is valid, start game session
-                    LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                    {
-                        if (response.success)
-                        {
-                            PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                            // It was succeful, log in
-                            // Write the current players name to the screen
-                            CheckIfPlayerHasName(response.public_uid);
-                        }
-                        else
-                        {
-                            // Error
-                            Debug.Log("error starting LootLocker session");
-                            // set the remember me bool to false here, so that the next time the player press login
-                            // they will get to the login screen
-                            PlayerPrefs.SetInt("AutoLogin", 0);
-                            PlayerPrefs.Save();
-
-                            return;
-                        }
-                    });
-                }
-            });
         }
         else if (autoLogin == false)
         {
@@ -582,6 +545,156 @@ public class LoginScript : MonoBehaviour
         resetButtonDisableInteractable.enabled = true;
         //empty
         resetPasswordInputField.text = string.Empty;
+    }
+    public void CheckInternetConnection()
+    {
+        // First, check if there's any network connection at all
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("No network connection (Wi-Fi, LAN, or mobile).");
+            debuggerText.text = "No network connection (Wi-Fi, LAN, or mobile).";
+            ShowErrorMessage(debuggerText.text);
+        }
+        else
+        {
+            // If connected, check if the network has internet access by making a request
+            StartCoroutine(CheckInternetAccess());
+        }
+    }
+
+    private IEnumerator CheckInternetAccess()
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
+        {
+            // Set a timeout (e.g., 5 seconds) for the request
+            request.timeout = 5; // Time in seconds
+
+            // Send the request
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                // Network is available but there is no internet access
+                Debug.Log("Connected to a network, but no internet access");
+                debuggerText.text = "Connected to a network, but no internet access";
+                ShowErrorMessage(debuggerText.text);
+            }
+            else
+            {
+                // Network has internet access
+                Debug.Log("Network has internet access.");
+                if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+                {
+                    Debug.Log("Connected via mobile data and has internet access.");
+                    debuggerText.text = "Connected via mobile data and has internet access.";
+
+                    // Hide the buttons on the login screen
+                    startButtons.SetActive(false);
+                    onlineButtons.SetActive(false);
+
+                    // Hide the buttons on the login screen
+                    //onlineButtonPanel.SetActive(false);
+                    //LoginPanel.SetActive(false);
+
+
+                    LootLockerSDKManager.CheckWhiteLabelSession(response =>
+                    {
+                        if (response == false)
+                        {
+                            // Session was not valid, show error
+                            // set the remember me bool to false here, so that the next time the player press login
+                            // they will get to the login screen
+                            ShowErrorMessage("error while logging in. Please check your internet connection");
+                            //LoginPanel.SetActive(true);
+                            //onlineButtonPanel.SetActive(true);
+
+                            //PlayerPrefs.SetInt("AutoLogin", 0);
+                            //PlayerPrefs.Save();
+                        }
+                        else
+                        {
+                            // Session is valid, start game session
+                            LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                            {
+                                if (response.success)
+                                {
+                                    PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                                    // It was succeful, log in
+                                    // Write the current players name to the screen
+                                    CheckIfPlayerHasName(response.public_uid);
+                                }
+                                else
+                                {
+                                    // Error
+                                    Debug.Log("error starting LootLocker session");
+                                    // set the remember me bool to false here, so that the next time the player press login
+                                    // they will get to the login screen
+                                    PlayerPrefs.SetInt("AutoLogin", 0);
+                                    PlayerPrefs.Save();
+
+                                    return;
+                                }
+                            });
+                        }
+                    });
+                }
+                else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+                {
+                    Debug.Log("Connected via Wi-Fi/LAN and has internet access.");
+                    debuggerText.text = "Connected via Wi-Fi/LAN and has internet access.";
+
+                    // Hide the buttons on the login screen
+                    startButtons.SetActive(false);
+                    onlineButtons.SetActive(false);
+
+                    // Hide the buttons on the login screen
+                    //onlineButtonPanel.SetActive(false);
+                    //LoginPanel.SetActive(false);
+
+
+                    LootLockerSDKManager.CheckWhiteLabelSession(response =>
+                    {
+                        if (response == false)
+                        {
+                            // Session was not valid, show error
+                            // set the remember me bool to false here, so that the next time the player press login
+                            // they will get to the login screen
+                            ShowErrorMessage("error while logging in. Please check your internet connection");
+                            //LoginPanel.SetActive(true);
+                            //onlineButtonPanel.SetActive(true);
+
+                            //PlayerPrefs.SetInt("AutoLogin", 0);
+                            //PlayerPrefs.Save();
+                        }
+                        else
+                        {
+                            // Session is valid, start game session
+                            LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                            {
+                                if (response.success)
+                                {
+                                    PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                                    // It was succeful, log in
+                                    // Write the current players name to the screen
+                                    CheckIfPlayerHasName(response.public_uid);
+                                }
+                                else
+                                {
+                                    // Error
+                                    Debug.Log("error starting LootLocker session");
+                                    // set the remember me bool to false here, so that the next time the player press login
+                                    // they will get to the login screen
+                                    PlayerPrefs.SetInt("AutoLogin", 0);
+                                    PlayerPrefs.Save();
+
+                                    return;
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        }
     }
 }
 
