@@ -1321,6 +1321,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163971117}
   m_CullTransparentMesh: 0
+--- !u!1 &165826463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 165826464}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &165826464
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165826463}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1440955179}
+  - {fileID: 1144762216}
+  - {fileID: 752577567}
+  m_Father: {fileID: 1429290527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &167101948
 GameObject:
   m_ObjectHideFlags: 0
@@ -12872,11 +12910,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 206954341}
-  m_Father: {fileID: 1429290527}
+  m_Father: {fileID: 165826464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 187}
+  m_AnchoredPosition: {x: 910, y: -195}
   m_SizeDelta: {x: 148.0018, y: 132}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &752577568
@@ -17801,7 +17839,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 863477388}
-  m_Father: {fileID: 1429290527}
+  m_Father: {fileID: 165826464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17852,6 +17890,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1880138749}
+        m_TargetAssemblyTypeName: LoginScript, Assembly-CSharp
+        m_MethodName: AutoLogin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 752577566}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -17880,18 +17930,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1880138749}
-        m_TargetAssemblyTypeName: LoginScript, Assembly-CSharp
-        m_MethodName: AutoLogin
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21787,9 +21825,7 @@ RectTransform:
   - {fileID: 735647010}
   - {fileID: 1023984775}
   - {fileID: 639242230}
-  - {fileID: 1440955179}
-  - {fileID: 1144762216}
-  - {fileID: 752577567}
+  - {fileID: 165826464}
   m_Father: {fileID: 716570590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -22135,7 +22171,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1517253931}
-  m_Father: {fileID: 1429290527}
+  m_Father: {fileID: 165826464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -27630,13 +27666,14 @@ MonoBehaviour:
   newUserPasswordInputField: {fileID: 527324554}
   existingUserEmailInputField: {fileID: 1383924914}
   existingUserPasswordInputField: {fileID: 1346142792}
+  DisableOnline: {fileID: 1594074618}
   resetPasswordInputField: {fileID: 1809160140}
   autoLogin: 0
   newPlayerNameInputField: {fileID: 1832678295}
   playerNameText: {fileID: 0}
   errorText: {fileID: 558680223}
   errorPanel: {fileID: 1007958006}
-  onlineButtonPanel: {fileID: 0}
+  onlineButtonPanel: {fileID: 165826463}
   LoginPanel: {fileID: 2034146653}
   SetNickNamePanel: {fileID: 2101864696}
   NewUserPanel: {fileID: 403721810}

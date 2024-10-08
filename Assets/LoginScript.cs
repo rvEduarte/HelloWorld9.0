@@ -27,6 +27,8 @@ public class LoginScript : MonoBehaviour
     public TMP_InputField existingUserEmailInputField;
     public TMP_InputField existingUserPasswordInputField;
 
+    public GameObject DisableOnline;
+
     [Header("Reset password")]
     public TMP_InputField resetPasswordInputField;
 
@@ -444,12 +446,13 @@ public class LoginScript : MonoBehaviour
         // Does the user want to automatically log in?
         if (autoLogin == true)
         {
+            DisableOnline.SetActive(false);
             Debug.Log("Auto login");
 
             // Hide the buttons on the login screen
             onlineButtonPanel.SetActive(false);
             LoginPanel.SetActive(false);
-            
+
 
             LootLockerSDKManager.CheckWhiteLabelSession(response =>
             {
