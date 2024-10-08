@@ -36,4 +36,3 @@ public class TriggerActor2
     public string triggerName;
     public Sprite triggerSprite;
 }
-

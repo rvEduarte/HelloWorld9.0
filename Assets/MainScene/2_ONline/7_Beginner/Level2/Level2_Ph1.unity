@@ -31889,7 +31889,6 @@ MonoBehaviour:
   actorName: {fileID: 2126785833}
   messageText: {fileID: 111828106}
   backgroundBox: {fileID: 1824924560}
-  objectToShow: {fileID: 0}
 --- !u!114 &1824924562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37631,7 +37630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &99924494534988475
 GameObject:
   m_ObjectHideFlags: 0
@@ -38022,7 +38021,7 @@ Transform:
   m_GameObject: {fileID: 2064567265906640012}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.15, y: -8.59, z: -20.888332}
+  m_LocalPosition: {x: 9.5, y: -4.2, z: -20.888332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49329,7 +49328,6 @@ MonoBehaviour:
   platformMoveDelay: 2
   errorImage: {fileID: 3974070503538022985}
   successImage: {fileID: 6975671758010534613}
-  jigsawScript: {fileID: 0}
 --- !u!224 &773093339036100431
 RectTransform:
   m_ObjectHideFlags: 0
@@ -74471,6 +74469,7 @@ GameObject:
   - component: {fileID: 3528357824172479272}
   - component: {fileID: 4678898479634276525}
   - component: {fileID: 5876500903282353200}
+  - component: {fileID: 5876500903282353201}
   m_Layer: 0
   m_Name: Computer
   m_TagString: Untagged
@@ -76208,7 +76207,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.412552
+      m_AnimationSpeed: 6.2681117
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -15, y: -5, z: 0}
@@ -76227,7 +76226,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 6.880873
+      m_AnimationSpeed: 7.5108986
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: -5, z: 0}
@@ -76303,7 +76302,7 @@ Tilemap:
       - {fileID: -1585511036, guid: 34c583b0e8b44764e91cbb36e800d408, type: 3}
       - {fileID: -1552358548, guid: 34c583b0e8b44764e91cbb36e800d408, type: 3}
       - {fileID: 1537677322, guid: 34c583b0e8b44764e91cbb36e800d408, type: 3}
-      m_AnimationSpeed: 12.000001
+      m_AnimationSpeed: 12
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: -4, z: 0}
@@ -76322,7 +76321,7 @@ Tilemap:
       - {fileID: 947283117, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: -224400671, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
       - {fileID: 1403431713, guid: cb829f709935ea14494a9e1f8be1ef61, type: 3}
-      m_AnimationSpeed: 7.8628674
+      m_AnimationSpeed: 7.2465997
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: -3, z: 0}
@@ -76341,7 +76340,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.967719
+      m_AnimationSpeed: 6.793674
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -17, y: -2, z: 0}
@@ -76360,7 +76359,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.0024867
+      m_AnimationSpeed: 6.0656104
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: -2, z: 0}
@@ -76379,7 +76378,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.38805
+      m_AnimationSpeed: 7.958806
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 40, y: -2, z: 0}
@@ -76398,7 +76397,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 6.874854
+      m_AnimationSpeed: 6.974236
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -23, y: -1, z: 0}
@@ -76417,7 +76416,7 @@ Tilemap:
       - {fileID: 1340797129, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1240610901, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
       - {fileID: -1059409332, guid: d660622a6e65c624a8bdbfea84f9e5fb, type: 3}
-      m_AnimationSpeed: 7.5523987
+      m_AnimationSpeed: 6.578871
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -84537,7 +84536,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.2363005, y: -4.069705}
+  m_Offset: {x: -1.2363005, y: 13.142441}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -84548,7 +84547,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 19.637781, y: 30.669573}
+  m_Size: {x: 19.637781, y: 65.093864}
   m_EdgeRadius: 0
 --- !u!198 &4679847517698004387
 ParticleSystem:
@@ -107205,7 +107204,8 @@ MonoBehaviour:
   resumeButton: {fileID: 6719818261494717783}
   pauseButton: {fileID: 1098281688325576489}
   restartButton: {fileID: 8017284456421796575}
-  quizPanels: []
+  quizPanels:
+  - {fileID: 3068947687977994643}
 --- !u!1 &5776662988728320963
 GameObject:
   m_ObjectHideFlags: 0
@@ -107572,6 +107572,21 @@ MonoBehaviour:
   panel: {fileID: 3068947687977994643}
   transitionDuration: 0.5
   PlayerController: {fileID: 4251779282036157377}
+--- !u!114 &5876500903282353201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276083307009259194}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55e1b29efbc0a34b818f6124a376af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionText: {fileID: 0}
+  panel: {fileID: 0}
+  transitionDuration: 0.5
 --- !u!222 &5881283842288133656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -109314,6 +109329,7 @@ GameObject:
   - component: {fileID: 6406324601537684023}
   - component: {fileID: 6383858808997724934}
   - component: {fileID: 8689634982269325335}
+  - component: {fileID: 8689634982269325336}
   m_Layer: 0
   m_Name: Piece of Jigsaw
   m_TagString: Untagged
@@ -110281,7 +110297,7 @@ Transform:
   m_GameObject: {fileID: 7664636173318922842}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.447388, y: -0.429, z: 0.14060545}
+  m_LocalPosition: {x: 10.447388, y: -0.49, z: 0.14060545}
   m_LocalScale: {x: 10.974944, y: 0.4208, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -114837,7 +114853,7 @@ Transform:
   m_GameObject: {fileID: 1535766041274727851}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.15, y: -8.59, z: -10.888333}
+  m_LocalPosition: {x: 9.5, y: -4.2, z: -10.888333}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -126286,9 +126302,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397214612335947310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 751e5882443cb634bb23a0904567a2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpText: {fileID: 7656676497237927261}
+  jigsaw: {fileID: 6397214612335947310}
+  jigsawPanel: {fileID: 2814911052460498021}
+  dimed: {fileID: 7363219099455715152}
+  isClicked: 0
+  tutorialPanel: {fileID: 432588990}
+  backpackPanel: {fileID: 256816918}
+--- !u!114 &8689634982269325336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397214612335947310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52bbca13acb59c14dabe040f4fa1c3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpText: {fileID: 7656676497237927261}
