@@ -1331,7 +1331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 165826464}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,10 +1354,10 @@ RectTransform:
   - {fileID: 752577567}
   m_Father: {fileID: 1429290527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &167101948
 GameObject:
@@ -12912,11 +12912,11 @@ RectTransform:
   - {fileID: 206954341}
   m_Father: {fileID: 165826464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 910, y: -195}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 148.0018, y: 132}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &752577568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17894,42 +17894,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: LoginScript, Assembly-CSharp
         m_MethodName: AutoLogin
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 752577566}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1594074618}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2029341645}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -23982,7 +23946,7 @@ GameObject:
   - component: {fileID: 1594074621}
   - component: {fileID: 1594074620}
   m_Layer: 5
-  m_Name: Online
+  m_Name: OnlineButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27666,7 +27630,6 @@ MonoBehaviour:
   newUserPasswordInputField: {fileID: 527324554}
   existingUserEmailInputField: {fileID: 1383924914}
   existingUserPasswordInputField: {fileID: 1346142792}
-  DisableOnline: {fileID: 1594074618}
   resetPasswordInputField: {fileID: 1809160140}
   autoLogin: 0
   newPlayerNameInputField: {fileID: 1832678295}
@@ -27679,10 +27642,10 @@ MonoBehaviour:
   NewUserPanel: {fileID: 403721810}
   registerButton: {fileID: 1037370784}
   resetPassButton: {fileID: 406594236}
-  newAndLoad: 0
   disableRegisterButton: {fileID: 601144639}
-  hideLoginSignUpButton: {fileID: 0}
   registerToLogin: {fileID: 459191277}
+  onlineButtons: {fileID: 1594074618}
+  startButtons: {fileID: 165826463}
 --- !u!1 &1883229624
 GameObject:
   m_ObjectHideFlags: 0
@@ -29425,31 +29388,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1144762215}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1440955178}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 752577566}
+      - m_Target: {fileID: 165826463}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6

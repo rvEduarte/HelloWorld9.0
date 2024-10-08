@@ -27,8 +27,6 @@ public class LoginScript : MonoBehaviour
     public TMP_InputField existingUserEmailInputField;
     public TMP_InputField existingUserPasswordInputField;
 
-    public GameObject DisableOnline;
-
     [Header("Reset password")]
     public TMP_InputField resetPasswordInputField;
 
@@ -55,13 +53,13 @@ public class LoginScript : MonoBehaviour
     public TextMeshProUGUI registerButton;
     public TextMeshProUGUI resetPassButton;
 
-    [SerializeField] public bool newAndLoad; //FALSE
-
     public GameObject disableRegisterButton;
 
-    public GameObject hideLoginSignUpButton;
-
     public Button registerToLogin;
+
+    [Header("AUTO LOGIN")]
+    public GameObject onlineButtons;
+    public GameObject startButtons;
 
     // Start is called before the first frame update
 
@@ -79,18 +77,6 @@ public class LoginScript : MonoBehaviour
         else
         {
             autoLogin = false;
-            Debug.Log("FALSE");
-        }
-
-        // Load the saved state
-        if (PlayerPrefs.GetInt("NewAndLoad") == 1)
-        {
-            newAndLoad = true;
-            Debug.Log("TRUE");
-        }
-        else
-        {
-            newAndLoad = false;
             Debug.Log("FALSE");
         }
 
@@ -446,12 +432,14 @@ public class LoginScript : MonoBehaviour
         // Does the user want to automatically log in?
         if (autoLogin == true)
         {
-            DisableOnline.SetActive(false);
             Debug.Log("Auto login");
+            // Hide the buttons on the login screen
+            startButtons.SetActive(false);
+            onlineButtons.SetActive(false);
 
             // Hide the buttons on the login screen
-            onlineButtonPanel.SetActive(false);
-            LoginPanel.SetActive(false);
+            //onlineButtonPanel.SetActive(false);
+            //LoginPanel.SetActive(false);
 
 
             LootLockerSDKManager.CheckWhiteLabelSession(response =>
@@ -465,8 +453,8 @@ public class LoginScript : MonoBehaviour
                     LoginPanel.SetActive(true);
                     onlineButtonPanel.SetActive(true);
 
-                    //PlayerPrefs.SetInt("AutoLogin", 0);
-                    //PlayerPrefs.Save();
+                    PlayerPrefs.SetInt("AutoLogin", 0);
+                    PlayerPrefs.Save();
                 }
                 else
                 {
@@ -499,6 +487,8 @@ public class LoginScript : MonoBehaviour
         {
             Debug.Log("Auto login is off");
             // Continue as usual
+            startButtons.SetActive(false);
+            onlineButtons.SetActive(true);
         }
     }
     public void PasswordReset()
