@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class K_DialogueTriggerLvl2Ph2 : MonoBehaviour
 {
+
+    [Header("First Conversation")]
     public TriggerMessage2[] firstMessages;  // First conversation
     public TriggerActor2[] firstActors;
 
+    [Header("Second Conversation")]
     public TriggerMessage2[] secondMessages;  // Second conversation after computer appears
     public TriggerActor2[] secondActors;
 
