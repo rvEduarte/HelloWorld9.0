@@ -35,7 +35,7 @@ public class RunningTimerLevel1Ph1Intermediate : MonoBehaviour
     }
     private void Update()
     {
-        if (!pauseMenu.pause)
+        if (!pauseMenu.pause)   
         {
             if (!isPicked)
             {

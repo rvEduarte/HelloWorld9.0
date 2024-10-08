@@ -34,9 +34,6 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
     public GameObject errorImage;
     public GameObject successImage;
 
-    // Reference to the jigsaw script
-    public KurtJigsawScript jigsawScript;
-
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
     {
@@ -179,7 +176,10 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
         transform.localScale = targetScale;
         gameObject.SetActive(false);
 
-        // Call the CloseJigsawPanel method to re-enable player movement
-        jigsawScript.CloseJigsawPanel();
+        Debug.Log("Panel Closed...");
+
+        TriggerTutorial.disableMove = false; //disable Move
+        TriggerTutorial.disableJump = true; //disable jumping
     }
+
 }
