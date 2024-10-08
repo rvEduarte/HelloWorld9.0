@@ -73,6 +73,8 @@ public class LoginScript : MonoBehaviour
 
     public void Start()
     {
+
+
         registerButtonDisableInteractable.enabled = true;
         progressData.LoadFromLocalFile();
 
@@ -119,71 +121,7 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
-
-        void isError(string error)
-        {
-            if (error.Contains("message"))
-            {
-                ShowErrorMessage("Incorrect Password/Email");
-                return;
-            }
-
-            if (!error.Contains("message"))
-            {
-                ShowErrorMessage("Error logging in");
-                return;
-            }
-
-            return;
-        }
-
-        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
-        {
-            if (!response.success)
-            {
-                // Error
-                isError(response.errorData.ToString());
-                Debug.Log("error while logging in");
-                return;
-            }
-            else
-            {
-
-            }
-
-            // Is the account verified?
-            if (response.VerifiedAt == null)
-            {
-                ShowErrorMessage("Your account is not verified. Please check your email for verification.");
-            }
-            else
-            {
-                LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                {
-                    if (!response.success)
-                    {
-                        // Error
-                        isError(response.errorData.ToString());
-                        return;
-                    }
-                    else
-                    {
-                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                        LoginPanel.SetActive(false);
-                        Debug.Log("session started successfully");
-                        CheckIfPlayerHasName(response.public_uid);
-
-                        //DisableRegisterButton
-                        disableRegisterButton.gameObject.SetActive(false);
-
-                        Debug.Log("Player was logged in succesfully");
-                        PlayerPrefs.SetInt("RegisterState", 1);
-                        PlayerPrefs.SetInt("AutoLogin", 1);
-                        PlayerPrefs.Save();
-                    }
-                });
-            }
-        });
+        CheckInternetConnection(4);
     }
 
     //checks if user has set a display name, if not forces them to set one
@@ -305,54 +243,8 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
+        CheckInternetConnection(2);
 
-        void isError(string error)
-        {
-            if (error.Contains("message"))
-            {
-                string message = ExtractMessageFromLootLockerError(error);
-                if (message.Contains("UNIQUE"))
-                {
-                    ShowErrorMessage("Display name already taken");
-                }
-                else
-                {
-                    ShowErrorMessage(message);
-                }
-            }
-
-            if (!error.Contains("message"))
-            {
-                ShowErrorMessage("Error creating account");
-            }
-
-            return;
-        }
-
-        //if passes all above checks, create the account
-        Debug.Log("Creating account");
-
-        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
-        {
-            if (!response.success)
-            {
-                isError(response.errorData.ToString());
-                return;
-            }
-            else
-            {
-                // Store the ID from the sign-up response
-                PlayerPrefs.SetInt("VerificationCode", response.ID);
-                PlayerPrefs.Save();
-
-                Debug.Log("Account Created");
-                registerButtonDisableInteractable.enabled = false;
-                registerToLogin.gameObject.SetActive(true);
-
-                // Send verification email
-                ResendVerificationEmail();
-            }
-        });
     }
     public void RegisterToLogin()
     {
@@ -365,74 +257,8 @@ public class LoginScript : MonoBehaviour
             return;
         }
 
+        CheckInternetConnection(3);
 
-        void isError(string error)
-        {
-            if (error.Contains("message"))
-            {
-                ShowErrorMessage("Incorrect Password/Email");
-                return;
-            }
-
-            if (!error.Contains("message"))
-            {
-                ShowErrorMessage("Error logging in");
-                return;
-            }
-
-            return;
-        }
-
-        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
-        {
-            if (!response.success)
-            {
-                // Error
-                isError(response.errorData.ToString());
-                Debug.Log("error while logging in");
-                return;
-            }
-            else
-            {
-
-            }
-
-            // Is the account verified?
-            if (response.VerifiedAt == null)
-            {
-                ShowErrorMessage("Please check your email for the verification.");
-            }
-            else
-            {
-                LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                {
-                    if (!response.success)
-                    {
-                        // Error
-                        isError(response.errorData.ToString());
-                        return;
-                    }
-                    else
-                    {
-                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                        LoginPanel.SetActive(false);
-                        Debug.Log("session started successfully");
-                        CheckIfPlayerHasName(response.public_uid);
-
-                        //DisableRegisterButton
-                        disableRegisterButton.gameObject.SetActive(false);
-
-                        //HideRegisterPanel
-                        NewUserPanel.SetActive(false);
-
-                        Debug.Log("Player was logged in succesfully");
-                        PlayerPrefs.SetInt("RegisterState", 1);
-                        PlayerPrefs.SetInt("AutoLogin", 1);
-                        PlayerPrefs.Save();
-                    }
-                });
-            }
-        });
     }
 
     public void AutoLogin()
@@ -443,7 +269,7 @@ public class LoginScript : MonoBehaviour
             Debug.Log("Auto login");
 
             //-------------------------------------CHECK INTERNET CONNECION--------------------------------------------//
-            CheckInternetConnection();
+            CheckInternetConnection(1);
 
         }
         else if (autoLogin == false)
@@ -548,28 +374,34 @@ public class LoginScript : MonoBehaviour
         //empty
         resetPasswordInputField.text = string.Empty;
     }
-    public void CheckInternetConnection()
+    public void CheckInternetConnection(int number)
     {
         // First, check if there's any network connection at all
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.Log("No network connection (Wi-Fi, LAN, or mobile).");
+            Debug.Log("No network connection");
             debuggerText.text = "No network connection (Wi-Fi, LAN, or mobile).";
             ShowErrorMessage(debuggerText.text);
         }
         else
         {
             // If connected, check if the network has internet access by making a request
-            StartCoroutine(CheckInternetAccess());
+            StartCoroutine(CheckInternetAccess(number));
         }
     }
 
-    private IEnumerator CheckInternetAccess()
+    private IEnumerator CheckInternetAccess(int number)
     {
+        string email = newUserEmailInputField.text;
+        string password = newUserPasswordInputField.text;
+
+        string existingEmail = existingUserEmailInputField.text;
+        string existingPassword = existingUserPasswordInputField.text;
+
         using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
         {
             // Set a timeout (e.g., 5 seconds) for the request
-            request.timeout = 5; // Time in seconds
+            request.timeout = 2; // Time in seconds
 
             // Send the request
             yield return request.SendWebRequest();
@@ -590,113 +422,294 @@ public class LoginScript : MonoBehaviour
                     Debug.Log("Connected via mobile data and has internet access.");
                     debuggerText.text = "Connected via mobile data and has internet access.";
 
-                    // Hide the buttons on the login screen
-                    startButtons.SetActive(false);
-                    onlineButtons.SetActive(false);
-
-                    // Hide the buttons on the login screen
-                    //onlineButtonPanel.SetActive(false);
-                    //LoginPanel.SetActive(false);
-
-
-                    LootLockerSDKManager.CheckWhiteLabelSession(response =>
+                    if(number == 1)
                     {
-                        if (response == false)
-                        {
-                            // Session was not valid, show error
-                            // set the remember me bool to false here, so that the next time the player press login
-                            // they will get to the login screen
-                            ShowErrorMessage("error while logging in. Please check your internet connection");
-                            //LoginPanel.SetActive(true);
-                            //onlineButtonPanel.SetActive(true);
+                        CheckInternetAutoLogin();
+                    }
+                    else if (number == 2)
+                    {
+                        CheckInterNewUser(email, password);
+                    }
+                    else if (number == 3)
+                    {
+                        Debug.Log("FUCK PUMASOK");
+                        debuggerText.text = "FUCK PUMASOK";
+                        CheckInternetRegisterToLogin(email, password);
+                    }
+                    else if(number == 4)
+                    {
+                        CheckInternetLogin(existingEmail, existingPassword);
+                    }
 
-                            //PlayerPrefs.SetInt("AutoLogin", 0);
-                            //PlayerPrefs.Save();
-                        }
-                        else
-                        {
-                            // Session is valid, start game session
-                            LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                            {
-                                if (response.success)
-                                {
-                                    PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                                    // It was succeful, log in
-                                    // Write the current players name to the screen
-                                    CheckIfPlayerHasName(response.public_uid);
-                                }
-                                else
-                                {
-                                    // Error
-                                    Debug.Log("error starting LootLocker session");
-                                    // set the remember me bool to false here, so that the next time the player press login
-                                    // they will get to the login screen
-                                    PlayerPrefs.SetInt("AutoLogin", 0);
-                                    PlayerPrefs.Save();
-
-                                    return;
-                                }
-                            });
-                        }
-                    });
                 }
                 else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
                 {
                     Debug.Log("Connected via Wi-Fi/LAN and has internet access.");
                     debuggerText.text = "Connected via Wi-Fi/LAN and has internet access.";
 
-                    // Hide the buttons on the login screen
-                    startButtons.SetActive(false);
-                    onlineButtons.SetActive(false);
-
-                    // Hide the buttons on the login screen
-                    //onlineButtonPanel.SetActive(false);
-                    //LoginPanel.SetActive(false);
-
-
-                    LootLockerSDKManager.CheckWhiteLabelSession(response =>
+                    if (number == 1)
                     {
-                        if (response == false)
-                        {
-                            // Session was not valid, show error
-                            // set the remember me bool to false here, so that the next time the player press login
-                            // they will get to the login screen
-                            ShowErrorMessage("error while logging in. Please check your internet connection");
-                            //LoginPanel.SetActive(true);
-                            //onlineButtonPanel.SetActive(true);
-
-                            //PlayerPrefs.SetInt("AutoLogin", 0);
-                            //PlayerPrefs.Save();
-                        }
-                        else
-                        {
-                            // Session is valid, start game session
-                            LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                            {
-                                if (response.success)
-                                {
-                                    PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
-                                    // It was succeful, log in
-                                    // Write the current players name to the screen
-                                    CheckIfPlayerHasName(response.public_uid);
-                                }
-                                else
-                                {
-                                    // Error
-                                    Debug.Log("error starting LootLocker session");
-                                    // set the remember me bool to false here, so that the next time the player press login
-                                    // they will get to the login screen
-                                    PlayerPrefs.SetInt("AutoLogin", 0);
-                                    PlayerPrefs.Save();
-
-                                    return;
-                                }
-                            });
-                        }
-                    });
+                        CheckInternetAutoLogin();
+                    }
+                    else if (number == 2)
+                    {
+                        CheckInterNewUser(email, password);
+                    }
+                    else if (number == 3)
+                    {
+                        Debug.Log("FUCK PUMASOK");
+                        debuggerText.text = "FUCK PUMASOK";
+                        CheckInternetRegisterToLogin(email, password);
+                    }
+                    else if (number == 4)
+                    {
+                        CheckInternetLogin(existingEmail, existingPassword);
+                    }
                 }
             }
         }
+    }
+
+    private void CheckInternetLogin(string email, string password)
+    {
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                ShowErrorMessage("Incorrect Password/Email");
+                return;
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error logging in");
+                return;
+            }
+
+            return;
+        }
+
+        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
+        {
+            if (!response.success)
+            {
+                // Error
+                isError(response.errorData.ToString());
+                Debug.Log("error while logging in");
+                return;
+            }
+            else
+            {
+
+            }
+
+            // Is the account verified?
+            if (response.VerifiedAt == null)
+            {
+                ShowErrorMessage("Your account is not verified. Please check your email for verification.");
+            }
+            else
+            {
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (!response.success)
+                    {
+                        // Error
+                        isError(response.errorData.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                        LoginPanel.SetActive(false);
+                        Debug.Log("session started successfully");
+                        CheckIfPlayerHasName(response.public_uid);
+
+                        //DisableRegisterButton
+                        disableRegisterButton.gameObject.SetActive(false);
+
+                        Debug.Log("Player was logged in succesfully");
+                        PlayerPrefs.SetInt("RegisterState", 1);
+                        PlayerPrefs.SetInt("AutoLogin", 1);
+                        PlayerPrefs.Save();
+                    }
+                });
+            }
+        });
+    }
+
+    private void CheckInterNewUser(string email, string password)
+    {
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                string message = ExtractMessageFromLootLockerError(error);
+                if (message.Contains("UNIQUE"))
+                {
+                    ShowErrorMessage("Display name already taken");
+                }
+                else
+                {
+                    ShowErrorMessage(message);
+                }
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error creating account");
+            }
+
+            return;
+        }
+
+        //if passes all above checks, create the account
+        Debug.Log("Creating account");
+
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
+        {
+            if (!response.success)
+            {
+                isError(response.errorData.ToString());
+                return;
+            }
+            else
+            {
+                // Store the ID from the sign-up response
+                PlayerPrefs.SetInt("VerificationCode", response.ID);
+                PlayerPrefs.Save();
+
+                Debug.Log("Account Created");
+                registerButtonDisableInteractable.enabled = false;
+                registerToLogin.gameObject.SetActive(true);
+
+                // Send verification email
+                ResendVerificationEmail();
+            }
+        });
+    }
+    private void CheckInternetRegisterToLogin(string email, string password)
+    {
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                ShowErrorMessage("Incorrect Password/Email");
+                return;
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error logging in");
+                return;
+            }
+
+            return;
+        }
+
+        LootLockerSDKManager.WhiteLabelLogin(email, password, response =>
+        {
+            if (!response.success)
+            {
+                // Error
+                isError(response.errorData.ToString());
+                Debug.Log("error while logging in");
+                return;
+            }
+            else
+            {
+
+            }
+
+            // Is the account verified?
+            if (response.VerifiedAt == null)
+            {
+                ShowErrorMessage("Please check your email for the verification.");
+            }
+            else
+            {
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (!response.success)
+                    {
+                        // Error
+                        isError(response.errorData.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                        LoginPanel.SetActive(false);
+                        Debug.Log("session started successfully");
+                        CheckIfPlayerHasName(response.public_uid);
+
+                        //DisableRegisterButton
+                        disableRegisterButton.gameObject.SetActive(false);
+
+                        //HideRegisterPanel
+                        NewUserPanel.SetActive(false);
+
+                        Debug.Log("Player was logged in succesfully");
+                        PlayerPrefs.SetInt("RegisterState", 1);
+                        PlayerPrefs.SetInt("AutoLogin", 1);
+                        PlayerPrefs.Save();
+                    }
+                });
+            }
+        });
+    }
+
+    private void CheckInternetAutoLogin()
+    {
+        // Hide the buttons on the login screen
+        startButtons.SetActive(false);
+        onlineButtons.SetActive(false);
+
+        // Hide the buttons on the login screen
+        //onlineButtonPanel.SetActive(false);
+        //LoginPanel.SetActive(false);
+
+
+        LootLockerSDKManager.CheckWhiteLabelSession(response =>
+        {
+            if (response == false)
+            {
+                // Session was not valid, show error
+                // set the remember me bool to false here, so that the next time the player press login
+                // they will get to the login screen
+                ShowErrorMessage("error while logging in. Please check your internet connection");
+                //LoginPanel.SetActive(true);
+                //onlineButtonPanel.SetActive(true);
+
+                //PlayerPrefs.SetInt("AutoLogin", 0);
+                //PlayerPrefs.Save();
+            }
+            else
+            {
+                // Session is valid, start game session
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (response.success)
+                    {
+                        PlayerPrefs.SetString("LLplayerId", response.player_id.ToString());
+                        // It was succeful, log in
+                        // Write the current players name to the screen
+                        CheckIfPlayerHasName(response.public_uid);
+                    }
+                    else
+                    {
+                        // Error
+                        Debug.Log("error starting LootLocker session");
+                        // set the remember me bool to false here, so that the next time the player press login
+                        // they will get to the login screen
+                        PlayerPrefs.SetInt("AutoLogin", 0);
+                        PlayerPrefs.Save();
+
+                        return;
+                    }
+                });
+            }
+        });
     }
 }
 
