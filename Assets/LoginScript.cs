@@ -503,6 +503,7 @@ public class LoginScript : MonoBehaviour
 
     private string ExtractMessageFromLootLockerError(string rawError)
     {
+        //tite
         // Find the start index of the message
         int startIndex = rawError.IndexOf("\"") + 1; // Skip the first quote
         if (startIndex == 0)
