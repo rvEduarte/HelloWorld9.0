@@ -121,11 +121,11 @@ namespace TarodevController
         {
             if(_sprite.flipX == true)
             {
-                aiPos.transform.localPosition = new Vector2(1.113f, 1.64f);
+                aiPos.transform.localPosition = new Vector2(1.65f, 1.64f);
             }
             else if (_sprite.flipX == false)
             {
-                aiPos.transform.localPosition = new Vector2(-1.08f, 1.64f);
+                aiPos.transform.localPosition = new Vector2(-1.58f, 1.64f);
             }
         }
 
