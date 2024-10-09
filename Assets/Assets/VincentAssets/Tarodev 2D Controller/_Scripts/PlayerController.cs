@@ -20,6 +20,9 @@ namespace TarodevController
         private Vector2 _frameVelocity;
         private bool _cachedQueryStartInColliders;
 
+        [SerializeField] private SpriteRenderer _sprite;
+        [SerializeField] private Transform aiPos;
+
         #region Interface
 
         public Vector2 FrameInput => _frameInput.Move;
@@ -97,6 +100,8 @@ namespace TarodevController
             HandleGravity();
 
             ApplyMovement();
+
+            FlipAIPos();
         }
 
         // Rest of your code (HandleJump, HandleDirection, HandleGravity) remains the same...
@@ -110,6 +115,17 @@ namespace TarodevController
             else
             {
                 _rb.velocity = _frameVelocity;
+            }
+        }
+        private void FlipAIPos()
+        {
+            if(_sprite.flipX == true)
+            {
+                aiPos.transform.localPosition = new Vector2(1.113f, 1.64f);
+            }
+            else if (_sprite.flipX == false)
+            {
+                aiPos.transform.localPosition = new Vector2(-1.08f, 1.64f);
             }
         }
 
