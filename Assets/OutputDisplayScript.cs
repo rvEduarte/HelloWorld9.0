@@ -19,7 +19,6 @@ public class OutputDisplayScript : MonoBehaviour
 
     public GameObject movingObject;
     public GameObject CodePanel;
-    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +53,7 @@ public class OutputDisplayScript : MonoBehaviour
         Debug.Log("Input Code: " + code);
 
         // Pattern to match Console.WriteLine or Console.Write with text inside quotes or a mathematical expression
-        string pattern = @"Console\.Write(Line)?\(\s*(?<expr>""[^""]*""|[^""]+)\s*\)";
+        string pattern = @"Console\.Write(Line)?\(\s*(?<expr>""[^""]*""|[^""]+)\s*\);";
         MatchCollection matches = Regex.Matches(code, pattern);
 
         // Check if matches were found
@@ -163,11 +162,11 @@ public class OutputDisplayScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        
-
-        CodePanel.SetActive(false);
+        LeanTween.scale(CodePanel, Vector2.zero, 0.5f);
         movingObject.SetActive(true);
-        player.SetActive(true);
+
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
     }
 
     bool IsValidCode1(string code)

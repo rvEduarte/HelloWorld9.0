@@ -8,57 +8,45 @@ using UnityEngine.InputSystem;
 
 public class ComputerDisMObj : MonoBehaviour
 {
-    public GameObject exla;
+    [SerializeField] private GameObject ComputerPanel;
 
-    public GameObject Hint;
+    [SerializeField] private GameObject hintText, exla;
 
-    public GameObject answerPanel;
+    private bool pickUpAllowed;
 
-    public GameObject player;
-
-    public bool inside = false;
-
-    public GameObject movingObject;
-    void Start()
+    private void Start()
     {
-        answerPanel.SetActive(false);
-        movingObject.SetActive(false);
+        hintText.SetActive(false);
     }
 
     private void Update()
     {
-        if (inside == true)
+        if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                player.SetActive(false);
-                answerPanel.SetActive(true);
-                Debug.Log("TITE SI KARL");
-            }
+            TriggerTutorial.disableMove = false; //disable Move
+            TriggerTutorial.disableJump = true; //disable jumping
+
+            LeanTween.scale(ComputerPanel, Vector2.one, 0.5f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player2.0"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            hintText.SetActive(true);
+            pickUpAllowed = true;
             exla.SetActive(false);
-            Hint.SetActive(true);
-
-            inside = true;
-            //movingObject.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player2.0"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            exla.SetActive(true);
-            Hint.SetActive(false);
 
-            //movingObject.SetActive(true);
+            hintText.SetActive(false);
+            pickUpAllowed = false;
+            exla.SetActive(true);
         }
     }
-
-
 }

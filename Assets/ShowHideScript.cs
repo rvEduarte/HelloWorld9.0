@@ -91,4 +91,10 @@ public class ShowHideScript : MonoBehaviour
         LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
         StartCoroutine(SetActive(name));
     }
+
+    public void HidePanelNotAffectedMove(GameObject name)
+    {
+        bgMask.SetActive(false);
+        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
 }

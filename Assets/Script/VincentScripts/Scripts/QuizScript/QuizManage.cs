@@ -29,7 +29,6 @@ public class QuizManage : MonoBehaviour
     private void Start()
     {
         totalQuestions = QnA.Count;
-        completionPanel.SetActive(false);
         
         generateQuestion();
         //QnA.RemoveAt(currentQuestion);
@@ -37,7 +36,8 @@ public class QuizManage : MonoBehaviour
 
     public void GameOver()
     {
-        completionPanel.SetActive(true);
+        LeanTween.scale(quizPanel, Vector2.zero, 0.5f);
+        LeanTween.scale(completionPanel, Vector2.one, 0.5f);
         quizPanel.SetActive(false);
         quizScoreText.text = scoreCount +"/"+ totalQuestions;
         scoreBoardText.text = playerData.scoreQuizPhase3.ToString();
