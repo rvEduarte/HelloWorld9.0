@@ -3,42 +3,33 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Kurt_QuizPanel2 : MonoBehaviour
+public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
 {
-    // Reference to the input fields in the UI
     public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
-
-    // Correct answers array (configured in the Inspector)
-    public string[] correctAnswers;
-
-    // Reference to the feedback texts
+    public string[][] correctAnswers;  // 2D array where each row contains possible correct answers for the corresponding input field
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
 
-    // Reference to the output panel
-    public GameObject outputPanel;
+    public GameObject outputPanel;  // Reference to the output panel
+    public GameObject errorImage;  // Reference to error image
+    public GameObject successImage;  // Reference to success image
 
-    // Reference to the platform GameObject (can have different scripts in different scenes)
-    public GameObject platformObject;
-
-    // Scaling duration
-    public float scaleDuration = 0.5f;
-
-    // Delay before closing the panel
-    public float closeDelay = 2f; // Set this to the desired delay duration in seconds
-
-    // Delay before the platform starts moving up
-    public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
-
-    // Reference to error and success images
-    public GameObject errorImage;
-    public GameObject successImage;
-
-    // Reference to the KurtComputer script
-    public KurtComputer computerScript;
+    public RvComputer computerScript;  // Reference to the KurtComputer script
+    public float scaleDuration = 0.5f;  // Scaling duration for closing panel
+    public float closeDelay = 2f;  // Delay before closing the panel
+    public float outputPanelDisplayTime = 3f;  // Time to display output panel
 
     void Start()
     {
-        // Attach listeners to input fields to check for Enter key
+        correctAnswers = new string[][]
+        {
+            new string[] { "char" },  // for first input field
+            new string[] { "A", "a", "B", "b", "C", "c", "D", "d", "E","e", "F", "f", "G", "g",
+            "H", "h", "I", "i", "J", "j", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q",
+            "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z" },  // for second input field
+            new string[] { "inputChar" }   // for third input field
+        };
+
+        // Attach listeners for Enter key
         foreach (var inputField in inputFields)
         {
             inputField.onEndEdit.AddListener(delegate { CheckEnterKey(inputField); });
@@ -54,13 +45,12 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         }
     }
 
-    // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
     {
-        // Check if the number of input fields matches the number of correct answers
+        // Check if the number of input fields matches the number of correct answer sets
         if (inputFields.Length != correctAnswers.Length)
         {
-            Debug.LogError("Number of input fields and correct answers do not match!");
+            Debug.LogError("Number of input fields and correct answers sets do not match!");
             return;
         }
 
@@ -77,56 +67,21 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
 
-        // If all answers are correct, start moving the platform after a delay and close the panel
+        // Show feedback based on correctness
         if (allCorrect)
         {
-            successImage.SetActive(true); // Show success image
+            successImage.SetActive(true);  // Show success image
             StartCoroutine(ClosePanelWithScale());
-
-            Debug.Log("PLATFORM STARTS TO MOVE");
-            StartCoroutine(StartPlatformAfterDelay());
         }
         else
         {
-            errorImage.SetActive(true); // Show error image
+            errorImage.SetActive(true);  // Show error image
             StartCoroutine(BlinkErrorImage());
         }
     }
 
-    // Coroutine to start the platform after a delay
-    private IEnumerator StartPlatformAfterDelay()
-    {
-        yield return new WaitForSeconds(platformMoveDelay);
-
-        if (platformObject != null)
-        {
-            var movingPlatform = platformObject.GetComponent<MonoBehaviour>(); // Find platform movement script
-
-            if (movingPlatform != null)
-            {
-                var method = movingPlatform.GetType().GetMethod("StartMoving");
-                if (method != null)
-                {
-                    method.Invoke(movingPlatform, null);
-                }
-                else
-                {
-                    Debug.LogError("The assigned platform does not have a 'StartMoving' method.");
-                }
-            }
-            else
-            {
-                Debug.LogError("No platform movement script found on the platform object.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Platform object reference is not assigned!");
-        }
-    }
-
-    // Helper function to check each input field's answer
-    private bool CheckAnswer(TMP_InputField inputField, string correctAnswer, TextMeshProUGUI feedbackText)
+    // Helper function to check each input field's answer (case-insensitive comparison)
+    private bool CheckAnswer(TMP_InputField inputField, string[] correctAnswersSet, TextMeshProUGUI feedbackText)
     {
         if (string.IsNullOrWhiteSpace(inputField.text))
         {
@@ -135,24 +90,26 @@ public class Kurt_QuizPanel2 : MonoBehaviour
             return false;
         }
 
-        if (inputField.text == correctAnswer)
+        // Check if the input matches any of the possible correct answers (case-insensitive)
+        foreach (string correctAnswer in correctAnswersSet)
         {
-            feedbackText.text = "Correct!";
-            feedbackText.color = Color.green;
-            return true;
+            if (inputField.text.Equals(correctAnswer, System.StringComparison.OrdinalIgnoreCase))
+            {
+                feedbackText.text = "Correct!";
+                feedbackText.color = Color.green;
+                return true;
+            }
         }
-        else
-        {
-            feedbackText.text = "Incorrect!";
-            feedbackText.color = Color.red;
-            return false;
-        }
+
+        feedbackText.text = "Incorrect!";
+        feedbackText.color = Color.red;
+        return false;
     }
 
     // Function to show the output panel
     private void ShowOutputPanel(bool allCorrect)
     {
-        outputPanel.SetActive(true); // Activate the output panel
+        outputPanel.SetActive(true);  // Activate the output panel
 
         // Update the output panel's content based on correctness
         TextMeshProUGUI outputText = outputPanel.GetComponentInChildren<TextMeshProUGUI>();
@@ -160,6 +117,16 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         {
             outputText.text = allCorrect ? "All answers are correct!" : "Syntax Denied. Please try again.";
         }
+
+        // Start the coroutine to hide the panel after a delay
+        StartCoroutine(HideOutputPanelAfterDelay(outputPanelDisplayTime));
+    }
+
+    // Coroutine to hide the output panel after a delay
+    private IEnumerator HideOutputPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        outputPanel.SetActive(false);  // Hide the output panel
     }
 
     // Coroutine to blink the error image
@@ -196,7 +163,14 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         transform.localScale = targetScale;
         gameObject.SetActive(false);
 
-        // Call the KurtComputer method to re-enable player movement
-        computerScript.CloseJigsawPanel();
+        // Trigger the computer activation here if needed
+        // Uncomment this line if you want to call it right away.
+        // computerScript.CloseJigsawPanel();
+    }
+
+    // Call this method to show the computer after the second conversation is closed
+    public void ShowComputer()
+    {
+        computerScript.CloseJigsawPanel();  // Call the method to re-enable player movement
     }
 }
