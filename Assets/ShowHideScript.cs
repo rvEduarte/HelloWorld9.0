@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ShowHideScript : MonoBehaviour
 {
+    public GameObject bgMaskSettings;
     public GameObject bgMask;
     public GameObject backpackPanel;
     public GameObject tutorialPanel;
@@ -95,6 +96,17 @@ public class ShowHideScript : MonoBehaviour
     public void HidePanelNotAffectedMove(GameObject name)
     {
         bgMask.SetActive(false);
+        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
+
+    public void ShowSettingsGiveUp(GameObject name)
+    {
+        bgMaskSettings.SetActive(true);
+        LeanTween.scale(name, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
+    public void HideSettingsGiveUp(GameObject name)
+    {
+        bgMaskSettings.SetActive(false);
         LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
 }
