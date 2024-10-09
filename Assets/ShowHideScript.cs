@@ -13,6 +13,10 @@ public class ShowHideScript : MonoBehaviour
     public Button button;
     public TextMeshProUGUI text;
 
+    private void Start()
+    {
+        Screen.SetResolution(1920, 1080, true);
+    }
     public void StopTimer()
     {
         RunningTimerLevel1Ph1.timerStop = false; //disable time

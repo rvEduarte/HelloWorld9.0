@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class ShowHideUniversal : MonoBehaviour
 {
     public GameObject bg;
+
+    private void Start() // OPTIONAL
+    {
+        Screen.SetResolution(1920, 1080, true);
+    }
     public void ShowSpecificPanel(GameObject name)
     {
         bg.SetActive(true);
