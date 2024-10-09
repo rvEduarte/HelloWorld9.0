@@ -5,6 +5,7 @@ using UnityEngine;
 public class K_NPCLvl2Ph2 : MonoBehaviour
 {
     public K_DialogueTriggerLvl2Ph2 trigger;
+
     public GameObject computer;  // Reference to the computer object
     private bool hasTriggeredFirstConversation = false;  // Flag to ensure one-time first conversation
     private bool hasTriggeredSecondConversation = false; // Flag to ensure one-time second conversation
@@ -12,13 +13,16 @@ public class K_NPCLvl2Ph2 : MonoBehaviour
 
     public GameObject triggerPortalConvo;
 
+    [Header("Camera Target")]
     public CinemachineVirtualCamera vCam; // Reference to the virtual camera
 
+    public GameObject textMeshPro3D; // Reference to the 3D TextMeshPro object
 
     public void Start()
     {
         computer.SetActive(false);
         triggerPortalConvo.SetActive(false);
+        textMeshPro3D.SetActive(false); // Ensure the TextMeshPro object is initially inactive
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -38,10 +42,9 @@ public class K_NPCLvl2Ph2 : MonoBehaviour
     {
         hasTriggeredFirstConversation = true;  // Mark first conversation as triggered
 
-        // Start the sequence: delay -> set computer active -> start second conversation
+        // Start the sequence: delay -> set computer active -> set TextMeshPro active -> start second conversation
         StartCoroutine(ShowComputerAndStartSecondDialogue());
     }
-
 
     private IEnumerator ShowComputerAndStartSecondDialogue()
     {
@@ -49,6 +52,9 @@ public class K_NPCLvl2Ph2 : MonoBehaviour
 
         // Set the computer active
         computer.SetActive(true);
+
+        // Activate the 3D TextMeshPro object
+        textMeshPro3D.SetActive(true);
 
         // Perform camera zoom only once
         if (!hasZoomed)

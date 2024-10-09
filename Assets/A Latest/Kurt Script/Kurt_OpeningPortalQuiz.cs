@@ -11,10 +11,12 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     public TextMeshProUGUI messageText;  // Text Mesh Pro for displaying messages
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
-    public RvComputer rvComputerScript;  // Reference to the KurtComputer script to enable player movement
+   // public RvComputer rvComputerScript;  // Reference to the KurtComputer script to enable player movement
 
     public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
+
+    public GameObject dialoguePortalOpen;
 
     // Correct codes for the console
     private string[] correctCodes = {
@@ -83,6 +85,8 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     // Coroutine to close the panel and activate portals after a delay
     IEnumerator ClosePanelAndActivatePortals()
     {
+        dialoguePortalOpen.SetActive(true);
+
         // Wait for a moment to show the "Correct code!" message
         yield return new WaitForSeconds(panelCloseDelay);
 
