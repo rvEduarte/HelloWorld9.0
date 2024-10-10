@@ -34,7 +34,7 @@ public class Kurt_QuizPanel2 : MonoBehaviour
     public GameObject successImage;
 
     // Reference to the KurtComputer script
-    public KurtComputer computerScript;
+  //  public KurtComputer computerScript;
 
     void Start()
     {
@@ -197,6 +197,9 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         gameObject.SetActive(false);
 
         // Call the KurtComputer method to re-enable player movement
-        computerScript.CloseJigsawPanel();
+        // computerScript.CloseJigsawPanel();
+
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
     }
 }

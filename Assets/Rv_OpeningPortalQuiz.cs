@@ -11,7 +11,7 @@ public class Rv_OpeningPortalQuiz : MonoBehaviour
     public TextMeshProUGUI messageText;  // TextMesh Pro for displaying messages
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
-    public KurtComputer computerScript;  // Reference to the KurtComputer script to enable player movement
+   // public KurtComputer computerScript;  // Reference to the KurtComputer script to enable player movement
 
     public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
