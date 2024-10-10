@@ -32,25 +32,21 @@ public class OutputDisplayScript : MonoBehaviour
 
     void OnCodeInputChanged(string code)
     {
-        // Get input from both input fields
-        string code1 = codeInputField1.text;
-        string code2 = codeInputField2.text;
+        // Clear currentOutput each time input is changed
+        currentOutput = "";
 
-        // Combine both codes for processing
-        string combinedCode = code1 + "\n" + code2;
+        // Process each input field separately
+        ProcessCode(codeInputField1.text);
+        ProcessCode(codeInputField2.text);
 
-        // Parse and execute the combined code for console output
-        ParseAndExecuteCode(combinedCode);
+        // Update the output display with the current result from both fields
+        outputDisplay.text = currentOutput;
     }
 
-    void ParseAndExecuteCode(string code)
+    void ProcessCode(string code)
     {
-        // Clear previous output
-        currentOutput = ""; // Clear current output string
-        outputDisplay.text = "";
-
-        // Print the input code for debugging
-        Debug.Log("Input Code: " + code);
+        // Clear previous output for this input field
+        string tempOutput = "";
 
         // Pattern to match Console.WriteLine or Console.Write with text inside quotes or a mathematical expression
         string pattern = @"Console\.Write(Line)?\(\s*(?<expr>""[^""]*""|[^""]+)\s*\);";
@@ -72,7 +68,7 @@ public class OutputDisplayScript : MonoBehaviour
             {
                 // It's a string literal, remove quotes
                 string outputText = expression.Trim('"');
-                AppendOutput(outputText, isWriteLine);
+                tempOutput += isWriteLine ? outputText + "\n" : outputText;
             }
             else
             {
@@ -80,7 +76,7 @@ public class OutputDisplayScript : MonoBehaviour
                 try
                 {
                     string result = EvaluateExpression(expression).ToString();
-                    AppendOutput(result, isWriteLine);
+                    tempOutput += isWriteLine ? result + "\n" : result;
                 }
                 catch (System.Exception ex)
                 {
@@ -92,15 +88,15 @@ public class OutputDisplayScript : MonoBehaviour
                     {
                         // Extract the value inside the square brackets
                         string result = match1.Groups[1].Value;
-                        //Console.WriteLine("Text inside []: " + result);
-                        string errorMsg = "Error: The name " + "'" +result+ "'" + " does not exist in the current context";
-                        AppendOutput(errorMsg, isWriteLine);
+                        string errorMsg = "Error: The name " + "'" + result + "'" + " does not exist in the current context";
+                        tempOutput += isWriteLine ? errorMsg + "\n" : errorMsg;
                     }
-                    //string errorMsg = "Error: " + ex.Message;
-                    //Debug.Log(errorMsg);                   
                 }
             }
         }
+
+        // Append the tempOutput for this field to the overall currentOutput
+        currentOutput += tempOutput;
     }
 
     void AppendOutput(string output, bool isWriteLine)
@@ -113,7 +109,6 @@ public class OutputDisplayScript : MonoBehaviour
         {
             currentOutput += output;
         }
-        // outputDisplay.text = currentOutput; // Update the output display
     }
 
     object EvaluateExpression(string expression)
@@ -122,15 +117,6 @@ public class OutputDisplayScript : MonoBehaviour
         DataTable table = new DataTable();
         var result = table.Compute(expression, string.Empty);
         return result;
-    }
-    public void IncreaseAccuracy(string key, int increment)
-    {
-        int currentAccuracy = PlayerPrefs.GetInt(key, 0);
-        int newAccuracy = currentAccuracy + increment;
-
-        //Save EXERCISE ACCURACY VALUE
-        PlayerPrefs.SetInt(key, newAccuracy);
-        PlayerPrefs.Save();
     }
 
     public void OnDisplayButtonClick()
@@ -145,9 +131,7 @@ public class OutputDisplayScript : MonoBehaviour
 
         if (isCode1Valid && isCode2Valid)
         {
-            // Update the output display with the current output
-            
-            Debug.Log("Conditions met. Output updated.");
+            // Output the current result
             playerData.rawExercisePhase3 += 1;
             outputDisplay.text = currentOutput;
             StartCoroutine(DisableCodePanel());
@@ -158,13 +142,13 @@ public class OutputDisplayScript : MonoBehaviour
             outputDisplay.text = currentOutput;
         }
     }
+
     IEnumerator DisableCodePanel()
     {
         yield return new WaitForSeconds(1.5f);
 
         LeanTween.scale(CodePanel, Vector2.zero, 0.5f);
         movingObject.SetActive(true);
-
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
     }
@@ -197,14 +181,9 @@ public class OutputDisplayScript : MonoBehaviour
         }
         return false; // If pattern doesn't match, return false
     }
+
     public void ClearInputFields()
     {
-        // Clear the input fields
-        //codeInputField1.text = "";
-        //codeInputField2.text = "";
-        // Clear the current output
-        //currentOutput = "";
-        //outputDisplay.text = "Input fields cleared.";
-
+        // Optionally clear input fields here
     }
 }
