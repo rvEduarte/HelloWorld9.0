@@ -41,7 +41,7 @@ public class Kurt_DoorCodeInput : MonoBehaviour
     public GameObject successImage;
 
     // Reference to the KurtComputer script to access the PlayerController
-    public KurtComputer kurtComputer;
+    //public KurtComputer kurtComputer;
 
     // Function to validate the answers when Submit button is clicked
     public void ValidateAnswers()
@@ -169,9 +169,9 @@ public class Kurt_DoorCodeInput : MonoBehaviour
         gameObject.SetActive(false);
 
         // Re-enable player movement once the panel is closed
-        if (kurtComputer != null)
+        /**if (kurtComputer != null)
         {
             kurtComputer.CloseJigsawPanel();  // This will re-enable the PlayerController
-        }
+        }**/
     }
 }

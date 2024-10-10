@@ -6,35 +6,27 @@ using UnityEngine.UI;
 
 public class Kurt_QuizPanelP1 : MonoBehaviour
 {
-    // Reference to the input fields in the UI
     public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
-
-    // Correct answers array (configured in the Inspector)
     public string[] correctAnswers;
-
-    // Reference to the feedback texts
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
-
-    // Reference to the output panel
     public GameObject outputPanel;
-
-    // Reference to the platform GameObject (can have different scripts in different scenes)
     public GameObject platformObject;
-
-    // Scaling duration
     public float scaleDuration = 0.5f;
-
-    // Delay before closing the panel
     public float closeDelay = 2f; // Set this to the desired delay duration in seconds
-
-    // Delay before the platform starts moving up
     public float platformMoveDelay = 3f; // Set this to the desired delay duration before the platform moves
-
     // Reference to error and success images
     public GameObject errorImage;
     public GameObject successImage;
 
-    // Function to validate the answers when Submit button is clicked
+    void Update()
+    {
+        // Check if Enter key is pressed and call ValidateAnswers
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            ValidateAnswers();
+        }
+    }
+
     public void ValidateAnswers()
     {
         // Check if the number of input fields matches the number of correct answers
@@ -178,8 +170,7 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
 
         Debug.Log("Panel Closed...");
 
-        TriggerTutorial.disableMove = false; //disable Move
-        TriggerTutorial.disableJump = true; //disable jumping
+        TriggerTutorial.disableMove = true; //enable Move
+        TriggerTutorial.disableJump = false; //enable jumping
     }
-
 }

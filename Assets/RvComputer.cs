@@ -7,6 +7,8 @@ public class RvComputer : MonoBehaviour
     public GameObject interactionText;          // The text that shows "Press E to interact with the computer"
     public GameObject panel;                    // The panel that will be shown and hidden
     public float transitionDuration = 0.5f;     // Duration of the panel transition
+    public Texture2D customCursorTexture;       // Custom cursor texture when the panel is opened
+    public Vector2 cursorHotspot = Vector2.zero; // The hotspot point of the custom cursor
 
     private bool isPlayerInRange = false;
     private bool isPanelVisible = false;
@@ -27,6 +29,9 @@ public class RvComputer : MonoBehaviour
         interactionText.SetActive(false);
         panel.SetActive(false);
         panelCanvasGroup.alpha = 0;
+
+        // Set the default cursor initially (if desired)
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     private void Update()
@@ -50,7 +55,7 @@ public class RvComputer : MonoBehaviour
     public void CloseJigsawPanel()
     {
         TriggerTutorial.disableMove = true; //enable Move
-        TriggerTutorial.disableJump = false; //enaable jumping
+        TriggerTutorial.disableJump = false; //enable jumping
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -82,6 +87,12 @@ public class RvComputer : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(FadePanel(1)); // Fade in the panel
 
+        // Change the cursor to the custom texture when the panel is opened
+        if (customCursorTexture != null)
+        {
+            Cursor.SetCursor(customCursorTexture, cursorHotspot, CursorMode.Auto);
+        }
+
         TriggerTutorial.disableMove = false; //disable Move
         TriggerTutorial.disableJump = true; //disable jumping
     }
@@ -94,8 +105,11 @@ public class RvComputer : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(FadePanel(0)); // Fade out the panel
 
+        // Reset the cursor to the default when the panel is closed
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
         TriggerTutorial.disableMove = true; //enable Move
-        TriggerTutorial.disableJump = false; //enaable jumping
+        TriggerTutorial.disableJump = false; //enable jumping
     }
 
     private IEnumerator FadePanel(float targetAlpha)

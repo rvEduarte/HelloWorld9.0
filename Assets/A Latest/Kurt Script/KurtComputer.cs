@@ -1,127 +1,61 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class KurtComputer : MonoBehaviour
+public class TilemapFader : MonoBehaviour
 {
-    public GameObject interactionText;          // The text that shows "Press E to interact with the computer"
-    public GameObject panel;                    // The panel that will be shown and hidden
-    public float transitionDuration = 0.5f;     // Duration of the panel transition
-    public MonoBehaviour PlayerController;      // Reference to the player's movement script
+    public Tilemap tilemap;                  // Reference to the Tilemap
+    public float fadeDuration = 1.0f;        // Duration of the fade in/out
+    public bool fadeInOnStart = true;        // Whether to start with a fade-in effect
 
-    private bool isPlayerInRange = false;
-    private bool isPanelVisible = false;
-    private CanvasGroup panelCanvasGroup;       // For smooth transition effect
-    private bool handleEscapeForPanel = false;  // Flag to handle Escape key specifically for the panel 
-    private bool disableE = true;
+    private TilemapRenderer tilemapRenderer; // Renderer for the Tilemap
+    private Color tilemapColor;              // The color of the Tilemap material
 
     private void Start()
     {
-        // Ensure the panel has a CanvasGroup component for fading
-        panelCanvasGroup = panel.GetComponent<CanvasGroup>();
-        if (panelCanvasGroup == null)
+        // Get the TilemapRenderer and its current color
+        tilemapRenderer = tilemap.GetComponent<TilemapRenderer>();
+        tilemapColor = tilemapRenderer.material.color;
+
+        // Optionally start with a fade-in effect
+        if (fadeInOnStart)
         {
-            panelCanvasGroup = panel.AddComponent<CanvasGroup>();
-        }
-
-        // Set initial states
-        interactionText.SetActive(false);
-        panel.SetActive(false);
-        panelCanvasGroup.alpha = 0;
-    }
-
-    private void Update()
-    {
-        if (!disableE) return;
-
-        // Check if the player is in range and presses the E key to show the panel
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
-        {
-            ShowPanel();
-            disableE = false;
+            StartCoroutine(FadeInTilemap());
         }
     }
 
-    public void EscPanel()
+    // Coroutine to fade the Tilemap in
+    public IEnumerator FadeInTilemap()
     {
-        HidePanel();
-        disableE = true;
-    }
-
-    public void CloseJigsawPanel()
-    {
-        PlayerController.enabled = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if the player enters the collider
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-            interactionText.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        // Check if the player exits the collider
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-            interactionText.SetActive(false);
-        }
-    }
-
-    private void ShowPanel()
-    {
-        isPanelVisible = true;
-        handleEscapeForPanel = true;  // Enable the Escape key specifically for this panel
-        interactionText.SetActive(false);
-        panel.SetActive(true);
-        StopAllCoroutines();
-        StartCoroutine(FadePanel(1)); // Fade in the panel
-
-        // Disable player movement
-        if (PlayerController != null)
-        {
-            PlayerController.enabled = false;
-        }
-    }
-
-    private void HidePanel()
-    {
-        isPanelVisible = false;
-        handleEscapeForPanel = false;  // Disable the Escape key handling for this panel
-        interactionText.SetActive(true);
-        StopAllCoroutines();
-        StartCoroutine(FadePanel(0)); // Fade out the panel
-
-        // Enable player movement
-        if (PlayerController != null)
-        {
-            PlayerController.enabled = true;
-        }
-    }
-
-    private IEnumerator FadePanel(float targetAlpha)
-    {
-        float startAlpha = panelCanvasGroup.alpha;
-        float time = 0;
-
-        while (time < transitionDuration)
+        float time = 0f;
+        while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            panelCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / transitionDuration);
+            float alpha = Mathf.Lerp(0, 1, time / fadeDuration);
+            SetTilemapAlpha(alpha);
             yield return null;
         }
+        SetTilemapAlpha(1); // Ensure full opacity at the end
+    }
 
-        panelCanvasGroup.alpha = targetAlpha;
-
-        // Deactivate the panel if fully hidden
-        if (targetAlpha == 0)
+    // Coroutine to fade the Tilemap out
+    public IEnumerator FadeOutTilemap()
+    {
+        float time = 0f;
+        while (time < fadeDuration)
         {
-            panel.SetActive(false);
+            time += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, time / fadeDuration);
+            SetTilemapAlpha(alpha);
+            yield return null;
         }
+        SetTilemapAlpha(0); // Ensure full transparency at the end
+    }
+
+    // Helper function to set the Tilemap alpha
+    private void SetTilemapAlpha(float alpha)
+    {
+        tilemapColor.a = alpha;
+        tilemapRenderer.material.color = tilemapColor;
     }
 }
