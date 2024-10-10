@@ -90,7 +90,7 @@ public class ShowHideScript : MonoBehaviour
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
         LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
-        StartCoroutine(SetActive(name));
+        //StartCoroutine(SetActive(name));
     }
 
     public void HidePanelNotAffectedMove(GameObject name)
@@ -101,11 +101,13 @@ public class ShowHideScript : MonoBehaviour
 
     public void ShowSettingsGiveUp(GameObject name)
     {
+        Pause.isEnablePause = false;
         bgMaskSettings.SetActive(true);
         LeanTween.scale(name, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
     public void HideSettingsGiveUp(GameObject name)
     {
+        Pause.isEnablePause = true;
         bgMaskSettings.SetActive(false);
         LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }

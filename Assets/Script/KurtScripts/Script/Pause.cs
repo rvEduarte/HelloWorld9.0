@@ -10,14 +10,17 @@ public class Pause : MonoBehaviour
 
     public bool pause;
 
+    public static bool isEnablePause;
+
     private void Start()
     {
         //Time.timeScale = 1f;
+        isEnablePause = true; //enable escape button;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && isEnablePause == true)
         {
             pause = !pause;
         }
