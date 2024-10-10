@@ -66,35 +66,8 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
     // Coroutine to start the platform after a delay
     private IEnumerator StartPlatformAfterDelay()
     {
-        yield return new WaitForSeconds(platformMoveDelay);
-
-        if (platformObject != null)
-        {
-            // Try to find any script that handles platform movement on the assigned platformObject
-            var movingPlatform = platformObject.GetComponent<MonoBehaviour>(); // Or replace with a specific base class or interface if available
-
-            if (movingPlatform != null)
-            {
-                // Check if the script has a "StartMoving" method and invoke it dynamically
-                var method = movingPlatform.GetType().GetMethod("StartMoving");
-                if (method != null)
-                {
-                    method.Invoke(movingPlatform, null);
-                }
-                else
-                {
-                    Debug.LogError("The assigned platform does not have a 'StartMoving' method.");
-                }
-            }
-            else
-            {
-                Debug.LogError("No platform movement script found on the platform object.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Platform object reference is not assigned!");
-        }
+        yield return new WaitForSeconds(2f);
+        LeanTween.moveLocalY(platformObject, -0.54f, 2.5f);
     }
 
     // Helper function to check each input field's answer

@@ -27,10 +27,11 @@ public class RvComputer : MonoBehaviour
 
         // Set initial states
         interactionText.SetActive(false);
-        panel.SetActive(false);
         panelCanvasGroup.alpha = 0;
+        panelCanvasGroup.interactable = false;
+        panelCanvasGroup.blocksRaycasts = false;  // Ensure it doesn't block interactions
 
-        // Set the default cursor initially (if desired)
+        // Set the default cursor initially
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
@@ -54,8 +55,8 @@ public class RvComputer : MonoBehaviour
 
     public void CloseJigsawPanel()
     {
-        TriggerTutorial.disableMove = true; //enable Move
-        TriggerTutorial.disableJump = false; //enable jumping
+        TriggerTutorial.disableMove = true;  // Enable Move
+        TriggerTutorial.disableJump = false; // Enable jumping
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -83,9 +84,19 @@ public class RvComputer : MonoBehaviour
         isPanelVisible = true;
         handleEscapeForPanel = true;  // Enable the Escape key specifically for this panel
         interactionText.SetActive(false);
+
+        // Activate the panel so it can be shown again
         panel.SetActive(true);
+
+        // Immediately scale and fade in the panel
+        LeanTween.scale(panel, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+
         StopAllCoroutines();
         StartCoroutine(FadePanel(1)); // Fade in the panel
+
+        // Enable interaction and block raycasts when the panel is visible
+        panelCanvasGroup.interactable = true;
+        panelCanvasGroup.blocksRaycasts = true;
 
         // Change the cursor to the custom texture when the panel is opened
         if (customCursorTexture != null)
@@ -93,8 +104,8 @@ public class RvComputer : MonoBehaviour
             Cursor.SetCursor(customCursorTexture, cursorHotspot, CursorMode.Auto);
         }
 
-        TriggerTutorial.disableMove = false; //disable Move
-        TriggerTutorial.disableJump = true; //disable jumping
+        TriggerTutorial.disableMove = false; // Disable Move
+        TriggerTutorial.disableJump = true;  // Disable jumping
     }
 
     private void HidePanel()
@@ -102,14 +113,19 @@ public class RvComputer : MonoBehaviour
         isPanelVisible = false;
         handleEscapeForPanel = false;  // Disable the Escape key handling for this panel
         interactionText.SetActive(true);
+
         StopAllCoroutines();
-        StartCoroutine(FadePanel(0)); // Fade out the panel
+        StartCoroutine(FadePanel(0));  // Fade out the panel
+
+        // Disable interaction and raycasting when the panel is hidden
+        panelCanvasGroup.interactable = false;
+        panelCanvasGroup.blocksRaycasts = false;
 
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
-        TriggerTutorial.disableMove = true; //enable Move
-        TriggerTutorial.disableJump = false; //enable jumping
+        TriggerTutorial.disableMove = true;  // Enable Move
+        TriggerTutorial.disableJump = false; // Enable jumping
     }
 
     private IEnumerator FadePanel(float targetAlpha)
@@ -129,6 +145,7 @@ public class RvComputer : MonoBehaviour
         // Deactivate the panel if fully hidden
         if (targetAlpha == 0)
         {
+            // This ensures that after hiding, it can be shown again
             panel.SetActive(false);
         }
     }
