@@ -17,7 +17,7 @@ public class OutputDisplayScript : MonoBehaviour
 
     private string currentOutput = ""; // To store the current output
 
-    public GameObject movingObject;
+    public GameObject platform;
     public GameObject CodePanel;
 
     // Start is called before the first frame update
@@ -139,7 +139,7 @@ public class OutputDisplayScript : MonoBehaviour
         else
         {
             playerData.rawExercisePhase3 += 1;
-            outputDisplay.text = currentOutput;
+            outputDisplay.text = currentOutput + "\n\n <color=green>Follow the instruction Properly!</color> \n\n Click the <color=red>red Button</color> to type again!";
         }
     }
 
@@ -148,7 +148,7 @@ public class OutputDisplayScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         LeanTween.scale(CodePanel, Vector2.zero, 0.5f);
-        movingObject.SetActive(true);
+        LeanTween.moveLocal(platform, new Vector3(38.32f, 53.77f, 0), 2.5f);
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
     }
