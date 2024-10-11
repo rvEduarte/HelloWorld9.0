@@ -50,7 +50,7 @@ public class OnlineButtonManager : MonoBehaviour
         else if (autoLogin == false)
         {
             Debug.Log("Auto login is off");
-            LoadSecondScene();
+            SceneManager.LoadScene("Login");
         }
     }
     public void CheckInternetConnection()
@@ -194,30 +194,5 @@ public class OnlineButtonManager : MonoBehaviour
     private void HideErrorMessage()
     {
         errorPanel.SetActive(false);
-    }
-
-
-    ///FOR AUTO LOGIN FROM OFFLINE TO ONLINE
-    ///
-    public void LoadSecondScene()
-    {
-        // Register callback to be called when the new scene is loaded
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // Load the second scene
-        SceneManager.LoadScene("Login"); // Replace with your second scene name
-    }
-
-    // This method is called when the second scene is fully loaded
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Login") // Replace with your second scene name
-        {
-            // Call the method in the second scene to deactivate GameObjects
-            AutoLoginManager.Instance.DeactivateGameObjects();
-
-            // Unsubscribe after calling to avoid multiple calls
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
     }
 }
