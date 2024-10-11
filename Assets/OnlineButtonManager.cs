@@ -195,4 +195,5 @@ public class OnlineButtonManager : MonoBehaviour
     {
         errorPanel.SetActive(false);
     }
+
 }
