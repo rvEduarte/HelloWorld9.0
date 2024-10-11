@@ -10,6 +10,8 @@ public class KurtPortalToAnotherScene : MonoBehaviour
     public Kurt_LvlLoader levelLoader; // Reference to level loader
     public bool isStartingPortal; // To check if it's the starting point in the next scene (for "Portal Out")
 
+    public GameObject gameCompletionPanel;    // ADDED RV
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -67,10 +69,12 @@ public class KurtPortalToAnotherScene : MonoBehaviour
         yield return StartCoroutine(PortalIn());
 
         // Trigger the LevelLoader's scene transition logic
-        levelLoader.LoadNextLevel(); // This loads the next scene based on the build index
+        //levelLoader.LoadNextLevel(); // This loads the next scene based on the build index             // COMMENT RV
 
         // After the transition starts, subscribe to scene loaded event
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;                                                     // COMMENT RV
+
+        gameCompletionPanel.SetActive(true);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
