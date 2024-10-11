@@ -146,7 +146,7 @@ public class LoginScript : MonoBehaviour
                     Debug.Log("Player has a name: " + response.name);
                     playerName = response.name;
                     //load the game
-                    PlayGame();
+                    PlayGame ();
                 }
             }
         });
@@ -709,6 +709,12 @@ public class LoginScript : MonoBehaviour
                 });
             }
         });
+    }
+
+    public void AutoLoginOFFLINE()
+    {
+        startButtons.SetActive (false);
+        onlineButtons.SetActive(true);
     }
 }
 
