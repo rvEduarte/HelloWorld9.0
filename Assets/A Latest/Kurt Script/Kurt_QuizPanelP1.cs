@@ -145,5 +145,9 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
 
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
+
+        // Reset the cursor to the default when the panel is closed
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
     }
 }
