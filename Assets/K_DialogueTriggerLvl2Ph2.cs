@@ -24,6 +24,7 @@ public class K_DialogueTriggerLvl2Ph2 : MonoBehaviour
         // Start the second dialogue after the computer appears
         FindObjectOfType<K_DialogueManagerLvl2Ph2>().OpenDialaogue(secondMessages, secondActors, npcRef);
     }
+
 }
 
 [System.Serializable]

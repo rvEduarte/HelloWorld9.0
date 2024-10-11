@@ -30,7 +30,7 @@ public class K_NPCLvl2Ph2 : MonoBehaviour
         // Check if computer is assigned before attempting to deactivate it
         if (computer != null)
         {
-            computer.SetActive(false);
+            //computer.SetActive(false);
         }
 
         // Only deactivate triggerPortalConvo if it is assigned

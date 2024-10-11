@@ -18,7 +18,7 @@ public class Kurt_QuizPanel2 : MonoBehaviour
     public GameObject outputPanel;
 
     // Reference to the platform GameObject (can have different scripts in different scenes)
-    public GameObject platformObject;
+    public GameObject platformObject; 
 
     // Scaling duration
     public float scaleDuration = 0.5f;
@@ -51,6 +51,12 @@ public class Kurt_QuizPanel2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             ValidateAnswers();  // Trigger answer validation when Enter is pressed
+            Debug.Log("Pumasok");
+        }
+        
+        else
+        {
+            Debug.Log("Hindi Pumasok");
         }
     }
 
