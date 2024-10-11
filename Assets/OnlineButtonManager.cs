@@ -50,7 +50,6 @@ public class OnlineButtonManager : MonoBehaviour
         else if (autoLogin == false)
         {
             Debug.Log("Auto login is off");
-            SceneManager.LoadScene("Login");
         }
     }
     public void CheckInternetConnection()
@@ -115,7 +114,6 @@ public class OnlineButtonManager : MonoBehaviour
                 // set the remember me bool to false here, so that the next time the player press login
                 // they will get to the login screen
                 ShowErrorMessage("error while logging in. Please check your internet connection");
-                SceneManager.LoadScene("Login");
                 //LoginPanel.SetActive(true);
                 //onlineButtonPanel.SetActive(true);
 
