@@ -14,7 +14,15 @@ public class OfflineMainMenu : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        playerNameText.text = PlayerPrefs.GetString("PlayerName");
+
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName")))
+        {
+            playerNameText.text = "Guest";
+        }
+        else
+        {
+            playerNameText.text = PlayerPrefs.GetString("PlayerName");
+        }
     }
     public void GotoScene(string name)
     {
