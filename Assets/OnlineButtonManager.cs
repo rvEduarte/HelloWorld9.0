@@ -8,8 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class OnlineButtonManager : MonoBehaviour
 {
+    [Header("Set Nickname")]
+    public TMP_InputField newPlayerNameInputField;
+    public GameObject bg;
+    public GameObject SetNickNamePanel;
+
     [Header("RememberMe")]
-    // Components for enabling auto login
     public bool autoLogin;
 
     [Header("Error Handling")]
@@ -19,7 +23,7 @@ public class OnlineButtonManager : MonoBehaviour
 
     public GameObject startPanel;
     public TMP_Text debuggerText;
-    // URL of a reliable server (can be adjusted if needed)
+    // URL of a reliable server
     private string testUrl = "https://www.google.com";
 
     private void Start()
@@ -50,6 +54,7 @@ public class OnlineButtonManager : MonoBehaviour
         else if (autoLogin == false)
         {
             Debug.Log("Auto login is off");
+            LoadSecondScene();
         }
     }
     public void CheckInternetConnection()
@@ -114,6 +119,7 @@ public class OnlineButtonManager : MonoBehaviour
                 // set the remember me bool to false here, so that the next time the player press login
                 // they will get to the login screen
                 ShowErrorMessage("error while logging in. Please check your internet connection");
+                SceneManager.LoadScene("Login");
                 //LoginPanel.SetActive(true);
                 //onlineButtonPanel.SetActive(true);
 
@@ -163,7 +169,8 @@ public class OnlineButtonManager : MonoBehaviour
                     Debug.Log("Player has not set a display name");
 
                     //show the set display name screen
-                    //SetNickNamePanel.SetActive(true);
+                    bg.SetActive(true);
+                    LeanTween.scale(SetNickNamePanel, Vector3.one, 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
                 }
                 else
                 {
@@ -176,6 +183,76 @@ public class OnlineButtonManager : MonoBehaviour
             }
         });
 
+    }
+    public void UpdatePlayerName()
+    {
+        string newPlayerName = newPlayerNameInputField.text;
+        if (newPlayerName == "")
+        {
+            ShowErrorMessage("Please enter a display name");
+            return;
+        }
+
+        void isError(string error)
+        {
+            if (error.Contains("message"))
+            {
+                string message = ExtractMessageFromLootLockerError(error);
+                if (message.Contains("UNIQUE")) ShowErrorMessage("Display name already taken");
+                else
+                {
+                    ShowErrorMessage(message);
+                }
+            }
+
+            if (!error.Contains("message"))
+            {
+                ShowErrorMessage("Error setting display name");
+            }
+
+            return;
+        }
+        // Set the players name
+        LootLockerSDKManager.SetPlayerName(newPlayerName, (response) =>
+        {
+            if (!response.success)
+            {
+                isError(response.errorData.ToString());
+                return;
+            }
+
+            PlayerPrefs.SetString("PlayerName", newPlayerName);
+            PlayerPrefs.Save();
+
+            //hide the set display name screen
+            bg.SetActive(false);
+            LeanTween.scale(SetNickNamePanel, Vector3.zero, 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+
+            //load the game
+            SceneManager.LoadScene("MainMenu");
+        });
+    }
+    private string ExtractMessageFromLootLockerError(string rawError)
+    {
+        //tite
+        // Find the start index of the message
+        int startIndex = rawError.IndexOf("\"") + 1; // Skip the first quote
+        if (startIndex == 0)
+        {
+            return "Message not found"; // Handle case where the first quote is not found
+        }
+
+        // Find the end index of the message
+        int endIndex = rawError.IndexOf("\"", startIndex); // Find the closing quote
+        if (endIndex == -1)
+        {
+            return "Message not properly terminated"; // Handle case where the message is not properly terminated
+        }
+
+        // Extract the message
+        string message = rawError.Substring(startIndex, endIndex - startIndex);
+
+        return message;
     }
 
     // Show an error message on the screen
@@ -194,4 +271,27 @@ public class OnlineButtonManager : MonoBehaviour
         errorPanel.SetActive(false);
     }
 
+    ///FOR AUTO LOGIN FROM OFFLINE TO ONLINE
+    ///
+    public void LoadSecondScene()
+    {
+        // Register callback to be called when the new scene is loaded
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // Load the second scene
+        SceneManager.LoadScene("Login");
+    }
+
+    // This method is called when the second scene is fully loaded
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Login")
+        {
+            // Call the method in the second scene to deactivate GameObjects
+            AutoLoginManager.Instance.DeactivateGameObjects();
+
+            // Unsubscribe after calling to avoid multiple calls
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
 }
