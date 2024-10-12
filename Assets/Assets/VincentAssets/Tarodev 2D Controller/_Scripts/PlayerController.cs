@@ -46,11 +46,6 @@ namespace TarodevController
             _time += Time.unscaledDeltaTime;
             GatherInput();
 
-            if(Kurt_DialogueManager.isActive == true)
-            {
-                return;
-            }
-
         }
 
         private void GatherInput()
