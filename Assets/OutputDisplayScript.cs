@@ -20,9 +20,12 @@ public class OutputDisplayScript : MonoBehaviour
     public GameObject platform;
     public GameObject CodePanel;
 
+    private bool stopCounting;
+
     // Start is called before the first frame update
     void Start()
     {
+        stopCounting = false;
         // Add listeners to the input fields to update display
         codeInputField1.onValueChanged.AddListener(OnCodeInputChanged);
         codeInputField2.onValueChanged.AddListener(OnCodeInputChanged);
@@ -131,14 +134,23 @@ public class OutputDisplayScript : MonoBehaviour
 
         if (isCode1Valid && isCode2Valid)
         {
-            // Output the current result
-            playerData.rawExercisePhase3 += 1;
+            // Output the current result        
+            if(!stopCounting)
+            {
+                Debug.LogError("YES - IF");
+                playerData.rawExercisePhase3 += 1;
+                stopCounting = true;
+            }
             outputDisplay.text = currentOutput;
             StartCoroutine(DisableCodePanel());
         }
         else
         {
-            playerData.rawExercisePhase3 += 1;
+            if (!stopCounting)
+            {
+                Debug.LogError("YES - ELSE");
+                playerData.rawExercisePhase3 += 1;
+            }
             outputDisplay.text = currentOutput + "\n\n <color=green>Follow the instruction Properly!</color> \n\n Click the <color=red>red Button</color> to type again!";
         }
     }
