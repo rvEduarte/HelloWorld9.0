@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class JigsawScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject pickUpText, jigsaw;
+    private GameObject pickUpText, jigsaw, BGMASK;
 
     public GameObject jigsawPanel, dimed;
 
@@ -33,7 +33,7 @@ public class JigsawScript : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
-
+            BGMASK.SetActive(false);
             timer.isPicked = true;
             LeanTween.scale(timerPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
