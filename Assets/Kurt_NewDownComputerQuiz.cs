@@ -11,7 +11,7 @@ public class Kurt_NewDownComputerQuiz : MonoBehaviour
     public void runButton()
     {
         
-        if(string.IsNullOrEmpty(input1.text) && string.IsNullOrEmpty(input2.text))
+        if(string.IsNullOrEmpty(input1.text ) && string.IsNullOrEmpty(input2.text))
         {
 
         }

@@ -13,9 +13,6 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     public float closeDelay = 2f; // Set this to the desired delay duration in seconds
     public GameObject errorImage;
     public GameObject successImage;
-
-    public TriggerElev triggerElev;
-    public BoxCollider2D box;
     public GameObject light1, light2, light3;
 
     // Hardcoded correct answers
@@ -25,7 +22,6 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
 
     private void Start()
     {
-        triggerElev.enabled = false;
         light1.SetActive(true);
         light2.SetActive(false);
         light3.SetActive(false);
@@ -80,16 +76,14 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
                     if (answer == "true")
                     {
                         Debug.Log("TRUE");
-                        triggerElev.enabled = true;
-                        box.enabled = true;
+                        TriggerElevV2.enableElev = true;
                         light3.SetActive(true);
                         light2.SetActive(false);
                     }
                     else if (answer == "false")
                     {
                         Debug.Log("FALSE");
-                        triggerElev.enabled = false;
-                        box.enabled = false;
+                        TriggerElevV2.enableElev = false;
                         light2.SetActive(true);
                         light3.SetActive(false);
                     }

@@ -14,6 +14,7 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
     private void Start()
     {
         trigger1Ph2 = false;
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
