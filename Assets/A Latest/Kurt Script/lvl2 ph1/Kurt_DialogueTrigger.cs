@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class Kurt_DialogueTrigger : MonoBehaviour
 {
-    public TriggerMessage[] messages;
-    public TriggerActor[] actors;
+    public KurtMessage[] message;
+    public KurtActor[] actor;
 
-    public void StartDialogue(Kurt_NPC npcRef)
+    private bool hasTriggered = false; // To track if the conversation has already occurred
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Start the dialogue and pass the NPC reference to the manager
-        FindObjectOfType<Kurt_DialogueManager>().OpenDialaogue(messages, actors, npcRef);
+        if (other.CompareTag("Player") && !hasTriggered) // Only trigger if conversation hasn't happened
+        {
+            StartDialogue();
+        }
     }
-}
 
-[System.Serializable]
-public class TriggerMessage
-{
-    public int triggerActorId;
-    public string triggerMessage;
-}
-
-[System.Serializable]
-public class TriggerActor
-{
-    public string triggerName;
-    public Sprite triggerSprite;
+    public void StartDialogue()
+    {
+        hasTriggered = true; // Set flag to true so it only triggers once
+        FindObjectOfType<Kurt_DialogueManagerLvl2Ph1>().OpenDialogue(message, actor);
+    }
 }

@@ -81,6 +81,10 @@ public class RvComputer : MonoBehaviour
 
     private void ShowPanel()
     {
+        // Disable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
+
         isPanelVisible = true;
         handleEscapeForPanel = true;  // Enable the Escape key specifically for this panel
         interactionText.SetActive(false);
@@ -103,9 +107,6 @@ public class RvComputer : MonoBehaviour
         {
             Cursor.SetCursor(customCursorTexture, cursorHotspot, CursorMode.Auto);
         }
-
-        TriggerTutorial.disableMove = false; // Disable Move
-        TriggerTutorial.disableJump = true;  // Disable jumping
     }
 
     private void HidePanel()
@@ -123,9 +124,6 @@ public class RvComputer : MonoBehaviour
 
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-
-        TriggerTutorial.disableMove = true;  // Enable Move
-        TriggerTutorial.disableJump = false; // Enable jumping
     }
 
     private IEnumerator FadePanel(float targetAlpha)
