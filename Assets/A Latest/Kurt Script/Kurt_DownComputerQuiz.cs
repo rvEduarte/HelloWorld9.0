@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Kurt_DownComputerQuiz : MonoBehaviour
 {
-    public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
+    public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically   
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
     public GameObject outputPanel;
     public Kurt_OrDownPlatform platformController;  // Reference to the new platform controller script
@@ -14,10 +14,22 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     public GameObject errorImage;
     public GameObject successImage;
 
-    // Hardcoded correct answers
-    private string[] correctAnswers = { "bool", "true" };  // Answers for the first two input fields
-    private string[] correctAnswersForThirdInput = { "Write", "WriteLine" };  // Multiple answers for the third input
+    public TriggerElev triggerElev;
+    public BoxCollider2D box;
+    public GameObject light1, light2, light3;
 
+    // Hardcoded correct answers
+    private string[] correctAnswers = { "bool" };  // Answer for the first input field
+    private string[] booleanAnswers = { "true", "false" };  // Valid answers for the second input field
+    private string[] correctAnswersForThirdInput = { "Write", "WriteLine" };
+
+    private void Start()
+    {
+        triggerElev.enabled = false;
+        light1.SetActive(true);
+        light2.SetActive(false);
+        light3.SetActive(false);
+    }
     void Update()
     {
         // Check if Enter key is pressed and call ValidateAnswers
@@ -30,7 +42,7 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     public void ValidateAnswers()
     {
         // Check if the number of input fields matches the number of correct answers
-        if (inputFields.Length != correctAnswers.Length + 1) // Add 1 for the third input
+        if (inputFields.Length != correctAnswers.Length + 2) // Add 2 for boolean and third input
         {
             Debug.LogError("Number of input fields and correct answers do not match!");
             return;
@@ -38,46 +50,81 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
 
         // Track whether all answers are correct
         bool allCorrect = true;
-        bool firstTwoCorrect = true; // Track correctness of the first two inputs
+        bool firstCorrect = true; // Track correctness of the first two inputs
 
         // Check each input field and provide feedback
         for (int i = 0; i < inputFields.Length; i++)
         {
-            if (i < 2) // For the first two input fields
+            if (i == 0) // For the first input field (index 0)
             {
                 if (!CheckAnswer(inputFields[i], correctAnswers[i], feedbackTexts[i]))
                 {
-                    firstTwoCorrect = false; // Mark as incorrect if either of the first two answers is wrong
+                    firstCorrect = false; // Mark as incorrect if the first answer is wrong
                     allCorrect = false; // Overall correctness is also false
+                }
+            }
+            else if (i == 1) // For the second input field (boolean input at index 1)
+            {
+                string answer = inputFields[i].text.ToLower(); // Convert input to lowercase to handle case insensitivity
+
+                if (!System.Array.Exists(booleanAnswers, element => element == answer))
+                {
+                    feedbackTexts[i].text = "Incorrect! Please enter 'true' or 'false'.";
+                    feedbackTexts[i].color = Color.red;
+                    firstCorrect = false;
+                    allCorrect = false;
+
+                }
+                else
+                {
+                    if (answer == "true")
+                    {
+                        Debug.Log("TRUE");
+                        triggerElev.enabled = true;
+                        box.enabled = true;
+                        light3.SetActive(true);
+                        light2.SetActive(false);
+                    }
+                    else if (answer == "false")
+                    {
+                        Debug.Log("FALSE");
+                        triggerElev.enabled = false;
+                        box.enabled = false;
+                        light2.SetActive(true);
+                        light3.SetActive(false);
+                    }
+
+                    feedbackTexts[i].text = "Correct!";
+                    feedbackTexts[i].color = Color.green;
                 }
             }
             else if (i == 2) // For the third input field (index 2)
             {
                 string answer = inputFields[i].text;  // Check input without changing case
 
-                if (firstTwoCorrect && System.Array.Exists(correctAnswersForThirdInput, element => element == answer))
+                if (firstCorrect && System.Array.Exists(correctAnswersForThirdInput, element => element == answer))
                 {
                     feedbackTexts[i].text = "Correct!";
                     feedbackTexts[i].color = Color.green;
+
                     // Move the platform based on input
-                    if (answer == "Write")
+                    /*if (answer == "Write")
                     {
                         platformController.MoveUp();
                     }
                     else if (answer == "WriteLine")
                     {
                         platformController.MoveDown();
-                    }
+                    }*/
                 }
                 else
                 {
-                    feedbackTexts[i].text = firstTwoCorrect ? "Incorrect!" : "You need to answer the first two questions correctly first!";
-                    feedbackTexts[i].color = firstTwoCorrect ? Color.red : Color.yellow; // Yellow if first two are incorrect
+                    feedbackTexts[i].text = firstCorrect ? "Incorrect!" : "You need to answer the first two questions correctly first!";
+                    feedbackTexts[i].color = firstCorrect ? Color.red : Color.yellow; // Yellow if first two are incorrect
                     allCorrect = false;  // Mark as incorrect
                 }
             }
         }
-
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
 
@@ -164,6 +211,8 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         // Ensure final scale is zero and deactivate the panel
         transform.localScale = targetScale;
         gameObject.SetActive(false);
+        successImage.SetActive(false);
+        Kurt_DownComputer.disableE = true;
 
         Debug.Log("Panel Closed...");
 
@@ -172,5 +221,16 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
 
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+        foreach (var name in feedbackTexts)
+        {
+            name.text = "New Text";     // Set the text to "New Text"
+            name.color = Color.white;   // Set the color to white
+        }
+
+        foreach (var name in inputFields)
+        {
+            name.text = null;
+        }
     }
 }
