@@ -7,11 +7,11 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
     public KurtMessageLvl2Ph2[] message;
     public KurtActorLvl2Ph2[] actor;
 
-    private bool hasTriggered = false; // To track if the conversation has already occurred
+    private bool hasTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !hasTriggered) // Only trigger if conversation hasn't happened
+        if (other.CompareTag("Player") && !hasTriggered) 
         {
             StartDialogue();
         }
@@ -19,7 +19,7 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
 
     public void StartDialogue()
     {
-        hasTriggered = true; // Set flag to true so it only triggers once
+        hasTriggered = true; 
         FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
     }
 }

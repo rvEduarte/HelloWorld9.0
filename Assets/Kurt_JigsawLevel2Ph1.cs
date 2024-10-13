@@ -17,6 +17,8 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
 
     public GameObject tutorialPanel;
     public GameObject backpackPanel;
+
+    public RvComputer rvComp;
     //public GameObject timerPanel;
     void Start()
     {
@@ -24,6 +26,8 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
         dimed.SetActive(false);
 
         pickUpText.SetActive(false);
+
+        rvComp.enabled = false;
 
         Debug.Log("TITE");
     }
@@ -41,6 +45,8 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
             dimed.SetActive(true);
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
+
+            rvComp.enabled = true;
 
             Debug.Log("TITE");
             PickUp();
