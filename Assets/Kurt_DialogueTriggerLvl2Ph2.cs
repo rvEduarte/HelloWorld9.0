@@ -9,6 +9,13 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
 
     private bool hasTriggered = false;
 
+    public static bool trigger1Ph2;
+
+    private void Start()
+    {
+        trigger1Ph2 = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !hasTriggered) 

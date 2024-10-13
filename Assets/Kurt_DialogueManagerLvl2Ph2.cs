@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 {
+    public CinemachineVirtualCamera vCam1;
+
     public Image actorImage;
     public TextMeshProUGUI actorName;
     public TextMeshProUGUI messageText;
@@ -111,9 +114,18 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            // Enable player movement
-            TriggerTutorial.disableMove = true;
-            TriggerTutorial.disableJump = false;
+
+            if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+            {
+                vCam1.Priority = 11;
+                StartCoroutine(BackCamera(vCam1));
+            }
+            else
+            {
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
         }
     }
 
@@ -121,5 +133,15 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     {
         LeanTween.textAlpha(messageText.rectTransform, 0, 0);
         LeanTween.textAlpha(messageText.rectTransform, 1, 0.5f);
+    }
+
+    IEnumerator BackCamera(CinemachineVirtualCamera name)
+    {
+        yield return new WaitForSeconds(4);
+        name.Priority = 0;
+
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
     }
 }

@@ -79,6 +79,7 @@ public class CraneConsole : MonoBehaviour
     }
     IEnumerator MovePlatform(float number)
     {
+        yield return new WaitForSeconds(2f);
         vCam.Priority = 11;
         OutputPanel.SetActive(false);
         LeanTween.scale(ComputerPanel, Vector2.zero, 0.5f);
