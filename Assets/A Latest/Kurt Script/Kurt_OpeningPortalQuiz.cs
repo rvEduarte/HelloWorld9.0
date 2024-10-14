@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;  // Needed for the Button component
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     public TextMeshProUGUI messageText;  // Text Mesh Pro for displaying messages
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
-   // public RvComputer rvComputerScript;  // Reference to the KurtComputer script to enable player movement
+    public Button enterButton;           // The enter button for submitting the answer manually
 
     public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
@@ -45,6 +46,21 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Ensure images are initially inactive
         if (successImage != null) successImage.SetActive(false);
         if (errorImage != null) errorImage.SetActive(false);
+
+        // Add listener to the enter button
+        if (enterButton != null)
+        {
+            enterButton.onClick.AddListener(CheckCode);
+        }
+    }
+
+    void Update()
+    {
+        // Check if the Enter key is pressed
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            CheckCode(); // Trigger code checking when Enter key is pressed
+        }
     }
 
     public void CheckCode()
@@ -73,12 +89,12 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         if (errorImage != null)
         {
-            errorImage.SetActive(true); // Show error image
+            errorImage.SetActive(true); // Show error image 
         }
 
         StartCoroutine(BlinkErrorImage());
 
-        // Clear the input field after checking (if desired, comment this line if not)
+        // Optionally clear the input field after checking
         // inputField.text = "";
     }
 
@@ -92,7 +108,10 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         // Close the console panel
         consolePanel.SetActive(false);
+        successImage.SetActive(false);
 
+        // Reset the cursor to the default when the panel is closed
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         vCam.Priority = 11;
 
         // Wait for the specified delay before activating the portals
@@ -106,7 +125,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         vCam.Priority = 0;
-        TriggerTutorial.disableMove = true; // Enable movement
+        TriggerTutorial.disableMove = true; // enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }
 

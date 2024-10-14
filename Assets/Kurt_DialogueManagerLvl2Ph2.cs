@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 {
+    public GameObject collider1; //For collider 
     public CinemachineVirtualCamera vCam1; // trigger 1
     public CinemachineVirtualCamera vCam2; // trigger 2
     public CinemachineVirtualCamera vCam3; // trigger 3
+    public CinemachineVirtualCamera vCam4; // trigger 4
 
     public Tilemap tilemapToFade; // reference the tilemap
     public float fadeDuration = 2f;  // Duration of the fade-in effect
@@ -26,6 +28,11 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     KurtActorLvl2Ph2[] currentActors;
     int activeMessage = 0;
 
+    public GameObject gameObjToShow;
+    public GameObject gameObjToShow2;
+
+
+
     public static bool isActive = false;
 
     private bool isTyping = false;
@@ -33,6 +40,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     void Start()
     {
+        collider1.SetActive(true);
         backgroundBox.transform.localScale = Vector3.zero;
     }
 
@@ -150,7 +158,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
 
-            if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+            /**if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
             {
                 vCam1.Priority = 11;
                 Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
@@ -167,6 +175,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerElevV2.enableElev = false; // disable elev
 
                 playerSprite.flipX = true; //flip the player
+                collider1.SetActive(false);
             }
 
             else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
@@ -174,6 +183,36 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 vCam3.Priority = 11;
                 Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
                 StartCoroutine(BackCamera(vCam3));
+            } **/
+
+             if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
+            {
+                vCam4.Priority = 11;
+                Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
+                gameObjToShow.SetActive(true);
+                playerSprite.flipX = true; //flip the player
+                StartCoroutine(BackCamera(vCam4));
+            }
+
+             else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+            {
+                Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
+
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+
+                gameObjToShow2.SetActive(true);
+            }
+
+             else if(!Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2)
+            {
+                Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2 = true;
+ 
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+
             }
 
             else
@@ -199,5 +238,8 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
+
+        playerSprite.flipX = false; //flip the player
+
     }
 }

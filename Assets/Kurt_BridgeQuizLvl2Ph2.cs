@@ -13,10 +13,12 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     public GameObject errorImage;  // Reference to error image
     public GameObject successImage;  // Reference to success image
 
-    public RvComputer computerScript;  // Reference to the KurtComputer script
     public float scaleDuration = 0.5f;  // Scaling duration for closing panel
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
+
+    public GameObject platform;
+
 
     void Start()
     {
@@ -24,7 +26,7 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         {
             new string[] { "char" },  // for first input field
             new string[] { "A", "a", "B", "b", "C", "c", "D", "d", "E","e", "F", "f", "G", "g",
-            "H", "h", "I", "i", "J", "j", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q",
+            "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q",
             "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z" },  // for second input field
             new string[] { "inputChar" }   // for third input field
         };
@@ -163,14 +165,8 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         transform.localScale = targetScale;
         gameObject.SetActive(false);
 
-        // Trigger the computer activation here if needed
-        // Uncomment this line if you want to call it right away.
-        // computerScript.CloseJigsawPanel();
-    }
-
-    // Call this method to show the computer after the second conversation is closed
-    public void ShowComputer()
-    {
-        computerScript.CloseJigsawPanel();  // Call the method to re-enable player movement
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
     }
 }
