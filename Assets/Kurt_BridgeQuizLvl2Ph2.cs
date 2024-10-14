@@ -17,9 +17,6 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
 
-    public GameObject platform;
-
-
     void Start()
     {
         correctAnswers = new string[][]
@@ -129,6 +126,9 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         outputPanel.SetActive(false);  // Hide the output panel
+
+        // Reset the cursor to the default when the panel is closed
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     // Coroutine to blink the error image
@@ -168,5 +168,6 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
+
     }
 }
