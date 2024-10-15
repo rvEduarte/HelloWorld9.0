@@ -190,6 +190,7 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
+
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;
         float time = 0;

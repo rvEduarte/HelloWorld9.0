@@ -17,14 +17,14 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
 
+    public KurtUpwardPlatform kurtUpwardPlatform;
+
     void Start()
     {
         correctAnswers = new string[][]
         {
             new string[] { "char" },  // for first input field
-            new string[] { "A", "a", "B", "b", "C", "c", "D", "d", "E","e", "F", "f", "G", "g",
-            "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q",
-            "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z" },  // for second input field
+            new string[] { "'E'","'e'"},  // for second input field
             new string[] { "inputChar" }   // for third input field
         };
 
@@ -168,6 +168,14 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
+
+        // Reset the cursor to the default when the panel is closed
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+        if (kurtUpwardPlatform != null)
+        {
+            kurtUpwardPlatform.StartMoving();
+        }
 
     }
 }
