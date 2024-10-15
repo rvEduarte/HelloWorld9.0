@@ -13,6 +13,8 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     public CinemachineVirtualCamera vCam2; // trigger 2
     public CinemachineVirtualCamera vCam3; // trigger 3
     public CinemachineVirtualCamera vCam4; // trigger 4
+    public CinemachineVirtualCamera laserTrigger; // Laser Trigger
+    public CinemachineVirtualCamera laserTrigger2; // Laser Trigger 2
 
     public Tilemap tilemapToFade; // reference the tilemap
     public float fadeDuration = 2f;  // Duration of the fade-in effect
@@ -158,7 +160,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
 
-            /**if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+            if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
             {
                 vCam1.Priority = 11;
                 Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
@@ -183,9 +185,9 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 vCam3.Priority = 11;
                 Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
                 StartCoroutine(BackCamera(vCam3));
-            } **/
+            }
 
-             if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
+             else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
                 vCam4.Priority = 11;
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
@@ -212,7 +214,22 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 // Enable player movement
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
+            } 
 
+            else if (!Kurt_DialogueTriggerLaserLvl2Ph2.laserTriggerPh2)
+            {
+                Kurt_DialogueTriggerLaserLvl2Ph2.laserTriggerPh2 = true;
+                playerSprite.flipX = true;
+                laserTrigger.Priority = 11;
+                StartCoroutine(BackCamera(laserTrigger));
+            } 
+
+            else if (!Kurt_DialogueTriggerLaser2Lvl2Ph2.laserTrigger2_Ph2)
+            {
+                Kurt_DialogueTriggerLaser2Lvl2Ph2.laserTrigger2_Ph2 = true;
+                playerSprite.flipX = false;
+                laserTrigger2.Priority = 11;
+                StartCoroutine(BackCamera(laserTrigger2));
             }
 
             else

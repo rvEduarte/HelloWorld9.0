@@ -10,6 +10,16 @@ public class Kurt_MultiTabInput : MonoBehaviour
 
     private int currentIndex = 0;
 
+    void Start()
+    {
+        // Add listeners for input fields to track when they are clicked or selected
+        for (int i = 0; i < inputFields.Count; i++)
+        {
+            int index = i; // Capture index for the closure
+            inputFields[i].onSelect.AddListener((string text) => UpdateCurrentIndex(index));
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -27,5 +37,11 @@ public class Kurt_MultiTabInput : MonoBehaviour
                 inputFields[currentIndex].ActivateInputField();
             }
         }
+    }
+
+    // Update the current index when an input field is clicked or selected
+    private void UpdateCurrentIndex(int index)
+    {
+        currentIndex = index;
     }
 }
