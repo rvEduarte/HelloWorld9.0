@@ -21,6 +21,9 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered) 
         {
+            // Disable player movement
+            TriggerTutorial.disableMove = false;
+            TriggerTutorial.disableJump = true;
             StartDialogue();
         }
     }

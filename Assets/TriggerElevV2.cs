@@ -18,7 +18,7 @@ public class TriggerElevV2 : MonoBehaviour
     private void Start()
     {
         enableElev = false;
-        isInside = false;
+        isInside = true;
     }
     public void FixedUpdate()
     {
@@ -59,6 +59,7 @@ public class TriggerElevV2 : MonoBehaviour
     {
         if(enableElev)
         {
+            Debug.Log("pEKPEK SI ROSA");
             if (collision.CompareTag("Player") && Mathf.Approximately(platform.transform.localPosition.y, downValue))
             {
                 isInside = true;

@@ -217,6 +217,9 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
+        // enable the elevator
+        TriggerElevV2.enableElev = true;
+
         foreach (var name in feedbackTexts)
         {
             name.text = "New Text";     // Set the text to "New Text"

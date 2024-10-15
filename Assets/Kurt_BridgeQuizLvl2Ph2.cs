@@ -40,6 +40,7 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
+            Debug.Log("pekpek si rosa");
             ValidateAnswers();  // Trigger answer validation when Enter is pressed
         }
     }

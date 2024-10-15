@@ -159,8 +159,11 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-
-            if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+            if(!Kurt_DialogueTrigger.natitriggernaAko)
+            {
+                Kurt_DialogueTrigger.natitriggernaAko = true;
+            }
+            else if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
             {
                 vCam1.Priority = 11;
                 Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
@@ -187,7 +190,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 StartCoroutine(BackCamera(vCam3));
             }
 
-             else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
+            else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
                 vCam4.Priority = 11;
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
@@ -196,7 +199,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 StartCoroutine(BackCamera(vCam4));
             }
 
-             else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+            if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
             {
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
 
@@ -207,7 +210,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 gameObjToShow2.SetActive(true);
             }
 
-             else if(!Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2)
+            else if(!Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2)
             {
                 Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2 = true;
  
@@ -234,6 +237,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
             else
             {
+                Debug.LogError("FUTA");
                 // Enable player movement
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
