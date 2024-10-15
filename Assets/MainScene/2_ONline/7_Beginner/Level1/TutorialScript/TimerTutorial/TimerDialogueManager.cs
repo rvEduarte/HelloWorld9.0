@@ -50,7 +50,7 @@ public class TimerDialogueManager : MonoBehaviour
     {
         
         { "Everytime we find a piece", "<color=green>Everytime we find a piece</color>" },
-        { "Tutorial Archive button", "<color=green>Archive Tutorial button</color>" },
+        { "Tutorial Archive button", "<color=green>Tutorial Archive button</color>" },
         { "timer counting", "<color=yellow>timer counting</color>" },
         { " time", "<color=yellow> time</color>" },
         { "complete the game", "<color=yellow>complete the game</color>" },

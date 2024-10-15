@@ -399,7 +399,7 @@ public class LoginScript : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
         {
             // Set a timeout (e.g., 5 seconds) for the request
-            request.timeout = 5; // Time in seconds
+            request.timeout = 2; // Time in seconds
 
             // Send the request
             yield return request.SendWebRequest();

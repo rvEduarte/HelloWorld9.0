@@ -14,8 +14,11 @@ public class ComicManager : MonoBehaviour
     // Duration for the fade effect
     public float fadeDuration = 1.5f;
 
+    [SerializeField] private GameObject button;
+
     void Start()
     {
+        button.SetActive(false);
         // Start the fade sequence
         StartCoroutine(FadeImagesAndTextsInSequence());
     }
@@ -35,6 +38,8 @@ public class ComicManager : MonoBehaviour
             // Wait 1.5 seconds before starting the next fade
             yield return new WaitForSeconds(1.5f);
         }
+        Debug.Log("Last");
+        button.SetActive(true);
     }
 
     // Coroutine to fade in an individual image and text

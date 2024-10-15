@@ -173,6 +173,9 @@ public class OnlineMainMenu : MonoBehaviour
             //Enable the registerButton
             PlayerPrefs.SetInt("RegisterState", 0);
 
+            //disable SkipStory
+            PlayerPrefs.SetInt("SkipStory", 0);
+
             progressData.ResetProgress();
         });
     }
