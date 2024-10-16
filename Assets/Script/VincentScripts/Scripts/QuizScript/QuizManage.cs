@@ -1,9 +1,8 @@
     using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using JetBrains.Annotations;
 
 public class QuizManage : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class QuizManage : MonoBehaviour
     private void Start()
     {
         totalQuestions = QnA.Count;
-        
+
         generateQuestion();
         //QnA.RemoveAt(currentQuestion);
     }
@@ -39,7 +38,7 @@ public class QuizManage : MonoBehaviour
         LeanTween.scale(quizPanel, Vector2.zero, 0.5f);
         LeanTween.scale(completionPanel, Vector2.one, 0.5f);
         quizPanel.SetActive(false);
-        quizScoreText.text = scoreCount +"/"+ totalQuestions;
+        quizScoreText.text = scoreCount + "/" + totalQuestions;
         scoreBoardText.text = playerData.scoreQuizPhase3.ToString();
     }
 
@@ -78,23 +77,23 @@ public class QuizManage : MonoBehaviour
         generateQuestion();
     }
 
-    void SetAnswer ()
-    {    
+    void SetAnswer()
+    {
         for (int i = 0; i < options.Length; i++)
         {
             options[i].GetComponent<AnswersScript>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponent<TMP_Text>().text = QnA[currentQuestion].Answers[i];
 
-            if (QnA[currentQuestion].CorrestAnswer == i+1)
+            if (QnA[currentQuestion].CorrestAnswer == i + 1)
             {
                 options[i].GetComponent<AnswersScript>().isCorrect = true;
-            } 
+            }
         }
     }
 
     void generateQuestion()
     {
-        if(QnA.Count > 0)
+        if (QnA.Count > 0)
         {
             currentQuestion = Random.Range(0, QnA.Count);
 
