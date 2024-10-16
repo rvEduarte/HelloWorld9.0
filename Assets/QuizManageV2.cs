@@ -27,14 +27,15 @@ public class QuizManageV2 : MonoBehaviour
     public Transform questionsContainer; // Parent container for questions
 
     int totalQuestions = 0;
-    int scoreCount = 0;
+    public static int scoreCount = 0;
 
     // List to keep track of asked questions
     private List<int> askedQuestions = new List<int>();
 
-    private void Start()
+    public void StartComputer()
     {
-        totalQuestions = QnA.Count;
+        // Reset the score and asked questions at the start of each quiz attempt
+        ResetQuiz();
         generateQuestion();
     }
 
@@ -47,6 +48,19 @@ public class QuizManageV2 : MonoBehaviour
 
         // Reset asked questions so the quiz can be retaken
         askedQuestions.Clear();
+
+        if (scoreCount > 2)
+        {
+            Debug.Log("Passed");
+            completionText.text = "Passed!";
+            completionText.color = Color.green;
+        }
+        else
+        {
+            Debug.Log("Failed");
+            completionText.text = "Failed!";
+            completionText.color = Color.red;
+        }
     }
 
     public void correct()
@@ -84,12 +98,12 @@ public class QuizManageV2 : MonoBehaviour
     {
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].GetComponent<AnswersScript>().isCorrect = false;
+            options[i].GetComponent<AnswerScriptV2_RV>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponent<TMP_Text>().text = QnA[currentQuestion].Answers[i];
 
             if (QnA[currentQuestion].CorrestAnswer == i + 1)
             {
-                options[i].GetComponent<AnswersScript>().isCorrect = true;
+                options[i].GetComponent<AnswerScriptV2_RV>().isCorrect = true;
             }
         }
     }
@@ -143,16 +157,20 @@ public class QuizManageV2 : MonoBehaviour
         if (scoreCount > 2)
         {
             Debug.Log("Passed");
-            completionText.text = "Passed!";
-            completionText.color = Color.green;
             computer.SetActive(false);
             elev.FinishQuiz();
         }
         else
         {
-            Debug.Log("Failed");
-            completionText.text = "Failed!";
             completionText.color = Color.red;
         }
+    }
+
+    // Method to reset quiz state
+    private void ResetQuiz()
+    {
+        scoreCount = 0; // Reset score
+        askedQuestions.Clear(); // Clear asked questions
+        totalQuestions = QnA.Count; // Get the total questions
     }
 }

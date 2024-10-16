@@ -29,7 +29,7 @@ public class AnswerScriptV2_RV : MonoBehaviour
             quizManager.wrong();
         }
 
-        quizManager.StartResetCoroutine(buttonCol);
+        //quizManager.StartResetCoroutine(buttonCol);
 
         /*if (gameObject.activeInHierarchy)
         {

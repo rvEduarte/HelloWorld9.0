@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class QuizComputer_Rv : MonoBehaviour
 {
+    public QuizManageV2 quiz;
     public PlayerScoreScriptableObject playerData;
 
     [SerializeField] private GameObject ComputerPanel;
@@ -21,6 +22,8 @@ public class QuizComputer_Rv : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            quiz.StartComputer();
+            QuizManageV2.scoreCount = 0;
             playerData.scoreQuizPhase3 = 0;
             playerData.wrongQuizPhase3 = 0;
             TriggerTutorial.disableMove = false; //disable Move
