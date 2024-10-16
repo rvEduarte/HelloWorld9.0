@@ -29,23 +29,24 @@ public class QuizManageV2 : MonoBehaviour
     int totalQuestions = 0;
     int scoreCount = 0;
 
+    // List to keep track of asked questions
+    private List<int> askedQuestions = new List<int>();
+
     private void Start()
     {
         totalQuestions = QnA.Count;
-
         generateQuestion();
-        //QnA.RemoveAt(currentQuestion);
     }
 
     public void GameOver()
     {
         LeanTween.scale(quizPanel, Vector2.zero, 0.5f);
         LeanTween.scale(completionPanel, Vector2.one, 0.5f);
-        //quizPanel.SetActive(false);
         quizScoreText.text = scoreCount + "/" + totalQuestions;
         scoreBoardText.text = playerData.scoreQuizPhase3.ToString();
 
-
+        // Reset asked questions so the quiz can be retaken
+        askedQuestions.Clear();
     }
 
     public void correct()
@@ -69,17 +70,13 @@ public class QuizManageV2 : MonoBehaviour
 
     private IEnumerator DisplayResultAndNext(bool isCorrect)
     {
-        // Wait for 0.2 seconds before resetting button colors
         yield return new WaitForSeconds(0.2f);
 
-        // Reset button colors
         foreach (var option in options)
         {
             option.GetComponent<Image>().color = Color.white;
         }
 
-        // Remove current question and generate the next one
-        QnA.RemoveAt(currentQuestion);
         generateQuestion();
     }
 
@@ -99,9 +96,16 @@ public class QuizManageV2 : MonoBehaviour
 
     void generateQuestion()
     {
-        if (QnA.Count > 0)
+        if (askedQuestions.Count < QnA.Count)
         {
-            currentQuestion = Random.Range(0, QnA.Count);
+            // Keep generating a random question until we find one that hasn't been asked yet
+            do
+            {
+                currentQuestion = Random.Range(0, QnA.Count);
+            } while (askedQuestions.Contains(currentQuestion));
+
+            // Mark this question as asked
+            askedQuestions.Add(currentQuestion);
 
             // Clear previous questions
             foreach (Transform child in questionsContainer)
@@ -112,13 +116,13 @@ public class QuizManageV2 : MonoBehaviour
             // Instantiate new question
             TMP_Text newQuestion = Instantiate(questionPrefab, questionsContainer);
             newQuestion.text = QnA[currentQuestion].QuestionText.text;
-            newQuestion.font = QnA[currentQuestion].QuestionText.font; // Copy font settings if needed
+            newQuestion.font = QnA[currentQuestion].QuestionText.font;
 
             SetAnswer();
         }
         else
         {
-            Debug.Log("Out of question");
+            Debug.Log("Out of questions");
             GameOver();
         }
     }
@@ -130,10 +134,7 @@ public class QuizManageV2 : MonoBehaviour
 
     IEnumerator ResetButtonColor(Image button)
     {
-        // Wait for 0.1 seconds before resetting the button color
         yield return new WaitForSeconds(0.2f);
-
-        // Reset the button color to the original color (white in this case)
         button.color = Color.white;
     }
 
