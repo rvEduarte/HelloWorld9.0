@@ -21,6 +21,7 @@ public class Kurt_DialogueTrigger3Lvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered)
         {
+            Debug.Log(hasTriggered);
             StartDialogue();
         }
     }

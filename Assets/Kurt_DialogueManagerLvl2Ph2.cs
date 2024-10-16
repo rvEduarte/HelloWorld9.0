@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 {
+    public Kurt_ThirdHiddenPassage hiddenPassge;
     public GameObject collider1; //For collider 
     public CinemachineVirtualCamera vCam1; // trigger 1
     public CinemachineVirtualCamera vCam2; // trigger 2
-    public CinemachineVirtualCamera vCam3; // trigger 3
-    public CinemachineVirtualCamera vCam4; // trigger 4
+    public CinemachineVirtualCamera billBoardCam; // trigger 3
     public CinemachineVirtualCamera laserTrigger; // Laser Trigger
     public CinemachineVirtualCamera laserTrigger2; // Laser Trigger 2
 
@@ -32,6 +32,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     public GameObject gameObjToShow;
     public GameObject gameObjToShow2;
+    public GameObject triggerPassage;
 
 
 
@@ -135,6 +136,11 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         // Ensure the alpha is set to 1 after the transition
         tilemapColor.a = 0f;
         tilemapToFade.color = tilemapColor;
+
+       /* Debug.Log("Ekups");
+        yield return new WaitForSeconds(3f);
+        playerSprite.flipX = true;
+        hiddenPassge.StartDialogue();*/
     }
 
     public void NextMessage()
@@ -159,12 +165,24 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            if(!Kurt_DialogueTrigger.natitriggernaAko)
+            if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
             {
-                Kurt_DialogueTrigger.natitriggernaAko = true;
+
+                Debug.Log("First Convo");
+
+                Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
+
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+
             }
-            else if(!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+
+            else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
             {
+
+                Debug.Log("Second Convo");
+
                 vCam1.Priority = 11;
                 Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
                 StartCoroutine(BackCamera(vCam1));
@@ -172,67 +190,52 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
             else if (!Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2)
             {
+                Debug.Log("Third Convo");
+
                 vCam2.Priority = 11;
                 Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
                 StartCoroutine(BackCamera(vCam2));
                 StartCoroutine(FadeInTilemap());
+                playerSprite.flipX = true; //flip the player
 
                 TriggerElevV2.enableElev = false; // disable elev
-
-                playerSprite.flipX = true; //flip the player
                 collider1.SetActive(false);
+
             }
 
             else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
             {
-                vCam3.Priority = 11;
+                Debug.Log("Fourth Convo");
+
                 Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
-                StartCoroutine(BackCamera(vCam3));
+
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
             }
+
+            //fifth is OpenPortal
 
             else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
-                vCam4.Priority = 11;
+                Debug.Log("sixth Convo");
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
-                gameObjToShow.SetActive(true);
-                playerSprite.flipX = true; //flip the player
-                StartCoroutine(BackCamera(vCam4));
+                
             }
 
-            if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+            else if(!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
             {
+                Debug.Log("Fifth Convo");
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-
-                // Enable player movement
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-
-                gameObjToShow2.SetActive(true);
+                
+                
+                gameObject.SetActive(true);
             }
 
-            else if(!Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2)
+            else if (!Kurt_UnderConatruction.underConstruc)
             {
-                Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2 = true;
- 
-                // Enable player movement
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-            } 
-
-            else if (!Kurt_DialogueTriggerLaserLvl2Ph2.laserTriggerPh2)
-            {
-                Kurt_DialogueTriggerLaserLvl2Ph2.laserTriggerPh2 = true;
-                playerSprite.flipX = true;
-                laserTrigger.Priority = 11;
-                StartCoroutine(BackCamera(laserTrigger));
-            } 
-
-            else if (!Kurt_DialogueTriggerLaser2Lvl2Ph2.laserTrigger2_Ph2)
-            {
-                Kurt_DialogueTriggerLaser2Lvl2Ph2.laserTrigger2_Ph2 = true;
-                playerSprite.flipX = false;
-                laserTrigger2.Priority = 11;
-                StartCoroutine(BackCamera(laserTrigger2));
+                Kurt_UnderConatruction.underConstruc = true;
+                triggerPassage.SetActive(true);
             }
 
             else
@@ -242,6 +245,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
+
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Kurt_TriggerLvl2Ph1 : MonoBehaviour
 {
-    public KurtMessageLvl2Ph2[] message;
-    public KurtActorLvl2Ph2[] actor;
+    public KurtMessage[] message;
+    public KurtActor[] actor;
 
     private bool hasTriggered = false;
 
@@ -28,6 +28,6 @@ public class Kurt_TriggerLvl2Ph1 : MonoBehaviour
     public void StartDialogue()
     {
         hasTriggered = true;
-        FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        FindObjectOfType<Kurt_DialogueManagerLvl2Ph1>().OpenDialogue(message, actor);
     }
 }

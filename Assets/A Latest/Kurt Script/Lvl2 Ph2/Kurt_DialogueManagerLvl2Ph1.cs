@@ -1,11 +1,19 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
 {
+
+    public CinemachineVirtualCamera Cam1;
+    public CinemachineVirtualCamera Cam2;
+
+    public SpriteRenderer playerSprite;
+
     public Image actorImage;
     public TextMeshProUGUI actorName;
     public TextMeshProUGUI messageText;
@@ -14,6 +22,7 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
     KurtMessage[] currentMessage;
     KurtActor[] currentActors;
     int activeMessage = 0;
+
 
     public static bool isActive = false;
 
@@ -51,7 +60,7 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
         backgroundBox.LeanScale(Vector3.one, 0.5f);
 
         // Disable player movement
-        TriggerTutorial.disableMove = false; 
+        TriggerTutorial.disableMove = false;
         TriggerTutorial.disableJump = true;
     }
 
@@ -111,9 +120,39 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            // Enable player movement
-            TriggerTutorial.disableMove = true;
-            TriggerTutorial.disableJump = false;
+            if (!Kurt_TriggerLvl2Ph1.triggerPh1)
+            {
+                Kurt_TriggerLvl2Ph1.triggerPh1 = true;
+                Cam1.Priority = 11;
+                StartCoroutine(BackCamera(Cam1));
+
+                Debug.Log("First Conversation");
+            }
+
+            else if (!Kurt_triggerLvl2Ph1_2.trigger2Ph1) 
+            {
+                Kurt_triggerLvl2Ph1_2.trigger2Ph1 = true;
+                Debug.Log("Second Conversation");
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
+
+            else if (!Kurt_PortalTrigger.portalTrigger)
+            {
+                Kurt_PortalTrigger.portalTrigger = true;
+                Cam2.Priority = 11;
+                StartCoroutine (BackCamera(Cam2));
+                Debug.Log("Third Conversation");
+            }
+
+            else
+            {
+                Debug.LogError("FUTA");
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
         }
     }
 
@@ -121,5 +160,18 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
     {
         LeanTween.textAlpha(messageText.rectTransform, 0, 0);
         LeanTween.textAlpha(messageText.rectTransform, 1, 0.5f);
+    }
+
+    IEnumerator BackCamera(CinemachineVirtualCamera name)
+    {
+        yield return new WaitForSeconds(4);
+        name.Priority = 0;
+
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
+
+        playerSprite.flipX = false; //flip the player
+
     }
 }

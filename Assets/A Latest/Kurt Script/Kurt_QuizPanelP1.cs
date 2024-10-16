@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class Kurt_QuizPanelP1 : MonoBehaviour
 {
     public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
-    public string[] correctAnswers;
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
     public GameObject outputPanel;
     public GameObject platformObject;
@@ -29,22 +28,22 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
 
     public void ValidateAnswers()
     {
-        // Check if the number of input fields matches the number of correct answers
-        if (inputFields.Length != correctAnswers.Length)
+        // Check if the number of input fields matches the expected number
+        if (inputFields.Length != 5)
         {
-            Debug.LogError("Number of input fields and correct answers do not match!");
+            Debug.LogError("Expected 5 input fields!");
             return;
         }
 
         // Track whether all answers are correct
         bool allCorrect = true;
 
-        // Check each input field and provide feedback
-        for (int i = 0; i < inputFields.Length; i++)
-        {
-            if (!CheckAnswer(inputFields[i], correctAnswers[i], feedbackTexts[i]))
-                allCorrect = false;
-        }
+        // Validate each input field with specific answers
+        allCorrect &= CheckAnswer(inputFields[0], "int", feedbackTexts[0]);       // First input field: 'int'
+        allCorrect &= CheckAnswer(inputFields[1], "int", feedbackTexts[1]);       // Second input field: 'int'
+        allCorrect &= CheckMultipleAnswers(inputFields[2], new string[] { "Write", "WriteLine" }, feedbackTexts[2]); // Third input field: 'Write' or 'WriteLine'
+        allCorrect &= CheckMultipleAnswers(inputFields[3], new string[] { "Write", "WriteLine" }, feedbackTexts[3]); // Fourth input field: 'Write' or 'WriteLine'
+        allCorrect &= CheckAnswer(inputFields[4], "bridgeHeight", feedbackTexts[4]);  // Fifth input field: 'bridgeHeight'
 
         // Show the output panel after validation
         ShowOutputPanel(allCorrect);
@@ -70,7 +69,7 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
         LeanTween.moveLocalY(platformObject, -0.54f, 2.5f);
     }
 
-    // Helper function to check each input field's answer
+    // Helper function to check if the answer matches the expected single correct answer
     private bool CheckAnswer(TMP_InputField inputField, string correctAnswer, TextMeshProUGUI feedbackText)
     {
         if (string.IsNullOrWhiteSpace(inputField.text))
@@ -92,6 +91,31 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
             feedbackText.color = Color.red;
             return false;
         }
+    }
+
+    // Helper function to check if the answer matches any of the multiple correct answers
+    private bool CheckMultipleAnswers(TMP_InputField inputField, string[] correctAnswers, TextMeshProUGUI feedbackText)
+    {
+        if (string.IsNullOrWhiteSpace(inputField.text))
+        {
+            feedbackText.text = "Answer required!";
+            feedbackText.color = Color.red;
+            return false;
+        }
+
+        foreach (string correctAnswer in correctAnswers)
+        {
+            if (inputField.text == correctAnswer)
+            {
+                feedbackText.text = "Correct!";
+                feedbackText.color = Color.green;
+                return true;
+            }
+        }
+
+        feedbackText.text = "Incorrect!";
+        feedbackText.color = Color.red;
+        return false;
     }
 
     // Function to show the output panel
@@ -148,6 +172,5 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
 
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-
     }
 }
