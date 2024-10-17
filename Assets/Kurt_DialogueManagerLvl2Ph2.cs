@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 {
-    public Kurt_ThirdHiddenPassage hiddenPassge;
-    public GameObject collider1; //For collider 
+    public GameObject collider1; // For collider 
     public CinemachineVirtualCamera vCam1; // trigger 1
     public CinemachineVirtualCamera vCam2; // trigger 2
     public CinemachineVirtualCamera billBoardCam; // trigger 3
@@ -30,11 +29,9 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     KurtActorLvl2Ph2[] currentActors;
     int activeMessage = 0;
 
+    public GameObject passageTrigger;
     public GameObject gameObjToShow;
     public GameObject gameObjToShow2;
-    public GameObject triggerPassage;
-
-
 
     public static bool isActive = false;
 
@@ -45,6 +42,15 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     {
         collider1.SetActive(true);
         backgroundBox.transform.localScale = Vector3.zero;
+    }
+
+    void OnEnable()
+    {
+        // Reset dialogue triggers
+        Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = false;
+        Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = false;
+        Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = false;
+        // Add other trigger resets as needed
     }
 
     void Update()
@@ -136,11 +142,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         // Ensure the alpha is set to 1 after the transition
         tilemapColor.a = 0f;
         tilemapToFade.color = tilemapColor;
-
-       /* Debug.Log("Ekups");
-        yield return new WaitForSeconds(3f);
-        playerSprite.flipX = true;
-        hiddenPassge.StartDialogue();*/
     }
 
     public void NextMessage()
@@ -167,7 +168,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
             if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
             {
-
                 Debug.Log("First Convo");
 
                 Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
@@ -175,17 +175,14 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
-
             else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
             {
-
                 Debug.Log("Second Convo");
 
                 vCam1.Priority = 11;
                 Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
                 StartCoroutine(BackCamera(vCam1));
             }
-
             else if (!Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2)
             {
                 Debug.Log("Third Convo");
@@ -194,13 +191,20 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
                 StartCoroutine(BackCamera(vCam2));
                 StartCoroutine(FadeInTilemap());
-                playerSprite.flipX = true; //flip the player
+                playerSprite.flipX = true; // flip the player
 
                 TriggerElevV2.enableElev = false; // disable elev
                 collider1.SetActive(false);
-
             }
+            else if (!PassageDialogue.passageDialogue)
+            {
+                Debug.Log("Passage In");
+                PassageDialogue.passageDialogue = true;
 
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
             else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
             {
                 Debug.Log("Fourth Convo");
@@ -211,31 +215,19 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
-
-            //fifth is OpenPortal
-
+            // fifth is OpenPortal
             else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
                 Debug.Log("sixth Convo");
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
-                
             }
-
-            else if(!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+            else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
             {
                 Debug.Log("Fifth Convo");
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-                
-                
+
                 gameObject.SetActive(true);
             }
-
-            else if (!Kurt_UnderConatruction.underConstruc)
-            {
-                Kurt_UnderConatruction.underConstruc = true;
-                triggerPassage.SetActive(true);
-            }
-
             else
             {
                 Debug.LogError("FUTA");
@@ -243,7 +235,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
-
         }
     }
 
@@ -262,7 +253,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
 
-        playerSprite.flipX = false; //flip the player
-
+        playerSprite.flipX = false; // flip the player
     }
 }

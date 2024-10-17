@@ -104,7 +104,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Wait for a moment to show the "Correct code!" message
         yield return new WaitForSeconds(panelCloseDelay);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         dialoguePortalOpen.SetActive(true);
 
         // Close the console panel
