@@ -9,7 +9,7 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
 
     public GameObject jigsawPanel, dimed;
 
-    //public RunningTimerLevel1Ph1 timer;
+    public RunningTimerLevel2Ph2 timer;
 
     private bool pickUpAllowed;
 
@@ -19,7 +19,7 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
     public GameObject backpackPanel;
 
     public RvComputer rvComp;
-    //public GameObject timerPanel;
+    public GameObject timerPanel;
     void Start()
     {
         LeanTween.scale(jigsawPanel, Vector3.zero, 0f);
@@ -37,8 +37,8 @@ public class Kurt_JigsawLevel2Ph1 : MonoBehaviour
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
 
-            //timer.isPicked = true;
-            // LeanTween.scale(timerPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+            timer.isPicked = true;
+            LeanTween.scale(timerPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(tutorialPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(backpackPanel, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
             LeanTween.scale(jigsawPanel, Vector3.one, 0.5f);

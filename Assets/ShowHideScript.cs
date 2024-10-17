@@ -23,12 +23,16 @@ public class ShowHideScript : MonoBehaviour
         RunningTimerLevel1Ph1.timerStop = false; //disable time
         RunningTimerLevel1Ph2.timerStopPh2 = false; //disable time
         RunningTimerLevel1Ph3.timerStopPh3 = false;
+
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
     }
      public void RunTimer()
     {
         RunningTimerLevel1Ph1.timerStop = true; //enable time
         RunningTimerLevel1Ph2.timerStopPh2 = true; //enable time
         RunningTimerLevel1Ph3.timerStopPh3 = true;
+
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
     }
 
     public void UnlockButton(string description)
