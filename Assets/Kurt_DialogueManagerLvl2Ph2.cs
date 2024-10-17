@@ -172,10 +172,8 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
                 Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
 
-                // Enable player movement
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
-
             }
 
             else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
