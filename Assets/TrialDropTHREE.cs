@@ -106,7 +106,7 @@ public class TrialDropTHREE : MonoBehaviour, IDropHandler
             textOutput.text = output.FirstRunOutput + output.SecondRunOutput + "UP" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.LastRunOutput = "UP";
 
-            StartCoroutine(hidePanel(3.33f));
+            StartCoroutine(hidePanel(2.83f));
         }
         else if (output.LastOutput == "Console.Write(\"DOWN\")")
         {
@@ -114,7 +114,7 @@ public class TrialDropTHREE : MonoBehaviour, IDropHandler
             textOutput.text = output.FirstRunOutput + output.SecondRunOutput + "DOWN" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.LastRunOutput = "DOWN";
 
-            StartCoroutine(hidePanel(-7.56f));
+            StartCoroutine(hidePanel(-8.106f));
         }
         else if (output.LastOutput == "Console.WriteLine(\"UP\")")
         {
@@ -122,7 +122,7 @@ public class TrialDropTHREE : MonoBehaviour, IDropHandler
             textOutput.text = output.FirstRunOutput + output.SecondRunOutput + "UP\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.LastRunOutput = "UP\n";
 
-            StartCoroutine(hidePanel(3.33f));
+            StartCoroutine(hidePanel(2.83f));
         }
         else if (output.LastOutput == "Console.WriteLine(\"DOWN\")")
         {
@@ -130,7 +130,7 @@ public class TrialDropTHREE : MonoBehaviour, IDropHandler
             textOutput.text = output.FirstRunOutput + output.SecondRunOutput + "DOWN\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.LastRunOutput = "DOWN\n";
 
-            StartCoroutine(hidePanel(-7.56f));
+            StartCoroutine(hidePanel(-8.106f));
         }
         else
         {
@@ -222,7 +222,7 @@ public class TrialDropTHREE : MonoBehaviour, IDropHandler
     IEnumerator MovePlatform(float number)
     {
         yield return new WaitForSeconds(0.5f);
-        LeanTween.moveY(platform1, number, 0.5f);
+        LeanTween.moveY(platform1, number, 1.5f);
 
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move

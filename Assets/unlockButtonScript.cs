@@ -34,5 +34,9 @@ public class UnlockButtonScript : MonoBehaviour
         LeanTween.scale(panelToHide, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
     }
 
-
+    public void HidePanelDisableMove(GameObject panelToHide)
+    {
+        bgMask.SetActive(false);
+        LeanTween.scale(panelToHide, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+    }
 }

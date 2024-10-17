@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class JigsawDialogueManager : MonoBehaviour
 {
+    public SpriteRenderer _sprite;
     public Animator anim;
 
     public CinemachineVirtualCamera portalCamera;
@@ -186,6 +187,7 @@ public class JigsawDialogueManager : MonoBehaviour
             Debug.Log("Conversation ended!");
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
+            _sprite.flipX = false;
             StartCoroutine(MoveCameraPortal());
             //zoom
             //activate portal

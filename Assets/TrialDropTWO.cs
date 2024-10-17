@@ -118,7 +118,7 @@ public class TrialDropTWO : MonoBehaviour, IDropHandler
             output.SecondRunOutput = "DOWN";
             line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>Write</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
 
-            StartCoroutine(hidePanel(-1.46f));
+            StartCoroutine(hidePanel(-2.075f));
         }
         else if (output.SecondOutput == "Console.WriteLine(\"UP\")")
         {
@@ -136,7 +136,7 @@ public class TrialDropTWO : MonoBehaviour, IDropHandler
             output.SecondRunOutput = "DOWN\n";
             line8Hint.text = "<color=#05f711>Console</color>" + "." + "<color=#fcdc5d>WriteLine</color>" + "(<color=#c44a3d>\"DOWN\"</color>);";
 
-            StartCoroutine(hidePanel(-1.46f));
+            StartCoroutine(hidePanel(-2.075f));
         }
         else
         {
@@ -228,7 +228,7 @@ public class TrialDropTWO : MonoBehaviour, IDropHandler
     IEnumerator MovePlatform(float number)
     {
         yield return new WaitForSeconds(0.5f);
-        LeanTween.moveY(platform1, number, 0.5f);
+        LeanTween.moveY(platform1, number, 1.5f);
 
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move

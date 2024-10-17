@@ -231,7 +231,7 @@ public class TrialDrop : MonoBehaviour, IDropHandler
     IEnumerator MovePlatform(float number)
     {
         yield return new WaitForSeconds(0.5f);
-        LeanTween.moveY(platform1, number, 0.5f);
+        LeanTween.moveY(platform1, number, 1.5f);
 
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move
