@@ -17,7 +17,7 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
 
-    public KurtUpwardPlatform kurtUpwardPlatform;
+    public KurtUpwardPlatform kurtUpwardPlatform;  // Reference to platform controller
 
     void Start()
     {
@@ -27,6 +27,12 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
             new string[] { "'E'","'e'"},  // for second input field
             new string[] { "inputChar" }   // for third input field
         };
+
+        // Hide all feedback texts initially
+        foreach (var feedbackText in feedbackTexts)
+        {
+            feedbackText.gameObject.SetActive(false);
+        }
 
         // Attach listeners for Enter key
         foreach (var inputField in inputFields)
@@ -40,7 +46,7 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            Debug.Log("pekpek si rosa");
+            Debug.Log("Enter key pressed");
             ValidateAnswers();  // Trigger answer validation when Enter is pressed
         }
     }
@@ -72,6 +78,9 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         {
             successImage.SetActive(true);  // Show success image
             StartCoroutine(ClosePanelWithScale());
+
+           /* // Trigger platform movement if all answers are correct
+            kurtUpwardPlatform.StartMoving();  // Assuming this method starts the platform movement */
         }
         else
         {
@@ -83,6 +92,8 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     // Helper function to check each input field's answer (case-insensitive comparison)
     private bool CheckAnswer(TMP_InputField inputField, string[] correctAnswersSet, TextMeshProUGUI feedbackText)
     {
+        feedbackText.gameObject.SetActive(true);  // Show the feedback text when checking the answer
+
         if (string.IsNullOrWhiteSpace(inputField.text))
         {
             feedbackText.text = "Answer required!";
@@ -150,6 +161,9 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
+        // Trigger platform movement if all answers are correct
+        kurtUpwardPlatform.StartMoving();  // Assuming this method starts the platform movement
+
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;
         float time = 0;
@@ -165,18 +179,11 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         // Ensure final scale is zero and deactivate the panel
         transform.localScale = targetScale;
         gameObject.SetActive(false);
+        successImage.SetActive(false);
 
-        // Enable player movement
-        TriggerTutorial.disableMove = true;
-        TriggerTutorial.disableJump = false;
+        Debug.Log("Panel Closed...");
 
-        // Reset the cursor to the default when the panel is closed
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-
-        if (kurtUpwardPlatform != null)
-        {
-            kurtUpwardPlatform.StartMoving();
-        }
-
+        TriggerTutorial.disableMove = true; // Enable movement
+        TriggerTutorial.disableJump = false; // Enable jumping
     }
 }

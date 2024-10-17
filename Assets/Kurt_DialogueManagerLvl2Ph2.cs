@@ -30,8 +30,8 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     int activeMessage = 0;
 
     public GameObject passageTrigger;
-    public GameObject gameObjToShow;
-    public GameObject gameObjToShow2;
+    public GameObject textObj;
+    public GameObject showComputer;
 
     public static bool isActive = false;
 
@@ -42,6 +42,9 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     {
         collider1.SetActive(true);
         backgroundBox.transform.localScale = Vector3.zero;
+
+        textObj.SetActive(false);
+      //  showComputer.SetActive(true);
     }
 
     void OnEnable()
@@ -51,6 +54,10 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = false;
         Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = false;
         // Add other trigger resets as needed
+        PassageDialogue.passageDialogue = false;
+        Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = false;
+        Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = false;
+        Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = false;
     }
 
     void Update()
@@ -166,6 +173,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
+            /*
             if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
             {
                 Debug.Log("First Convo");
@@ -215,22 +223,30 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
-            // fifth is OpenPortal
-            else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
+            // fifth is OpenPortal */
+
+            if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
                 Debug.Log("sixth Convo");
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
+                billBoardCam.Priority = 11;
+
+                textObj.SetActive(true);
+                StartCoroutine(BillboardCam(billBoardCam));
             }
+
             else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
             {
                 Debug.Log("Fifth Convo");
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-                // Enable player movement
+                playerSprite.flipX=false;
+                showComputer.SetActive(true);
+
+                // Enable player movement  
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
-
-                gameObject.SetActive(true);
             }
+
             else
             {
                 Debug.LogError("FUTA");
@@ -257,5 +273,16 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         TriggerTutorial.disableJump = false;
 
         playerSprite.flipX = false; // flip the player
+    }
+
+    IEnumerator BillboardCam(CinemachineVirtualCamera name2)
+    {
+        playerSprite.flipX = true;
+        yield return new WaitForSeconds(5);
+        name2.Priority = 0;
+
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
     }
 }
