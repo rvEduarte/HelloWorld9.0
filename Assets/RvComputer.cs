@@ -51,6 +51,9 @@ public class RvComputer : MonoBehaviour
     {
         HidePanel();
         disableE = true;
+
+        TriggerTutorial.disableMove = true;  // Enable Move
+        TriggerTutorial.disableJump = false; // Enable jumping
     }
 
     public void CloseJigsawPanel()

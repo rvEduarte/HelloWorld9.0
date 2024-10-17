@@ -1,6 +1,5 @@
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -38,13 +37,13 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     private bool isTyping = false;
     private bool textFullyDisplayed = false;
 
+    public RunningTimerLevel2Ph2 runningTimer; // Reference to the timer script
+
     void Start()
     {
         collider1.SetActive(true);
         backgroundBox.transform.localScale = Vector3.zero;
-
         textObj.SetActive(false);
-      //  showComputer.SetActive(true);
     }
 
     void OnEnable()
@@ -53,7 +52,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = false;
         Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = false;
         Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = false;
-        // Add other trigger resets as needed
         PassageDialogue.passageDialogue = false;
         Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = false;
         Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = false;
@@ -62,7 +60,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isActive == true)
+        if (Input.GetMouseButtonDown(0) && isActive)
         {
             NextMessage();
             MouseLeftClick();
@@ -80,6 +78,9 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         currentActors = actors;
         activeMessage = 0;
         isActive = true;
+
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false; // Use the class name for static access
 
         Debug.Log("Started Conversation! Loaded Messages: " + messages.Length);
         DisplayMessage();
@@ -124,33 +125,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         AnimationTextColor();
     }
 
-    /** ====================================================================================================================== **/
-
-    // Coroutine for fading in the tilemap smoothly
-    IEnumerator FadeInTilemap()
-    {
-        float elapsedTime = 0f;
-        Color tilemapColor = tilemapToFade.color;
-
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-
-            // Interpolate the alpha value from 0 to 1 over time
-            float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-
-            // Update the tilemap's color with the new alpha value
-            tilemapColor.a = newAlpha;
-            tilemapToFade.color = tilemapColor;
-
-            yield return null; // Wait for the next frame
-        }
-
-        // Ensure the alpha is set to 1 after the transition
-        tilemapColor.a = 0f;
-        tilemapToFade.color = tilemapColor;
-    }
-
     public void NextMessage()
     {
         if (isTyping)
@@ -173,57 +147,65 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            /*
-            if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
-            {
-                Debug.Log("First Convo");
+            // Resume the timer when dialogue ends
+            RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true; // Corrected to true to resume the timer
 
-                Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
+        /*
+        if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
+        {
+            Debug.Log("First Convo");
 
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-            }
-            else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
-            {
-                Debug.Log("Second Convo");
+            Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
 
-                vCam1.Priority = 11;
-                Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
-                StartCoroutine(BackCamera(vCam1));
-            }
-            else if (!Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2)
-            {
-                Debug.Log("Third Convo");
+            TriggerTutorial.disableMove = true;
+            TriggerTutorial.disableJump = false;
+        }
 
-                vCam2.Priority = 11;
-                Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
-                StartCoroutine(BackCamera(vCam2));
-                StartCoroutine(FadeInTilemap());
-                playerSprite.flipX = true; // flip the player
+        else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
+        {
+            Debug.Log("Second Convo");
 
-                TriggerElevV2.enableElev = false; // disable elev
-                collider1.SetActive(false);
-            }
-            else if (!PassageDialogue.passageDialogue)
-            {
-                Debug.Log("Passage In");
-                PassageDialogue.passageDialogue = true;
+            vCam1.Priority = 11;
+            Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
+            StartCoroutine(BackCamera(vCam1));
+        }
 
-                // Enable player movement
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-            }
-            else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
-            {
-                Debug.Log("Fourth Convo");
+        else if (!Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2)
+        {
+            Debug.Log("Third Convo");
 
-                Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
+            vCam2.Priority = 11;
+            Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
+            StartCoroutine(BackCamera(vCam2));
+            StartCoroutine(FadeInTilemap());
+            playerSprite.flipX = true; // flip the player
 
-                // Enable player movement
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-            }
-            // fifth is OpenPortal */
+            TriggerElevV2.enableElev = false; // disable elev
+            collider1.SetActive(false);
+        }
+
+        else if (!PassageDialogue.passageDialogue)
+        {
+            Debug.Log("Passage In");
+            PassageDialogue.passageDialogue = true;
+
+            // Enable player movement
+            TriggerTutorial.disableMove = true;
+            TriggerTutorial.disableJump = false;
+        }
+
+        else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
+        {
+            Debug.Log("Fourth Convo");
+
+            Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
+
+            // Enable player movement
+            TriggerTutorial.disableMove = true;
+            TriggerTutorial.disableJump = false;
+        }
+
+        // fifth is OpenPortal */
 
             if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
             {
@@ -234,19 +216,17 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 textObj.SetActive(true);
                 StartCoroutine(BillboardCam(billBoardCam));
             }
-
             else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
             {
                 Debug.Log("Fifth Convo");
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-                playerSprite.flipX=false;
+                playerSprite.flipX = false;
                 showComputer.SetActive(true);
 
                 // Enable player movement  
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
             }
-
             else
             {
                 Debug.LogError("FUTA");
@@ -277,9 +257,11 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     IEnumerator BillboardCam(CinemachineVirtualCamera name2)
     {
-        playerSprite.flipX = true;
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false; 
         yield return new WaitForSeconds(5);
         name2.Priority = 0;
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
         // Enable player movement
         TriggerTutorial.disableMove = true;

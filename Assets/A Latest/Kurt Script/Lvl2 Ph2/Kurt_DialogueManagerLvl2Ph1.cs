@@ -8,9 +8,8 @@ using UnityEngine.UI;
 
 public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
 {
-
-    public CinemachineVirtualCamera Cam1;
-    public CinemachineVirtualCamera Cam2;
+    public CinemachineVirtualCamera Cam1; // trigger 1
+    public CinemachineVirtualCamera Cam2; // trigger 2
 
     public SpriteRenderer playerSprite;
 
@@ -23,20 +22,34 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
     KurtActor[] currentActors;
     int activeMessage = 0;
 
-
     public static bool isActive = false;
 
     private bool isTyping = false;
     private bool textFullyDisplayed = false;
 
+    public GameObject portalToOpen;
+
+    public RunningTimerLevel2Ph2 runningTimer; // Reference to the timer script
+
     void Start()
     {
+        portalToOpen.SetActive(false);
         backgroundBox.transform.localScale = Vector3.zero;
+    }
+
+    void OnEnable()
+    {
+        // Reset dialogue triggers
+        Kurt_TriggerLvl2Ph1.triggerPh1 = false;
+        Kurt_triggerLvl2Ph1_2.trigger2Ph1 = false;
+        Kurt_PortalTrigger.portalTrigger = false;
+
+
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isActive == true)
+        if (Input.GetMouseButtonDown(0) && isActive)
         {
             NextMessage();
             MouseLeftClick();
@@ -54,6 +67,9 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
         currentActors = actors;
         activeMessage = 0;
         isActive = true;
+
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false; // Use the class name for static access
 
         Debug.Log("Started Conversation! Loaded Messages: " + messages.Length);
         DisplayMessage();
@@ -120,6 +136,9 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
+            // Resume the timer when dialogue ends
+            RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true; // Corrected to true to resume the timer
+
             if (!Kurt_TriggerLvl2Ph1.triggerPh1)
             {
                 Kurt_TriggerLvl2Ph1.triggerPh1 = true;
@@ -129,7 +148,7 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
                 Debug.Log("First Conversation");
             }
 
-            else if (!Kurt_triggerLvl2Ph1_2.trigger2Ph1) 
+            else if (!Kurt_triggerLvl2Ph1_2.trigger2Ph1)
             {
                 Kurt_triggerLvl2Ph1_2.trigger2Ph1 = true;
                 Debug.Log("Second Conversation");
@@ -142,9 +161,11 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
             {
                 Kurt_PortalTrigger.portalTrigger = true;
                 Cam2.Priority = 11;
-                StartCoroutine (BackCamera(Cam2));
+                portalToOpen.SetActive(true);
+                StartCoroutine(BackCamera(Cam2));
                 Debug.Log("Third Conversation");
             }
+
 
             else
             {
@@ -164,14 +185,35 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
 
     IEnumerator BackCamera(CinemachineVirtualCamera name)
     {
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
+
         yield return new WaitForSeconds(4);
         name.Priority = 0;
+
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
 
-        playerSprite.flipX = false; //flip the player
-
+        playerSprite.flipX = false; // flip the player
     }
+    IEnumerator Portal(CinemachineVirtualCamera portal)
+    {
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
+
+        yield return new WaitForSeconds(4);
+        portal.Priority = 0;
+
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
+
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
+
+        playerSprite.flipX = false; // flip the player
+    }
+
 }
