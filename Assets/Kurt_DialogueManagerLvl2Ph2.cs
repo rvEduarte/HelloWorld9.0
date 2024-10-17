@@ -225,6 +225,9 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             {
                 Debug.Log("Fifth Convo");
                 Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
 
                 gameObject.SetActive(true);
             }
