@@ -14,7 +14,6 @@ public class Kurt_TriggerLvl2Ph2 : MonoBehaviour
     private void Start()
     {
         trigger2Ph1 = false;
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)

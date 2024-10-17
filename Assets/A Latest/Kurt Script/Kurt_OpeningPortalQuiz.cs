@@ -101,10 +101,11 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     // Coroutine to close the panel and activate portals after a delay
     IEnumerator ClosePanelAndActivatePortals()
     {
-        dialoguePortalOpen.SetActive(true);
-
         // Wait for a moment to show the "Correct code!" message
         yield return new WaitForSeconds(panelCloseDelay);
+
+        yield return new WaitForSeconds(2f);
+        dialoguePortalOpen.SetActive(true);
 
         // Close the console panel
         consolePanel.SetActive(false);
