@@ -191,13 +191,21 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
         yield return new WaitForSeconds(4);
         name.Priority = 0;
 
+        Debug.Log("Disable Movement");
+        
+        // Disable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
+
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
+        playerSprite.flipX = false; // flip the player
+
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("Player must move");
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
-
-        playerSprite.flipX = false; // flip the player
     }
     IEnumerator Portal(CinemachineVirtualCamera portal)
     {
@@ -209,11 +217,18 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
 
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
+        Debug.Log("Disable movement");
+        // Enable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
+
+        playerSprite.flipX = false; // flip the player
+
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("Player must move");
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
-
-        playerSprite.flipX = false; // flip the player
     }
 
 }
