@@ -29,6 +29,7 @@ public class ComputerLevel1Ph1 : MonoBehaviour
 
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            ShowHideScript.stopMovement = false;
             disableInteract = false;
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping

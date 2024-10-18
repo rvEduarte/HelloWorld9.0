@@ -183,6 +183,7 @@ public class TrialDropPh2ONE : MonoBehaviour, IDropHandler
     }
     IEnumerator MovePlatform(float number)
     {
+        ShowHideScript.stopMovement = true;
         yield return new WaitForSeconds(0.5f);
         platform1.SetActive(true);
         LeanTween.moveY(platform1, number, 0.5f);

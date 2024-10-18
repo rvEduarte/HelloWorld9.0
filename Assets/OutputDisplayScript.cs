@@ -159,6 +159,7 @@ public class OutputDisplayScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
+        ShowHideScript.stopMovement = true;  // ENABLE MOVEMENT
         LeanTween.scale(CodePanel, Vector2.zero, 0.5f);
         LeanTween.moveLocal(platform, new Vector3(38.32f, 53.77f, 0), 2.5f);
         TriggerTutorial.disableMove = true; //enable Move

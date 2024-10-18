@@ -22,6 +22,7 @@ public class QuizComputer_Rv : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            ShowHideScript.stopMovement = false; // THE SHOWHIDESCRIPT TO BLOCK MOVEMENT
             quiz.StartComputer();
             QuizManageV2.scoreCount = 0;
             playerData.scoreQuizPhase3 = 0;

@@ -280,6 +280,7 @@ public class TrialDropPh2THREE : MonoBehaviour, IDropHandler
     {
         yield return new WaitForSeconds(5f);
         vCam.Priority = 0;
+        ShowHideScript.stopMovement = true;
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping

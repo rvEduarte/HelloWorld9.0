@@ -27,6 +27,7 @@ public class ComputerLevel1Ph2ONE : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            ShowHideScript.stopMovement = false;
             laserObject.SetActive(true);
             bridgeObject1.SetActive(false);
             bridgeObject2.SetActive(false);

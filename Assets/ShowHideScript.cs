@@ -14,8 +14,11 @@ public class ShowHideScript : MonoBehaviour
     public Button button;
     public TextMeshProUGUI text;
 
+    public static bool stopMovement;
+
     private void Start()
     {
+        stopMovement = true;
         Screen.SetResolution(1920, 1080, true);
     }
     public void StopTimer()
@@ -93,10 +96,24 @@ public class ShowHideScript : MonoBehaviour
 
     public void HideSpecificPanel(GameObject name)
     {
+        if(!stopMovement)
+        {
+            LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+        }
+        else
+        {
+            TriggerTutorial.disableMove = true; //enable Move
+            TriggerTutorial.disableJump = false; //enable jumping
+            LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
+        }
+
+    }
+    public void HidePanelEnableMovement(GameObject name)
+    {
+        stopMovement = true;
+        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
         TriggerTutorial.disableMove = true; //enable Move
         TriggerTutorial.disableJump = false; //enable jumping
-        LeanTween.scale(name, Vector3.zero, 0.5f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
-        //StartCoroutine(SetActive(name));
     }
 
     public void HidePanelNotAffectedMove(GameObject name)

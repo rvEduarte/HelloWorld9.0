@@ -23,6 +23,7 @@ public class ComputerDisMObj : MonoBehaviour
     {
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
+            ShowHideScript.stopMovement = false; // THE SHOWHIDESCRIPT TO BLOCK MOVEMENT
             TriggerTutorial.disableMove = false; //disable Move
             TriggerTutorial.disableJump = true; //disable jumping
 
