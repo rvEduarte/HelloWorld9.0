@@ -65,9 +65,9 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
 
     private void DisplayInitialTimesAndAccuracy()
     {
-        valueTimeCompleteTxt1.text = $"{playerData.timePhase1} PH1";
-        valueTimeCompleteTxt2.text = $"{playerData.timePhase2} PH2";
-        valueExerciseAccuracyTxtPh2.text = $"{playerData.exerciseAccuracyPhase2}% PH2";
+        valueTimeCompleteTxt1.text = $"{playerData.timePhase1} S1";
+        valueTimeCompleteTxt2.text = $"{playerData.timePhase2} S2";
+        valueExerciseAccuracyTxtPh2.text = $"{playerData.exerciseAccuracyPhase2}% S2";
     }
 
     private void UpdateElapsedTime()
@@ -126,7 +126,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         //Save TIME VALUE
         playerData.timePhase3 = timePh3;
 
-        valueTimeCompleteTxt3.text = timePh3 + " PH3";
+        valueTimeCompleteTxt3.text = timePh3 + " S3";
 
         CalculateExerciseAndQuizAccuracy();
     }
@@ -138,7 +138,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         playerData.quizAccuracyPhase3 += quizPercentage;
 
         // Update the text to display the new Quiz accuracy
-        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% PH3";
+        valueQuizAccuracyTxtPh3.text = quizPercentage.ToString("F0") + "% S3";
 
         //===========================================================================//
 
@@ -147,7 +147,7 @@ public class RunningTimerLevel1Ph3 : MonoBehaviour
         playerData.exerciseAccuracyPhase3 += exercisePercentage;
 
         // Update the text to display the Exercise accuracy
-        valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% PH3";
+        valueExerciseAccuracyTxtPh3.text = $"{exercisePercentage}% S3";
 
         // Calculate the total score of PHASE 3 and assign it back to the ScriptableObject
         int totalScorePhase3 = playerData.scoreQuizPhase3 + Mathf.RoundToInt(exercisePercentage);

@@ -105,28 +105,28 @@ public class TrialDropPh2 : MonoBehaviour, IDropHandler
             onceZoom = true;
             textOutput.text = "UP" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutput = "UP";
-            StartCoroutine(hidePanel(1.74f));
+            StartCoroutine(hidePanel(1.12f));
         }
         else if (output.FirstOutput == "Console.Write(\"DOWN\")")
         {
             onceZoom = true;
             textOutput.text = "DOWN" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutput = "DOWN";
-            StartCoroutine(hidePanel(-8.42f));
+            StartCoroutine(hidePanel(-8.04f));
         }
         else if (output.FirstOutput == "Console.WriteLine(\"UP\")")
         {
             onceZoom = true;
             textOutput.text = "UP\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutput = "UP\n";
-            StartCoroutine(hidePanel(1.74f));
+            StartCoroutine(hidePanel(1.12f));
         }
         else if (output.FirstOutput == "Console.WriteLine(\"DOWN\")")
         {
             onceZoom = true;
             textOutput.text = "DOWN\n" + "\n\n<color=#03960f>...Program finished with exit code 0</color>";
             output.FirstRunOutput = "DOWN\n";
-            StartCoroutine(hidePanel(-8.42f));
+            StartCoroutine(hidePanel(-8.04f));
         }
         else
         {
@@ -218,7 +218,7 @@ public class TrialDropPh2 : MonoBehaviour, IDropHandler
     IEnumerator MovePlatform(float number)
     {
         yield return new WaitForSeconds(0.5f);
-        LeanTween.moveY(platform1, number, 2.5f);
+        LeanTween.moveY(platform1, number, 1.5f);
 
         ComputerLevel1Ph1.disableInteract = true;
         TriggerTutorial.disableMove = true; //enable Move
