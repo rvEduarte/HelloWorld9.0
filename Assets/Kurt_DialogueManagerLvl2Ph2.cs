@@ -282,9 +282,10 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         name.Priority = 0;
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
-        // Enable player movement
-        TriggerTutorial.disableMove = true;
-        TriggerTutorial.disableJump = false;
+        Debug.Log("Player disable to move");
+        // Disable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
 
         playerSprite.flipX = false; // flip the player
 
@@ -303,9 +304,10 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         name2.Priority = 0;
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
-        // Enable player movement
-        TriggerTutorial.disableMove = true;
-        TriggerTutorial.disableJump = false;
+        Debug.Log("Player disable to move");
+        // Disable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
 
         playerSprite.flipX = false; // flip the player
 

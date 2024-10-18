@@ -8,17 +8,7 @@ public class CheckPointScript : MonoBehaviour
 
     private void Awake()
     {
-        respawn = GameObject.FindGameObjectWithTag("respawn").GetComponent<RespawnScript>();
-    }
-    void Start() 
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        respawn = GameObject.FindGameObjectWithTag("Player").GetComponent<RespawnScript>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

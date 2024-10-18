@@ -41,6 +41,11 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        ShowHideScript.stopMovement = false; //The script block movement
+    }
+
     // Method to detect if the Enter key was pressed
     private void CheckEnterKey(TMP_InputField inputField)
     {

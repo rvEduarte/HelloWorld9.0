@@ -33,6 +33,8 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         {
             ValidateAnswers();
         }
+
+        ShowHideScript.stopMovement = false; //The script block movement
     }
 
     public void ValidateAnswers()

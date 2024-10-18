@@ -26,6 +26,11 @@ public class Kurt_StringQuiz : MonoBehaviour
         inputField.onEndEdit.AddListener(delegate { CheckEnterKey(); });
     }
 
+    void Update()
+    {
+        ShowHideScript.stopMovement = false; //The script block movement
+    }
+
     // Method to detect if the Enter key was pressed
     private void CheckEnterKey()
     {
