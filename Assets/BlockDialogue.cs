@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class BlockDialogue : MonoBehaviour
 {
-    public GameObject moveTutorialPanel;
 
-    public Image backgroundImage; // make it transparent
     public Image actorImage;
     public TextMeshProUGUI actorName;
     public TextMeshProUGUI messageText;
@@ -28,10 +26,6 @@ public class BlockDialogue : MonoBehaviour
     void Start()
     {
         backgroundBox.transform.localScale = Vector3.zero;
-        // Set the background image to be fully opaque initially
-        backgroundImage.color = new Color(backgroundImage.color.r, backgroundImage.color.g, backgroundImage.color.b, 1);
-
-        LeanTween.scale(moveTutorialPanel, Vector3.zero, 0f);
         TriggerTutorial.disableMove = false; // disableMove
     }
 
@@ -74,12 +68,6 @@ public class BlockDialogue : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TypeMessage(messageToDisplay.message));
-
-        // Fade the background image if it's not the first message
-        if (activeMessage == 1) // Trigger fade on the second message
-        {
-            LeanTween.alpha(backgroundImage.rectTransform, 0, fadeDuration);
-        }
     }
 
     IEnumerator TypeMessage(string message)
@@ -127,8 +115,6 @@ public class BlockDialogue : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
-            StartCoroutine(EnableMoveTutorial());
-
             // Enable player movement
             TriggerTutorial.disableMove = true;
             TriggerTutorial.disableJump = false;
@@ -144,23 +130,7 @@ public class BlockDialogue : MonoBehaviour
 
     public void enableMove()
     {
-        LeanTween.scale(moveTutorialPanel, Vector3.zero, 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
         TriggerTutorial.disableMove = true; // enable move
-        StartCoroutine(DisableMoveTutorial());
     }
 
-    IEnumerator DisableMoveTutorial()
-    {
-        // waiting state
-        yield return new WaitForSeconds(0.5f);
-        moveTutorialPanel.SetActive(false);
-    }
-
-    IEnumerator EnableMoveTutorial()
-    {
-        // waiting state
-        yield return new WaitForSeconds(1.5f);
-        moveTutorialPanel.SetActive(true);
-        LeanTween.scale(moveTutorialPanel, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutQuint).setIgnoreTimeScale(true);
-    }
 }

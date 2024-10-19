@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;  // Needed for the Button component
+using UnityEngine.UI;  
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     {
         // Clear the input field and set the initial message    
         inputField.text = "";
-        messageText.text = "Enter the code:";
+        messageText.text = " ";
 
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
@@ -73,7 +73,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         {
             if (playerInput == code)
             {
-                messageText.text = "Correct code! Closing console...";
+                messageText.text = "<color=#0CCB2A>Correct code!</color> Closing console...";
 
                 if (successImage != null)
                 {
@@ -85,11 +85,10 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             }
         }
 
-        messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
-
         if (errorImage != null)
         {
             errorImage.SetActive(true); // Show error image 
+            messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
         }
 
         StartCoroutine(BlinkErrorImage());
@@ -124,8 +123,9 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             portal.SetActive(true); // Activate each portal
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(.5f);
         vCam.Priority = 0;
+
         TriggerTutorial.disableMove = true; // enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }

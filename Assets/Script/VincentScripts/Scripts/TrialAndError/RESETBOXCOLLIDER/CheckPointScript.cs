@@ -15,7 +15,7 @@ public class CheckPointScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            respawn.respawnPoint = this.gameObject;
+            respawn.respawnPoint = this.gameObject; 
         }
     }
 }

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +9,7 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically   
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
     public GameObject outputPanel;
-    public Kurt_OrDownPlatform platformController;  // Reference to the new platform controller script
+   // public Kurt_OrDownPlatform platformController;  // Reference to the new platform controller script
     public float scaleDuration = 0.5f;
     public float closeDelay = 2f; // Set this to the desired delay duration in seconds
     public GameObject errorImage;
@@ -102,16 +103,6 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
                 {
                     feedbackTexts[i].text = "Correct!";
                     feedbackTexts[i].color = Color.green;
-
-                    // Move the platform based on input
-                    /*if (answer == "Write")
-                    {
-                        platformController.MoveUp();
-                    }
-                    else if (answer == "WriteLine")
-                    {
-                        platformController.MoveDown();
-                    }*/
                 }
                 else
                 {
@@ -219,8 +210,14 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
-        // enable the elevator
-        TriggerElevV2.enableElev = true;
+        if(inputFields.Equals("true"))
+        {
+            TriggerElevV2.enableElev = true;
+        }
+        else if (inputFields.Equals("false"))
+        {
+            TriggerElevV2.enableElev = false;
+        }
 
         foreach (var name in feedbackTexts)
         {
