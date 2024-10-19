@@ -125,6 +125,34 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         AnimationTextColor();
     }
 
+    /** ====================================================================================================================== **/
+
+    // Coroutine for fading in the tilemap smoothly
+    IEnumerator FadeInTilemap()
+    {
+        float elapsedTime = 0f;
+        Color tilemapColor = tilemapToFade.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // Interpolate the alpha value from 0 to 1 over time
+            float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+            // Update the tilemap's color with the new alpha value
+            tilemapColor.a = newAlpha;
+            tilemapToFade.color = tilemapColor;
+
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure the alpha is set to 1 after the transition
+        tilemapColor.a = 0f;
+        tilemapToFade.color = tilemapColor;
+    }
+
+
     public void NextMessage()
     {
         if (isTyping)
@@ -150,7 +178,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             // Resume the timer when dialogue ends
             RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true; // Corrected to true to resume the timer
 
-        /*
+        
         if (!Kurt_Trigger2Lvl2Ph2.addedTriggerPh2)
         {
             Debug.Log("First Convo");
@@ -205,29 +233,31 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             TriggerTutorial.disableJump = false;
         }
 
-        // fifth is OpenPortal */
+        // fifth is OpenPortal 
 
-            if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
-            {
-                Debug.Log("sixth Convo");
-                Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
-                billBoardCam.Priority = 11;
+        else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
+        {
+            Debug.Log("sixth Convo");
+            Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
+            billBoardCam.Priority = 11;
 
-                textObj.SetActive(true);
-                StartCoroutine(BillboardCam(billBoardCam));
-            }
-            else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
-            {
-                Debug.Log("Fifth Convo");
-                Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-                playerSprite.flipX = false;
-                showComputer.SetActive(true);
+            textObj.SetActive(true);
+            StartCoroutine(BillboardCam(billBoardCam));
+        }
 
-                // Enable player movement  
-                TriggerTutorial.disableMove = true;
-                TriggerTutorial.disableJump = false;
-            }
-            else
+        else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+        {
+            Debug.Log("Fifth Convo");
+            Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
+            playerSprite.flipX = false;
+            showComputer.SetActive(true);
+
+            // Enable player movement  
+            TriggerTutorial.disableMove = true;
+            TriggerTutorial.disableJump = false;
+        }
+
+        else
             {
                 Debug.LogError("FUTA");
                 // Enable player movement
@@ -245,14 +275,24 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     IEnumerator BackCamera(CinemachineVirtualCamera name)
     {
+
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
         yield return new WaitForSeconds(4);
         name.Priority = 0;
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
 
         playerSprite.flipX = false; // flip the player
+
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("Player must move");
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
     }
 
     IEnumerator BillboardCam(CinemachineVirtualCamera name2)
@@ -263,6 +303,14 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         name2.Priority = 0;
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
+
+        playerSprite.flipX = false; // flip the player
+
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("Player must move");
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;

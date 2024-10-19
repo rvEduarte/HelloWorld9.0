@@ -24,6 +24,7 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
         {
             ValidateAnswers();
         }
+
     }
 
     public void ValidateAnswers()
