@@ -35,7 +35,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     {
         // Clear the input field and set the initial message    
         inputField.text = "";
-        messageText.text = " ";
+        messageText.text = "Output";
 
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
@@ -126,6 +126,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         vCam.Priority = 0;
 
+        yield return new WaitForSeconds(3f);
         TriggerTutorial.disableMove = true; // enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }

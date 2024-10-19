@@ -166,7 +166,6 @@ public class Kurt_DialogueManagerLvl2Ph1 : MonoBehaviour
                 Debug.Log("Third Conversation");
             }
 
-
             else
             {
                 Debug.LogError("FUTA");

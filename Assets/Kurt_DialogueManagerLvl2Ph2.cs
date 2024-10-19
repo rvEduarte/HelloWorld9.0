@@ -29,7 +29,7 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
     public GameObject passageTrigger;
     public GameObject textObj;
     public GameObject showComputer;
-
+  
     public static bool isActive = false;
 
     private bool isTyping = false;
@@ -182,78 +182,54 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
             Debug.Log("First Convo");
 
             Kurt_Trigger2Lvl2Ph2.addedTriggerPh2 = true;
-
             TriggerTutorial.disableMove = true;
             TriggerTutorial.disableJump = false;
         }
 
         else if (!Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2)
-        {
-            Debug.Log("Second Convo");
-
-            vCam1.Priority = 11;
-            Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
-            StartCoroutine(BackCamera(vCam1));
-        }
+            {
+                Debug.Log("Second Convo");
+                Kurt_DialogueTriggerLvl2Ph2.trigger1Ph2 = true;
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
 
         else if (!Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2)
-        {
-            Debug.Log("Third Convo");
+            {
+                Debug.Log("Third Convo");
+                Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
+                vCam2.Priority = 11;
 
-            vCam2.Priority = 11;
-            Kurt_DialogueTrigger2Lvl2Ph2.trigger2Ph2 = true;
-            StartCoroutine(BackCamera(vCam2));
-            StartCoroutine(FadeInTilemap());
-            playerSprite.flipX = true; // flip the player
+                StartCoroutine(BackCameraTrigger2(vCam2));
+                StartCoroutine(FadeInTilemap());
+                collider1.SetActive(false);
+          
+                //playerSprite.flipX = true; // flip the player
+                TriggerElevV2.enableElev = false; // disable elev
 
-            TriggerElevV2.enableElev = false; // disable elev
-            collider1.SetActive(false);
-        }
-
-        else if (!PassageDialogue.passageDialogue)
-        {
-            Debug.Log("Passage In");
-            PassageDialogue.passageDialogue = true;
-
-            // Enable player movement
-            TriggerTutorial.disableMove = true;
-            TriggerTutorial.disableJump = false;
-        }
+            }
 
         else if (!Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2)
-        {
-            Debug.Log("Fourth Convo");
-
-            Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
-
-            // Enable player movement
-            TriggerTutorial.disableMove = true;
-            TriggerTutorial.disableJump = false;
-        }
+            {
+                Debug.Log("Fourth Convo");
+                Kurt_DialogueTrigger3Lvl2Ph2.trigger3Ph2 = true;
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
 
         else if (!Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2)
-        {
-            Debug.Log("Fifth Convo");
-            Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
-            billBoardCam.Priority = 11;
+            {
+                Debug.Log("Fifth Convo");
+                Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
 
-            textObj.SetActive(true);
-            StartCoroutine(BillboardCam(billBoardCam));
-        }
+                billBoardCam.Priority = 11;
+                StartCoroutine(BackCamera(billBoardCam));
 
-        else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
-        {
-            Debug.Log("Sixth Convo");
-            Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
-            playerSprite.flipX = false;
-            showComputer.SetActive(true);
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+            }
 
-            // Enable player movement  
-            TriggerTutorial.disableMove = true;
-            TriggerTutorial.disableJump = false;
-        }
-
-        else
+            else
             {
                 Debug.LogError("FUTA");
                 // Enable player movement
@@ -271,7 +247,6 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
     IEnumerator BackCamera(CinemachineVirtualCamera name)
     {
-
         // Pause the timer when dialogue starts
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
         yield return new WaitForSeconds(4);
@@ -284,20 +259,48 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
         playerSprite.flipX = false; // flip the player
 
+        Debug.Log("Time continues");
+        yield return new WaitForSeconds(2.5f);
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
+
         Debug.Log("Player must move");
+        yield return new WaitForSeconds(1f);
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
+    }
+
+    IEnumerator BackCameraTrigger2(CinemachineVirtualCamera name)
+    {
+        playerSprite.flipX = true; // flip the player
+
+        // Pause the timer when dialogue starts
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
+
+        yield return new WaitForSeconds(4);
+        name.Priority = 0;
+
+        Debug.Log("Player disable to move");
+        // Disable player movement
+        TriggerTutorial.disableMove = false;
+        TriggerTutorial.disableJump = true;
 
         Debug.Log("Time continues");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
+
+        Debug.Log("Player must move");
+        yield return new WaitForSeconds(1f);
+        // Enable player movement
+        TriggerTutorial.disableMove = true;
+        TriggerTutorial.disableJump = false;
     }
 
     IEnumerator BillboardCam(CinemachineVirtualCamera name2)
     {
         // Pause the timer when dialogue starts
-        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false; 
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
+
         yield return new WaitForSeconds(5);
         name2.Priority = 0;
      
@@ -309,14 +312,14 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
 
         playerSprite.flipX = false; // flip the player
 
+        Debug.Log("Time continues");
         yield return new WaitForSeconds(2.5f);
+        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
+
         Debug.Log("Player must move");
+        yield return new WaitForSeconds(1f);
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
-
-        Debug.Log("Time continues");
-        yield return new WaitForSeconds(3f);
-        RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
     }
 }
