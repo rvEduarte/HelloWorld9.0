@@ -7,6 +7,7 @@ using UnityEngine;
 public class GetPlayerProgression : MonoBehaviour
 {
     public TMP_Text level;
+    public TMP_Text EXP;
     public TMP_InputField input;
     string progressionKey = "levelprogress";
     private void Start()
@@ -16,25 +17,27 @@ public class GetPlayerProgression : MonoBehaviour
     }
     public void CheckXp()
     {
-        LootLockerSDKManager.GetPlayerInfo((response) =>
+        /*LootLockerSDKManager.GetPlayerInfo((response) =>
         {
             if (response.success)
             {
                 Debug.Log("SUCCESSFUL GET THE XP");
                 level.text = response.level.ToString();
+                EXP.text = response.xp.ToString();
             }
             else
             {
                 Debug.Log("PAKSHET" + response.errorData);
             }
            
-        });
+        });*/
         LootLockerSDKManager.GetPlayerProgression(progressionKey, response =>
         {
             if (response.success)
             {
                 Debug.Log("The player is currently level" + response.step.ToString());
-
+                level.text = "Level: " + response.step.ToString();
+                EXP.text = "Xp: " + response.points.ToString();
                 if (response.next_threshold != null)
                 {
                     Debug.Log("Points needed to reach next level:" + (response.next_threshold - response.points).ToString());
