@@ -26,9 +26,6 @@ public class Kurt_DialogueTrigger4Lvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered)
         {
-
-            StartDialogue();
-
             billBoard.Priority = 11;
             StartCoroutine(BillboardCam(billBoard));
 
@@ -49,6 +46,9 @@ public class Kurt_DialogueTrigger4Lvl2Ph2 : MonoBehaviour
 
         yield return new WaitForSeconds(5);
         name2.Priority = 0;
+
+        yield return new WaitForSeconds(2f);
+        StartDialogue();
 
         Debug.Log("Player disable to move");
         // Disable player movement
