@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class OnlineMainMenu : MonoBehaviour
 {
+    public LevelProgressionLootlockerV2 progress;
     public LootlockerSceneProgress progressData;
 
     [SerializeField] public bool clicked; //FALSE
@@ -175,6 +176,20 @@ public class OnlineMainMenu : MonoBehaviour
 
             //disable SkipStory
             PlayerPrefs.SetInt("SkipStory", 0);
+
+            //Reset XP VALUE
+            PlayerPrefs.SetInt("XpValue", 0);
+
+            //Reset Levels
+            PlayerPrefs.DeleteKey("CompletedLevels");
+
+            //RESET GET XP VALUE
+            PlayerPrefs.SetInt("CheckXp", 0);
+
+            PlayerPrefs.Save();
+
+            //Clear hashset;
+            progress.completedLevels.Clear();
 
             progressData.ResetProgress();
         });

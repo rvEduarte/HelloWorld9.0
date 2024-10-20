@@ -17,20 +17,6 @@ public class GetPlayerProgression : MonoBehaviour
     }
     public void CheckXp()
     {
-        /*LootLockerSDKManager.GetPlayerInfo((response) =>
-        {
-            if (response.success)
-            {
-                Debug.Log("SUCCESSFUL GET THE XP");
-                level.text = response.level.ToString();
-                EXP.text = response.xp.ToString();
-            }
-            else
-            {
-                Debug.Log("PAKSHET" + response.errorData);
-            }
-           
-        });*/
         LootLockerSDKManager.GetPlayerProgression(progressionKey, response =>
         {
             if (response.success)

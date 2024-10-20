@@ -5,6 +5,7 @@ public class MethodParameterExample : MonoBehaviour
 {
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         // Call the DoSomething method and pass a custom method as a parameter
         DoSomething(CustomMethod);
     }

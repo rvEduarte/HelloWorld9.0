@@ -73,6 +73,7 @@ public class LoginScript : MonoBehaviour
 
     public void Start()
     {
+        //PlayerPrefs.DeleteAll();
         registerButtonDisableInteractable.enabled = true;
         progressData.LoadFromLocalFile();
 
