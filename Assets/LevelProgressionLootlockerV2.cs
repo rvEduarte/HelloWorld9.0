@@ -16,8 +16,11 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
 
     private void Start()
     {
-        LoadCompletedLevels();
-        CheckXp();
+        if(isOnlineMode == true)
+        {
+            //CheckXp();
+            //LoadCompletedLevels();
+        }
     }
     public void AddXp(int currentLevel)
     {
@@ -111,9 +114,70 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
             }
         });
     }
+    public void CheckXpFromOfflineToLootlocker()
+    {
+        Debug.LogError("CheckXpFromOfflineToLootlocker called");
+        LootLockerSDKManager.GetPlayerProgression(progressionKey, response =>
+        {
+            if (response.success)
+            {
+                Debug.Log("The player's XP is currently: " + response.points.ToString());
 
+                int totalPoints = (int)response.points;
+                for (int i = 1; i <= totalPoints; i++)
+                {
+                    if (!completedLevels.Contains(i))
+                    {
+                        completedLevels.Add(i);
+                        Debug.Log("Added completed level: " + i);
+                        SaveCompletedLevels();
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Failed: " + response.errorData);
+            }
+        });
+    }
+    public void RegisterXpFromOfflineToLootlocker()
+    {
+        LoadCompletedLevels();
+        int totalValue = completedLevels.Count;
+        valueToAdd = PlayerPrefs.GetInt("XpValue");
+
+        Debug.Log("COMPLETED LEVEL: " + totalValue + " OFFLINEVALUE: " + valueToAdd);
+        if(valueToAdd > totalValue)     //Add xp from OFFline to ONline
+        {
+            Debug.Log("WILL ADD XP VALUE FROM OFFLINE");
+            int totalValueToAdd = valueToAdd - totalValue;
+
+            LootLockerSDKManager.AddPointsToPlayerProgression(progressionKey, (ulong)totalValueToAdd, (response) =>
+            {
+                if (response.success)
+                {
+                    Debug.Log("Points added to progression");
+                    PlayerPrefs.DeleteKey("XpValue");
+
+                    if (response.awarded_tiers.Count > 0)
+                    {
+                        Debug.Log("Player leveled up");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Error adding points to progression");
+                }
+            });
+        }
+        else
+        {
+            Debug.Log("WILL NOT ADD XP VALUE FROM OFFLINE");
+        }
+    }
     public void CheckXp(System.Action onCompleted = null)
     {
+        Debug.LogError("CheckXp called");
         LootLockerSDKManager.GetPlayerProgression(progressionKey, response =>
         {
             if (response.success)
