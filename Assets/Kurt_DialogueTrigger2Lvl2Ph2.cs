@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Kurt_DialogueTrigger2Lvl2Ph2 : MonoBehaviour
 {
-    public CinemachineVirtualCamera hiddenPassageReveal;
+    public CinemachineVirtualCamera hiddenPassageReveal;  // Unique virtual camera for this trigger
     public KurtMessageLvl2Ph2[] message;
     public KurtActorLvl2Ph2[] actor;
 
@@ -18,6 +18,9 @@ public class Kurt_DialogueTrigger2Lvl2Ph2 : MonoBehaviour
 
     public GameObject collider1;
 
+    // Reference to the specific dialogue manager for this trigger
+    public KurtNew_DialogueManagerLvl2Ph2 dialogueManagerForThisTrigger;
+
     private void Start()
     {
         trigger3Ph2 = false;
@@ -28,13 +31,14 @@ public class Kurt_DialogueTrigger2Lvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered)
         {
-            // Camera gets priority for zoom effect
+            // Camera zoom effect
             hiddenPassageReveal.Priority = 11;
             StartCoroutine(HandleCameraAndTilemap());
 
+            TriggerElevV2.enableElev = false; // disable elev
             collider1.SetActive(false);
 
-            // Disable player movement and jumping
+            // Disable player movement and jumping during the interaction
             TriggerTutorial.disableMove = false;
             TriggerTutorial.disableJump = true;
         }
@@ -45,36 +49,36 @@ public class Kurt_DialogueTrigger2Lvl2Ph2 : MonoBehaviour
         // Flip player sprite before the camera zooms in
         playerSprite.flipX = true;
 
-        // Ensure the player remains disabled and the dialogue is hidden initially
+        // Ensure player movement is disabled before zoom and tilemap fade
         TriggerTutorial.disableMove = false;
         TriggerTutorial.disableJump = true;
 
         // Stop the timer when the conversation begins
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
 
-        // Wait for camera zoom effect to finish (keep the camera priority for some time)
+        // Wait for camera zoom effect to finish
         yield return new WaitForSeconds(4f);
 
-        // Lower the priority of the camera after zooming in
+        // Lower the camera priority after zooming in
         hiddenPassageReveal.Priority = 0;
 
-        // Start fading in the tilemap while keeping player disabled
+        // Start fading in the tilemap
         StartCoroutine(FadeInTilemap());
 
-        // Wait for some time (camera transition and tilemap fade)
+        // Wait for some time before starting the dialogue
         yield return new WaitForSeconds(2.5f);
 
-        // Now that the camera is back and tilemap is fading, start the dialogue
+        // Now that the camera is zoomed back and the tilemap is fading, start the dialogue
         StartDialogue();
 
-        // Wait for the dialogue to finish
-        yield return new WaitUntil(() => FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().IsDialogueFinished());
+        // Wait for the specific dialogue manager to finish its dialogue
+        yield return new WaitUntil(() => dialogueManagerForThisTrigger.IsDialogueFinished());
 
-        // After the dialogue finishes, allow the player to move again
+        // Once the dialogue is finished, allow the player to move again
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;
 
-        // Resume the timer
+        // Resume the timer after the interaction is over
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
     }
 
@@ -82,10 +86,10 @@ public class Kurt_DialogueTrigger2Lvl2Ph2 : MonoBehaviour
     {
         hasTriggered = true;
 
-        // Start the dialogue after camera transition and tilemap fade
-        FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        // Ensure the dialogue is started with this specific manager
+        dialogueManagerForThisTrigger.OpenDialogue(message, actor);
 
-        // Keep the player's movement disabled during the dialogue
+        // Keep player movement disabled during the dialogue
         TriggerTutorial.disableMove = false;
         TriggerTutorial.disableJump = true;
     }

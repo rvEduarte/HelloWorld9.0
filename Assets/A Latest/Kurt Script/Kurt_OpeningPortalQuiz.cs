@@ -35,7 +35,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     {
         // Clear the input field and set the initial message    
         inputField.text = "";
-        messageText.text = "Output";
+        //messageText.text = "Output";
 
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
