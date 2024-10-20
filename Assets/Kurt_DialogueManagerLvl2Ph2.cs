@@ -223,11 +223,34 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
                 Kurt_DialogueTrigger4Lvl2Ph2.trigger4Ph2 = true;
 
                 billBoardCam.Priority = 11;
-                StartCoroutine(BackCamera(billBoardCam));
+                StartCoroutine(BillboardCam(billBoardCam));
 
+                playerSprite.flipX = true;
+
+            }
+
+       /* else if (!Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2)
+            {
+                Debug.Log("Sixth Convo");
+                Kurt_DialogueTrigger5Lvl2Ph2.trigger5Ph2 = true;
+
+                // Enable player movement
                 TriggerTutorial.disableMove = true;
                 TriggerTutorial.disableJump = false;
-            }
+            } */
+
+        else if (!Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2)
+            {
+                Debug.Log("Seventh Convo");
+                Kurt_DialogueTrigger6Lvl2Ph2.trigger6Ph2 = true;
+
+                showComputer.SetActive(true);
+
+                // Enable player movement
+                TriggerTutorial.disableMove = true;
+                TriggerTutorial.disableJump = false;
+
+            } 
 
             else
             {
@@ -301,9 +324,10 @@ public class Kurt_DialogueManagerLvl2Ph2 : MonoBehaviour
         // Pause the timer when dialogue starts
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = false;
 
+        textObj.SetActive(true);
+
         yield return new WaitForSeconds(5);
         name2.Priority = 0;
-     
 
         Debug.Log("Player disable to move");
         // Disable player movement

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine.UI;
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
@@ -45,7 +45,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         // Ensure images are initially inactive
         if (successImage != null) successImage.SetActive(false);
-        if (errorImage != null) errorImage.SetActive(false);
+        if (errorImage != null) successImage.SetActive(false);
 
         // Add listener to the enter button
         if (enterButton != null)
@@ -92,9 +92,6 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         }
 
         StartCoroutine(BlinkErrorImage());
-
-        // Optionally clear the input field after checking
-        // inputField.text = "";
     }
 
     // Coroutine to close the panel and activate portals after a delay
@@ -126,7 +123,13 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         vCam.Priority = 0;
 
-        yield return new WaitForSeconds(3f);
+        // Wait until the conversation is finished before enabling movement
+        while (BlockDialogue.isActive)
+        {
+            yield return null;  // Wait until the conversation is over
+        }
+
+        Debug.Log("Player movement enabled after conversation");
         TriggerTutorial.disableMove = true; // enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }
