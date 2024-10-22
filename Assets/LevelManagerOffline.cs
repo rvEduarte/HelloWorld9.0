@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LevelManagerOffline : MonoBehaviour
 {
-    public LevelProgressionLootlockerV2 progress; // Assign in the Inspector or dynamically
+    public LevelProgressionLootlockerV2 progress; 
 
-    public UnlockLevel[] levelButtons; // Drag and drop all button scripts here
+    public UnlockLevel[] levelButtons;
 
     private void Start()
     {

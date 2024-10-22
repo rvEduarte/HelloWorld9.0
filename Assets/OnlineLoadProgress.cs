@@ -13,19 +13,23 @@ public class OnlineLoadProgress : MonoBehaviour
 
         if (PlayerPrefs.GetInt("CheckXp") == 1)
         {
-            Debug.LogError(" < ! > CHECK XP  ");
-            progress.RegisterXpToLootLocker(); //register xp value from OFFLINE
+            StartCoroutine(DelayAddValue());
         }
         else
         {
             Debug.LogError("CHECK XP");
             progress.CheckXpFromOfflineToLootlocker();
-            progress.RegisterXpFromOfflineToLootlocker();   // register xp value when comefrom logout
-            progress.LoadCompletedLevels();
             PlayerPrefs.SetInt("CheckXp", 1);
         }
 
         Debug.LogError("ONLINE MODE");
         LevelProgressionLootlockerV2.isOnlineMode = true;
+    }
+
+    private IEnumerator DelayAddValue()
+    {
+        yield return new WaitForSeconds(1);
+        Debug.LogError(" < ! > CHECK XP  ");
+        progress.RegisterXpToLootLocker(); //register xp value from OFFLINE
     }
 }

@@ -21,6 +21,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
             //CheckXp();
             //LoadCompletedLevels();
         }
+        LoadCompletedLevels();
     }
     public void AddXp(int currentLevel)
     {
@@ -52,7 +53,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
     private void SaveCompletedLevels()
     {
         HashSet<int> allCompletedLevels = new HashSet<int>(completedLevels);
-        //allCompletedLevels.UnionWith(completedLevels);
+        allCompletedLevels.UnionWith(completedLevels);
 
         string completedLevelsString = string.Join(",", allCompletedLevels);
         PlayerPrefs.SetString("CompletedLevels", completedLevelsString);
@@ -130,9 +131,10 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                     {
                         completedLevels.Add(i);
                         Debug.Log("Added completed level: " + i);
-                        SaveCompletedLevels();
+                        
                     }
                 }
+                SaveCompletedLevels();
             }
             else
             {
@@ -151,6 +153,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
         {
             Debug.Log("WILL ADD XP VALUE FROM OFFLINE");
             int totalValueToAdd = valueToAdd - totalValue;
+            Debug.LogError(totalValueToAdd);
 
             LootLockerSDKManager.AddPointsToPlayerProgression(progressionKey, (ulong)totalValueToAdd, (response) =>
             {
