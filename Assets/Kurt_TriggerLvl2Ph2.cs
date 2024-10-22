@@ -9,24 +9,23 @@ public class Kurt_TriggerLvl2Ph2 : MonoBehaviour
 
     private bool hasTriggered = false;
 
-    public static bool trigger2Ph1;
-
+    public static bool trigger1Ph2;
     private void Start()
     {
-        trigger2Ph1 = false;
+        trigger1Ph2 = false;
+
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player") && !hasTriggered)
+        if(collision.CompareTag("Player") && !hasTriggered)
         {
             StartDialogue();
         }
     }
-
     public void StartDialogue()
     {
         hasTriggered = true;
-        FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
     }
 }

@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class KurtCheckPoint : MonoBehaviour
 {
-    KurtDeathZone kurtDeathZone;
 
+    GameController gameController;
+    public Transform respawnPoint;
     private void Awake()
     {
-        kurtDeathZone = GameObject.FindGameObjectWithTag("Player").GetComponent<KurtDeathZone>();
+        gameController = GameObject.FindGameObjectWithTag("Player").GetComponent<GameController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            kurtDeathZone.UpdateCheckPoint(transform.position);
+            Debug.Log("Checkpoint Activated");
+            gameController.UpdateCheckPoint(respawnPoint.position);
         }
     }
 }

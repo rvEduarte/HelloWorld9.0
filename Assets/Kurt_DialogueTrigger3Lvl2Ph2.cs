@@ -21,7 +21,6 @@ public class Kurt_DialogueTrigger3Lvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered)
         {
-            Debug.Log(hasTriggered);
             StartDialogue();
         }
     }
@@ -29,6 +28,6 @@ public class Kurt_DialogueTrigger3Lvl2Ph2 : MonoBehaviour
     public void StartDialogue()
     {
         hasTriggered = true;
-        FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
     }
 }

@@ -28,6 +28,6 @@ public class Kurt_DialogueTrigger5Lvl2Ph2 : MonoBehaviour
     public void StartDialogue()
     {
         hasTriggered = true;
-        FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
     }
 }

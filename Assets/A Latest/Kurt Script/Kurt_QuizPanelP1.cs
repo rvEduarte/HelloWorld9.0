@@ -25,6 +25,8 @@ public class Kurt_QuizPanelP1 : MonoBehaviour
             ValidateAnswers();
         }
 
+        ShowHideScript.stopMovement = false; //The script block movement
+
     }
 
     public void ValidateAnswers()

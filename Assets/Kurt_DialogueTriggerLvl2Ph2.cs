@@ -9,11 +9,11 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
 
     private bool hasTriggered = false;
 
-    public static bool trigger1Ph2;
+    public static bool trigger2Ph2;
 
     private void Start()
     {
-        trigger1Ph2 = false;
+        trigger2Ph2 = false;
 
     }
 
@@ -21,9 +21,6 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered) 
         {
-            // Disable player movement
-            TriggerTutorial.disableMove = false;
-            TriggerTutorial.disableJump = true;
             StartDialogue();
         }
     }
@@ -31,6 +28,6 @@ public class Kurt_DialogueTriggerLvl2Ph2 : MonoBehaviour
     public void StartDialogue()
     {
         hasTriggered = true; 
-        FindObjectOfType<Kurt_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
+        FindObjectOfType<KurtNew_DialogueManagerLvl2Ph2>().OpenDialogue(message, actor);
     }
 }

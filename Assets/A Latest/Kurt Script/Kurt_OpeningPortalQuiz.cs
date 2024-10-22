@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;  // Needed for the Button component
+using UnityEngine.UI;
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     {
         // Clear the input field and set the initial message    
         inputField.text = "";
-        messageText.text = "Enter the code:";
+        //messageText.text = "Output";
 
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
@@ -45,7 +45,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         // Ensure images are initially inactive
         if (successImage != null) successImage.SetActive(false);
-        if (errorImage != null) errorImage.SetActive(false);
+        if (errorImage != null) successImage.SetActive(false);
 
         // Add listener to the enter button
         if (enterButton != null)
@@ -73,7 +73,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         {
             if (playerInput == code)
             {
-                messageText.text = "Correct code! Closing console...";
+                messageText.text = "<color=#0CCB2A>Correct code!</color> Closing console...";
 
                 if (successImage != null)
                 {
@@ -85,17 +85,13 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             }
         }
 
-        messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
-
         if (errorImage != null)
         {
             errorImage.SetActive(true); // Show error image 
+            messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
         }
 
         StartCoroutine(BlinkErrorImage());
-
-        // Optionally clear the input field after checking
-        // inputField.text = "";
     }
 
     // Coroutine to close the panel and activate portals after a delay
@@ -124,8 +120,16 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             portal.SetActive(true); // Activate each portal
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(.5f);
         vCam.Priority = 0;
+
+        // Wait until the conversation is finished before enabling movement
+        while (BlockDialogue.isActive)
+        {
+            yield return null;  // Wait until the conversation is over
+        }
+
+        Debug.Log("Player movement enabled after conversation");
         TriggerTutorial.disableMove = true; // enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }
