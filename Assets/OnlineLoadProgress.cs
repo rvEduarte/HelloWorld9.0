@@ -6,32 +6,46 @@ public class OnlineLoadProgress : MonoBehaviour
 {
     public LevelProgressionLootlockerV2 progress;
 
-    private bool checkXp;
     private void Start()
     {
         progress.RegisterPlayerProgression();
 
-        if (PlayerPrefs.GetInt("CheckXp") == 1)
+        progress.completedLevels.Clear();
+        PlayerPrefs.DeleteKey("CompletedLevels");
+        progress.CheckXpFromOfflineToLootlocker(() =>
+        {
+            StartCoroutine(DelayAddValue());
+        });
+
+        Debug.LogError("ONLINE MODE");
+        LevelProgressionLootlockerV2.isOnlineMode = true;
+
+        /*if (PlayerPrefs.GetInt("CheckXp") == 1)
         {
             StartCoroutine(DelayAddValue());
         }
         else
         {
-            progress.completedLevels.Clear();
-            PlayerPrefs.DeleteKey("CompletedLevels");
+
             Debug.LogError("CHECK XP");
             progress.CheckXpFromOfflineToLootlocker();
             PlayerPrefs.SetInt("CheckXp", 1);
         }
 
         Debug.LogError("ONLINE MODE");
-        LevelProgressionLootlockerV2.isOnlineMode = true;
+        LevelProgressionLootlockerV2.isOnlineMode = true;*/
     }
 
-    private IEnumerator DelayAddValue()
+    /*private IEnumerator DelayAddValue()
     {
         yield return new WaitForSeconds(1);
         Debug.LogError(" < ! > CHECK XP  ");
         progress.RegisterXpToLootLocker(); //register xp value from OFFLINE
+    }*/
+
+    private IEnumerator DelayAddValue()
+    {
+        yield return new WaitForSeconds(1);
+        progress.RegisterXpFromOfflineToLootlocker();
     }
 }

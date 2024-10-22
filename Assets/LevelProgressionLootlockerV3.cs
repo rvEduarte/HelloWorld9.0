@@ -3,32 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class LevelProgressionLootlockerV2 : MonoBehaviour
+public class LevelProgressionLootlockerV3 : MonoBehaviour
 {
     public TMP_Text text1;
     string progressionKey = "levelprogress";
 
-    public HashSet<int> completedLevels= new HashSet<int>();
+    public HashSet<int> completedLevels = new HashSet<int>();
 
     public static bool isOnlineMode;
 
     int valueToAdd;
 
-    public void RegisterPlayerProgression()
+    public void AddXp(int currentLevel)
     {
-        LootLockerSDKManager.RegisterPlayerProgression(progressionKey, (response) =>
+        LoadCompletedLevels();
+        if (completedLevels.Contains(currentLevel))
         {
-            if (response.success)
-            {
-                Debug.Log("Progression registered");
-            }
-            else
-            {
-                Debug.Log("Error registering progression");
-            }
-        });
+            Debug.Log("XP for this level has already been added online. Skipping XP submission.");
+        }
+        else
+        {
+            completedLevels.Add(currentLevel);
+            SaveCompletedLevels();
+            int pointsAmount = 1;
+
+            int currentXp = PlayerPrefs.GetInt("XpValue", 0);
+
+            currentXp += pointsAmount;
+
+            PlayerPrefs.SetInt("XpValue", currentXp);
+
+            Debug.Log("Added " + pointsAmount + " XP. Total XP is now: " + currentXp);
+        }
+
+        if (isOnlineMode == true)
+        {
+
+            RegisterXpToLootLocker();
+        }
     }
     private void SaveCompletedLevels()
     {
@@ -58,34 +71,21 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
             }
         }
     }
-    public void AddXp(int currentLevel)
+
+    public void RegisterPlayerProgression()
     {
-        LoadCompletedLevels();
-        if (completedLevels.Contains(currentLevel))
+        LootLockerSDKManager.RegisterPlayerProgression(progressionKey, (response) =>
         {
-            Debug.Log("XP for this level has already been added online. Skipping XP submission.");
-        }
-        else
-        {
-            completedLevels.Add(currentLevel);
-            SaveCompletedLevels();
-            int pointsAmount = 1;
-
-            int currentXp = PlayerPrefs.GetInt("XpValue", 0);
-
-            currentXp += pointsAmount;
-
-            PlayerPrefs.SetInt("XpValue", currentXp);
-
-            Debug.Log("Added " + pointsAmount + " XP. Total XP is now: " + currentXp);
-        }
-
-        if(isOnlineMode == true)
-        {    
-            RegisterXpToLootLocker();
-        }
+            if (response.success)
+            {
+                Debug.Log("Progression registered");
+            }
+            else
+            {
+                Debug.Log("Error registering progression");
+            }
+        });
     }
-
     public void RegisterXpToLootLocker()
     {
         valueToAdd = PlayerPrefs.GetInt("XpValue");
@@ -108,10 +108,9 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
             }
         });
     }
-    public void CheckXpFromOfflineToLootlocker(System.Action onCompleted1 = null)
+    public void CheckXpFromOfflineToLootlocker()
     {
         Debug.LogError("CheckXpFromOfflineToLootlocker called");
-        LoadCompletedLevels();
         LootLockerSDKManager.GetPlayerProgression(progressionKey, response =>
         {
             if (response.success)
@@ -125,18 +124,17 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                     {
                         completedLevels.Add(i);
                         Debug.Log("Added completed level: " + i);
-                        
+
                     }
                 }
                 SaveCompletedLevels();
-                onCompleted1?.Invoke(); // Notify that XP check is done
             }
             else
             {
                 Debug.Log("Failed: " + response.errorData);
             }
         });
-        
+        LoadCompletedLevels();
     }
     public void RegisterXpFromOfflineToLootlocker()
     {
@@ -144,7 +142,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
         valueToAdd = PlayerPrefs.GetInt("XpValue");
 
         Debug.Log("COMPLETED LEVEL: " + totalValue + " OFFLINEVALUE: " + valueToAdd);
-        if(valueToAdd > totalValue)     //Add xp from OFFline to ONline
+        if (valueToAdd > totalValue)     //Add xp from OFFline to ONline
         {
             Debug.Log("WILL ADD XP VALUE FROM OFFLINE");
             int totalValueToAdd = valueToAdd - totalValue;
@@ -172,7 +170,6 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
         else
         {
             Debug.Log("WILL NOT ADD XP VALUE FROM OFFLINE");
-            PlayerPrefs.DeleteKey("XpValue");
         }
     }
     public void CHECKCOMPLETEDLEVELS()
@@ -201,7 +198,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                     {
                         completedLevels.Add(i);
                         Debug.Log("Added completed level: " + i);
-                        
+
                     }
                 }
                 SaveCompletedLevels();
