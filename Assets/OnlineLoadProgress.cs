@@ -17,6 +17,8 @@ public class OnlineLoadProgress : MonoBehaviour
         }
         else
         {
+            progress.completedLevels.Clear();
+            PlayerPrefs.DeleteKey("CompletedLevels");
             Debug.LogError("CHECK XP");
             progress.CheckXpFromOfflineToLootlocker();
             PlayerPrefs.SetInt("CheckXp", 1);

@@ -14,15 +14,15 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
 
     int valueToAdd;
 
-    private void Start()
+    /*private void Start()
     {
         if(isOnlineMode == true)
         {
             //CheckXp();
             //LoadCompletedLevels();
         }
-        LoadCompletedLevels();
-    }
+        //LoadCompletedLevels();
+    }*/
     public void AddXp(int currentLevel)
     {
 
@@ -47,6 +47,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
 
         if(isOnlineMode == true)
         {
+            
             RegisterXpToLootLocker();
         }
     }
@@ -141,10 +142,10 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                 Debug.Log("Failed: " + response.errorData);
             }
         });
+        LoadCompletedLevels();
     }
     public void RegisterXpFromOfflineToLootlocker()
     {
-        LoadCompletedLevels();
         int totalValue = completedLevels.Count;
         valueToAdd = PlayerPrefs.GetInt("XpValue");
 
@@ -194,9 +195,10 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                     {
                         completedLevels.Add(i);
                         Debug.Log("Added completed level: " + i);
-                        SaveCompletedLevels();
+                        
                     }
                 }
+                SaveCompletedLevels();
                 onCompleted?.Invoke(); // Notify that XP check is done
             }
             else
