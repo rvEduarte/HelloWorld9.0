@@ -16,15 +16,6 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
 
     int valueToAdd;
 
-    /*private void Start()
-    {
-        if(isOnlineMode == true)
-        {
-            //CheckXp();
-            //LoadCompletedLevels();
-        }
-        //LoadCompletedLevels();
-    }*/
     public void AddXp(int currentLevel)
     {
         LoadCompletedLevels();
