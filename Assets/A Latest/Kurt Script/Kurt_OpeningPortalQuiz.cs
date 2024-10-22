@@ -1,18 +1,14 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
-    public CinemachineVirtualCamera vCam;
     public TMP_InputField inputField;    // TextMesh Pro Input Field for the player to type the code
     public TextMeshProUGUI messageText;  // Text Mesh Pro for displaying messages
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
-    public Button enterButton;           // The enter button for submitting the answer manually
 
     public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
@@ -31,11 +27,12 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     public GameObject errorImage;
     public GameObject successImage;
 
+    private bool panelClosed = false; // Flag to check if the panel is closed
+
     void Start()
     {
         // Clear the input field and set the initial message    
         inputField.text = "";
-        //messageText.text = "Output";
 
         // Ensure all portals are initially deactivated
         foreach (GameObject portal in portals)
@@ -45,21 +42,18 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         // Ensure images are initially inactive
         if (successImage != null) successImage.SetActive(false);
-        if (errorImage != null) successImage.SetActive(false);
-
-        // Add listener to the enter button
-        if (enterButton != null)
-        {
-            enterButton.onClick.AddListener(CheckCode);
-        }
+        if (errorImage != null) errorImage.SetActive(false);
     }
 
     void Update()
     {
-        // Check if the Enter key is pressed
+        // Check if the Enter key is pressed and the panel is not closed
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            CheckCode(); // Trigger code checking when Enter key is pressed
+            if (!panelClosed) // Only check code if the panel is open
+            {
+                CheckCode(); // Trigger code checking when Enter key is pressed
+            }
         }
     }
 
@@ -109,7 +103,6 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-        vCam.Priority = 11;
 
         // Wait for the specified delay before activating the portals
         yield return new WaitForSeconds(portalActivationDelay);
@@ -120,8 +113,8 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             portal.SetActive(true); // Activate each portal
         }
 
-        yield return new WaitForSeconds(.5f);
-        vCam.Priority = 0;
+        // Set the flag to indicate that the panel has been closed
+        panelClosed = true;
 
         // Wait until the conversation is finished before enabling movement
         while (BlockDialogue.isActive)
