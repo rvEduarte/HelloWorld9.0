@@ -1,11 +1,13 @@
 using LootLocker.Requests;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelProgressionLootlockerV2 : MonoBehaviour
 {
+    public TMP_Text text1;
     string progressionKey = "levelprogress";
 
     public HashSet<int> completedLevels= new HashSet<int>();
@@ -25,7 +27,7 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
     }*/
     public void AddXp(int currentLevel)
     {
-
+        LoadCompletedLevels();
         if (completedLevels.Contains(currentLevel))
         {
             Debug.Log("XP for this level has already been added online. Skipping XP submission.");
@@ -173,10 +175,21 @@ public class LevelProgressionLootlockerV2 : MonoBehaviour
                     Debug.Log("Error adding points to progression");
                 }
             });
+
         }
         else
         {
             Debug.Log("WILL NOT ADD XP VALUE FROM OFFLINE");
+        }
+    }
+    public void CHECKCOMPLETEDLEVELS()
+    {
+        LoadCompletedLevels();
+        Debug.Log("PUMASOK");
+        Debug.Log("Completed levels count: " + completedLevels.Count);
+        foreach (int level in completedLevels)
+        {
+            text1.text += level.ToString() + "\n";
         }
     }
     public void CheckXp(System.Action onCompleted = null)
