@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LeaderBoardOfflineScript : MonoBehaviour
 {
     public OfflineScriptableObject offlineScriptableObject;
-    public SubmitLeaderBoardScript submitLead;
+    public LeaderboardOfflineScriptable leaderboardOfflineScriptable;
 
     private Dictionary<int, LevelData> levelDataDictionary;
 
@@ -33,26 +33,44 @@ public class LeaderBoardOfflineScript : MonoBehaviour
             // Add more levels soon
         };
     }
+    public void PassValue(int level)
+    {
+        if (levelDataDictionary.TryGetValue(level, out LevelData levelData))
+        {
+            leaderboardOfflineScriptable.TotalScore = levelData.Score;
+            leaderboardOfflineScriptable.timePhase1 = levelData.TimePhase1;
+            leaderboardOfflineScriptable.timePhase2 = levelData.TimePhase2;
+            leaderboardOfflineScriptable.timePhase3 = levelData.TimePhase3;
+            leaderboardOfflineScriptable.exerciseAccuracyPhase3 = levelData.AccuracyExercisePhase3;
+            leaderboardOfflineScriptable.quizAccuracyPhase3 = levelData.AccuracyQuizPhase3;
+
+            Debug.Log($"Passed Level Data for Level {level} to Leaderboard.");
+        }
+        else
+        {
+            Debug.LogWarning($"No data found for Level {level}.");
+        }
+    }
 
     public void GetData(int level)
     {
         if (level == 1)
         {
-            //OffLineSubmitScore(level);
+            PassValue(level);
             PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel1");
             PlayerPrefs.SetString("level", "Beginner Level 1");
             PlayerPrefs.Save();
 
-            SceneManager.LoadScene("C#RankingBeginner");
+            SceneManager.LoadScene("Offline_C#RankingBeginner");
         }
         else if (level == 2)
         {
-            //OffLineSubmitScore(level);
+            PassValue(level);
             PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel2");
             PlayerPrefs.SetString("level", "Beginner Level 2");
             PlayerPrefs.Save();
 
-            SceneManager.LoadScene("C#RankingBeginner");
+            SceneManager.LoadScene("Offline_C#RankingBeginner");
         }
         //ADD MORE LEVELS
     }
