@@ -4405,6 +4405,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488717944}
   m_CullTransparentMesh: 0
+--- !u!1 &506701179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 506701181}
+  - component: {fileID: 506701180}
+  m_Layer: 0
+  m_Name: TRIAL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &506701180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506701179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f119dd6d497e3c42a3e2344116992b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offlineScriptableObject: {fileID: 11400000, guid: 205dfee74e50a3f4b81c0ff0308313b7, type: 2}
+--- !u!4 &506701181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506701179}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 525.11536, y: 520.75885, z: -1.9520544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &509409553
 GameObject:
   m_ObjectHideFlags: 0
@@ -12656,6 +12701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfafedcbc3e0c0409f0bc3cdf8bd0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offlineScriptableObject: {fileID: 0}
   progress: {fileID: 2093496536}
   progressData: {fileID: 79386942}
   clicked: 0
@@ -26289,3 +26335,4 @@ SceneRoots:
   - {fileID: 1104559100}
   - {fileID: 827074740}
   - {fileID: 648360707}
+  - {fileID: 506701181}

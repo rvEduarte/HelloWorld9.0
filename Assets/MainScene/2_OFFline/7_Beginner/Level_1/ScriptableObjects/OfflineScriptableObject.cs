@@ -25,6 +25,32 @@ public class OfflineScriptableObject : ScriptableObject
     public float lvl2_quizAccuracyPhase3;
     public int lvl2_TotalScore;
 
+    public void ResetData()
+    {
+        // LEVEL 1
+        timePhase1 = "00:00";
+        timePhase2 = "00:00";
+        timePhase3 = "00:00";
+        exerciseAccuracyPhase2 = 0f;
+        exerciseAccuracyPhase3 = 0f;
+        quizAccuracyPhase3 = 0f;
+        TotalScore = 0;
+
+        // LEVEL 2
+        lvl2_timePhase1 = "00:00";
+        lvl2_timePhase2 = "00:00";
+        lvl2_timePhase3 = "00:00";
+        lvl2_exerciseAccuracyPhase2 = 0f;
+        lvl2_exerciseAccuracyPhase3 = 0f;
+        lvl2_quizAccuracyPhase3 = 0f;
+        lvl2_TotalScore = 0;
+
+        // Save the cleared data
+        SaveData();
+
+        Debug.Log("Offline data reset to defaults and saved.");
+    }
+
     private string filePath;
 
     private void OnEnable()
