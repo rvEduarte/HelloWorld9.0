@@ -188,6 +188,8 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
 
         Debug.Log("Panel Closed...");
 
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
         TriggerTutorial.disableMove = true; // Enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }

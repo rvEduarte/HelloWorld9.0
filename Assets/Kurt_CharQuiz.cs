@@ -10,12 +10,15 @@ public class Kurt_CharQuiz : MonoBehaviour
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
 
     public GameObject outputPanel;  // Reference to the output panel
+    public CanvasGroup outputPanelCanvasGroup; // CanvasGroup for fade effect on output panel
     public GameObject errorImage;  // Reference to error image
     public GameObject successImage;  // Reference to success image
+    public GameObject HintPanel;
 
     public float scaleDuration = 0.5f;  // Scaling duration for closing panel
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
+    public float fadeDuration = 0.5f;  // Duration of fade transition
 
     public GameObject laser;
 
@@ -36,6 +39,10 @@ public class Kurt_CharQuiz : MonoBehaviour
         {
             inputField.onEndEdit.AddListener(delegate { CheckEnterKey(inputField); });
         }
+
+        // Ensure the output panel is hidden initially
+        outputPanelCanvasGroup.alpha = 0;
+        outputPanel.SetActive(false);
     }
 
     void Update()
@@ -71,8 +78,8 @@ public class Kurt_CharQuiz : MonoBehaviour
                 allCorrect = false;
         }
 
-        // Show the output panel after validation
-        ShowOutputPanel(allCorrect);
+        // Show the output panel after validation with fade-in
+        StartCoroutine(FadeInOutputPanel());
 
         // Show feedback based on correctness
         if (allCorrect)
@@ -83,7 +90,7 @@ public class Kurt_CharQuiz : MonoBehaviour
         else
         {
             errorImage.SetActive(true);  // Show error image
-            StartCoroutine(BlinkErrorImage());
+            StartCoroutine(BlinkErrorAndShowHint());  // Show blinking error and hint after
         }
     }
 
@@ -113,32 +120,40 @@ public class Kurt_CharQuiz : MonoBehaviour
         return false;
     }
 
-    // Function to show the output panel
-    private void ShowOutputPanel(bool allCorrect)
+    // Coroutine to fade in the output panel
+    private IEnumerator FadeInOutputPanel()
     {
         outputPanel.SetActive(true);  // Activate the output panel
+        HintPanel.SetActive(false);  // Hide the hint panel
 
-        // Update the output panel's content based on correctness
-        TextMeshProUGUI outputText = outputPanel.GetComponentInChildren<TextMeshProUGUI>();
-        if (outputText != null)
+        float elapsedTime = 0;
+        while (elapsedTime < fadeDuration)
         {
-            outputText.text = allCorrect ? "All answers are correct!" : "Syntax Denied. Please try again.";
+            outputPanelCanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
-
-        // Start the coroutine to hide the panel after a delay
-        StartCoroutine(HideOutputPanelAfterDelay(outputPanelDisplayTime));
+        outputPanelCanvasGroup.alpha = 1;  // Ensure it's fully visible
     }
 
-    // Coroutine to hide the output panel after a delay
-    private IEnumerator HideOutputPanelAfterDelay(float delay)
+    // Coroutine to fade out the output panel
+    private IEnumerator FadeOutOutputPanel()
     {
-        yield return new WaitForSeconds(delay);
-        outputPanel.SetActive(false);  // Hide the output panel
+        float elapsedTime = 0;
+        while (elapsedTime < fadeDuration)
+        {
+            outputPanelCanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        outputPanelCanvasGroup.alpha = 0;  // Ensure it's fully invisible
+        outputPanel.SetActive(false);  // Deactivate the output panel
     }
 
-    // Coroutine to blink the error image
-    private IEnumerator BlinkErrorImage()
+    // Coroutine to blink the error image and show hint after
+    private IEnumerator BlinkErrorAndShowHint()
     {
+        // Blink the error image
         for (int i = 0; i < 3; i++)
         {
             errorImage.SetActive(true);
@@ -146,6 +161,14 @@ public class Kurt_CharQuiz : MonoBehaviour
             errorImage.SetActive(false);
             yield return new WaitForSeconds(0.5f);
         }
+
+        // Hide the output panel with fade-out
+        StartCoroutine(FadeOutOutputPanel());
+
+        yield return new WaitForSeconds(fadeDuration);  // Wait for fade out to finish
+
+        // Show hint panel after output panel hides
+        HintPanel.SetActive(true);
     }
 
     // Coroutine to scale down and close the panel after a delay, resetting the cursor if all answers were correct
@@ -153,6 +176,9 @@ public class Kurt_CharQuiz : MonoBehaviour
     {
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
+
+        // Fade out the output panel
+        StartCoroutine(FadeOutOutputPanel());
 
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;

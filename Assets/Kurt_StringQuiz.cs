@@ -12,8 +12,9 @@ public class Kurt_StringQuiz : MonoBehaviour
     public GameObject outputPanel;  // Reference to the output panel
     public GameObject errorImage;  // Reference to error image
     public GameObject successImage;  // Reference to success image
+    public GameObject hintPanel;  // Reference to hint panel
 
-    public float scaleDuration = 0.5f;  // Scaling duration for closing panel
+    public float fadeDuration = 0.5f;  // Duration for fading in and out
     public float closeDelay = 2f;  // Delay before closing the panel
     public float outputPanelDisplayTime = 3f;  // Time to display output panel
 
@@ -45,8 +46,11 @@ public class Kurt_StringQuiz : MonoBehaviour
         // Check if the input field matches the correct answer
         bool isCorrect = CheckAnswer(inputField.text, correctAnswer);
 
+        // Hide hint panel when validating
+        hintPanel.SetActive(false);
+
         // Show feedback and update UI based on correctness
-        ShowOutputPanel(isCorrect);
+        StartCoroutine(FadeInOutputPanel(isCorrect));
 
         if (isCorrect)
         {
@@ -56,7 +60,7 @@ public class Kurt_StringQuiz : MonoBehaviour
         else
         {
             errorImage.SetActive(true);  // Show error image
-            StartCoroutine(BlinkErrorImage());
+            StartCoroutine(BlinkErrorAndShowHint());  // Blink error and show hint after closing
         }
     }
 
@@ -83,32 +87,63 @@ public class Kurt_StringQuiz : MonoBehaviour
         return false;
     }
 
-    // Function to show the output panel
-    private void ShowOutputPanel(bool isCorrect)
+    // Function to fade in the output panel
+    private IEnumerator FadeInOutputPanel(bool isCorrect)
     {
-        outputPanel.SetActive(true);  // Activate the output panel
+        CanvasGroup canvasGroup = outputPanel.GetComponent<CanvasGroup>();
+        outputPanel.SetActive(true);
 
-        // Update the output panel's content based on correctness
+        // Fade in
+        float time = 0f;
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, time / fadeDuration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 1f;
+
+        // Show feedback based on correctness
         TextMeshProUGUI outputText = outputPanel.GetComponentInChildren<TextMeshProUGUI>();
         if (outputText != null)
         {
             outputText.text = isCorrect ? "Correct answer!" : "Syntax Denied. Please try again.";
         }
 
-        // Start the coroutine to hide the panel after a delay
-        StartCoroutine(HideOutputPanelAfterDelay(outputPanelDisplayTime));
+        yield return new WaitForSeconds(outputPanelDisplayTime);
+
+        // If incorrect, do not close the panel immediately; wait for blink and hint
+        if (!isCorrect)
+        {
+            yield break;
+        }
+
+        StartCoroutine(FadeOutOutputPanel());
     }
 
-    // Coroutine to hide the output panel after a delay
-    private IEnumerator HideOutputPanelAfterDelay(float delay)
+    // Function to fade out the output panel
+    private IEnumerator FadeOutOutputPanel()
     {
-        yield return new WaitForSeconds(delay);
-        outputPanel.SetActive(false);  // Hide the output panel
+        CanvasGroup canvasGroup = outputPanel.GetComponent<CanvasGroup>();
+        float time = 0f;
+
+        // Fade out
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, time / fadeDuration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0f;
+        outputPanel.SetActive(false);
     }
 
-    // Coroutine to blink the error image
-    private IEnumerator BlinkErrorImage()
+    // Coroutine to blink the error image and show the hint panel after it finishes
+    private IEnumerator BlinkErrorAndShowHint()
     {
+        // Blink error image
         for (int i = 0; i < 3; i++)
         {
             errorImage.SetActive(true);
@@ -116,6 +151,12 @@ public class Kurt_StringQuiz : MonoBehaviour
             errorImage.SetActive(false);
             yield return new WaitForSeconds(0.5f);
         }
+
+        // Fade out output panel after blinking
+        yield return StartCoroutine(FadeOutOutputPanel());
+
+        // Show hint panel
+        hintPanel.SetActive(true);
     }
 
     // Coroutine to scale down and close the panel after a delay, resetting the cursor if the answer was correct
@@ -124,21 +165,8 @@ public class Kurt_StringQuiz : MonoBehaviour
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
-        Vector3 originalScale = transform.localScale;
-        Vector3 targetScale = Vector3.zero;
-        float time = 0;
-
-        // Smoothly scale down the panel
-        while (time < scaleDuration)
-        {
-            transform.localScale = Vector3.Lerp(originalScale, targetScale, time / scaleDuration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure final scale is zero and deactivate the panel
-        transform.localScale = targetScale;
-        gameObject.SetActive(false);
+        // Fade out output panel
+        yield return StartCoroutine(FadeOutOutputPanel());
 
         // Reset the cursor and handle any additional behavior for correct answers
         if (isCorrect)
