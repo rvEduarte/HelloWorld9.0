@@ -1189,8 +1189,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1793914928}
-        m_TargetAssemblyTypeName: Ranking, Assembly-CSharp
+      - m_Target: {fileID: 1793914930}
+        m_TargetAssemblyTypeName: OfflineRanking, Assembly-CSharp
         m_MethodName: GoToScene
         m_Mode: 5
         m_Arguments:
@@ -1198,7 +1198,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: C#BeginnerLevelPanel
+          m_StringArgument: Offline_C#BeginnerLevelPanel
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1070355105
@@ -1687,7 +1687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1793914929}
-  - component: {fileID: 1793914928}
+  - component: {fileID: 1793914930}
   m_Layer: 0
   m_Name: GetLeaderboardManager
   m_TagString: Untagged
@@ -1695,22 +1695,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1793914928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793914927}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d26f14e2e956034798dde14f299a9d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leaderboardLevelText: {fileID: 1041931591}
-  errorText: {fileID: 1059636698}
-  errorPanel: {fileID: 1640430529}
-  addingimage: {fileID: 1530653787}
 --- !u!4 &1793914929
 Transform:
   m_ObjectHideFlags: 0
@@ -1726,6 +1710,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793914930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793914927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558bac782f8d5094d8fcd8586318304c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboardOfflineScriptable: {fileID: 11400000, guid: 56a4cbc219abbdb408d70af670e7d47b, type: 2}
+  leaderboardLevelText: {fileID: 1041931591}
+  addingimage: {fileID: 1530653787}
 --- !u!1 &1805341514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1807,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1793914928}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Ranking, Assembly-CSharp
         m_MethodName: GoToScene
         m_Mode: 5
