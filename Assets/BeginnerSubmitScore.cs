@@ -55,6 +55,30 @@ public class BeginnerSubmitScore : MonoBehaviour
                 ref leaderboardData.levelData[1].quizAccuracyPhase3,
                 ref leaderboardData.levelData[1].totalScore);
         }
+        else if (level == 3)
+        {
+            UpdateLeaderboardStats(
+                playerData.TotalScore,
+                leaderboardData.levelData[2].totalScore, // Access level data from the new structure
+                ref leaderboardData.levelData[2].timePhase1,
+                ref leaderboardData.levelData[2].timePhase2,
+                ref leaderboardData.levelData[2].timePhase3,
+                ref leaderboardData.levelData[2].exerciseAccuracyPhase3,
+                ref leaderboardData.levelData[2].quizAccuracyPhase3,
+                ref leaderboardData.levelData[2].totalScore);
+        }
+        else if (level == 4)
+        {
+            UpdateLeaderboardStats(
+                playerData.TotalScore,
+                leaderboardData.levelData[3].totalScore, // Access level data from the new structure
+                ref leaderboardData.levelData[3].timePhase1,
+                ref leaderboardData.levelData[3].timePhase2,
+                ref leaderboardData.levelData[3].timePhase3,
+                ref leaderboardData.levelData[3].exerciseAccuracyPhase3,
+                ref leaderboardData.levelData[3].quizAccuracyPhase3,
+                ref leaderboardData.levelData[3].totalScore);
+        }
     }
 
     // Pass the value to scriptableObjects of leaderboard

@@ -13,21 +13,6 @@ public class OfflineBeginnerSubmitScore : MonoBehaviour
     {
         leaderboardData.LoadData(); // Load the leaderboard data
     }
-
-    public void UpdatePlayerProgression(int level)
-    {
-        switch (level)
-        {
-            case 1:
-                UploadOfflinePlayerStats(level);
-                break;
-            case 2:
-                UploadOfflinePlayerStats(level);
-                break;
-                // Add more levels as needed
-        }
-    }
-
     public void UploadOfflinePlayerStats(int level)
     {
         int index = level - 1; // Get the index for the level (0 for level 1, 1 for level 2)

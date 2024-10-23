@@ -29,7 +29,21 @@ public class LeaderBoardOfflineScript : MonoBehaviour
                 leaderboardData.levelData[1].timePhase2,
                 leaderboardData.levelData[1].timePhase3,
                 leaderboardData.levelData[1].exerciseAccuracyPhase3,
-                leaderboardData.levelData[1].quizAccuracyPhase3) }
+                leaderboardData.levelData[1].quizAccuracyPhase3) },
+            { 3, new LevelData(
+                leaderboardData.levelData[2].totalScore,
+                leaderboardData.levelData[2].timePhase1,
+                leaderboardData.levelData[2].timePhase2,
+                leaderboardData.levelData[2].timePhase3,
+                leaderboardData.levelData[2].exerciseAccuracyPhase3,
+                leaderboardData.levelData[2].quizAccuracyPhase3) },
+            { 4, new LevelData(
+                leaderboardData.levelData[3].totalScore,
+                leaderboardData.levelData[3].timePhase1,
+                leaderboardData.levelData[3].timePhase2,
+                leaderboardData.levelData[3].timePhase3,
+                leaderboardData.levelData[3].exerciseAccuracyPhase3,
+                leaderboardData.levelData[3].quizAccuracyPhase3) }
             };
         }
     public void PassValue(int level)
@@ -67,6 +81,24 @@ public class LeaderBoardOfflineScript : MonoBehaviour
             PassValue(level);
             PlayerPrefs.SetString("leaderboardKey", "BeginnerLevel2");
             PlayerPrefs.SetString("level", "Beginner Level 2");
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("Offline_C#RankingBeginner");
+        }
+        else if (level == 3)
+        {
+            PassValue(level);
+            PlayerPrefs.SetString("leaderboardKey", "IntermediateLevel1");
+            PlayerPrefs.SetString("level", "Intermediate Level 1");
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("Offline_C#RankingBeginner");
+        }
+        else if (level == 4)
+        {
+            PassValue(level);
+            PlayerPrefs.SetString("leaderboardKey", "IntermediateLevel2");
+            PlayerPrefs.SetString("level", "Intermediate Level 2");
             PlayerPrefs.Save();
 
             SceneManager.LoadScene("Offline_C#RankingBeginner");

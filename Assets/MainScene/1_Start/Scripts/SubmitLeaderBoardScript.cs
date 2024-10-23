@@ -15,6 +15,8 @@ public class SubmitLeaderBoardScript : MonoBehaviour
         {
             1 => "BeginnerLevel1",
             2 => "BeginnerLevel2",
+            3 => "IntermediateLevel1",
+            4 => "IntermediateLevel2",
             // Add more levels soon
             _ => throw new System.ArgumentException("Invalid level number")
         };
