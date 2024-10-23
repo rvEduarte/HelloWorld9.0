@@ -27,6 +27,8 @@ public class Kurt_DialogueTrigger4Lvl2Ph2 : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasTriggered)
         {
+            playerSprite.flipX = true;
+
             billBoard.Priority = 11;
             StartCoroutine(BillboardCam(billBoard));
 
