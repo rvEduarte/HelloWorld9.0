@@ -8,7 +8,7 @@ public class PassingValue : MonoBehaviour
 {
     public LeaderboardPersistentDataScriptable leaderboardData;
     public TemporaryScriptable temporaryData;
-    public List<string> leaderboardKeys = new List<string> { "BeginnerLevel1", "BeginnerLevel2", "IntermediateLevel1", "IntermediateLevel2" }; // List of leaderboard keys
+    [SerializeField]public List<string> leaderboardKeys = new List<string> { "BeginnerLevel1", "BeginnerLevel2", "IntermediateLevel1", "IntermediateLevel2" }; // List of leaderboard keys
 
     private void Start()
     {
