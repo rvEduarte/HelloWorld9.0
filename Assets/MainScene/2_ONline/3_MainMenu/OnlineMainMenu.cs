@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class OnlineMainMenu : MonoBehaviour
 {
-    public OfflineScriptableObject offlineScriptableObject;
     public LevelProgressionLootlockerV2 progress;
     public LootlockerSceneProgress progressData;
 
@@ -188,9 +187,6 @@ public class OnlineMainMenu : MonoBehaviour
             PlayerPrefs.SetInt("CheckXp", 0);
 
             PlayerPrefs.Save();
-
-            //Reset leaderboard values;
-            offlineScriptableObject.ResetData();
 
             //Clear hashset;
             progress.completedLevels.Clear();

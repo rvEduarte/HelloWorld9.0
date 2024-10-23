@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -7,25 +5,35 @@ using UnityEngine;
 
 public class OfflineScriptableObject : ScriptableObject
 {
-    public List<LevelData2> levelData = new List<LevelData2>();
+    [Header("OFFLINE DATA")]
+    [Header("LEVEL 1")]
+    public string timePhase1 = "00:00";
+    public string timePhase2 = "00:00";
+    public string timePhase3 = "00:00";
+    public float exerciseAccuracyPhase2;
+    public float exerciseAccuracyPhase3;
+    public float quizAccuracyPhase3;
+    public int TotalScore;
+
+    [Header("")]
+    [Header("LEVEL 2")]
+    public string lvl2_timePhase1 = "00:00";
+    public string lvl2_timePhase2 = "00:00";
+    public string lvl2_timePhase3 = "00:00";
+    public float lvl2_exerciseAccuracyPhase2;
+    public float lvl2_exerciseAccuracyPhase3;
+    public float lvl2_quizAccuracyPhase3;
+    public int lvl2_TotalScore;
 
     private string filePath;
 
     private void OnEnable()
     {
+        // Initialize file path here
         filePath = Path.Combine(Application.persistentDataPath, "offlineScoreData.json");
-
-        // Initialize with default data if the list is empty
-        if (levelData.Count == 0)
-        {
-            // Add some default level data (you can change the number of levels)
-            for (int i = 0; i < 2; i++)
-            {
-                levelData.Add(new LevelData2());
-            }
-        }
     }
 
+    // Save method
     public void SaveData()
     {
         string jsonData = JsonUtility.ToJson(this);
@@ -33,6 +41,7 @@ public class OfflineScriptableObject : ScriptableObject
         Debug.Log("Data saved to " + filePath);
     }
 
+    // Load method
     public void LoadData()
     {
         if (File.Exists(filePath))
@@ -46,33 +55,4 @@ public class OfflineScriptableObject : ScriptableObject
             Debug.LogWarning("Save file not found.");
         }
     }
-
-    public void ResetData()
-    {
-        foreach (var level in levelData)
-        {
-            level.timePhase1 = "00:00";
-            level.timePhase2 = "00:00";
-            level.timePhase3 = "00:00";
-            level.exerciseAccuracyPhase2 = 0f;
-            level.exerciseAccuracyPhase3 = 0f;
-            level.quizAccuracyPhase3 = 0f;
-            level.totalScore = 0;
-        }
-
-        SaveData();
-        Debug.Log("Offline data reset to defaults and saved.");
-    }
-}
-
-[Serializable]
-public class LevelData2
-{
-    public string timePhase1 = "00:00";
-    public string timePhase2 = "00:00";
-    public string timePhase3 = "00:00";
-    public float exerciseAccuracyPhase2;
-    public float exerciseAccuracyPhase3;
-    public float quizAccuracyPhase3;
-    public int totalScore;
 }
