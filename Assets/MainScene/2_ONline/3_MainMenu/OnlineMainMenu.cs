@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class OnlineMainMenu : MonoBehaviour
 {
-    public OfflineScriptableObject offlineScriptableObject;
+    public LeaderboardPersistentDataScriptable lDataScriptableObject;
     public LevelProgressionLootlockerV2 progress;
     public LootlockerSceneProgress progressData;
 
@@ -189,7 +189,7 @@ public class OnlineMainMenu : MonoBehaviour
 
             PlayerPrefs.Save();
 
-            offlineScriptableObject.ResetData();
+            lDataScriptableObject.ResetData();
 
             //Clear hashset;
             progress.completedLevels.Clear();

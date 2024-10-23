@@ -7,7 +7,7 @@ public class LeaderboardScript : MonoBehaviour
 {
     #region Variables
 
-    public OfflineScriptableObject offlineScriptableObject;
+    public LeaderboardPersistentDataScriptable leaderboardData;
     public SubmitLeaderBoardScript submitLead;
 
     private Dictionary<int, LevelData> levelDataDictionary;
@@ -20,27 +20,28 @@ public class LeaderboardScript : MonoBehaviour
 
     public void Start()
     {
-        offlineScriptableObject.LoadData();
+        leaderboardData.LoadData();
         // Initialize the dictionary with level-specific data
         levelDataDictionary = new Dictionary<int, LevelData>
         {
             { 1, new LevelData(
-                offlineScriptableObject.TotalScore,
-                offlineScriptableObject.timePhase1,
-                offlineScriptableObject.timePhase2,
-                offlineScriptableObject.timePhase3,
-                offlineScriptableObject.exerciseAccuracyPhase3,
-                offlineScriptableObject.quizAccuracyPhase3) },
+                leaderboardData.levelData[0].totalScore,
+                leaderboardData.levelData[0].timePhase1,
+                leaderboardData.levelData[0].timePhase2,
+                leaderboardData.levelData[0].timePhase3,
+                leaderboardData.levelData[0].exerciseAccuracyPhase3,
+                leaderboardData.levelData[0].quizAccuracyPhase3) },
             { 2, new LevelData(
-                offlineScriptableObject.lvl2_TotalScore,
-                offlineScriptableObject.lvl2_timePhase1,
-                offlineScriptableObject.lvl2_timePhase2,
-                offlineScriptableObject.lvl2_timePhase3,
-                offlineScriptableObject.lvl2_exerciseAccuracyPhase3,
-                offlineScriptableObject.lvl2_quizAccuracyPhase3) }
-            // Add more levels soon
+                leaderboardData.levelData[1].totalScore,
+                leaderboardData.levelData[1].timePhase1,
+                leaderboardData.levelData[1].timePhase2,
+                leaderboardData.levelData[1].timePhase3,
+                leaderboardData.levelData[1].exerciseAccuracyPhase3,
+                leaderboardData.levelData[1].quizAccuracyPhase3) }
+            // Add more levels as needed
         };
     }
+
     public void BackButtonPressed(string name)
     {
         SceneManager.LoadScene(name);
@@ -77,6 +78,7 @@ public class LeaderboardScript : MonoBehaviour
             Debug.LogError("Invalid level specified");
         }
     }
+
     private bool IsValidData(LevelData data)
     {
         return data.Score != 0 &&
@@ -88,7 +90,6 @@ public class LeaderboardScript : MonoBehaviour
     }
 
     #endregion
-
 
     #region GetLeaderBoardData
 
@@ -112,54 +113,10 @@ public class LeaderboardScript : MonoBehaviour
 
             SceneManager.LoadScene("C#RankingBeginner");
         }
-        //ADD MORE LEVELS
+        // Add more levels as needed
     }
 
     #endregion
-
-
-    /*#region ErroMessageHandler
-
-    // Show an error message on the screen
-    public void showErrorMessage(string message, int showTime = 3)
-    {
-        //set active
-        errorPanel.SetActive(true);
-        errorText.text = message.ToUpper();
-        //wait for 3 seconds and hide the error panel
-        Invoke("hideErrorMessage", showTime);
-    }
-
-    private void hideErrorMessage()
-    {
-        errorPanel.SetActive(false);
-    }
-
-    private string extractMessageFromLootLockerError(string rawError)
-    {
-        // Find the start index of the message
-        int startIndex = rawError.IndexOf("\"") + 1; // Skip the first quote
-        if (startIndex == 0)
-        {
-            return "Message not found"; // Handle case where the first quote is not found
-        }
-
-        // Find the end index of the message
-        int endIndex = rawError.IndexOf("\"", startIndex); // Find the closing quote
-        if (endIndex == -1)
-        {
-            return "Message not properly terminated"; // Handle case where the message is not properly terminated
-        }
-
-        // Extract the message
-        string message = rawError.Substring(startIndex, endIndex - startIndex);
-
-        return message;
-    }
-
-    #endregion*/
-
-    
 }
 
 public class LevelData

@@ -7,46 +7,49 @@ using UnityEngine;
 public class GetUserUID : MonoBehaviour
 {
     public LeaderboardPersistentDataScriptable offlineScriptableObject;
+    public List<string> leaderboardKeys = new List<string> { "BeginnerLevel1", "BeginnerLevel2" }; // List of leaderboard keys
 
     void Start()
     {
-        string leaderboardKey = "BeginnerLevel1"; // Change as necessary
+        offlineScriptableObject.LoadData();
         string memberID = PlayerPrefs.GetString("LLplayerId");
 
-        LootLockerSDKManager.GetMemberRank(leaderboardKey, memberID, (response) =>
+        foreach (string leaderboardKey in leaderboardKeys)
         {
-            if (!response.success)
+            // For each leaderboard key, make a request
+            LootLockerSDKManager.GetMemberRank(leaderboardKey, memberID, (response) =>
             {
-                Debug.LogError("Could not get the entry!");
-                return;
-            }
-            Debug.Log("Successfully got entry!");
-
-            // Parse the metadata JSON
-            string metadataJson = response.metadata;
-
-            if (!string.IsNullOrEmpty(metadataJson))
-            {
-                try
+                if (!response.success)
                 {
-                    // Deserialize the metadata JSON into a dictionary or dynamic object
-                    Metadata2 metadata = JsonUtility.FromJson<Metadata2>(metadataJson);
-
-                    metadata.score = response.score;
-
-                    // Check the leaderboard key and pass values to specific LevelData
-                    UpdateLevelData(leaderboardKey, metadata);
+                    Debug.LogError($"Could not get the entry for {leaderboardKey}!");
+                    return;
                 }
-                catch (Exception e)
+                Debug.Log($"Successfully got entry for {leaderboardKey}!");
+
+                // Parse the metadata JSON
+                string metadataJson = response.metadata;
+
+                if (!string.IsNullOrEmpty(metadataJson))
                 {
-                    Debug.LogError("Failed to parse metadata: " + e.Message);
+                    try
+                    {
+                        Metadata2 metadata = JsonUtility.FromJson<Metadata2>(metadataJson);
+
+                        metadata.score = response.score;
+
+                        UpdateLevelData(leaderboardKey, metadata);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("Failed to parse metadata: " + e.Message);
+                    }
                 }
-            }
-            else
-            {
-                Debug.LogWarning("No metadata available.");
-            }
-        });
+                else
+                {
+                    Debug.LogWarning("No metadata available.");
+                }
+            });
+        }
     }
 
     // Method to update level data based on the leaderboard key

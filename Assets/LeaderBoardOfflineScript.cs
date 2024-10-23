@@ -5,34 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class LeaderBoardOfflineScript : MonoBehaviour
 {
-    public OfflineScriptableObject offlineScriptableObject;
+    public LeaderboardPersistentDataScriptable leaderboardData;
     public LeaderboardOfflineScriptable leaderboardOfflineScriptable;
 
     private Dictionary<int, LevelData> levelDataDictionary;
 
     public void Start()
     {
-        offlineScriptableObject.LoadData();
-        // Initialize the dictionary with level-specific data
+        leaderboardData.LoadData();
+
         levelDataDictionary = new Dictionary<int, LevelData>
         {
             { 1, new LevelData(
-                offlineScriptableObject.TotalScore,
-                offlineScriptableObject.timePhase1,
-                offlineScriptableObject.timePhase2,
-                offlineScriptableObject.timePhase3,
-                offlineScriptableObject.exerciseAccuracyPhase3,
-                offlineScriptableObject.quizAccuracyPhase3) },
+                leaderboardData.levelData[0].totalScore, // Access totalScore correctly
+                leaderboardData.levelData[0].timePhase1,
+                leaderboardData.levelData[0].timePhase2,
+                leaderboardData.levelData[0].timePhase3,
+                leaderboardData.levelData[0].exerciseAccuracyPhase3,
+                leaderboardData.levelData[0].quizAccuracyPhase3) },
             { 2, new LevelData(
-                offlineScriptableObject.lvl2_TotalScore,
-                offlineScriptableObject.lvl2_timePhase1,
-                offlineScriptableObject.lvl2_timePhase2,
-                offlineScriptableObject.lvl2_timePhase3,
-                offlineScriptableObject.lvl2_exerciseAccuracyPhase3,
-                offlineScriptableObject.lvl2_quizAccuracyPhase3) }
-            // Add more levels soon
-        };
-    }
+                leaderboardData.levelData[1].totalScore, // Access totalScore correctly
+                leaderboardData.levelData[1].timePhase1,
+                leaderboardData.levelData[1].timePhase2,
+                leaderboardData.levelData[1].timePhase3,
+                leaderboardData.levelData[1].exerciseAccuracyPhase3,
+                leaderboardData.levelData[1].quizAccuracyPhase3) }
+            };
+        }
     public void PassValue(int level)
     {
         if (levelDataDictionary.TryGetValue(level, out LevelData levelData))
