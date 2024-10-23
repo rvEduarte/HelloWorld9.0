@@ -110,12 +110,18 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
         //Save TIME VALUE
         playerData.timePhase2 = timePh2;
 
-        textCompleteValue.text = timePh2;
+        textCompleteValue.text = timePh2 + "S2";
 
         CalculateAndDisplayAccuracy();
     }
 
     private void CalculateAndDisplayAccuracy()
+    {
+        // Update the text to display the new total score
+        textTimeScorePh2.text = playerData.scorePhase2.ToString() + "S2";
+    }
+
+    /*private void CalculateAndDisplayAccuracy()
     {
         // Calculate the percentage and assign it back to the ScriptableObject
         float accuracyPercentage = Mathf.Max(100f - (playerData.rawExercisePhase2 - 1) * 10f, 0f);
@@ -130,5 +136,5 @@ public class RunningTimerLevel1Ph2 : MonoBehaviour
 
         // Update the text to display the new total score
         textTimeScorePh2.text = playerData.scorePhase2.ToString();
-    }
+    }*/
 }

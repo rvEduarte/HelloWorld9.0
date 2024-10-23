@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "OfflineScoreScriptableObject", menuName = "ScriptableObjects/OfflineScore")]
@@ -23,4 +24,35 @@ public class OfflineScriptableObject : ScriptableObject
     public float lvl2_exerciseAccuracyPhase3;
     public float lvl2_quizAccuracyPhase3;
     public int lvl2_TotalScore;
+
+    private string filePath;
+
+    private void OnEnable()
+    {
+        // Initialize file path here
+        filePath = Path.Combine(Application.persistentDataPath, "offlineScoreData.json");
+    }
+
+    // Save method
+    public void SaveData()
+    {
+        string jsonData = JsonUtility.ToJson(this);
+        File.WriteAllText(filePath, jsonData);
+        Debug.Log("Data saved to " + filePath);
+    }
+
+    // Load method
+    public void LoadData()
+    {
+        if (File.Exists(filePath))
+        {
+            string jsonData = File.ReadAllText(filePath);
+            JsonUtility.FromJsonOverwrite(jsonData, this);
+            Debug.Log("Data loaded from " + filePath);
+        }
+        else
+        {
+            Debug.LogWarning("Save file not found.");
+        }
+    }
 }

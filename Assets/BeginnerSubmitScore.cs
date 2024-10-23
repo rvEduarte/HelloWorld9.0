@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class BeginnerSubmitScore : MonoBehaviour
 {
-    public LootlockerSceneProgress progressData;
+    //public LootlockerSceneProgress progressData;
 
     public PlayerScoreScriptableObject playerData;
-    public LevelUnlockScriptable Level;
+    //public LevelUnlockScriptable Level;
     public OfflineScriptableObject LeaderboardStat;
 
     public SubmitLeaderBoardScript submitLead;
 
+    private void Start()
+    {
+        LeaderboardStat.LoadData();
+    }
     public void UpdatePlayerProgression(int level)
     {
         switch (level)
         {
             case 1:
-                Level.csharpBeginnerLevel2 = "Level2Beginner";
-                progressData.UpdatePlayerFile();
+               // Level.csharpBeginnerLevel2 = "Level2Beginner";
+                //progressData.UpdatePlayerFile();
                 submitLead.GameManagerLevel(level);
                 UploadOnlinePlayerStats(level);
-                Debug.Log(Level);
+               // Debug.Log(Level);
                 break;
             case 2:
-                Level.csharpBeginnerLevel3 = "Level3Beginner";
-                progressData.UpdatePlayerFile();
+               // Level.csharpBeginnerLevel3 = "Level3Beginner";
+                //progressData.UpdatePlayerFile();
                 submitLead.GameManagerLevel(level);
                 UploadOnlinePlayerStats(level);
-                Debug.Log(Level);
+               // Debug.Log(Level);
                 break;
                 //add more levels
         }
@@ -43,7 +47,6 @@ public class BeginnerSubmitScore : MonoBehaviour
                 ref LeaderboardStat.timePhase1,
                 ref LeaderboardStat.timePhase2,
                 ref LeaderboardStat.timePhase3,
-                ref LeaderboardStat.exerciseAccuracyPhase2,
                 ref LeaderboardStat.exerciseAccuracyPhase3,
                 ref LeaderboardStat.quizAccuracyPhase3,
                 ref LeaderboardStat.TotalScore);
@@ -56,7 +59,6 @@ public class BeginnerSubmitScore : MonoBehaviour
                 ref LeaderboardStat.lvl2_timePhase1,
                 ref LeaderboardStat.lvl2_timePhase2,
                 ref LeaderboardStat.lvl2_timePhase3,
-                ref LeaderboardStat.lvl2_exerciseAccuracyPhase2,
                 ref LeaderboardStat.lvl2_exerciseAccuracyPhase3,
                 ref LeaderboardStat.lvl2_quizAccuracyPhase3,
                 ref LeaderboardStat.lvl2_TotalScore);
@@ -65,7 +67,7 @@ public class BeginnerSubmitScore : MonoBehaviour
     //pass the value to scriptableObjects of leaderboard
     private void UpdateLeaderboardStats(int playerScore, int leaderboardScore,
     ref string timePhase1, ref string timePhase2, ref string timePhase3,
-    ref float exerciseAccuracyPhase2, ref float exerciseAccuracyPhase3,
+    ref float exerciseAccuracyPhase3,
     ref float quizAccuracyPhase3, ref int totalScore)
     {
         if (playerScore > leaderboardScore)
@@ -74,13 +76,13 @@ public class BeginnerSubmitScore : MonoBehaviour
             timePhase2 = playerData.timePhase2;
             timePhase3 = playerData.timePhase3;
 
-            exerciseAccuracyPhase2 = playerData.exerciseAccuracyPhase2;
             exerciseAccuracyPhase3 = playerData.exerciseAccuracyPhase3;
 
             quizAccuracyPhase3 = playerData.quizAccuracyPhase3;
             totalScore = playerScore;
 
-            submitLead.SubmitData(totalScore, timePhase1, timePhase2, timePhase3, exerciseAccuracyPhase2, exerciseAccuracyPhase3, quizAccuracyPhase3);
+            LeaderboardStat.SaveData(); // save persistent data
+            submitLead.SubmitData(totalScore, timePhase1, timePhase2, timePhase3, exerciseAccuracyPhase3, quizAccuracyPhase3);
         }
     }
 }

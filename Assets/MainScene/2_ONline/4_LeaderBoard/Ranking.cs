@@ -66,7 +66,6 @@ public class Ranking : MonoBehaviour
                         addingimage.TextTimerImage(metadata.timeTaken2);
                         addingimage.TextTimerImage(metadata.timeTaken3);
 
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
                         addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
 
                         addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
@@ -93,7 +92,6 @@ public class Ranking : MonoBehaviour
                         addingimage.TextTimerImage(metadata.timeTaken2);
                         addingimage.TextTimerImage(metadata.timeTaken3);
 
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
                         addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
 
                         addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
@@ -119,7 +117,6 @@ public class Ranking : MonoBehaviour
                         addingimage.TextTimerImage(metadata.timeTaken2);
                         addingimage.TextTimerImage(metadata.timeTaken3);
 
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
                         addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
 
                         addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");
@@ -145,7 +142,6 @@ public class Ranking : MonoBehaviour
                         addingimage.TextTimerImage(metadata.timeTaken2);
                         addingimage.TextTimerImage(metadata.timeTaken3);
 
-                        addingimage.TextExerciseImage(metadata.accuracyExercisePh2.ToString() + "%");
                         addingimage.TextExerciseImage(metadata.accuracyExercisePh3.ToString() + "%");
 
                         addingimage.TextQuizImage(metadata.accuracyQuizPh3.ToString() + "%");

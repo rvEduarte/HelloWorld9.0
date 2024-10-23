@@ -20,13 +20,12 @@ public class SubmitLeaderBoardScript : MonoBehaviour
         };
     }
 
-    public void SubmitData(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh2, float accuracyExercisePh3, float accuracyQuizPh3)
+    public void SubmitData(int scoreToSubmit, string timeTaken1, string timeTaken2, string timeTaken3, float accuracyExercisePh3, float accuracyQuizPh3)
     {
         leaderboardData.timePh1 = timeTaken1;
         leaderboardData.timePh2 = timeTaken2;
         leaderboardData.timePh3 = timeTaken3;
 
-        leaderboardData.exerciseAccuracyPh2 = accuracyExercisePh2;
         leaderboardData.exerciseAccuracyPh3 = accuracyExercisePh3;
         leaderboardData.quizAccuracyPh3 = accuracyQuizPh3;
 
@@ -44,7 +43,6 @@ public class SubmitLeaderBoardScript : MonoBehaviour
             timeTaken2 = leaderboardData.timePh2,
             timeTaken3 = leaderboardData.timePh3,
 
-            accuracyExercisePh2 = leaderboardData.exerciseAccuracyPh2,
             accuracyExercisePh3 = leaderboardData.exerciseAccuracyPh3,
             accuracyQuizPh3 = leaderboardData.quizAccuracyPh3,
 

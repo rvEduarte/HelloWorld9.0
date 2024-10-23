@@ -20,6 +20,7 @@ public class LeaderboardScript : MonoBehaviour
 
     public void Start()
     {
+        offlineScriptableObject.LoadData();
         // Initialize the dictionary with level-specific data
         levelDataDictionary = new Dictionary<int, LevelData>
         {
@@ -28,7 +29,6 @@ public class LeaderboardScript : MonoBehaviour
                 offlineScriptableObject.timePhase1,
                 offlineScriptableObject.timePhase2,
                 offlineScriptableObject.timePhase3,
-                offlineScriptableObject.exerciseAccuracyPhase2,
                 offlineScriptableObject.exerciseAccuracyPhase3,
                 offlineScriptableObject.quizAccuracyPhase3) },
             { 2, new LevelData(
@@ -36,7 +36,6 @@ public class LeaderboardScript : MonoBehaviour
                 offlineScriptableObject.lvl2_timePhase1,
                 offlineScriptableObject.lvl2_timePhase2,
                 offlineScriptableObject.lvl2_timePhase3,
-                offlineScriptableObject.lvl2_exerciseAccuracyPhase2,
                 offlineScriptableObject.lvl2_exerciseAccuracyPhase3,
                 offlineScriptableObject.lvl2_quizAccuracyPhase3) }
             // Add more levels soon
@@ -63,7 +62,6 @@ public class LeaderboardScript : MonoBehaviour
                     levelData.TimePhase1,
                     levelData.TimePhase2,
                     levelData.TimePhase3,
-                    levelData.AccuracyExercisePhase2,
                     levelData.AccuracyExercisePhase3,
                     levelData.AccuracyQuizPhase3);
 
@@ -85,7 +83,6 @@ public class LeaderboardScript : MonoBehaviour
                !string.IsNullOrEmpty(data.TimePhase1) &&
                !string.IsNullOrEmpty(data.TimePhase2) &&
                !string.IsNullOrEmpty(data.TimePhase3) &&
-               data.AccuracyExercisePhase2 != 0 &&
                data.AccuracyExercisePhase3 != 0 &&
                data.AccuracyQuizPhase3 != 0;
     }
@@ -171,17 +168,15 @@ public class LevelData
     public string TimePhase1 { get; }
     public string TimePhase2 { get; }
     public string TimePhase3 { get; }
-    public float AccuracyExercisePhase2 { get; }
     public float AccuracyExercisePhase3 { get; }
     public float AccuracyQuizPhase3 { get; }
 
-    public LevelData(int scoreToSubmit, string timePhase1, string timePhase2, string timePhase3, float accuracyExercisePhase2, float accuracyExercisePhase3, float accuracyQuizPhase3)
+    public LevelData(int scoreToSubmit, string timePhase1, string timePhase2, string timePhase3, float accuracyExercisePhase3, float accuracyQuizPhase3)
     {
         Score = scoreToSubmit;
         TimePhase1 = timePhase1;
         TimePhase2 = timePhase2;
         TimePhase3 = timePhase3;
-        AccuracyExercisePhase2 = accuracyExercisePhase2;
         AccuracyExercisePhase3 = accuracyExercisePhase3;
         AccuracyQuizPhase3 = accuracyQuizPhase3;
     }
