@@ -14,10 +14,13 @@ public class Kurt_StringComputer : MonoBehaviour
     private bool isPanelVisible = false;
     private CanvasGroup panelCanvasGroup;       // For smooth transition effect
     private bool handleEscapeForPanel = false;  // Flag to handle Escape key specifically for the panel 
-    public static bool disableE = true;
+    public static bool disableE;
 
     private void Start()
     {
+
+        disableE = true;
+
         // Ensure the panel has a CanvasGroup component for fading
         panelCanvasGroup = panel.GetComponent<CanvasGroup>();
         if (panelCanvasGroup == null)
