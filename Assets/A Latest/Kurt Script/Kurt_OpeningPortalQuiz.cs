@@ -10,7 +10,6 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     public GameObject consolePanel;      // The panel that contains the input field
     public List<GameObject> portals;     // List of portal objects to activate
 
-    public float portalActivationDelay = 2f; // Delay before activating portals
     public float panelCloseDelay = 1f;       // Delay before closing the panel
 
     public GameObject dialoguePortalOpen;
@@ -128,10 +127,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
-        // Wait for the specified delay before activating the portals
-        yield return new WaitForSeconds(portalActivationDelay);
-
-        // Activate all portals and their controllers
+        // Activate all portals and their controllers immediately
         foreach (GameObject portal in portals)
         {
             portal.SetActive(true); // Activate each portal

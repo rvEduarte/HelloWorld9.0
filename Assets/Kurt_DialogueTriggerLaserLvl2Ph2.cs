@@ -53,14 +53,13 @@ public class Kurt_DialogueTriggerLaserLvl2Ph2 : MonoBehaviour
         TriggerTutorial.disableMove = false;
         TriggerTutorial.disableJump = true;
 
-        StartDialogue();
-
         Debug.Log("Time continues");
         yield return new WaitForSeconds(2.5f);
         RunningTimerLevel2Ph2.timerStopLevel2Ph2 = true;
 
+        StartDialogue();
+
         Debug.Log("Player must move");
-        yield return new WaitForSeconds(1f);
         // Enable player movement
         TriggerTutorial.disableMove = true;
         TriggerTutorial.disableJump = false;

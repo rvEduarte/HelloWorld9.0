@@ -130,7 +130,6 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         outputPanel.SetActive(false);  // Hide the output panel
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     private IEnumerator BlinkErrorImage()

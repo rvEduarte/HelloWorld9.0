@@ -5,19 +5,16 @@ using UnityEngine;
 
 public class Kurt_StringQuiz : MonoBehaviour
 {
-    public TMP_InputField inputField;  // Single input field
-    public string correctAnswer = "\"Hello World\"";  // Single correct answer
-    public TextMeshProUGUI feedbackText;  // Single feedback text
+    public TMP_InputField inputField;  
+    public string correctAnswer = "\"Hello World\"";  
 
-    public GameObject outputPanel;  // Reference to the output panel
-    public GameObject errorImage;  // Reference to error image
-    public GameObject successImage;  // Reference to success image
-    public GameObject hintPanel;  // Reference to hint panel
-    public GameObject quizPanel;  // Reference to the quiz panel
+    public GameObject errorImage;  
+    public GameObject successImage;  
+    public GameObject hintPanel;  
+    public GameObject quizPanel; 
 
-    public float fadeDuration = 0.5f;  // Duration for fading in and out
-    public float closeDelay = 2f;  // Delay before closing the panel
-    public float outputPanelDisplayTime = 3f;  // Time to display output panel
+    public float fadeDuration = 0.5f;  
+    public float closeDelay = 2f;  
 
     public GameObject laser2;
     public GameObject laserTrigger2;
@@ -48,12 +45,7 @@ public class Kurt_StringQuiz : MonoBehaviour
         // Check if the input field matches the correct answer
         bool isCorrect = CheckAnswer(inputField.text, correctAnswer);
 
-        // Hide hint panel when validating
-        hintPanel.SetActive(false);
-
-        // Show feedback and update UI based on correctness
-        StartCoroutine(FadeInOutputPanel(isCorrect));
-
+        // Show success or error image based on correctness
         if (isCorrect)
         {
             successImage.SetActive(true);  // Show success image
@@ -71,75 +63,11 @@ public class Kurt_StringQuiz : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(input))
         {
-            feedbackText.text = "Answer required!";
-            feedbackText.color = Color.red;
-            return false;
+            return false; // Answer required
         }
 
         // Check if the input matches the correct answer (case-insensitive)
-        if (input.Equals(correctAnswer, System.StringComparison.OrdinalIgnoreCase))
-        {
-            feedbackText.text = "Correct!";
-            feedbackText.color = Color.green;
-            return true;
-        }
-
-        feedbackText.text = "Incorrect!";
-        feedbackText.color = Color.red;
-        return false;
-    }
-
-    // Function to fade in the output panel
-    private IEnumerator FadeInOutputPanel(bool isCorrect)
-    {
-        CanvasGroup canvasGroup = outputPanel.GetComponent<CanvasGroup>();
-        outputPanel.SetActive(true);
-
-        // Fade in
-        float time = 0f;
-        while (time < fadeDuration)
-        {
-            time += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, time / fadeDuration);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 1f;
-
-        // Show feedback based on correctness
-        TextMeshProUGUI outputText = outputPanel.GetComponentInChildren<TextMeshProUGUI>();
-        if (outputText != null)
-        {
-            outputText.text = isCorrect ? "Correct answer!" : "Syntax Denied. Please try again.";
-        }
-
-        yield return new WaitForSeconds(outputPanelDisplayTime);
-
-        // If incorrect, do not close the panel immediately; wait for blink and hint
-        if (!isCorrect)
-        {
-            yield break;
-        }
-
-        StartCoroutine(FadeOutOutputPanel());
-    }
-
-    // Function to fade out the output panel
-    private IEnumerator FadeOutOutputPanel()
-    {
-        CanvasGroup canvasGroup = outputPanel.GetComponent<CanvasGroup>();
-        float time = 0f;
-
-        // Fade out
-        while (time < fadeDuration)
-        {
-            time += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, time / fadeDuration);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 0f;
-        outputPanel.SetActive(false);
+        return input.Equals(correctAnswer, System.StringComparison.OrdinalIgnoreCase);
     }
 
     // Coroutine to blink the error image and show the hint panel after it finishes
@@ -154,11 +82,6 @@ public class Kurt_StringQuiz : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        // Fade out output panel after blinking
-        yield return StartCoroutine(FadeOutOutputPanel());
-
-        // Show hint panel
-        hintPanel.SetActive(true);
     }
 
     // Coroutine to scale down and close the panel after a delay, resetting the cursor if the answer was correct
@@ -167,7 +90,7 @@ public class Kurt_StringQuiz : MonoBehaviour
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
-        // Fade out the output panel, success image, and quiz panel together
+        // Fade out the success image and quiz panel together
         StartCoroutine(FadeOutElementsTogether());
 
         // Reset the cursor and handle any additional behavior for correct answers
@@ -180,12 +103,12 @@ public class Kurt_StringQuiz : MonoBehaviour
         laserTrigger2.SetActive(true);  // Enable the laser trigger
     }
 
-    // Function to fade out the success image, quiz panel, and output panel together
+    // Function to fade out the success image and quiz panel together
     private IEnumerator FadeOutElementsTogether()
     {
         CanvasGroup successGroup = successImage.GetComponent<CanvasGroup>();
         CanvasGroup quizGroup = quizPanel.GetComponent<CanvasGroup>();
-        CanvasGroup outputGroup = outputPanel.GetComponent<CanvasGroup>();
+        CanvasGroup hintGroup = hintPanel.GetComponent<CanvasGroup>();
 
         float time = 0f;
 
@@ -195,18 +118,17 @@ public class Kurt_StringQuiz : MonoBehaviour
             time += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, time / fadeDuration);
             successGroup.alpha = alpha;
-            quizGroup.alpha = alpha;
-            outputGroup.alpha = alpha;
+            quizGroup.alpha = alpha;  
+            hintGroup.alpha = alpha;
             yield return null;
         }
 
         successGroup.alpha = 0f;
         quizGroup.alpha = 0f;
-        outputGroup.alpha = 0f;
 
         successImage.SetActive(false);
         quizPanel.SetActive(false);
-        outputPanel.SetActive(false);
+        hintPanel.SetActive(false);
 
         removeDownDialogue.SetActive(false);
     }

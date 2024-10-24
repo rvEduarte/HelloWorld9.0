@@ -45,6 +45,7 @@ public class Kurt_CharQuiz : MonoBehaviour
         // Ensure the output panel is hidden initially
         outputPanelCanvasGroup.alpha = 0;
         outputPanel.SetActive(false);
+
     }
 
     void Update()
