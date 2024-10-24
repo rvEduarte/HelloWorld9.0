@@ -13,6 +13,7 @@ public class Kurt_StringQuiz : MonoBehaviour
     public GameObject errorImage;  // Reference to error image
     public GameObject successImage;  // Reference to success image
     public GameObject hintPanel;  // Reference to hint panel
+    public GameObject quizPanel;  // Reference to the quiz panel
 
     public float fadeDuration = 0.5f;  // Duration for fading in and out
     public float closeDelay = 2f;  // Delay before closing the panel
@@ -20,6 +21,7 @@ public class Kurt_StringQuiz : MonoBehaviour
 
     public GameObject laser2;
     public GameObject laserTrigger2;
+    public GameObject removeDownDialogue;
 
     void Start()
     {
@@ -29,7 +31,7 @@ public class Kurt_StringQuiz : MonoBehaviour
 
     void Update()
     {
-        ShowHideScript.stopMovement = false; //The script block movement
+        ShowHideScript.stopMovement = false; // The script block movement
     }
 
     // Method to detect if the Enter key was pressed
@@ -165,8 +167,8 @@ public class Kurt_StringQuiz : MonoBehaviour
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
-        // Fade out output panel
-        yield return StartCoroutine(FadeOutOutputPanel());
+        // Fade out the output panel, success image, and quiz panel together
+        StartCoroutine(FadeOutElementsTogether());
 
         // Reset the cursor and handle any additional behavior for correct answers
         if (isCorrect)
@@ -176,5 +178,36 @@ public class Kurt_StringQuiz : MonoBehaviour
         }
 
         laserTrigger2.SetActive(true);  // Enable the laser trigger
+    }
+
+    // Function to fade out the success image, quiz panel, and output panel together
+    private IEnumerator FadeOutElementsTogether()
+    {
+        CanvasGroup successGroup = successImage.GetComponent<CanvasGroup>();
+        CanvasGroup quizGroup = quizPanel.GetComponent<CanvasGroup>();
+        CanvasGroup outputGroup = outputPanel.GetComponent<CanvasGroup>();
+
+        float time = 0f;
+
+        // Fade out all elements together
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, time / fadeDuration);
+            successGroup.alpha = alpha;
+            quizGroup.alpha = alpha;
+            outputGroup.alpha = alpha;
+            yield return null;
+        }
+
+        successGroup.alpha = 0f;
+        quizGroup.alpha = 0f;
+        outputGroup.alpha = 0f;
+
+        successImage.SetActive(false);
+        quizPanel.SetActive(false);
+        outputPanel.SetActive(false);
+
+        removeDownDialogue.SetActive(false);
     }
 }
