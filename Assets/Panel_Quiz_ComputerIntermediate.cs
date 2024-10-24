@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
 {
+    public SpriteRenderer spriteRenderer, spriteRenderer1;
+    public float fadeDuration = 2.0f;
+
+    public BoxCollider2D computer;
     public TMP_InputField[] inputFields;     
     public TextMeshProUGUI[] feedbackTexts; 
     public GameObject outputPanel;
@@ -12,12 +16,22 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
     public float closeDelay = 2f; 
     public GameObject errorImage;
     public GameObject successImage;
-    public GameObject light1, light2, light3;
+    public GameObject light1, light2, light3, platform, hint;
+
+    [SerializeField] private float upValue;   // 60.77f
+    [SerializeField] private float time;      // 4s
 
     // Hardcoded correct answers
     private string[] correctAnswers = { "bool" };  // Answer for the first input field
     private string[] booleanAnswers = { "true", "false" };  // Valid answers for the second input field
     private string[] correctAnswersForThirdInput = { "Write", "WriteLine" };
+
+    private void Start()
+    {
+        light2.SetActive(false);
+        light3.SetActive(false);
+        light1.SetActive(true);
+    }
 
     void Update()
     {
@@ -68,14 +82,13 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
                     if (answer == "true")
                     {
                         Debug.Log("TRUE");
-                        light3.SetActive(true);
-                        light2.SetActive(false);
+
                     }
                     else if (answer == "false")
                     {
                         Debug.Log("FALSE");
-                        light2.SetActive(true);
-                        light3.SetActive(false);
+
+
                     }
 
                     feedbackTexts[i].text = "Correct!";
@@ -185,9 +198,8 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
 
         // Ensure final scale is zero and deactivate the panel
         transform.localScale = targetScale;
-        gameObject.SetActive(false);
         successImage.SetActive(false);
-        //Quiz_ComputerIntermediate.disableE_Intermediate1 = true;
+        Quiz_ComputerIntermediate.disableE_Intermediate1 = false;
 
         Debug.Log("Panel Closed...");
 
@@ -195,15 +207,19 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
         TriggerTutorial.disableJump = false; // Enable jumping
 
         // Reset the cursor to the default when the panel is closed
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
-        if (inputFields.Equals("true"))
+        if (inputFields[1].text.Equals("true"))
         {
-            TriggerElevV2.enableElev = true;
+            Debug.Log("TRUE");
+            light2.SetActive(true);
+            light3.SetActive(false);
+            light1.SetActive(false);
         }
-        else if (inputFields.Equals("false"))
+        else if (inputFields[1].text.Equals("false"))
         {
-            TriggerElevV2.enableElev = false;
+            Debug.Log("FALSE");
+            StartCoroutine(Delay());
         }
 
         foreach (var name in feedbackTexts)
@@ -217,5 +233,19 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
             name.text = null;
             name.enabled = false;
         }
+    }
+
+    private IEnumerator Delay()
+    {
+        light3.SetActive(true);
+        light2.SetActive(false);
+        light1.SetActive(false);
+
+        yield return new WaitForSeconds(2);
+        LeanTween.moveLocalY(platform, upValue, time);
+        LeanTween.alpha(spriteRenderer.gameObject, 0f, fadeDuration).setEase(LeanTweenType.linear);
+        LeanTween.alpha(spriteRenderer1.gameObject, 0f, fadeDuration).setEase(LeanTweenType.linear);
+        computer.enabled = false;
+        hint.SetActive(false);
     }
 }

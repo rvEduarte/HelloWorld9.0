@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TarodevController;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ElsePlayerController : MonoBehaviour, pIPlayerController
@@ -16,6 +17,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
 
     private ElsePlayerAnimator playerAnimator;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Transform aiPos;
 
     [SerializeField] private ElseScriptableStats _stats;
     private Rigidbody2D _rb;
@@ -92,6 +94,8 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         ApplyMovement();
 
         ElseController();
+
+        FlipAIPos();
     }
     // UI Button Input Methods
     public void OnLeftButtonDown()
@@ -242,7 +246,17 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
         _isFliping = true;  // Set jumping status to false after finishing the jump
     }
 
-
+    private void FlipAIPos()
+    {
+        if (sprite.flipX == true)
+        {
+            aiPos.transform.localPosition = new Vector2(1.65f, 1.64f);
+        }
+        else if (sprite.flipX == false)
+        {
+            aiPos.transform.localPosition = new Vector2(-1.58f, 1.64f);
+        }
+    }
 
 
     #region Collisions

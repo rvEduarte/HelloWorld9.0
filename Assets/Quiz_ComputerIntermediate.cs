@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Quiz_ComputerIntermediate : MonoBehaviour
 {
+    public Texture2D customCursorTexture;       // Custom cursor texture when the panel is opened
+    public Vector2 cursorHotspot = Vector2.zero; // The hotspot point of the custom cursor
+
     [SerializeField] private List<TMP_InputField> input;
     [SerializeField] public GameObject panel;
 
@@ -14,18 +17,18 @@ public class Quiz_ComputerIntermediate : MonoBehaviour
 
     public static bool enterAllowed;
 
-    //public static bool disableE_Intermediate1;
+    public static bool disableE_Intermediate1;
 
     private void Start()
     {
         hintText.SetActive(false);
         enterAllowed = false;
-        //disableE_Intermediate1 = false;
+        disableE_Intermediate1 = false;
     }
 
     private void Update()
     {
-        //if (disableE_Intermediate1) return;
+        if (disableE_Intermediate1) return;
 
         if (pickUpAllowed && Input.GetKeyDown(KeyCode.E))
         {
@@ -36,7 +39,7 @@ public class Quiz_ComputerIntermediate : MonoBehaviour
             ShowHideScript.stopMovement = false; //The script block movement
 
             enterAllowed = true;
-           // disableE_Intermediate1 = true;
+            disableE_Intermediate1 = true;
 
             foreach (TMP_InputField var in input)
             {
@@ -44,6 +47,12 @@ public class Quiz_ComputerIntermediate : MonoBehaviour
                 Debug.Log(var);
             }
             LeanTween.scale(panel, Vector2.one, 0.5f);
+
+            // Change the cursor to the custom texture when the panel is opened
+            /*if (customCursorTexture != null)
+            {
+                Cursor.SetCursor(customCursorTexture, cursorHotspot, CursorMode.Auto);
+            }*/
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
