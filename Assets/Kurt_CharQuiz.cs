@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class Kurt_CharQuiz : MonoBehaviour
 {
-    public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically
-    public string[][] correctAnswers;  // 2D array where each row contains possible correct answers for the corresponding input field
-    public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
+    public TMP_InputField[] inputFields; 
+    public string[][] correctAnswers;  
+    public TextMeshProUGUI[] feedbackTexts;  
 
-    public GameObject outputPanel;  // Reference to the output panel
-    public CanvasGroup outputPanelCanvasGroup; // CanvasGroup for fade effect on output panel
-    public GameObject errorImage;  // Reference to error image
-    public GameObject successImage;  // Reference to success image
+    public GameObject outputPanel;  
+    public CanvasGroup outputPanelCanvasGroup; 
+    public GameObject errorImage;  
+    public GameObject successImage;  
     public GameObject HintPanel;
+    public GameObject destroyDownDialogue;
 
-    public float scaleDuration = 0.5f;  // Scaling duration for closing panel
-    public float closeDelay = 2f;  // Delay before closing the panel
-    public float outputPanelDisplayTime = 3f;  // Time to display output panel
-    public float fadeDuration = 0.5f;  // Duration of fade transition
+    public float scaleDuration = 0.5f;  
+    public float closeDelay = 2f;  
+    public float outputPanelDisplayTime = 3f;  
+    public float fadeDuration = 0.5f;  
+    public float successFadeDuration = 1f; 
 
     public GameObject laser;
 
@@ -30,7 +32,7 @@ public class Kurt_CharQuiz : MonoBehaviour
         correctAnswers = new string[][]
         {
             new string[] { "char" },  // for first input field
-            new string[] { "'R'","'r'"},  // for second input field
+            new string[] { "'R'", "'r'" },  // for second input field
             new string[] { "missingChar" }   // for third input field
         };
 
@@ -47,7 +49,7 @@ public class Kurt_CharQuiz : MonoBehaviour
 
     void Update()
     {
-        ShowHideScript.stopMovement = false; //The script block movement
+        ShowHideScript.stopMovement = false; // The script blocks movement
     }
 
     // Method to detect if the Enter key was pressed
@@ -85,6 +87,7 @@ public class Kurt_CharQuiz : MonoBehaviour
         if (allCorrect)
         {
             successImage.SetActive(true);  // Show success image
+            StartCoroutine(FadeOutSuccessImage()); // Fade out the success image
             StartCoroutine(ClosePanelWithScale(true));  // Pass true when all answers are correct
         }
         else
@@ -150,6 +153,23 @@ public class Kurt_CharQuiz : MonoBehaviour
         outputPanel.SetActive(false);  // Deactivate the output panel
     }
 
+    // Coroutine to fade out the success image
+    private IEnumerator FadeOutSuccessImage()
+    {
+        CanvasGroup successCanvasGroup = successImage.GetComponent<CanvasGroup>();
+        successCanvasGroup.alpha = 1; // Ensure the image is fully visible
+        float elapsedTime = 0;
+
+        while (elapsedTime < successFadeDuration)
+        {
+            successCanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / successFadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        successCanvasGroup.alpha = 0;  // Ensure it's fully invisible
+        successImage.SetActive(false); // Deactivate the success image
+    }
+
     // Coroutine to blink the error image and show hint after
     private IEnumerator BlinkErrorAndShowHint()
     {
@@ -205,6 +225,8 @@ public class Kurt_CharQuiz : MonoBehaviour
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             LineRenderer.Destroy(laser);
+
+            destroyDownDialogue.SetActive(false);
         }
 
         laserTrigger.SetActive(true);
