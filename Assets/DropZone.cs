@@ -23,35 +23,15 @@ public class DropZone : MonoBehaviour, IDropHandler
         // Get the object being dragged
         GameObject droppedObject = eventData.pointerDrag;
 
-        if (droppedObject != null)
+        if (eventData.pointerDrag != null)
         {
-            // Check if this drop zone already has a child
-            if (transform.childCount > 0)
-            {
-                // Get the current object in the drop zone and swap positions
-                GameObject objectInDropZone = transform.GetChild(0).gameObject;
-
-                // Swap positions
-                RectTransform droppedRect = droppedObject.GetComponent<RectTransform>();
-                RectTransform inDropZoneRect = objectInDropZone.GetComponent<RectTransform>();
-
-                Vector2 tempPosition = inDropZoneRect.anchoredPosition;
-                Transform tempParent = objectInDropZone.transform.parent;
-
-                inDropZoneRect.anchoredPosition = droppedRect.anchoredPosition;
-                objectInDropZone.transform.SetParent(droppedObject.transform.parent);
-
-                droppedRect.anchoredPosition = tempPosition;
-                droppedObject.transform.SetParent(tempParent);
-
-                // Update original positions in the drag scripts to handle reset correctly
-                droppedObject.GetComponent<DragAndDrop>().SetOriginalPosition(droppedRect.anchoredPosition, tempParent);
-                objectInDropZone.GetComponent<DragAndDrop>().SetOriginalPosition(inDropZoneRect.anchoredPosition, droppedObject.transform.parent);
-            }
-
-            // Set the new object in the drop zone
-            droppedObject.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+            RectTransform droppedRect = droppedObject.GetComponent<RectTransform>();
+            // Snap the dragged object to the drop zone
+            droppedRect.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
             droppedObject.transform.SetParent(transform);
+
+            // Update the original position in the dragged object's script
+            droppedObject.GetComponent<DragAndDrop>().SetOriginalPosition(droppedRect.anchoredPosition, transform);
         }
     }
 

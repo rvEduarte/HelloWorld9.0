@@ -25,6 +25,7 @@ public class WallBelowRaycastIF : MonoBehaviour
 
     private void Update()
     {
+        if (!StartElseController.isStart) return;
         // Cast a ray from the wall to detect if the player is nearby
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, playerLayer);
 

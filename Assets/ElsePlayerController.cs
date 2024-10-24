@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TarodevController;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ElsePlayerController : MonoBehaviour, pIPlayerController
@@ -185,6 +184,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     private void ElseController()
     {
         //---------------------------------------------------------LAST ROW--------------------------------------------------------------------------------//
+        if (!StartElseController.isStart) return;
 
         if (sprite.flipX == true && Row3ThirdSlotScript.Row3Walk == true) // MOVE LEFT
         {
