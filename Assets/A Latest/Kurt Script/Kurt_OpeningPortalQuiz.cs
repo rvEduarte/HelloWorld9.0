@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI; // Include UI namespace for Image
 
 public class Kurt_OpeningPortalQuiz : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
 
     private bool panelClosed = false; // Flag to check if the panel is closed
 
+    // Reference to the panel's image for fading effect
+    public Image panelImage; // Add this for fading effect
+
     void Start()
     {
         // Clear the input field and set the initial message    
@@ -47,6 +51,14 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         if (errorImage != null) errorImage.SetActive(false);
         if (outputPanel != null) outputPanel.SetActive(false); // Ensure output panel is initially inactive
         if (hintPanel != null) hintPanel.SetActive(true); // Ensure hint panel is active
+
+        // Initialize the panel's image (set the alpha to 1 for fully visible)
+        if (panelImage != null)
+        {
+            Color tempColor = panelImage.color;
+            tempColor.a = 1f; // Fully visible
+            panelImage.color = tempColor;
+        }
     }
 
     void Update()
@@ -81,12 +93,6 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
                 {
                     successImage.SetActive(true); // Show success image
                 }
-
-                // Remove or comment this line to keep the hint panel visible
-                // if (hintPanel != null)
-                // {
-                //     hintPanel.SetActive(false); // Deactivate hint panel
-                // }
 
                 StartCoroutine(ClosePanelAndActivatePortals());
                 return; // Exit the loop early if a correct code is found
@@ -123,6 +129,10 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         // Wait for a moment to show the "Correct code!" message
         yield return new WaitForSeconds(panelCloseDelay);
 
+        // Fade out the panel before closing
+        yield return StartCoroutine(FadeOutPanel());
+
+        // Wait for 1 second before opening the dialogue
         yield return new WaitForSeconds(1f);
         dialoguePortalOpen.SetActive(true);
 
@@ -154,6 +164,25 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         Debug.Log("Player movement enabled after conversation");
         TriggerTutorial.disableMove = true; // Enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
+    }
+
+    private IEnumerator FadeOutPanel()
+    {
+        if (panelImage != null)
+        {
+            // Gradually decrease the alpha value to create a fade-out effect
+            for (float i = 1; i >= 0; i -= Time.deltaTime / 1f) // Change 1f to adjust the fade duration
+            {
+                Color tempColor = panelImage.color;
+                tempColor.a = i;
+                panelImage.color = tempColor;
+                yield return null; // Wait until the next frame
+            }
+            // Ensure the panel is fully transparent after fading out
+            Color finalColor = panelImage.color;
+            finalColor.a = 0;
+            panelImage.color = finalColor;
+        }
     }
 
     private IEnumerator BlinkErrorImage()
