@@ -34,11 +34,6 @@ public class TriggerElevV2 : MonoBehaviour
                 leftWall.SetActive(false);
                 rightWall.SetActive(false);
             }
-            /*else if(isInside)
-            {
-                leftWall.SetActive(true);
-                rightWall.SetActive(true);
-            }*/
             else
             {
                 leftWall.SetActive(true);
@@ -59,7 +54,6 @@ public class TriggerElevV2 : MonoBehaviour
     {
         if(enableElev)
         {
-            Debug.Log("pEKPEK SI ROSA");
             if (collision.CompareTag("Player") && Mathf.Approximately(platform.transform.localPosition.y, downValue))
             {
                 isInside = true;

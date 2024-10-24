@@ -21,8 +21,7 @@ public class TimeConsoleComputer : MonoBehaviour
 
     private void Start()
     {
-        hintText.SetActive(false);
-        
+        hintText.SetActive(false);     
     }
 
     private void Update()
@@ -65,7 +64,6 @@ public class TimeConsoleComputer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
             hintText.SetActive(false);
             pickUpAllowed = false;
             onceTalkAllowed = false;
