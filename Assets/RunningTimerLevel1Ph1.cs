@@ -111,8 +111,8 @@ public class RunningTimerLevel1Ph1 : MonoBehaviour
         //Save TIME VALUE
         playerData.timePhase1 = timeBeginnerLevel1Ph1;
 
-        textComplete.text = timeBeginnerLevel1Ph1 + "S1";
+        textComplete.text = timeBeginnerLevel1Ph1 + " S1";
 
-        textTimeScorePh1.text = playerData.scorePhase1.ToString() + "S1";
+        textTimeScorePh1.text = playerData.scorePhase1.ToString() + " S1";
     }
 }
