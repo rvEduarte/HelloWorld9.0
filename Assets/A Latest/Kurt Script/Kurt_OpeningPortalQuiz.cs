@@ -14,6 +14,8 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     public float panelCloseDelay = 1f;       // Delay before closing the panel
 
     public GameObject dialoguePortalOpen;
+    public GameObject outputPanel;  // Reference to the output panel
+    public GameObject hintPanel;    // Reference to the hint panel
 
     // Correct codes for the console
     private string[] correctCodes = {
@@ -40,9 +42,11 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
             portal.SetActive(false);
         }
 
-        // Ensure images are initially inactive
+        // Ensure images and panels are initially inactive
         if (successImage != null) successImage.SetActive(false);
         if (errorImage != null) errorImage.SetActive(false);
+        if (outputPanel != null) outputPanel.SetActive(false); // Ensure output panel is initially inactive
+        if (hintPanel != null) hintPanel.SetActive(true); // Ensure hint panel is active
     }
 
     void Update()
@@ -61,31 +65,56 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
     {
         // Get the player's input from the TMP InputField, trimmed of extra spaces and newlines
         string playerInput = inputField.text.Trim();
+        Debug.Log($"Player Input: {playerInput}"); // Log player input for debugging
 
         // Check if the input matches any of the correct codes
         foreach (var code in correctCodes)
         {
             if (playerInput == code)
             {
+                // Correct code entered
                 messageText.text = "<color=#0CCB2A>Correct code!</color> Closing console...";
+                outputPanel.SetActive(true); // Activate output panel for correct response
+                Debug.Log("Correct code entered."); // Log for debugging
 
                 if (successImage != null)
                 {
                     successImage.SetActive(true); // Show success image
                 }
 
+                // Remove or comment this line to keep the hint panel visible
+                // if (hintPanel != null)
+                // {
+                //     hintPanel.SetActive(false); // Deactivate hint panel
+                // }
+
                 StartCoroutine(ClosePanelAndActivatePortals());
                 return; // Exit the loop early if a correct code is found
             }
         }
 
+        // If the code is incorrect
         if (errorImage != null)
         {
             errorImage.SetActive(true); // Show error image 
-            messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
         }
 
-        StartCoroutine(BlinkErrorImage());
+        messageText.text = "<color=#FF0000>Wrong code. Try again!</color>";  // Red text for wrong code message
+        outputPanel.SetActive(true); // Activate output panel for incorrect response
+        StartCoroutine(BlinkErrorImage()); // Start blinking error image
+        StartCoroutine(HideOutputPanelAfterDelay()); // Hide output panel after blinking
+
+        if (hintPanel != null)
+        {
+            hintPanel.SetActive(true); // Show the hint panel again
+        }
+    }
+
+    // Coroutine to hide the output panel after blinking error image
+    private IEnumerator HideOutputPanelAfterDelay()
+    {
+        yield return new WaitForSeconds(1.5f); // Wait for the duration of the blinking
+        outputPanel.SetActive(false); // Hide the output panel
     }
 
     // Coroutine to close the panel and activate portals after a delay
@@ -123,7 +152,7 @@ public class Kurt_OpeningPortalQuiz : MonoBehaviour
         }
 
         Debug.Log("Player movement enabled after conversation");
-        TriggerTutorial.disableMove = true; // enable movement
+        TriggerTutorial.disableMove = true; // Enable movement
         TriggerTutorial.disableJump = false; // Enable jumping
     }
 
