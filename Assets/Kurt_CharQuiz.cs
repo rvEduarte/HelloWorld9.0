@@ -87,7 +87,7 @@ public class Kurt_CharQuiz : MonoBehaviour
         if (allCorrect)
         {
             successImage.SetActive(true);  // Show success image
-            StartCoroutine(FadeOutSuccessImage()); // Fade out the success image
+            StartCoroutine(WaitAndFadeOutSuccessImage()); // Wait 1 second then fade out the success image
             StartCoroutine(ClosePanelWithScale(true));  // Pass true when all answers are correct
         }
         else
@@ -95,6 +95,13 @@ public class Kurt_CharQuiz : MonoBehaviour
             errorImage.SetActive(true);  // Show error image
             StartCoroutine(BlinkErrorAndShowHint());  // Show blinking error and hint after
         }
+    }
+
+    // Coroutine to wait for a specified duration before fading out the success image
+    private IEnumerator WaitAndFadeOutSuccessImage()
+    {
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        StartCoroutine(FadeOutSuccessImage()); // Fade out the success image
     }
 
     // Helper function to check each input field's answer (case-insensitive comparison)
