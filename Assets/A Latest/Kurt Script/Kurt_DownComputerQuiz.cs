@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,12 +8,14 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     public TMP_InputField[] inputFields;  // Array of input fields to handle multiple quizzes dynamically   
     public TextMeshProUGUI[] feedbackTexts;  // Array for feedback texts corresponding to input fields
     public GameObject outputPanel;
-   // public Kurt_OrDownPlatform platformController;  // Reference to the new platform controller script
     public float scaleDuration = 0.5f;
     public float closeDelay = 2f; // Set this to the desired delay duration in seconds
     public GameObject errorImage;
     public GameObject successImage;
     public GameObject light1, light2, light3;
+
+    // New GameObject for fading background
+    public GameObject quizDownBg;
 
     // Hardcoded correct answers
     private string[] correctAnswers = { "bool" };  // Answer for the first input field
@@ -27,6 +28,7 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         light2.SetActive(false);
         light3.SetActive(false);
     }
+
     void Update()
     {
         // Check if Enter key is pressed and call ValidateAnswers
@@ -178,11 +180,15 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
     }
 
     // Coroutine to scale down and close the panel after a delay
+    // Coroutine to scale down and close the panel after a delay
     private IEnumerator ClosePanelWithScale()
     {
         // Wait for the specified delay before starting to close the panel
         yield return new WaitForSeconds(closeDelay);
 
+        // Fade out quizDownBg and successImage first
+        yield return StartCoroutine(FadeOut(successImage));
+        yield return StartCoroutine(FadeOut(quizDownBg));
 
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;
@@ -210,7 +216,7 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         // Reset the cursor to the default when the panel is closed
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
-        if(inputFields.Equals("true"))
+        if (inputFields.Equals("true"))
         {
             TriggerElevV2.enableElev = true;
         }
@@ -229,5 +235,30 @@ public class Kurt_DownComputerQuiz : MonoBehaviour
         {
             name.text = null;
         }
+    }
+
+
+    // Coroutine to fade out a GameObject
+    private IEnumerator FadeOut(GameObject obj)
+    {
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = obj.AddComponent<CanvasGroup>();
+        }
+
+        float startAlpha = canvasGroup.alpha;
+        float fadeDuration = 1.0f; // Set your desired fade duration
+        float time = 0;
+
+        while (time < fadeDuration)
+        {
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, time / fadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0;
+        obj.SetActive(false); // Optionally deactivate the object after fading out
     }
 }
