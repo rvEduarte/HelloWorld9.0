@@ -27,7 +27,7 @@ public class Kurt_BridgeQuizLvl2Ph2 : MonoBehaviour
         {
             new string[] { "char" },  // for first input field
             new string[] { "'E'", "'e'" },  // for second input field
-            new string[] { "inputChar" }   // for third input field
+            new string[] { "missingChar" }   // for third input field
         };
 
         // Hide all feedback texts initially
