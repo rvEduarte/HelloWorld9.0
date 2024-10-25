@@ -41,7 +41,6 @@ public class WallBelowRaycastsELSEIF : MonoBehaviour
         // If the player was just detected this frame and was not detected in the last frame, trigger the flip
         if (playerDetectedThisFrame1 && !playerDetectedLastFrame)
         {
-            // Check if all three conditions are true before proceeding
             if (Row2FirstSlotScript.Row2Wall && Row2SecondSlotScript.Row2Below && Row2ThirdSlotScript.Row2Flip)
             {
                 Debug.Log("Player detected by BELOW wall raycast FLIP ROW2");

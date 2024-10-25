@@ -13,8 +13,14 @@ public class EmptyRaycastIF : MonoBehaviour
 
    //private bool playerDetectedLastFrame = false;  // Track if the player was detected last frame
 
-    private bool _isJumping = true;
-    private bool _isFliping = true;
+    private bool _isJumping;
+    private bool _isFliping;
+
+    private void Start()
+    {
+        _isFliping = true;
+        _isJumping = true;
+    }
 
     private void Awake()
     {
@@ -34,9 +40,11 @@ public class EmptyRaycastIF : MonoBehaviour
             Debug.Log("Player Exit");
             if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Flip)
             {
+                Debug.Log("flip");
                 playerAnimator.SetWallFlip(true);  // Notify the animator to stop flipping automatically
 
                 if (!_isFliping) return;
+                Debug.Log("flip");
                 StartCoroutine(HandleFlip());
             }
             else if (FirstSlotScript.Row1Empty && SecondSlotScript.Row1Below && ThirdSlotScript.Row1Jump)
@@ -44,11 +52,10 @@ public class EmptyRaycastIF : MonoBehaviour
                 if (!_isJumping) return;
                 StartCoroutine(HandleJumpCoroutine());
             }
-            else
+            /*else
             {
                 playerAnimator.SetWallFlip(false);
-                //return;
-            }
+            }*/
         }    
     }
 
@@ -107,7 +114,7 @@ public class EmptyRaycastIF : MonoBehaviour
     {
         _isFliping = false;
         sprite.flipX = !sprite.flipX;  // Flip the sprite only when the player is detected for the first time
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1);
         playerAnimator.SetWallFlip(false);
         _isFliping = true;
     }

@@ -38,21 +38,27 @@ public class StartElseController : MonoBehaviour
             button.sprite = red;
             belowRaycast.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
             belowRaycast1.transform.localPosition = new Vector2(0.006f, -0.313f); // naka baba
-            ThirdSlotScript.Row1Walk = true;
         }
         else               // STOP
         {
-            Debug.Log("STOP");
-            state = false;
-            isStart = false;
-            buttonText.text = "Start";
-            button.sprite = green;
-            belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
-            belowRaycast1.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
-            ThirdSlotScript.Row1Walk = false;
-
             _elsePlayerController.OnLeftButtonUp();
             _elsePlayerController.OnRightButtonUp();
+            Debug.Log("STOP");
+            state = false;
+            
+            buttonText.text = "Start";
+            button.sprite = green;
+
+            belowRaycast.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
+            belowRaycast1.transform.localPosition = new Vector2(0.006f, 0.074f); // di naka baba
+
+            StartCoroutine(Delay());
         }
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0);
+        isStart = false;
     }
 }

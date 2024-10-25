@@ -14,7 +14,7 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
 
     public GameObject belowRaycast;
     public GameObject aheadRaycastElseIFSLOTS;
-    public GameObject emptyOntrigger;
+    public GameObject emptyOntriggerElseIFSLOTS;
     public GameObject spikeOntriggerBelow;
     public GameObject spikeOntriggerAhead;
     private void Awake()
@@ -53,11 +53,11 @@ public class Row2FirstSlotScript : MonoBehaviour, IDropHandler
 
             if (sprite.flipX == false) // FACING RIGHT
             {
-                emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+                emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
             }
             else if (sprite.flipX == true) // FACING LEFT
             {
-                emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+                emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
             }
         }
         else if (collision.gameObject.CompareTag("Spike"))

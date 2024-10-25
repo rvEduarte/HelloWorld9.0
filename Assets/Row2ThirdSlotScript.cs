@@ -25,8 +25,7 @@ public class Row2ThirdSlotScript : MonoBehaviour, IDropHandler
         {
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         }
-    }
-    
+    }   
     private void OnTriggerEnter2D(Collider2D collision)
     { 
         //--------------------------------------- FLIP ------------------------------------------------------//

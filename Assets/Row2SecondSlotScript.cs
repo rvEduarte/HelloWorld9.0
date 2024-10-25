@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TarodevController;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -25,7 +24,6 @@ public class Row2SecondSlotScript : MonoBehaviour, IDropHandler
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ahead"))

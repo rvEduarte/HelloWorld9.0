@@ -10,6 +10,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
     public GameObject aheadRaycastIF;
     public GameObject aheadRaycastELSEIF;
     public GameObject emptyOntrigger;
+    public GameObject emptyOntriggerElseIFSLOTS;
     public GameObject spikeOntriggerAhead;
     public GameObject spikeOntriggerBelow;
 
@@ -152,6 +153,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+            emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
 
             spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, -0.502f); // nasa RIGHT   X   Y
             spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
@@ -161,6 +163,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+            emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
 
             spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, -0.502f); // nasa LEFT   X   Y
             spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa LEFT   X   Y
@@ -193,6 +196,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             aheadRaycastIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(-0.582f, 0.775f); // nasa LEFT
             emptyOntrigger.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
+            emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(-0.488f, 0.687f); // nasa LEFT   X   Y
 
             spikeOntriggerBelow.transform.localPosition = new Vector2(-0.611f, -0.502f); // nasa LEFT   X   Y
             spikeOntriggerAhead.transform.localPosition = new Vector2(-0.611f, 0); // nasa LEFT   X   Y
@@ -204,6 +208,7 @@ public class ElsePlayerController : MonoBehaviour, pIPlayerController
             aheadRaycastIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             aheadRaycastELSEIF.transform.localPosition = new Vector2(0.574f, 0.775f); // nasa RIGHT
             emptyOntrigger.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
+            emptyOntriggerElseIFSLOTS.transform.localPosition = new Vector2(0.494f, 0.687f); // nasa RIGHT   X   Y
 
             spikeOntriggerBelow.transform.localPosition = new Vector2(0.579f, -0.502f); // nasa RIGHT   X   Y
             spikeOntriggerAhead.transform.localPosition = new Vector2(0.579f, 0); // nasa RIGHT   X   Y
