@@ -218,6 +218,8 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
         }
         else if (inputFields[1].text.Equals("false"))
         {
+            computer.enabled = false;
+            hint.SetActive(false);
             Debug.Log("FALSE");
             StartCoroutine(Delay());
         }
@@ -245,7 +247,6 @@ public class Panel_Quiz_ComputerIntermediate : MonoBehaviour
         LeanTween.moveLocalY(platform, upValue, time);
         LeanTween.alpha(spriteRenderer.gameObject, 0f, fadeDuration).setEase(LeanTweenType.linear);
         LeanTween.alpha(spriteRenderer1.gameObject, 0f, fadeDuration).setEase(LeanTweenType.linear);
-        computer.enabled = false;
-        hint.SetActive(false);
+
     }
 }
